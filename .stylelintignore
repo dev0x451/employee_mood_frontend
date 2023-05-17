@@ -1,0 +1,11 @@
+.husky
+
+node_modules
+
+dist
+
+**/*.js
+**/*.ts
+**/*.tsx
+
+index.html
