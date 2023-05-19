@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import styles from './homepage.module.css';
 
-function Homepage() {
+export const Homepage = () => {
 
   return (
     <div className={styles.homepage}>
@@ -10,5 +10,3 @@ function Homepage() {
     </div>
   )
 }
-
-export default Homepage

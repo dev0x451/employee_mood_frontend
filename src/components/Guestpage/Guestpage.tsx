@@ -2,7 +2,7 @@ import { useState } from 'react'
 
 import styles from './guestpage.module.css';
 
-function Guestpage() {
+export const Guestpage = () => {
 
   return (
     <div className={styles.guestpage}>
@@ -10,5 +10,3 @@ function Guestpage() {
     </div>
   )
 }
-
-export default Guestpage

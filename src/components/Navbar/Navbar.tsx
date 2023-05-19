@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom';
 import styles from './navbar.module.css';
 
-function Navbar() {
+export const Navbar = () => {
 
   return (
       <aside className={styles.aside}>
@@ -15,5 +15,3 @@ function Navbar() {
       </aside>
   )
 }
-
-export default Navbar
