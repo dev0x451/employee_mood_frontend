@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 
-export interface article {
+export interface ArticleInterface {
   type: string;
   title: string;
   length: string;

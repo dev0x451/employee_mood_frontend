@@ -12,7 +12,7 @@ export const PsychologistInfo = () => {
           <p className={styles.text}>Штатный психолог</p>
         </div>
       </div>
-      <button className={styles.button}>Записаться на консультацию</button>
+      <button type='button' className={styles.button}>Записаться на консультацию</button>
     </div>
   )
 }

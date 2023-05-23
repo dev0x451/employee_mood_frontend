@@ -1,10 +1,10 @@
 .psychologist-info {
-  /* margin: 0 auto; */
-  padding: 12px 20px;
-  max-width: 324px;
-  max-height: 152px;
+  margin: 0 0 28px;
+  padding: 12px 20px 16px;
+  width: 324px;
+  height: 152px;
   /* width: 100%; */
-  height: 100%;
+  /* height: 100%; */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -19,6 +19,7 @@
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .title {
@@ -28,11 +29,12 @@
 .avatar {
   width: 60px;
   height: 60px;
+  margin-right: 16px;
   border-radius: 50%;
-  object-fit: contain;
 }
 
 .name {
+  margin: 0;
   font-family: Montserrat;
   font-weight: 600;
   font-size: 16px;
@@ -40,6 +42,7 @@
 }
 
 .text {
+  margin: 0;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
@@ -47,7 +50,7 @@
 
 .button {
   width: 100%;
-  height: 44px;
+  height: 88px;
   border: 1px solid var(--colorAccentPurple);
   border-radius: 16px;
   background: none;

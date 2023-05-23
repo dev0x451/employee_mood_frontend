@@ -1,15 +1,16 @@
+import { FC } from 'react';
 import styles from './article.module.css';
-import { article } from '@/types';
+import { ArticleInterface } from '@/types';
 
-export const Article = ({banner, title, type, length}: article) => {
+export const Article: FC<ArticleInterface> = ({article}: ArticleInterface) => {
 
   return (
     <div className={styles.article}>
-      <img src={banner} className={styles.image}/>
-      <h3 className={styles.title}>{title}</h3>
+      <img src={article.banner} className={styles.image}/>
+      <h3 className={styles.title}>{article.title}</h3>
       <div className={styles.container}>
-        <p className={styles.text}>{type}</p>
-        <p className={styles.text}>{length}</p>
+        <p className={styles.text}>{article.type}</p>
+        <p className={styles.text}>{article.length}</p>
       </div>
     </div>
   )
