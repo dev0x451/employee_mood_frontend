@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./form.module.css";
 import { FormInput } from "@/shared/ui/FormInput/FormInput";
 import { Button } from "@/shared/ui/Button/Button";
+import { Link } from "react-router-dom";
 
 interface FormProps {
   title: string;
@@ -15,7 +16,9 @@ export const Form: React.FC<FormProps> = ({ title }) => {
       <FormInput labelText="Введите e-mail" type="email" />
       <FormInput labelText="Введите пароль" type="password" />
       <Button title="Войти" mode="outline" />
-      <p className={classes.formBottomText}>Забыли пароль?</p>
+      <Link className={classes.formLink} to="/">
+        Забыли пароль?
+      </Link>
     </form>
   );
 };
