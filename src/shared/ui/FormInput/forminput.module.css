@@ -1,0 +1,33 @@
+
+.input--area {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 8px;
+  color: var(--color-text-primary);
+  font: var(--font-size-m) / var(--font-line-m);
+  font-weight: 400;
+}
+
+.input {
+  width: 360px;
+  height: 44px;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font: var(--font-size-m) / var(--font-line-m);
+  font-weight: 400;
+  outline: none;
+}
+
+.input:hover {
+  border: 0.5px solid var(--color-icon-secondary);
+}
+
+.input:focus {
+  border: 0.5px solid var(--color-accent-purple);
+}

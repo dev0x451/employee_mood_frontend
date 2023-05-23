@@ -1,8 +1,10 @@
+import { FormInput } from "@/shared/ui/FormInput/FormInput";
 
 const LoginPage = () => {
   return (
     <div>
-      LoginPage
+      <FormInput labelText="Введите e-mail" type="email" />
+      <FormInput labelText="Введите пароль" type="password" />
     </div>
   );
 };
