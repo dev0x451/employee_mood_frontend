@@ -1,13 +1,13 @@
 .aside {
-  background-color: var(--nav-color);
-  height: 100%;
-  width: 20%;
   display: flex;
+  width: 20%;
+  height: 100%;
   flex-direction: column;
-  justify-content: center;
-  gap: 30px;
   align-items: center;
+  justify-content: center;
+  background-color: var(--nav-color);
   font-size: 30px;
+  gap: 30px;
 }
 
 .pendinglink {
