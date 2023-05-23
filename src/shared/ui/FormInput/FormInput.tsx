@@ -8,7 +8,7 @@ interface FormInputProps {
 
 export const FormInput: React.FC<FormInputProps> = ({ labelText, type }) => {
   return (
-    <div className={classes["input--area"]}>
+    <div className={classes["input-area"]}>
       <label className={classes["label"]}>{labelText}</label>
       <input className={classes["input"]} type={type}></input>
     </div>

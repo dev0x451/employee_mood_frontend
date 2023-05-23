@@ -1,12 +1,10 @@
-import { FormInput } from "@/shared/ui/FormInput/FormInput";
+import classes from "./loginpage.module.css";
+import { Form } from "@/components/Form/Form";
 
-const LoginPage = () => {
+export const LoginPage = () => {
   return (
-    <div>
-      <FormInput labelText="Введите e-mail" type="email" />
-      <FormInput labelText="Введите пароль" type="password" />
+    <div className={classes["login-page"]}>
+      <Form title="Авторизуйтесь, пожалуйста" />
     </div>
   );
 };
-
-export default LoginPage;

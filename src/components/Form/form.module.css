@@ -1,0 +1,16 @@
+.form {
+  box-sizing: border-box;
+  padding: 20px 40px;
+  border-radius: 20px;
+  background-color: var(--color-background-white);
+}
+
+.form-title {
+  box-sizing: border-box;
+  padding: 20px 16px;
+  margin: 0;
+  color: var(--color-black);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: var(--font-line-xl);
+}
