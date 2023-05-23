@@ -1,0 +1,13 @@
+.bookmarks {
+  margin: 0 auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  font-size: 50px;
+  display: inline-block;
+}

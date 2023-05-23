@@ -1,7 +1,7 @@
 @import url('modern-normalize/modern-normalize.css');
 
 :root {
-  font-family: Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -10,6 +10,11 @@
 
   /*Colors*/
   --nav-color: #276CB1;
+  --colorMainBackground: #E5E5E5;
+  --colorBlack: #2C2D2E;
+  --colorAccentSecondary: #4C239D;
+  --colorAccentPurple:#8A32E0;
+  --colorAccentGray: #99A2AD;
 }
 
 body {
