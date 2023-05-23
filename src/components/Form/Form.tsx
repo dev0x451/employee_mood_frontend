@@ -15,7 +15,7 @@ export const Form: React.FC<FormProps> = ({ title }) => {
       <h2 className={classes.formTitle}>{title}</h2>
       <FormInput labelText="Введите e-mail" type="email" />
       <FormInput labelText="Введите пароль" type="password" />
-      <Button title="Войти" mode="outline" />
+      <Button title="Войти" mode="primary" />
       <Link className={classes.formLink} to="/">
         Забыли пароль?
       </Link>
