@@ -1,5 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./navbar.module.css";
+import { useAppSelector } from '@/store/hooks';
+import { selectConstructor } from '@/store/reducers/constructor/constructorReducer';
 
 import {
   homeIcon,
@@ -11,6 +13,9 @@ import {
 } from "@/assets";
 
 export const Navbar = () => {
+
+  const isChief = useAppSelector(selectConstructor);
+
   const linkClassName = (isActive: boolean) => {
     if (isActive) {
       return `${styles.commonLink} ${styles.activeLink}`;
@@ -52,6 +57,13 @@ export const Navbar = () => {
       >
         {calendarIcon}Календарь
       </NavLink>
+
+      {isChief &&  <NavLink
+        className={({ isActive }) => linkClassName(isActive)}
+        to="/myteam"
+      >
+        {homeIcon}Моя команда
+      </NavLink>}
     </aside>
   );
 };
