@@ -5,9 +5,6 @@ import { Form } from "@/components/Form/Form";
 import { Select } from "@/shared/ui/Select/Select";
 
 export const RegisterPage = () => {
-  const departmentOptions = ["Отдел 1", "Отдел 2", "Отдел 3"];
-  const jobOptions = ["Должность 1", "Должность 2", "Должность 3"];
-
   return (
     <div className={classes.registerPage}>
       <Form type="register">
@@ -20,16 +17,8 @@ export const RegisterPage = () => {
             <FormInput labelText="Фамилия" type="text" />
           </li>
           <li className={classes.registerFormListItem}>
-            <Select
-              labelText="Отдел"
-              optionText="Выберите отдел"
-              options={departmentOptions}
-            />
-            <Select
-              labelText="Должность"
-              optionText="Выберите должность"
-              options={jobOptions}
-            />
+            <Select labelText="Отдел" optionText="Выберите отдел" />
+            <Select labelText="Должность" optionText="Выберите должность" />
           </li>
           <li className={classes.registerFormListItem}>
             <FormInput labelText="Пароль" type="password" />
