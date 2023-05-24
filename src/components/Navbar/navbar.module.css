@@ -1,24 +1,22 @@
 .aside {
-  background-color: white;
-  height: 100%;
-  width: 20%;
-  padding: 40px 24px 0;
   display: flex;
   width: 20%;
   height: 100%;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
+  padding: 40px 24px 0;
+  background-color: white;
   gap: 20px;
 }
 
 .commonLink {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   align-items: center;
-  gap: 8px;
-  font-weight: 500;
+  justify-content: center;
   font-size: 16px;
+  font-weight: 500;
+  gap: 8px;
   line-height: 20px;
 }
 
