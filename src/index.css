@@ -3,7 +3,8 @@
 @import url("assets/fonts/Monserat/Montserrat.css");
 
 :root {
-  font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial,
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-synthesis: none;
@@ -12,20 +13,22 @@
 
   /* Colors */
   --color-text-primary: #000;
-  --color-background: #EBF1F4;
+  --color-background: #ebf1f4;
   --color-background-white: #fff;
-  --color-background-secondary: #EBEBEB;
-  --color-icon-secondary: #99A2AD;
-  --color-button-secondary: #EBEBEB;
-  --color-accent-secondary: #4C239D;
-  --color-accent-purple: #8A32E0;
-  --color-accent-blue: #325EE0;
-  --color-accent-violet: #A632E0;
-  --color-black: #2C2D2E;
-  --color-error: #E64646;
+  --color-background-secondary: #ebebeb;
+  --color-icon-secondary: #99a2ad;
+  --color-button-secondary: #ebebeb;
+  --color-accent-secondary: #4c239d;
+  --color-accent-purple: #8a32e0;
+  --color-accent-blue: #325ee0;
+  --color-accent-violet: #a632e0;
+  --color-accent-gray: #99a2ad;
+  --color-black: #2c2d2e;
+  --color-error: #e64646;
+  --color-main-background: #e5e5e5;
 
   /* Gradient */
-  --gradient-color: #FF3B76, #8A32E0;
+  --gradient-color: #ff3b76, #8a32e0;
 
   /* Fonts */
   --font-size-xs: 12px;
@@ -38,13 +41,6 @@
   --font-line-m: 20px;
   --font-line-l: 24px;
   --font-line-xl: 28px;
-
-
-  --colorMainBackground: #E5E5E5;
-  --colorBlack: #2C2D2E;
-  --colorAccentSecondary: #4C239D;
-  --colorAccentPurple:#8A32E0;
-  --colorAccentGray: #99A2AD;
 }
 
 body {

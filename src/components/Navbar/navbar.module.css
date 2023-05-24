@@ -9,7 +9,7 @@
   gap: 20px;
 }
 
-.commonLink {
+.common-link {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -20,12 +20,12 @@
   line-height: 20px;
 }
 
-.inactiveLink {
-  color: var(--colorBlack);
+.inactive-link {
+  color: var(--color-black);
   text-decoration: none;
 }
 
-.activeLink {
-  color: var(--colorAccentSecondary);
+.active-link {
+  color: var(--color-accent-secondary);
   text-decoration: none;
 }
