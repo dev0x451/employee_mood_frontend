@@ -4,10 +4,6 @@ import { App } from "./components/App/App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 
-// NETLIFY TEST - DELETE LATER
-console.log("netlify test");
-// NETLIFY TEST - DELETE LATER
-
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
     <React.StrictMode>
