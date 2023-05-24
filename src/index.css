@@ -1,7 +1,9 @@
-@import url('modern-normalize/modern-normalize.css');
+@import url("modern-normalize/modern-normalize.css");
+@import url("assets/fonts/Roboto/roboto.css");
+@import url("assets/fonts/Monserat/Montserrat.css");
 
 :root {
-  font-family: Roboto, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-synthesis: none;
@@ -9,7 +11,6 @@
   text-size-adjust: 100%;
 
   /* Colors */
-  --nav-color: #276CB1;
   --color-text-primary: #000;
   --color-background: #EBF1F4;
   --color-background-white: #fff;
@@ -39,9 +40,13 @@
   --font-line-xl: 28px;
 
 
+  --colorMainBackground: #E5E5E5;
+  --colorBlack: #2C2D2E;
+  --colorAccentSecondary: #4C239D;
+  --colorAccentPurple:#8A32E0;
+  --colorAccentGray: #99A2AD;
 }
 
 body {
-  width: 100%;
   height: 100%;
 }
