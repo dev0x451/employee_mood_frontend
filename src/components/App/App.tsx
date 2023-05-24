@@ -6,7 +6,7 @@ import { Guestpage } from "../Guestpage/Guestpage";
 import styles from "./app.module.css";
 import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { LoginPage } from "@/components/LoginPage/LoginPage";
-import RegisterPage from "@/components/App/RegisterPage/RegisterPage";
+import { RegisterPage } from "@/components/App/RegisterPage/RegisterPage";
 
 export const App = () => {
   const [loggedIn] = useState(false);

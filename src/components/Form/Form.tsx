@@ -1,17 +1,16 @@
 import React from "react";
 import classes from "./form.module.css";
+import cl from "classnames";
 
 interface FormProps {
-  title: string;
-  subtitle?: string;
   children?: React.ReactNode;
+  type?: string;
 }
 
-export const Form: React.FC<FormProps> = ({ title, children }) => {
-  return (
-    <form className={classes.form}>
-      <h2 className={classes.formTitle}>{title}</h2>
-      {children}
-    </form>
-  );
+export const Form: React.FC<FormProps> = ({ children, type }) => {
+  const className = cl(classes.form, {
+    [classes.registerForm]: type === "register",
+    [classes.loginForm]: type === "login",
+  });
+  return <form className={className}>{children}</form>;
 };

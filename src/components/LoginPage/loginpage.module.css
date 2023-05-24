@@ -8,6 +8,17 @@
   background: white;
 }
 
+.login-title {
+  align-self: flex-start;
+  box-sizing: border-box;
+  padding: 20px 16px 20px 0;
+  margin: 0;
+  color: var(--color-black);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: var(--font-line-xl);
+}
+
 .form-link {
   display: inline-block;
   width: fit-content;

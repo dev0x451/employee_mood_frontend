@@ -7,7 +7,8 @@ import { Link } from "react-router-dom";
 export const LoginPage = () => {
   return (
     <div className={classes.loginPage}>
-      <Form title="Авторизуйтесь, пожалуйста">
+      <Form type="login">
+        <h2 className={classes.loginTitle}>Авторизуйтесь, пожалуйста</h2>
         <FormInput labelText="Введите e-mail" type="email" />
         <FormInput labelText="Введите пароль" type="password" />
         <Button title="Войти" mode="primary" />
