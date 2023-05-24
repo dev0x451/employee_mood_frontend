@@ -4,14 +4,42 @@
 
 :root {
   font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+  font-synthesis: none;
+  text-rendering: optimizelegibility;
+  text-size-adjust: 100%;
 
-  /*Colors*/
-  --nav-color: #276CB1;
+  /* Colors */
+  --color-text-primary: #000;
+  --color-background: #EBF1F4;
+  --color-background-white: #fff;
+  --color-background-secondary: #EBEBEB;
+  --color-icon-secondary: #99A2AD;
+  --color-button-secondary: #EBEBEB;
+  --color-accent-secondary: #4C239D;
+  --color-accent-purple: #8A32E0;
+  --color-accent-blue: #325EE0;
+  --color-accent-violet: #A632E0;
+  --color-black: #2C2D2E;
+  --color-error: #E64646;
+
+  /* Gradient */
+  --gradient-color: #FF3B76, #8A32E0;
+
+  /* Fonts */
+  --font-size-xs: 12px;
+  --font-size-s: 14px;
+  --font-size-m: 16px;
+  --font-size-l: 20px;
+  --font-size-xl: 24px;
+  --font-line-xs: 14px;
+  --font-line-s: 18px;
+  --font-line-m: 20px;
+  --font-line-l: 24px;
+  --font-line-xl: 28px;
+
+
   --colorMainBackground: #E5E5E5;
   --colorBlack: #2C2D2E;
   --colorAccentSecondary: #4C239D;

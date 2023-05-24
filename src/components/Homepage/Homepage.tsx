@@ -1,5 +1,3 @@
-// import { useState } from 'react'
-
 import styles from "./homepage.module.css";
 
 export const Homepage = () => {

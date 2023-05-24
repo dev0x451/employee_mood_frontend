@@ -1,1 +1,41 @@
-/* comment */
+.login-page {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  background: white;
+}
+
+.login-title {
+  box-sizing: border-box;
+  align-self: flex-start;
+  padding: 20px 16px 20px 0;
+  margin: 0;
+  color: var(--color-black);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: var(--font-line-xl);
+}
+
+.form-link {
+  display: inline-block;
+  width: fit-content;
+  align-self: center;
+  margin: 12px 0;
+  color: var(--color-accent-purple);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  line-height: var(--font-line-m);
+  text-align: center;
+  text-decoration: none;
+}
+
+.form-link:hover {
+  color: var(--color-accent-violet);
+
+}
+
+.form-link:active {
+  color: var(--color-accent-secondary);
+}

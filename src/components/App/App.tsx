@@ -4,7 +4,6 @@ import {
   Routes,
 } from 'react-router-dom';
 
-import {Navbar} from '../Navbar/Navbar';
 import { Main } from '../pages/main/Main';
 import { Tests } from '../pages/tests/Tests';
 import { Advices } from '../pages/advices/Advices';
@@ -16,13 +15,14 @@ import {Guestpage} from '../Guestpage/Guestpage';
 import styles from "./app.module.css";
 import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { LoginPage } from "@/components/LoginPage/LoginPage";
+import { RegisterPage } from "@/components/RegisterPage/RegisterPage";
+import { RefreshPasswordPage } from "@/components/RefreshPasswordPage/RefreshPasswordPage";
 
 export const App = () => {
   const [loggedIn] = useState(false);
 
   return (
     <main className={styles.page}>
-      <Navbar />
       <Routes>
         <Route element={<ProtectedRoutes loggedIn={loggedIn} />}>
          <Route path='main' element={<Main/>}/>
@@ -43,6 +43,8 @@ export const App = () => {
           <Route path='guest' element={<Guestpage/>}/>
         </Route>
         <Route path="sign-in" element={<LoginPage />} />
+        <Route path="sign-up" element={<RegisterPage />} />
+        <Route path="refresh-password" element={<RefreshPasswordPage />} />
       </Routes>
     </main>
   );

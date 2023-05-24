@@ -1,5 +1,3 @@
-// import { useState } from 'react'
-
 import styles from "./guestpage.module.css";
 
 export const Guestpage = () => {
