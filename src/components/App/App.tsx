@@ -6,7 +6,8 @@ import { Guestpage } from "../Guestpage/Guestpage";
 import styles from "./app.module.css";
 import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { LoginPage } from "@/components/LoginPage/LoginPage";
-import { RegisterPage } from "@/components/App/RegisterPage/RegisterPage";
+import { RegisterPage } from "@/components/RegisterPage/RegisterPage";
+import { RefreshPasswordPage } from "@/components/RefreshPasswordPage/RefreshPasswordPage";
 
 export const App = () => {
   const [loggedIn] = useState(false);
@@ -20,6 +21,7 @@ export const App = () => {
         </Route>
         <Route path="sign-in" element={<LoginPage />} />
         <Route path="sign-up" element={<RegisterPage />} />
+        <Route path="refresh-password" element={<RefreshPasswordPage />} />
       </Routes>
     </main>
   );

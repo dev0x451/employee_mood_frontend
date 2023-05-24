@@ -3,17 +3,18 @@
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
+  padding: 20px 56px;
   border-radius: 20px;
   background-color: var(--color-background-white);
   box-shadow: 0 15px 20px 0 rgb(88 81 94 / 10%);
 }
 
-.login-form {
-  padding: 20px 56px;
-}
-
 .register-form {
   padding: 20px 40px;
+}
+
+.refresh-form {
+  padding: 60px 76px 40px;
 }
 
 .form-title {

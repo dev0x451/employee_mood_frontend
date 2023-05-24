@@ -10,7 +10,7 @@ interface FormProps {
 export const Form: React.FC<FormProps> = ({ children, type }) => {
   const className = cl(classes.form, {
     [classes.registerForm]: type === "register",
-    [classes.loginForm]: type === "login",
+    [classes.refreshForm]: type === "refresh",
   });
   return <form className={className}>{children}</form>;
 };
