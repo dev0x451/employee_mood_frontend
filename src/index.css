@@ -1,4 +1,6 @@
-@import url('modern-normalize/modern-normalize.css');
+@import url("modern-normalize/modern-normalize.css");
+@import url("assets/fonts/Roboto/roboto.css");
+@import url("assets/fonts/Monserat/Montserrat.css");
 
 :root {
   font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -18,6 +20,5 @@
 }
 
 body {
-  width: 100%;
   height: 100%;
 }

@@ -44,7 +44,7 @@ export const Navbar = () => {
           to='/home'>Homepage
         </NavLink>
         <NavLink className={({ isActive, isPending }) => isPending ? `${styles.pendinglink}` : isActive ? `${styles.activelink}` : `${styles.link}`}
-          to='/guest'>Guestpage
+          to='/guest'>GuestPage
         </NavLink>
       </aside>
   )
