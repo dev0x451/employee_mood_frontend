@@ -32,9 +32,9 @@ export const App = () => {
 
           <Route path="calendar" element={<Calendar />} />
         </Route>
-        <Route path="password-reset" element={<LoginPage />} />
+        <Route path="login" element={<LoginPage />} />
         <Route path="register" element={<RegisterPage />} />
-        <Route path="refresh-password" element={<RefreshPasswordPage />} />
+        <Route path="password-reset" element={<RefreshPasswordPage />} />
       </Routes>
     </main>
   );
