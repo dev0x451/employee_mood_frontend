@@ -12,8 +12,8 @@ export const Articles: FC<ArticlesListProps> = ({ articles }) => {
     <>
       <h2 className={styles.title}>Как улучшить ментальное здоровье</h2>
       <div className={styles.articles}>
-        {articles.map((article) => (
-          <Article article={article} />
+        {articles.map((article, index) => (
+          <Article key={index} article={article} />
         ))}
         <Article
           article={{
