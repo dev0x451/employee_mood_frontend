@@ -10,9 +10,9 @@ import { Calendar } from "../../pages/calendar/Calendar";
 import { Myteam } from "../Myteam/Myteam";
 import styles from "./app.module.css";
 import { ProtectedRoutes } from "@/components/ProtectedRoutes";
-import { LoginPage } from "@/pages/login/LoginPage";
 import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
+import { LoginPage } from "@/pages/login/LoginPage";
 
 export const App = () => {
   const [loggedIn] = useState(true);
