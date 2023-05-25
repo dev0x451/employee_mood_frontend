@@ -1,3 +1,4 @@
+import "@/shared/styles.css";
 import classes from "./refreshpasswordpage.module.css";
 import { Button } from "@/shared/ui/Button/Button";
 import { Formik, Field, Form, FormikHelpers } from "formik";
@@ -13,7 +14,7 @@ interface Values {
 export const RefreshPasswordPage = () => {
   return (
     <div className={classes.refreshPasswordPage}>
-      <div className={classes.logoContainer}>
+      <div className="logo-container">
         <LogoImg />
       </div>
       <Formik
@@ -42,21 +43,19 @@ export const RefreshPasswordPage = () => {
               Укажите адрес электронной почты, и мы вышлем инструкцию по
               восстановлению пароля.
             </p>
-            <label className={classes.label} htmlFor="email">
+            <label className="label" htmlFor="email">
               Введите email
             </label>
             <Field
               className={
-                errors.email && touched.email
-                  ? `${classes.input} ${classes.inputError}`
-                  : classes.input
+                errors.email && touched.email ? "input input-error" : "input"
               }
               id="email"
               name="email"
               type="email"
             />
             {errors.email && touched.email ? (
-              <div className={classes.errorMessage}>{errors.email}</div>
+              <div className="error-message">{errors.email}</div>
             ) : null}
             <Button title="Воcстановить" type="submit" mode="primary" />
           </Form>

@@ -1,4 +1,5 @@
 import { Formik, Field, Form, FormikHelpers } from "formik";
+import "@/shared/styles.css";
 import classes from "./loginpage.module.css";
 import { Button } from "@/shared/ui/Button/Button";
 import { Link } from "react-router-dom";
@@ -14,7 +15,7 @@ interface Values {
 export const LoginPage = () => {
   return (
     <div className={classes.loginPage}>
-      <div className={classes.logoContainer}>
+      <div className="logo-container">
         <LogoImg />
       </div>
       <ErrorPopup />
@@ -42,16 +43,14 @@ export const LoginPage = () => {
             </label>
             <Field
               className={
-                errors.email && touched.email
-                  ? `${classes.input} ${classes.inputError}`
-                  : classes.input
+                errors.email && touched.email ? "input input-error" : "input"
               }
               id="email"
               name="email"
               type="email"
             />
             {errors.email && touched.email ? (
-              <div className={classes.errorMessage}>{errors.email}</div>
+              <div className="error-message">{errors.email}</div>
             ) : null}
             <label className={classes.label} htmlFor="password">
               Введите пароль
@@ -59,8 +58,8 @@ export const LoginPage = () => {
             <Field
               className={
                 errors.password && touched.password
-                  ? `${classes.input} ${classes.inputError}`
-                  : classes.input
+                  ? "input input-error"
+                  : "input"
               }
               id="password"
               name="password"
