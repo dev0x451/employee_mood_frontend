@@ -10,6 +10,7 @@ import {
   eventsIcon,
   bookmarkIcon,
   questionIcon,
+  teamIcon
 } from "@/assets";
 
 export const Navbar = () => {
@@ -25,44 +26,65 @@ export const Navbar = () => {
   return (
     <aside className={styles.aside}>
       <NavLink className={({ isActive }) => linkClassName(isActive)} to="/">
-        {homeIcon}Главная
+        <div className={styles.border}>
+          {homeIcon}
+        </div>
+        Главная
       </NavLink>
       <NavLink
         className={({ isActive }) => linkClassName(isActive)}
         to="/tests"
       >
-        {questionIcon}Тесты
+        <div className={styles.border}>
+          {questionIcon}
+        </div>
+        Тесты
       </NavLink>
       <NavLink
         className={({ isActive }) => linkClassName(isActive)}
         to="/advices"
       >
-        {advicesIcon}Советы
+        <div className={styles.border}>
+          {advicesIcon}
+        </div>
+        Советы
       </NavLink>
       <NavLink
         className={({ isActive }) => linkClassName(isActive)}
         to="/events"
       >
-        {eventsIcon}Мероприятия
+        <div className={styles.border}>
+          {eventsIcon}
+        </div>
+        Мероприятия
       </NavLink>
       <NavLink
         className={({ isActive }) => linkClassName(isActive)}
         to="/bookmarks"
       >
-        {bookmarkIcon}Закладки
+        <div className={styles.border}>
+          {bookmarkIcon}
+        </div>
+        Закладки
       </NavLink>
       <NavLink
         className={({ isActive }) => linkClassName(isActive)}
         to="/calendar"
       >
-        {calendarIcon}Календарь
+        <div className={styles.border}>
+          {calendarIcon}
+        </div>
+        Календарь
       </NavLink>
 
       {isChief &&  <NavLink
         className={({ isActive }) => linkClassName(isActive)}
         to="/myteam"
       >
-        {homeIcon}Моя команда
+        <div className={styles.border}>
+          {teamIcon}
+        </div>
+        Моя команда
       </NavLink>}
     </aside>
   );
