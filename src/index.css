@@ -1,6 +1,6 @@
 @import url("modern-normalize/modern-normalize.css");
 @import url("assets/fonts/Roboto/roboto.css");
-@import url("assets/fonts/Monserat/Montserrat.css");
+@import url("assets/fonts/Montserrat/Montserrat.css");
 
 :root {
   font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial,
@@ -15,6 +15,7 @@
   --color-text-primary: #000;
   --color-background: #ebf1f4;
   --color-background-white: #fff;
+  --color-white: #fff;
   --color-background-secondary: #ebebeb;
   --color-icon-secondary: #99a2ad;
   --color-button-secondary: #ebebeb;
@@ -26,6 +27,7 @@
   --color-black: #2c2d2e;
   --color-error: #e64646;
   --color-main-background: #e5e5e5;
+  --color-burnout-banner-background: #d5d0ef;
 
   /* Shadows */
   --shadow-medium: box-shadow: 0 15px 20px 0 rgb(88 81 94 / 10%);
@@ -41,13 +43,15 @@
   --font-line-m: 20px;
   --font-line-l: 24px;
   --font-line-xl: 28px;
+  --font-h1: 600 24px/28px "Montserrat", sans-serif;
+  --font-h2: 600 20px/24px "Montserrat", sans-serif;
+  --font-h3: 600 16px/18px "Montserrat", sans-serif;
+  --font-text: 400 13px/16px "Roboto", sans-serif;
+  --font-caption: 400 12px/14px "Roboto", sans-serif;
+  --font-body: 400 14px/18px "Roboto", sans-serif;
+  --font-button: 500 16px/20px "Roboto", sans-serif;
+  --font-search-input: 400 16px/20px "Roboto", sans-serif;
 
-
-  --colorMainBackground: #E5E5E5;
-  --colorBlack: #2C2D2E;
-  --colorAccentSecondary: #4C239D;
-  --colorAccentPurple: #8A32E0;
-  --colorAccentGray: #99A2AD;
 }
 
 body {

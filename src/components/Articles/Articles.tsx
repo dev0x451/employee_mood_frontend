@@ -9,8 +9,8 @@ interface ArticlesListProps {
 
 export const Articles: FC<ArticlesListProps> = ({ articles }) => {
   return (
-    <>
-      <h2 className={styles.title}>Как улучшить ментальное здоровье</h2>
+    <div className={styles.container}>
+      <h3 className={styles.title}>Как улучшить ментальное здоровье</h3>
       <div className={styles.articles}>
         {articles.map((article, index) => (
           <Article key={index} article={article} />
@@ -24,6 +24,6 @@ export const Articles: FC<ArticlesListProps> = ({ articles }) => {
           }}
         />
       </div>
-    </>
+    </div>
   );
 };

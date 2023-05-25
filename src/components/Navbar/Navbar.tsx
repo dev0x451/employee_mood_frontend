@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import styles from "./navbar.module.css";
-import { useAppSelector } from '@/store/hooks';
-import { selectConstructor } from '@/store/reducers/constructor/constructorReducer';
+import { useAppSelector } from "@/store/hooks";
+import { selectConstructor } from "@/store/reducers/constructor/constructorReducer";
 
 import {
   homeIcon,
@@ -10,11 +10,14 @@ import {
   eventsIcon,
   bookmarkIcon,
   questionIcon,
-  teamIcon
+
+  myTeamIcon
+
 } from "@/assets";
 
-export const Navbar = () => {
+import logo from "@/assets/logo-with-name.svg";
 
+export const Navbar = () => {
   const isChief = useAppSelector(selectConstructor);
 
   const linkClassName = (isActive: boolean) => {
@@ -25,67 +28,55 @@ export const Navbar = () => {
 
   return (
     <aside className={styles.aside}>
-      <NavLink className={({ isActive }) => linkClassName(isActive)} to="/">
-        <div className={styles.border}>
-          {homeIcon}
-        </div>
-        Главная
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => linkClassName(isActive)}
-        to="/tests"
-      >
-        <div className={styles.border}>
-          {questionIcon}
-        </div>
-        Тесты
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => linkClassName(isActive)}
-        to="/advices"
-      >
-        <div className={styles.border}>
-          {advicesIcon}
-        </div>
-        Советы
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => linkClassName(isActive)}
-        to="/events"
-      >
-        <div className={styles.border}>
-          {eventsIcon}
-        </div>
-        Мероприятия
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => linkClassName(isActive)}
-        to="/bookmarks"
-      >
-        <div className={styles.border}>
-          {bookmarkIcon}
-        </div>
-        Закладки
-      </NavLink>
-      <NavLink
-        className={({ isActive }) => linkClassName(isActive)}
-        to="/calendar"
-      >
-        <div className={styles.border}>
-          {calendarIcon}
-        </div>
-        Календарь
+
+      <NavLink className={styles.logo} to="/">
+        <img src={logo} alt="logo" />
       </NavLink>
 
-      {isChief &&  <NavLink
-        className={({ isActive }) => linkClassName(isActive)}
-        to="/myteam"
-      >
-        <div className={styles.border}>
-          {teamIcon}
-        </div>
-        Моя команда
-      </NavLink>}
+      <div className={styles.navLinks}>
+        <NavLink className={({ isActive }) => linkClassName(isActive)} to="/">
+          {homeIcon}Главная
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => linkClassName(isActive)}
+          to="/tests"
+        >
+          {questionIcon}Тесты
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => linkClassName(isActive)}
+          to="/advices"
+        >
+          {advicesIcon}Советы
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => linkClassName(isActive)}
+          to="/events"
+        >
+          {eventsIcon}Мероприятия
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => linkClassName(isActive)}
+          to="/bookmarks"
+        >
+          {bookmarkIcon}Закладки
+        </NavLink>
+        <NavLink
+          className={({ isActive }) => linkClassName(isActive)}
+          to="/calendar"
+        >
+          {calendarIcon}Календарь
+        </NavLink>
+
+        {isChief && (
+          <NavLink
+            className={({ isActive }) => linkClassName(isActive)}
+            to="/myteam"
+          >
+            {myTeamIcon}Моя команда
+          </NavLink>
+        )}
+      </div>
     </aside>
   );
 };

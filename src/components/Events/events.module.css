@@ -1,15 +1,11 @@
 .events {
   width: 324px;
-  height: 100%;
 }
 
-.header {
-  color: #000;
-  font-family: Montserrat;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 18px;
+.title {
+  margin: 0;
+  color: var(--color-black);
+  font: var(--font-h3);
 }
 
 .list {
@@ -23,7 +19,7 @@
   padding: 8px 16px;
   border-radius: 20px;
   margin-bottom: 12px;
-  background: #FFF;
+  background: #fff;
 }
 
 .img {
@@ -32,7 +28,7 @@
   margin-right: 12px;
 }
 
-.pointContent {
+.point-content {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -41,19 +37,11 @@
 
 .text {
   margin: 0;
-  color: #2C2D2E;
-  font-family: Roboto;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px;
+  color: var(--color-black);
+  font: var(--font-body);
 }
 
 .time {
-  color: #818C99;
-  font-family: Roboto;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 18px;
+  color: #818c99;
+  font: var(--font-body);
 }

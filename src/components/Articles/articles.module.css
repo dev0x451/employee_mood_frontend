@@ -1,25 +1,22 @@
 .articles {
   display: grid;
-  width: 100%;
-  height: 100%;
-  flex-grow: 1;
+
+  /* width: 100%;
+  height: 100%; */
+
+  /* flex-grow: 1;
   align-items: center;
-  justify-content: center;
-  margin: 0 auto 28px;
+  justify-content: center; */
+
+  margin: 16px 0 0;
   gap: 12px;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
 
-.text {
-  display: inline-block;
-  font-size: 50px;
+  /* grid-template-rows: 1fr 1fr; */
 }
 
 .title {
-  padding: 0;
-  font-family: Montserrat;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 18px;
+  margin: 0;
+  color: var(--color-black);
+  font: var(--font-h3);
 }
