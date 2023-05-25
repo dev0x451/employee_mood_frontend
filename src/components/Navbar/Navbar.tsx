@@ -10,7 +10,9 @@ import {
   eventsIcon,
   bookmarkIcon,
   questionIcon,
-  myTeamIcon,
+
+  myTeamIcon
+
 } from "@/assets";
 
 import logo from "@/assets/logo-with-name.svg";
@@ -26,6 +28,7 @@ export const Navbar = () => {
 
   return (
     <aside className={styles.aside}>
+
       <NavLink className={styles.logo} to="/">
         <img src={logo} alt="logo" />
       </NavLink>
