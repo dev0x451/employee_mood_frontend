@@ -42,20 +42,18 @@ export const SelectInput: React.FC<OptionInterface> = ({ options }) => {
   const [isSearchable] = useState(true);
   const [isDisabled] = useState(false);
   const [isLoading] = useState(false);
-  const [userChoice, setUserChoice] = useState("");
 
   return (
     <Select
       className="basic-single"
       classNamePrefix="select"
-      defaultValue={options[0]}
+      defaultValue={options && options[0]}
       isDisabled={isDisabled}
       isLoading={isLoading}
       isSearchable={isSearchable}
       name="single-select"
       options={options}
       styles={colourStyles}
-      onChange={(choice) => setUserChoice(choice)}
     />
   );
 };
