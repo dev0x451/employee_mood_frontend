@@ -7,6 +7,7 @@ import { Advices } from "../../pages/advices/Advices";
 import { Events } from "../../pages/events/Events";
 import { Bookmarks } from "../../pages/bookmarks/Bookmarks";
 import { Calendar } from "../../pages/calendar/Calendar";
+import { Myteam } from "../Myteam/Myteam";
 import styles from "./app.module.css";
 import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { RegisterPage } from "@/pages/register/RegisterPage";
@@ -31,6 +32,8 @@ export const App = () => {
           <Route path="bookmarks" element={<Bookmarks />} />
 
           <Route path="calendar" element={<Calendar />} />
+
+          <Route path="myteam" element={<Myteam />} />
         </Route>
         <Route path="sign-in" element={<LoginPage />} />
         <Route path="sign-up" element={<RegisterPage />} />
