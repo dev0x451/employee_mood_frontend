@@ -1,0 +1,17 @@
+.container {
+  display: flex;
+  width: 122px;
+  height: 58px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0 0 12px 12px;
+  border-top: 6px solid red;
+  font: var(--font-button);
+  gap: 12px;
+}
+
+.mood-button {
+  /* display: flex;
+  justify-content: space-between; */
+}

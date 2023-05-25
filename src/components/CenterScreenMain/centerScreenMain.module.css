@@ -1,0 +1,12 @@
+.container {
+  /* test  */
+}
+
+.mood-tracker {
+  font: var(--font-h1);
+}
+
+.mood-buttons {
+  display: flex;
+  justify-content: space-between;
+}
