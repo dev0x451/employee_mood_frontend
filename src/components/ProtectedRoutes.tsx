@@ -11,7 +11,7 @@ export const ProtectedRoutes: React.FC<ProtectedRouteProps> = ({
   return (
     <>
       <Navbar />
-      {loggedIn ? <Outlet /> : <Navigate to="/sign-in" />}
+      {loggedIn ? <Outlet /> : <Navigate to="/login" />}
     </>
   );
 };
