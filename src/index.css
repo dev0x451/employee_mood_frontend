@@ -25,7 +25,7 @@
   --color-error: #E64646;
 
   /* Shadows */
-  --shadow-medium: box-shadow: 0 15px 20px 0 rgb(88 81 94 / 10%);;
+  --shadow-medium: box-shadow: 0 15px 20px 0 rgb(88 81 94 / 10%);
 
   /* Fonts */
   --font-size-xs: 12px;
