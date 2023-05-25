@@ -38,7 +38,7 @@ export const LoginPage = () => {
         {({ errors, touched }) => (
           <Form noValidate className={classes.loginForm}>
             <h2 className={classes.loginTitle}>Авторизуйтесь, пожалуйста</h2>
-            <label className={classes.label} htmlFor="email">
+            <label className="label" htmlFor="email">
               Введите email
             </label>
             <Field
@@ -52,7 +52,7 @@ export const LoginPage = () => {
             {errors.email && touched.email ? (
               <div className="error-message">{errors.email}</div>
             ) : null}
-            <label className={classes.label} htmlFor="password">
+            <label className="label" htmlFor="password">
               Введите пароль
             </label>
             <Field
