@@ -19,7 +19,7 @@ export const Articles: FC<ArticlesListProps> = ({ articles }) => {
           article={{
             type: "",
             title: "Смотреть все статьи и видео",
-            banner: "src/assets/image.png",
+            banner: "/image.png",
             length: "",
           }}
         />
