@@ -24,8 +24,8 @@
   --color-black: #2C2D2E;
   --color-error: #E64646;
 
-  /* Gradient */
-  --gradient-color: #FF3B76, #8A32E0;
+  /* Shadows */
+  --shadow-medium: box-shadow: 0 15px 20px 0 rgb(88 81 94 / 10%);;
 
   /* Fonts */
   --font-size-xs: 12px;
