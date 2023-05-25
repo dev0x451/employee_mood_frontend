@@ -1,13 +1,9 @@
-.main {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 40px 52px;
-  margin: 0 auto;
+.container {
   background-color: var(--color-main-background);
 }
 
-.text {
-  font-size: 50px;
+.main {
+  display: flex;
+  padding: 40px 132px 46px 52px;
+  gap: 28px;
 }

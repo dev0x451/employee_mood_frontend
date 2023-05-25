@@ -2,11 +2,7 @@
   display: flex;
   min-width: 676px;
   height: 148px;
-
-  /* align-items: center; */
-
-  /* justify-content: space-between; */
-  padding: 16px;
+  padding: 16px 16px 16px 20px;
   border-radius: 20px;
   background-color: var(--color-burnout-banner-background);
   gap: 20px;
@@ -16,19 +12,20 @@
   display: flex;
   min-width: 500px;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 20px;
 }
 
 .text-top {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  margin-top: 8px;
 }
 
 .text-bottom {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
 }
 
 .text-heading {

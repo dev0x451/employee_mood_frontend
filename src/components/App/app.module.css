@@ -1,4 +1,7 @@
 .page {
-  display: flex;
+  display: grid;
+  max-width: 1440px;
   min-height: 100vh;
+  margin: 0 auto;
+  grid-template-columns: 228px 1fr;
 }

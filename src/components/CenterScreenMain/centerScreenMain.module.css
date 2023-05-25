@@ -3,10 +3,17 @@
 }
 
 .mood-tracker {
-  font: var(--font-h1);
+  margin: 45px 0 0;
+}
+
+.mood-tracker-heading {
+  margin: 0;
+  color: var(--color-black);
+  font: var(--font-h2);
 }
 
 .mood-buttons {
   display: flex;
   justify-content: space-between;
+  margin: 14px 0 0;
 }

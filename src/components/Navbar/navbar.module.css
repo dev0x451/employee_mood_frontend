@@ -1,12 +1,15 @@
 .aside {
+  padding: 24px;
+}
+
+.nav-links {
   display: flex;
-  width: 20%;
   height: 100%;
   flex-direction: column;
   align-items: flex-start;
-  padding: 40px 24px 0;
-  background-color: white;
-  gap: 20px;
+  margin-top: 44px;
+  background-color: var(--color-white);
+  gap: 24px;
 }
 
 .common-link {
@@ -28,4 +31,8 @@
 .active-link {
   color: var(--color-accent-secondary);
   text-decoration: none;
+}
+
+.logo {
+  margin-bottom: 20px;
 }

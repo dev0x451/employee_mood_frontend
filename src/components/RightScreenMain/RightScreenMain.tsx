@@ -9,19 +9,19 @@ export const RightScreenMain = () => {
     {
       type: "видео",
       title: "Как понять, что у вас профессиональное выгорание",
-      length: "5 мин",
+      length: "5 минут",
       banner: "/image.png",
     },
     {
       type: "видео",
       title: "Как понять, что у вас профессиональное выгорание",
-      length: "5 мин",
+      length: "5 минут",
       banner: "/image.png",
     },
     {
       type: "видео",
       title: "Как понять, что у вас профессиональное выгорание",
-      length: "5 мин",
+      length: "5 минут",
       banner: "/image.png",
     },
   ];

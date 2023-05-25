@@ -3,7 +3,7 @@ import image from "/image.png";
 export const Events = () => {
   return (
     <div className={styles.events}>
-      <h3 className={styles.header}>Предстоящие мероприятия</h3>
+      <h3 className={styles.title}>Предстоящие мероприятия</h3>
       <ul className={styles.list}>
         <li className={styles.point}>
           <img className={styles.img} src={image} />
