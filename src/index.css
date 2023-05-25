@@ -29,8 +29,8 @@
   --color-main-background: #e5e5e5;
   --color-burnout-banner-background: #d5d0ef;
 
-  /* Gradient */
-  --gradient-color: #ff3b76, #8a32e0;
+  /* Shadows */
+  --shadow-medium: box-shadow: 0 15px 20px 0 rgb(88 81 94 / 10%);;
 
   /* Fonts */
   --font-size-xs: 12px;

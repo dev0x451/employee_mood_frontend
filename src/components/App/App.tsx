@@ -7,11 +7,12 @@ import { Advices } from "../../pages/advices/Advices";
 import { Events } from "../../pages/events/Events";
 import { Bookmarks } from "../../pages/bookmarks/Bookmarks";
 import { Calendar } from "../../pages/calendar/Calendar";
+import { Myteam } from "../Myteam/Myteam";
 import styles from "./app.module.css";
 import { ProtectedRoutes } from "@/components/ProtectedRoutes";
-import { LoginPage } from "@/pages/login/LoginPage";
 import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
+import { LoginPage } from "@/pages/login/LoginPage";
 
 export const App = () => {
   const [loggedIn] = useState(true);
@@ -31,6 +32,8 @@ export const App = () => {
           <Route path="bookmarks" element={<Bookmarks />} />
 
           <Route path="calendar" element={<Calendar />} />
+
+          <Route path="myteam" element={<Myteam />} />
         </Route>
         <Route path="sign-in" element={<LoginPage />} />
         <Route path="sign-up" element={<RegisterPage />} />
