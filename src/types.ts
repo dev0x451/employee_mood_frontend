@@ -1,5 +1,4 @@
-import { ReactNode } from 'react';
-
+import { ReactNode } from "react";
 
 export interface ArticleInterface {
   type: string;
@@ -8,13 +7,18 @@ export interface ArticleInterface {
   banner: string;
 }
 
+export interface SelectOption {
+  label: string;
+  value: string;
+  isDisabled?: boolean;
+}
 
 export type CallbackFunction = () => void;
 
 export interface Image {
   src: string;
   title: string;
-  id: string
+  id: string;
 }
 
 export interface Card {
@@ -38,15 +42,15 @@ export interface DragItem {
 }
 
 export interface Column {
-  name: string,
-  items: DragItem[],
+  name: string;
+  items: DragItem[];
 }
 
 export interface Columns {
-  [key: string]: Column,
+  [key: string]: Column;
 }
 
 export interface MathSign {
-  id: string,
-  content: string
+  id: string;
+  content: string;
 }

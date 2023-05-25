@@ -35,9 +35,9 @@ export const App = () => {
 
           <Route path="myteam" element={<Myteam />} />
         </Route>
-        <Route path="sign-in" element={<LoginPage />} />
-        <Route path="sign-up" element={<RegisterPage />} />
-        <Route path="refresh-password" element={<RefreshPasswordPage />} />
+        <Route path="login" element={<LoginPage />} />
+        <Route path="register" element={<RegisterPage />} />
+        <Route path="password-reset" element={<RefreshPasswordPage />} />
       </Routes>
     </main>
   );
