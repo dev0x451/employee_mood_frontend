@@ -1,7 +1,6 @@
 .page {
-  display: grid;
   max-width: 1440px;
+  height: fit-content;
   min-height: 100vh;
   margin: 0 auto;
-  grid-template-columns: 228px 1fr;
 }
