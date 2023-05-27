@@ -16,7 +16,7 @@ import {
 
 } from "@/assets";
 
-import logo from "@/assets/logo-with-name.svg";
+// import logo from "@/assets/logo-with-name.svg";
 
 export const Navbar = () => {
   const isChief = useAppSelector(selectConstructor);
