@@ -1,5 +1,5 @@
 import styles from "./psychologistInfo.module.css";
-import Avatar from "/image.png";
+import Avatar from "/psychologist.png";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   selectConstructor,

@@ -27,3 +27,9 @@ export interface Image {
   title: string;
   id: string;
 }
+
+export interface RecordInterface {
+  description: string;
+  date: string;
+  state: string;
+}
