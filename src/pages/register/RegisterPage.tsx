@@ -5,15 +5,62 @@ import { basicSchema } from "@/schemas/validationSchema";
 import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import classes from "./registerpage.module.css";
 import { SelectInput } from "@/shared/ui/Select/SelectInput";
+import { useEffect, useState } from "react";
+import * as Api from "@/shared/api/Api";
+import { useRequest } from "@/shared/hooks/useRequest";
+import { SelectOption } from "@/types";
 
 interface Values {
   passwordAdvanced: string;
   confirmPassword: string;
-  email: string;
   firstName: string;
   lastName: string;
+  email: string;
+  singleSelectCustom: string;
+  singleSelectCustom2: string;
 }
+
 export const RegisterPage = () => {
+  //получаем с бэка массив с должностями и позициями
+  const [departments] = useRequest(Api.getDepartments);
+  const [positions] = useRequest(Api.getPositions);
+
+  const [departmentChoice, setDepartmentChoice] = useState<SelectOption>();
+  const [positionChoice, setPositionChoice] = useState<SelectOption>();
+
+  // трансформированные массивы с должностями и позициями со свойствами value и label (для react-select)
+  const [optionsDepartments, setOptionsDepartments] = useState<SelectOption[]>(
+    []
+  );
+  const [optionsPositions, setOptionsPositions] = useState<SelectOption[]>([]);
+
+  console.log(positionChoice);
+  useEffect(() => {
+    if (departments) {
+      const arrayDepartments = transformArray(departments, "Выберите отдел");
+      const arrayPositions = transformArray(
+        positions.results,
+        "Выберите должность"
+      );
+      setOptionsDepartments(arrayDepartments);
+      setOptionsPositions(arrayPositions);
+    }
+  }, [departments]);
+
+  // трансформируем полученные массивы до нужного формата и добавляем значение по умолчанию
+  function transformArray(
+    array: SelectOption[],
+    labelText: string
+  ): SelectOption[] {
+    const newArray = array.map((x: any) => ({
+      value: x.id,
+      label: x.name,
+      isDisabled: false,
+    }));
+    newArray.unshift({ label: labelText, value: "def", isDisabled: true });
+    return newArray;
+  }
+
   return (
     <div className={classes.registerPage}>
       <div className="logo-container">
@@ -26,15 +73,15 @@ export const RegisterPage = () => {
           confirmPassword: "",
           firstName: "",
           lastName: "",
+          singleSelectCustom: "",
+          singleSelectCustom2: "",
         }}
         onSubmit={(
           values: Values,
           { setSubmitting }: FormikHelpers<Values>
         ) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 500);
+          console.log(values);
+          setSubmitting(false);
         }}
         validationSchema={basicSchema}
       >
@@ -93,12 +140,11 @@ export const RegisterPage = () => {
                     placeholder="Single Select"
                     isMulti={false}
                     component={SelectInput}
-                    options={[
-                      { value: "0", label: "Выбрать отдел", isDisabled: true },
-                      { value: "one", label: "One" },
-                      { value: "two", label: "Two" },
-                      { value: "three", label: "Three" },
-                    ]}
+                    options={optionsDepartments}
+                    labelText="Выберите отдел"
+                    onChange={(choice: SelectOption) =>
+                      setDepartmentChoice(choice)
+                    }
                   />
                 </div>
                 <div className={classes.inputArea}>
@@ -106,21 +152,18 @@ export const RegisterPage = () => {
                     Должность
                   </label>
                   <Field
-                    name="singleSelectCustom"
-                    id="singleSelectCustom"
+                    name="singleSelectCustom2"
+                    id="singleSelectCustom2"
                     placeholder="Single Select"
                     isMulti={false}
                     component={SelectInput}
-                    options={[
-                      {
-                        value: "0",
-                        label: "Выбрать должность",
-                        isDisabled: true,
-                      },
-                      { value: "one", label: "One" },
-                      { value: "two", label: "Two" },
-                      { value: "three", label: "Three" },
-                    ]}
+                    options={optionsPositions}
+                    labelText="Выберите должность"
+                    disabled={true}
+                    departmentValue={departmentChoice}
+                    onChange={(choice: SelectOption) =>
+                      setPositionChoice(choice)
+                    }
                   />
                 </div>
               </li>

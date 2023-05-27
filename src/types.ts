@@ -13,6 +13,11 @@ export interface SelectOption {
   isDisabled?: boolean;
 }
 
+export interface MyFormValues {
+  password: string;
+  email: string;
+}
+
 export type CallbackFunction = () => void;
 
 export interface Image {

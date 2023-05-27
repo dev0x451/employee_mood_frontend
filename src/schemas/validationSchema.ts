@@ -14,7 +14,7 @@ const minLengthName = "Минимальное количество символ�
 const maxLengthName = "Максимальное количество символов: 32";
 // min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
 
-export const basicSchema = yup.object().shape({
+export const advancedSchema = yup.object().shape({
   email: yup
     .string()
     .min(8, minLengthPassword)
@@ -62,4 +62,17 @@ export const basicSchema = yup.object().shape({
         value: yup.string().required(),
       })
     ),
+});
+
+export const basicSchema = yup.object().shape({
+  email: yup
+    .string()
+    .min(8, minLengthPassword)
+    .max(254, maxLengthPassword)
+    .matches(emailRules, {
+      message: errorMessage,
+    })
+    .email(errorMessage)
+    .required(errorMessage),
+  password: yup.string().required(requiredMessage),
 });

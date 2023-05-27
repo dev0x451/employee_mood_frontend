@@ -1,14 +1,16 @@
 import classes from "./errorpopup.module.css";
 import Warning from "@/assets/warning__28.svg";
-import { useState } from "react";
+import React from "react";
 
-export const ErrorPopup = () => {
-  const [popupOpened, setPopupOpened] = useState(true);
+interface ErrorPopupProps {
+  closeErrorPopup: () => void;
+  popupOpened: boolean;
+}
 
-  const closePopup = () => {
-    setPopupOpened(false);
-  };
-
+export const ErrorPopup: React.FC<ErrorPopupProps> = ({
+  closeErrorPopup,
+  popupOpened,
+}) => {
   return (
     <div
       className={
@@ -17,7 +19,7 @@ export const ErrorPopup = () => {
           : `${classes.errorPopup} ${classes.errorPopupOpened}`
       }
     >
-      <button onClick={() => closePopup()} className={classes.closeBtn} />
+      <button onClick={() => closeErrorPopup()} className={classes.closeBtn} />
       <img src={Warning} className={classes.warningImg} alt="warning image" />
       <p className={classes.warningText}>Неверный логин или пароль</p>
     </div>
