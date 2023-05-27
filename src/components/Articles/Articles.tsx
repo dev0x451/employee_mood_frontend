@@ -5,12 +5,13 @@ import { ArticleInterface } from "@/types";
 
 interface ArticlesListProps {
   articles: ArticleInterface[];
+  title: string;
 }
 
-export const Articles: FC<ArticlesListProps> = ({ articles }) => {
+export const Articles: FC<ArticlesListProps> = ({ articles, title }) => {
   return (
     <div className={styles.container}>
-      <h3 className={styles.title}>Как улучшить ментальное здоровье</h3>
+      <h3 className={styles.title}>{title}</h3>
       <div className={styles.articles}>
         {articles.map((article, index) => (
           <Article key={index} article={article} />

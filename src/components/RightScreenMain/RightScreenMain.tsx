@@ -29,7 +29,10 @@ export const RightScreenMain = () => {
   return (
     <div className={styles.container}>
       <PsychologistInfo />
-      <Articles articles={articles} />
+      <Articles
+        articles={articles}
+        title={'Как улучшить ментальное здоровье'}
+      />
       <Events />
     </div>
   );

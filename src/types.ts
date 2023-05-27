@@ -7,6 +7,15 @@ export interface ArticleInterface {
   banner: string;
 }
 
+export interface EmployeeInterface {
+  avatar?: string;
+  name: string;
+  position: string;
+  // colorball: string;
+  state: string;
+}
+
+
 export interface SelectOption {
   label: string;
   value: string;
@@ -19,38 +28,4 @@ export interface Image {
   src: string;
   title: string;
   id: string;
-}
-
-export interface Card {
-  mainImage: Image;
-}
-
-export interface FullCard extends Card {
-  images: Image[];
-  description: string;
-}
-// 7
-// 7
-// 7
-// 7
-// 7
-// 7
-
-export interface DragItem {
-  id: string;
-  children: ReactNode;
-}
-
-export interface Column {
-  name: string;
-  items: DragItem[];
-}
-
-export interface Columns {
-  [key: string]: Column;
-}
-
-export interface MathSign {
-  id: string;
-  content: string;
 }
