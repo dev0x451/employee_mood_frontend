@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { Main } from "../../pages/main/Main";
 import { Tests } from "../../pages/tests/Tests";
@@ -13,9 +13,74 @@ import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
 import { LoginPage } from "@/pages/login/LoginPage";
+import { MyFormValues } from "@/types";
+import * as ApiAuth from "@/shared/api/ApiAuth";
+import * as Api from "@/shared/api/Api";
+import { useLocation } from "react-router";
 
 export const App = () => {
-  const [loggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
+  const [error, setError] = useState("");
+  const [currentUser, setCurrentUser] = useState([]);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  console.log(currentUser);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      auth(jwt);
+    }
+    getUserInfo();
+  }, [loggedIn]);
+
+  const auth = async (jwt: string) => {
+    try {
+      const response = await ApiAuth.checkToken(jwt);
+      if (response.statusText === "OK") {
+        setLoggedIn(true);
+        ["/login", "/register"].includes(pathname)
+          ? navigate("/")
+          : navigate(pathname);
+      }
+    } catch (err: any) {
+      if (err.status === 400) {
+        console.log("400 - токен не передан или передан не в том формате");
+      } else if (err.status === 401) {
+        console.log("401 - переданный токен некорректен");
+      }
+    }
+  };
+
+  async function getUserInfo() {
+    if (loggedIn) {
+      const response = await Api.getUser();
+      try {
+        setCurrentUser(response.data);
+      } catch (err: any) {
+        console.log(err);
+      }
+    }
+  }
+
+  async function handleLogin(values: MyFormValues) {
+    try {
+      const response = await ApiAuth.loginUser(values);
+      if (response.data.access) {
+        localStorage.setItem("jwt", response.data.access);
+        setLoggedIn(true);
+      }
+    } catch {
+      setPopupOpened(true);
+      setError("Неверный логин или пароль");
+    }
+  }
+
+  const closeErrorPopup = () => {
+    setPopupOpened(false);
+  };
 
   return (
     <main className={styles.page}>
@@ -35,7 +100,17 @@ export const App = () => {
 
           <Route path="myteam" element={<Myteam />} />
         </Route>
-        <Route path="login" element={<LoginPage />} />
+        <Route
+          path="login"
+          element={
+            <LoginPage
+              handleLogin={handleLogin}
+              closeErrorPopup={closeErrorPopup}
+              popupOpened={popupOpened}
+              error={error}
+            />
+          }
+        />
         <Route path="register" element={<RegisterPage />} />
         <Route path="password-reset" element={<RefreshPasswordPage />} />
       </Routes>

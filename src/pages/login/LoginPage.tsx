@@ -1,4 +1,4 @@
-import { Formik, Field, Form, FormikHelpers } from "formik";
+import { Formik, Field, Form } from "formik";
 import "@/shared/styles.css";
 import classes from "./loginpage.module.css";
 import { Button } from "@/shared/ui/Button/Button";
@@ -6,32 +6,34 @@ import { Link } from "react-router-dom";
 import { basicSchema } from "@/schemas/validationSchema";
 import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import { ErrorPopup } from "@/components/ErrorPopup/ErrorPopup";
+import { MyFormValues } from "@/types";
+import React from "react";
 
-interface Values {
-  password: string;
-  email: string;
+interface LoginProps {
+  handleLogin: (values: MyFormValues) => void;
+  closeErrorPopup: () => void;
+  error: string;
+  popupOpened: boolean;
 }
 
-export const LoginPage = () => {
+export const LoginPage: React.FC<LoginProps> = ({
+  handleLogin,
+  closeErrorPopup,
+  popupOpened,
+}) => {
+  const initialValues: MyFormValues = { email: "", password: "" };
+
   return (
     <div className={classes.loginPage}>
       <div className="logo-container">
         <LogoImg />
       </div>
-      <ErrorPopup />
+      <ErrorPopup closeErrorPopup={closeErrorPopup} popupOpened={popupOpened} />
       <Formik
-        initialValues={{
-          email: "",
-          password: "",
-        }}
-        onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
-        ) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 500);
+        initialValues={initialValues}
+        onSubmit={(values, actions) => {
+          handleLogin(values);
+          actions.setSubmitting(false);
         }}
         validationSchema={basicSchema}
       >

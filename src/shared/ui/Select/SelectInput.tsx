@@ -1,14 +1,18 @@
 import Select, { StylesConfig } from "react-select";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { SelectOption } from "@/types";
 import "@/shared/styles.css";
 
 export interface OptionInterface {
-  options?: SelectOption[];
+  options: SelectOption[];
   className?: string;
+  labelText?: string;
+  disabled?: boolean;
+  departmentValue?: SelectOption;
+  onChange: () => SelectOption;
 }
 
-const colourStyles: StylesConfig = {
+const styles: StylesConfig = {
   control: (styles, { isDisabled }) => ({
     ...styles,
     display: "flex",
@@ -38,22 +42,39 @@ const colourStyles: StylesConfig = {
   },
 };
 
-export const SelectInput: React.FC<OptionInterface> = ({ options }) => {
+export const SelectInput: React.FC<OptionInterface> = ({
+  options,
+  labelText,
+  disabled,
+  departmentValue,
+  onChange,
+}) => {
   const [isSearchable] = useState(true);
-  const [isDisabled] = useState(false);
-  const [isLoading] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  useEffect(() => {
+    if (disabled) {
+      setIsDisabled(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (departmentValue) {
+      setIsDisabled(false);
+    }
+  }, [departmentValue]);
 
   return (
     <Select
       className="basic-single"
       classNamePrefix="select"
-      defaultValue={options && options[0]}
       isDisabled={isDisabled}
-      isLoading={isLoading}
       isSearchable={isSearchable}
       name="single-select"
       options={options}
-      styles={colourStyles}
+      defaultValue={{ label: labelText, value: "default" }}
+      styles={styles}
+      onChange={onChange}
     />
   );
 };
