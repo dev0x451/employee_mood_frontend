@@ -78,6 +78,18 @@ export const App = () => {
     }
   }
 
+  async function handleRegister(values: any) {
+    try {
+      const response = await ApiAuth.registerUser(values);
+      if (response) {
+        handleLogin(response.data.email, values.password);
+      }
+    } catch {
+      setPopupOpened(true);
+      setError("Неверный логин или пароль");
+    }
+  }
+
   const closeErrorPopup = () => {
     setPopupOpened(false);
   };
@@ -111,7 +123,10 @@ export const App = () => {
             />
           }
         />
-        <Route path="register" element={<RegisterPage />} />
+        <Route
+          path="register"
+          element={<RegisterPage handleRegister={handleRegister} />}
+        />
         <Route path="password-reset" element={<RefreshPasswordPage />} />
       </Routes>
     </main>

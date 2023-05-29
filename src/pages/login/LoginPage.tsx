@@ -5,7 +5,7 @@ import { Button } from "@/shared/ui/Button/Button";
 import { Link } from "react-router-dom";
 import { basicSchema } from "@/schemas/validationSchema";
 import { LogoImg } from "@/shared/ui/Logo/LogoImg";
-import { ErrorPopup } from "@/components/ErrorPopup/ErrorPopup";
+import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 import { MyFormValues } from "@/types";
 import React from "react";
 
@@ -28,7 +28,12 @@ export const LoginPage: React.FC<LoginProps> = ({
       <div className="logo-container">
         <LogoImg />
       </div>
-      <ErrorPopup closeErrorPopup={closeErrorPopup} popupOpened={popupOpened} />
+      <InfoPopup
+        closeErrorPopup={closeErrorPopup}
+        popupOpened={popupOpened}
+        popupMessage="Неверный логин или пароль"
+        isPositive={false}
+      />
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
