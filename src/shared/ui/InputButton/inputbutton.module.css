@@ -1,0 +1,19 @@
+.button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background-color: var(--color-background);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.button-opened {
+  background-image: url('./passwordOpened.svg');
+}
+
+.button-closed {
+  background-image: url('./passwordClosed.svg');
+}

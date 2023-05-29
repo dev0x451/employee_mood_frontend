@@ -4,6 +4,7 @@ import "@/shared/styles.css";
 import React, { useEffect, useState } from "react";
 import { SelectOption } from "@/types";
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
+import styles from "./dropdown.module.css";
 
 interface DropdownProps {
   label: string;
@@ -30,19 +31,20 @@ export const DropDown: React.FC<DropdownProps & FieldHookConfig<string>> = ({
   const { touched, error } = meta;
   const { setValue } = helpers;
 
-  const styles: StylesConfig = {
+  const selectStyles: StylesConfig = {
     control: (styles, { isDisabled }) => ({
       ...styles,
       display: "flex",
       backgroundColor: "#EBF1F4",
       width: "360px",
-      paddingLeft: "12px",
+      paddingLeft: "5px",
       height: "44px",
       color: !isDisabled ? "#99A2AD" : "#2C2D2E",
       borderRadius: "12px",
       fontWeight: "400",
       border: 0,
       boxShadow: "none",
+      marginTop: "10px",
     }),
     option: (styles, { isDisabled, isFocused, isSelected }) => {
       return {
@@ -76,7 +78,9 @@ export const DropDown: React.FC<DropdownProps & FieldHookConfig<string>> = ({
 
   return (
     <div>
-      <label htmlFor={props.id || props.name}>{label}</label>
+      <label className={styles.label} htmlFor={props.id || props.name}>
+        {label}
+      </label>
 
       <Select
         options={options}
@@ -86,7 +90,7 @@ export const DropDown: React.FC<DropdownProps & FieldHookConfig<string>> = ({
         className="basic-single"
         classNamePrefix="select"
         isDisabled={isDisabled}
-        styles={styles}
+        styles={selectStyles}
         placeholder={props.placeholder}
         noOptionsMessage={props.noOptionsMessage}
       />

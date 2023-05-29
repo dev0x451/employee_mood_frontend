@@ -3,7 +3,10 @@
   width: 100%;
   box-sizing: border-box;
   flex-direction: column;
-  padding: 12px 0;
+}
+
+.input-container {
+  position: relative;
 }
 
 .label {

@@ -5,5 +5,5 @@ interface ErrorMessageProps {
   children: React.ReactNode;
 }
 export const ErrorMessage: React.FC<ErrorMessageProps> = ({ children }) => {
-  return <div className={styles.error}>{children}</div>;
+  return <p className={styles.error}>{children}</p>;
 };
