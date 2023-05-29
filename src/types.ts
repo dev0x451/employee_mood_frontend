@@ -7,10 +7,15 @@ export interface ArticleInterface {
   banner: string;
 }
 
+type Department = {
+  department: number;
+};
+
 export interface SelectOption {
   label: string;
   value: string;
   isDisabled?: boolean;
+  departments: Department[];
 }
 
 export interface MyFormValues {
