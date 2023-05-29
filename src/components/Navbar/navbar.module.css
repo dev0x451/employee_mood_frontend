@@ -9,7 +9,7 @@
   align-items: flex-start;
   margin-top: 40px;
   background-color: var(--color-white);
-  gap: 24px;
+  gap: 20px;
 }
 
 .border {

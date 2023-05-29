@@ -24,7 +24,7 @@ export const Employees: React.FC = () => {
       avatar: "/image.png",
       name: 'Аркадий',
       position: 'Стремянной',
-      // colorball: 'green';
+      // colorball: 'green',
       state: 'в группе риска',
     },
 
