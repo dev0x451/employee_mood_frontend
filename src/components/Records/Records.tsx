@@ -25,9 +25,9 @@ export const Records: React.FC = () => {
             date: '28 мая 2023',
             state: '50% (умеренная тревожность)',
         },
-    
+
       ];
-    return ( 
+    return (
       <div className={styles.recodrds}>
         <div className={styles.tableRecords}>
           <button className={styles.sortButton}>Наименование опроса {sortIcon}</button>

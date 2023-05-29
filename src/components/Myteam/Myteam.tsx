@@ -50,7 +50,7 @@ export const Myteam: React.FC = () => {
           <input
             className={styles.input}
             name="myteam-search-input"
-            placeholder="Поиск"
+            placeholder="Начните вводить имя"
           />
           <img className={styles.searchIcon} src={icon} alt="search icon" />
           <Employees/>

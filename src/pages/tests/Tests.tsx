@@ -23,7 +23,7 @@ export const Tests = () => {
             </div>
         </div>
       </div>
-      
+
     </div>
   );
 };
