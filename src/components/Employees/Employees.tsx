@@ -1,7 +1,7 @@
 import styles from "./employees.module.css";
 import React from "react";
 import { EmployeeInterface } from "@/types";
-import { homeIcon } from "@/assets";
+import { sortIcon } from "@/assets";
 
 export const Employees: React.FC = () => {
 
@@ -33,9 +33,9 @@ export const Employees: React.FC = () => {
   return (
     <div className={styles.employees}>
       <div className={styles.sortContainer}>
-        <button className={styles.sortButton}>Сотрудник {homeIcon}</button>
-        <button className={styles.sortButton}>Должность {homeIcon}</button>
-        <button className={styles.sortButton}>Состояние {homeIcon}</button>
+        <button className={styles.sortButton}>Сотрудник {sortIcon}</button>
+        <button className={styles.sortButton}>Должность {sortIcon}</button>
+        <button className={styles.sortButton}>Состояние {sortIcon}</button>
       </div>
       {employees && employees.map((employee) => (
         <div className={styles.employee}>
