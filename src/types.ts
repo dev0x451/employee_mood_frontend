@@ -5,6 +5,10 @@ export interface ArticleInterface {
   banner: string;
 }
 
+type Department = {
+  department: number;
+};
+
 export interface EmployeeInterface {
   avatar?: string;
   name: string;
@@ -13,16 +17,25 @@ export interface EmployeeInterface {
   state: string;
 }
 
-
 export interface SelectOption {
   label: string;
   value: string;
   isDisabled?: boolean;
+  departments: Department[];
 }
 
 export interface MyFormValues {
   password: string;
   email: string;
+}
+
+export interface RegisterFormValues {
+  password: string;
+  confirmPassword: string;
+  lastName: string;
+  firstName: string;
+  department: string;
+  position: string;
 }
 
 export type CallbackFunction = () => void;

@@ -15,17 +15,7 @@ const maxLengthName = "Максимальное количество симво�
 // min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
 
 export const advancedSchema = yup.object().shape({
-  email: yup
-    .string()
-    .min(8, minLengthPassword)
-    .max(254, maxLengthPassword)
-    .matches(emailRules, {
-      message: errorMessage,
-    })
-    .email(errorMessage)
-    .required(errorMessage),
-  password: yup.string().required(requiredMessage),
-  passwordAdvanced: yup
+  password: yup
     .string()
     .required(requiredMessage)
     .min(8, minLengthPassword)
@@ -35,7 +25,7 @@ export const advancedSchema = yup.object().shape({
     }),
   confirmPassword: yup
     .string()
-    .oneOf([yup.ref("passwordAdvanced")], "Пароли не совпадают")
+    .oneOf([yup.ref("password")], "Пароли не совпадают")
     .required(requiredMessage),
   firstName: yup
     .string()
@@ -53,15 +43,8 @@ export const advancedSchema = yup.object().shape({
       message: lastNameErrorMessage,
     })
     .required(requiredMessage),
-  selectOptions: yup
-    .array()
-    .min(1)
-    .of(
-      yup.object().shape({
-        label: yup.string().required(),
-        value: yup.string().required(),
-      })
-    ),
+  department: yup.string().required(requiredMessage),
+  position: yup.string().required(requiredMessage),
 });
 
 export const basicSchema = yup.object().shape({
@@ -76,3 +59,16 @@ export const basicSchema = yup.object().shape({
     .required(errorMessage),
   password: yup.string().required(requiredMessage),
 });
+
+/*
+
+ singleSelectCustom: yup
+    .object()
+    .shape({
+      value: yup.string(),
+      label: yup.string(),
+      isDisabled: yup.boolean(),
+    })
+    .nullable()
+    .required("This field is required."),
+ */

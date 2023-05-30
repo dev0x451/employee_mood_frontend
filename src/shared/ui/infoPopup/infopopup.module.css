@@ -20,12 +20,12 @@
   display: flex;
 }
 
-.warning-img {
+.popup-img {
   width: 28px;
   height: 28px;
 }
 
-.warning-text {
+.popup-text {
   font-family: Montserrat, sans-serif;
   font-size: 16px;
   font-weight: 500;
@@ -40,7 +40,7 @@
   height: 24px;
   border: none;
   background-color: var(--color-background-white);
-  background-image: url('./../../assets/closeBtn.svg');
+  background-image: url('../../../assets/closeBtn.svg');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;

@@ -1,32 +1,45 @@
-import { Formik, Field, Form, FormikHelpers } from "formik";
-import "@/shared/styles.css";
-import { Button } from "@/shared/ui/Button/Button";
-import { basicSchema } from "@/schemas/validationSchema";
-import { LogoImg } from "@/shared/ui/Logo/LogoImg";
-import classes from "./registerpage.module.css";
-import { SelectInput } from "@/shared/ui/Select/SelectInput";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Formik, Form, FormikValues } from "formik";
 import * as Api from "@/shared/api/Api";
+import { advancedSchema } from "@/schemas/validationSchema";
 import { useRequest } from "@/shared/hooks/useRequest";
 import { SelectOption } from "@/types";
+import { Button } from "@/shared/ui/Button/Button";
+import { LogoImg } from "@/shared/ui/Logo/LogoImg";
+import { Input } from "@/shared/ui/Input/Input";
+import { DropDown } from "@/shared/ui/Dropdown/Dropdown";
+import "@/shared/styles.css";
+import classes from "./registerpage.module.css";
+import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
+import { useSearchParams } from "react-router-dom";
 
-interface Values {
-  passwordAdvanced: string;
-  confirmPassword: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  singleSelectCustom: string;
-  singleSelectCustom2: string;
+interface RegisterProps {
+  handleRegister: (
+    formikValues: FormikValues,
+    invite_code: string | null
+  ) => void;
+  closeErrorPopup: () => void;
+  popupOpened: boolean;
+  registerError: string;
 }
 
-export const RegisterPage = () => {
-  //получаем с бэка массив с должностями и позициями
-  const [departments] = useRequest(Api.getDepartments);
-  const [positions] = useRequest(Api.getPositions);
+export const RegisterPage: React.FC<RegisterProps> = ({
+  handleRegister,
+  closeErrorPopup,
+  popupOpened,
+  registerError,
+}) => {
+  // получение инвайт-кода для регистрации и декодирование
+  const [searchParams] = useSearchParams();
+  const invite_code = searchParams.get("invite_code");
+  const invite_code_decoded =
+    invite_code && invite_code.replace("%3D", "=").replace(/ /g, "+");
 
-  const [departmentChoice, setDepartmentChoice] = useState<SelectOption>();
-  const [positionChoice, setPositionChoice] = useState<SelectOption>();
+  //получаем с бэка массив с должностями и позициями
+  const [departments, error] = useRequest(() =>
+    Api.getDepartments(invite_code_decoded)
+  );
+  const [positions] = useRequest(() => Api.getPositions(invite_code_decoded));
 
   // трансформированные массивы с должностями и позициями со свойствами value и label (для react-select)
   const [optionsDepartments, setOptionsDepartments] = useState<SelectOption[]>(
@@ -34,9 +47,8 @@ export const RegisterPage = () => {
   );
   const [optionsPositions, setOptionsPositions] = useState<SelectOption[]>([]);
 
-  console.log(positionChoice);
   useEffect(() => {
-    if (departments) {
+    if (departments && positions) {
       const arrayDepartments = transformArray(departments, "Выберите отдел");
       const arrayPositions = transformArray(
         positions.results,
@@ -56,8 +68,14 @@ export const RegisterPage = () => {
       value: x.id,
       label: x.name,
       isDisabled: false,
+      departments: x.departments,
     }));
-    newArray.unshift({ label: labelText, value: "def", isDisabled: true });
+    newArray.unshift({
+      label: labelText,
+      value: "def",
+      isDisabled: true,
+      departments: [],
+    });
     return newArray;
   }
 
@@ -66,161 +84,85 @@ export const RegisterPage = () => {
       <div className="logo-container">
         <LogoImg />
       </div>
-      <Formik
-        initialValues={{
-          email: "",
-          passwordAdvanced: "",
-          confirmPassword: "",
-          firstName: "",
-          lastName: "",
-          singleSelectCustom: "",
-          singleSelectCustom2: "",
-        }}
-        onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
-        ) => {
-          console.log(values);
-          setSubmitting(false);
-        }}
-        validationSchema={basicSchema}
-      >
-        {({ errors, touched }) => (
-          <Form noValidate className={classes.registerForm}>
-            <h2 className={classes.registerTitle}>
-              Добро пожаловать в службу заботы о сотрудниках CareFor
-            </h2>
-            <ul className={classes.registerFormList}>
-              <li className={classes.registerFormListItem}>
-                <div className={classes.inputArea}>
-                  <label className="label" htmlFor="email">
-                    Имя
-                  </label>
-                  <Field
-                    className={
-                      errors.firstName && touched.firstName
-                        ? "input input-error"
-                        : "input"
-                    }
-                    id="firstName"
-                    name="firstName"
-                    type="text"
-                  />
-                  {errors.firstName && touched.firstName ? (
-                    <div className="error-message">{errors.firstName}</div>
-                  ) : null}
-                </div>
-                <div className={classes.inputArea}>
-                  <label className="label" htmlFor="email">
-                    Фамилия
-                  </label>
-                  <Field
-                    className={
-                      errors.lastName && touched.lastName
-                        ? "input input-error"
-                        : "input"
-                    }
-                    id="lastName"
-                    name="lastName"
-                    type="text"
-                  />
-                  {errors.lastName && touched.lastName ? (
-                    <div className="error-message">{errors.lastName}</div>
-                  ) : null}
-                </div>
-              </li>
-              <li className={classes.registerFormListItem}>
-                <div className={classes.inputArea}>
-                  <label className="label" htmlFor="password">
-                    Отдел
-                  </label>
-                  <Field
-                    name="singleSelectCustom"
-                    id="singleSelectCustom"
-                    placeholder="Single Select"
-                    isMulti={false}
-                    component={SelectInput}
+      {error ? (
+        <div>Ссылка недействительна!</div>
+      ) : (
+        <Formik
+          initialValues={{
+            password: "",
+            confirmPassword: "",
+            firstName: "",
+            lastName: "",
+            department: "",
+            position: "",
+          }}
+          onSubmit={(values, actions) => {
+            handleRegister(values, invite_code_decoded);
+            console.log(values);
+            actions.setSubmitting(false);
+          }}
+          validationSchema={advancedSchema}
+        >
+          {({ values }) => (
+            <Form noValidate className={classes.registerForm}>
+              <h2 className={classes.registerTitle}>
+                Добро пожаловать в службу заботы о сотрудниках CareFor
+              </h2>
+              <ul className={classes.registerFormList}>
+                <li className={classes.registerFormListItem}>
+                  <Input label="Имя" name="firstName" type="text" />
+                  <Input label="Фамилия" name="lastName" type="text" />
+                </li>
+                <li className={classes.registerFormListItem}>
+                  <DropDown
+                    label="Отдел"
+                    name="department"
                     options={optionsDepartments}
-                    labelText="Выберите отдел"
-                    onChange={(choice: SelectOption) =>
-                      setDepartmentChoice(choice)
-                    }
+                    iid="department"
+                    placeholder="Выбрать отдел"
                   />
-                </div>
-                <div className={classes.inputArea}>
-                  <label className="label" htmlFor="password">
-                    Должность
-                  </label>
-                  <Field
-                    name="singleSelectCustom2"
-                    id="singleSelectCustom2"
-                    placeholder="Single Select"
-                    isMulti={false}
-                    component={SelectInput}
-                    options={optionsPositions}
-                    labelText="Выберите должность"
+                  <DropDown
+                    label="Должность"
+                    name="position"
+                    options={optionsPositions.filter((option: any) =>
+                      option.departments.includes(values.department)
+                    )}
+                    iid="position"
+                    departmentChoice={values.department}
+                    placeholder="Выбрать должность"
                     disabled={true}
-                    departmentValue={departmentChoice}
-                    onChange={(choice: SelectOption) =>
-                      setPositionChoice(choice)
-                    }
+                    noOptionsMessage={() => "Нет доступных должностей"}
                   />
-                </div>
-              </li>
-              <li className={classes.registerFormListItem}>
-                <div className={classes.inputArea}>
-                  <label className="label" htmlFor="password">
-                    Пароль
-                  </label>
-                  <Field
-                    className={
-                      errors.passwordAdvanced && touched.passwordAdvanced
-                        ? "input input-error"
-                        : "input"
-                    }
-                    id="passwordAdvanced"
-                    name="passwordAdvanced"
-                    type="password"
-                  />
-                  {errors.passwordAdvanced && touched.passwordAdvanced ? (
-                    <div className="error-message">
-                      {errors.passwordAdvanced}
-                    </div>
-                  ) : null}
-                </div>
-                <div className={classes.inputArea}>
-                  <label className="label" htmlFor="password">
-                    Подтверждение пароля
-                  </label>
-                  <Field
-                    className={
-                      errors.confirmPassword && touched.confirmPassword
-                        ? "input input-error"
-                        : "input"
-                    }
-                    id="confirmPassword"
+                </li>
+                <li className={classes.registerFormListItem}>
+                  <Input label="Пароль" name="password" type="password" />
+                  <Input
+                    label="Подтверждение пароля"
                     name="confirmPassword"
                     type="password"
                   />
-                  {errors.confirmPassword && touched.confirmPassword ? (
-                    <div className="error-message">
-                      {errors.confirmPassword}
-                    </div>
-                  ) : null}
-                </div>
-              </li>
-            </ul>
-            <p className={classes.registerPasswordInfo}>
-              Пароль должен содержать не менее 8 символов
-            </p>
-            <p className={classes.registerAgreement}>
-              Регистрируясь, вы принимаете Пользовательское соглашение и даете
-              Согласие на обработку персональных данных.
-            </p>
-            <Button title="Зарегистрироваться" mode="primary" />
-          </Form>
-        )}
-      </Formik>
+                </li>
+              </ul>
+              <p className={classes.registerPasswordInfo}>
+                Пароль должен содержать не менее 8 символов
+              </p>
+              <p className={classes.registerAgreement}>
+                Регистрируясь, вы принимаете Пользовательское соглашение и даете
+                Согласие на обработку персональных данных.
+              </p>
+              <Button title="Зарегистрироваться" mode="primary" />
+            </Form>
+          )}
+        </Formik>
+      )}
+      {registerError && (
+        <InfoPopup
+          closeErrorPopup={closeErrorPopup}
+          popupOpened={popupOpened}
+          popupMessage={registerError}
+          isPositive={false}
+        />
+      )}
     </div>
   );
 };
