@@ -8,6 +8,8 @@ import { Events } from "../../pages/events/Events";
 import { Bookmarks } from "../../pages/bookmarks/Bookmarks";
 import { Calendar } from "../../pages/calendar/Calendar";
 import { Myteam } from "../Myteam/Myteam";
+import { FormikValues } from "formik";
+
 import styles from "./app.module.css";
 import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { RegisterPage } from "@/pages/register/RegisterPage";
@@ -78,15 +80,17 @@ export const App = () => {
     }
   }
 
-  async function handleRegister(values: any) {
+  async function handleRegister(values: FormikValues, invite_code: string) {
     try {
-      const response = await ApiAuth.registerUser(values);
+      const response = await ApiAuth.registerUser(values, invite_code);
       if (response) {
-        handleLogin(response.data.email, values.password);
+        const email = response.data.email;
+        const password = values.password;
+        await handleLogin({ email, password });
       }
     } catch {
       setPopupOpened(true);
-      setError("Неверный логин или пароль");
+      setError("Что-то пошло не так. Попробуйте еще раз.");
     }
   }
 
@@ -125,7 +129,14 @@ export const App = () => {
         />
         <Route
           path="register"
-          element={<RegisterPage handleRegister={handleRegister} />}
+          element={
+            <RegisterPage
+              handleRegister={handleRegister}
+              closeErrorPopup={closeErrorPopup}
+              popupOpened={popupOpened}
+              registerError={error}
+            />
+          }
         />
         <Route path="password-reset" element={<RefreshPasswordPage />} />
       </Routes>

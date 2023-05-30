@@ -10,20 +10,18 @@ export const getUser = () => {
   });
 };
 
-export const getDepartments = () => {
+export const getDepartments = (invite_code: string | null) => {
   return axios.get(`${BASE_URL}/departments`, {
     params: {
-      invite_code:
-        "NzhlYjVlZDYtMWZkYy00NzVhLWIzZDItNmU2ODUxNzk1N2M5TVGxITGXfGCuJ3+P6dqLOMfQ7Qd+XFPFGts7T3obPSc=",
+      invite_code: invite_code,
     },
   });
 };
 
-export const getPositions = () => {
+export const getPositions = (invite_code: string | null) => {
   return axios.get(`${BASE_URL}/positions`, {
     params: {
-      invite_code:
-        "NzhlYjVlZDYtMWZkYy00NzVhLWIzZDItNmU2ODUxNzk1N2M5TVGxITGXfGCuJ3+P6dqLOMfQ7Qd+XFPFGts7T3obPSc=",
+      invite_code: invite_code,
     },
   });
 };

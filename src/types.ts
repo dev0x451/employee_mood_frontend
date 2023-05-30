@@ -23,6 +23,15 @@ export interface MyFormValues {
   email: string;
 }
 
+export interface RegisterFormValues {
+  password: string;
+  confirmPassword: string;
+  lastName: string;
+  firstName: string;
+  department: string;
+  position: string;
+}
+
 export type CallbackFunction = () => void;
 
 export interface Image {

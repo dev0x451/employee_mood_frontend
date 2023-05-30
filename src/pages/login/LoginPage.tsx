@@ -12,14 +12,15 @@ import React from "react";
 interface LoginProps {
   handleLogin: (values: MyFormValues) => void;
   closeErrorPopup: () => void;
-  error: string;
   popupOpened: boolean;
+  error: string;
 }
 
 export const LoginPage: React.FC<LoginProps> = ({
   handleLogin,
   closeErrorPopup,
   popupOpened,
+  error,
 }) => {
   const initialValues: MyFormValues = { email: "", password: "" };
 
@@ -28,12 +29,14 @@ export const LoginPage: React.FC<LoginProps> = ({
       <div className="logo-container">
         <LogoImg />
       </div>
-      <InfoPopup
-        closeErrorPopup={closeErrorPopup}
-        popupOpened={popupOpened}
-        popupMessage="Неверный логин или пароль"
-        isPositive={false}
-      />
+      {error && (
+        <InfoPopup
+          closeErrorPopup={closeErrorPopup}
+          popupOpened={popupOpened}
+          popupMessage={error}
+          isPositive={false}
+        />
+      )}
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
