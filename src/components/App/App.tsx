@@ -80,7 +80,10 @@ export const App = () => {
     }
   }
 
-  async function handleRegister(values: FormikValues, invite_code: string) {
+  async function handleRegister(
+    values: FormikValues,
+    invite_code: string | null
+  ) {
     try {
       const response = await ApiAuth.registerUser(values, invite_code);
       if (response) {
