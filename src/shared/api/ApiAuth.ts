@@ -8,10 +8,7 @@ export const loginUser = (values: MyFormValues) => {
   return axios.post(`${BASE_URL}/auth/jwt/create`, values);
 };
 
-export const registerUser = (
-  values: FormikValues,
-  invite_code: string | null
-) => {
+export const registerUser = (values: FormikValues, invite_code: string) => {
   return axios.post(`${BASE_URL}/users/register`, {
     invite_code,
     first_name: values.firstName,
