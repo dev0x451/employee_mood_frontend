@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const passwordRules = /^(?!.*\s)(?=.*[a-zа-я])(?=.*[A-ZА-Я]).+$/;
+const passwordRules = /^[A-Za-zА-Яа-яЁё\d@$!%*#?&]+$/;
 const emailRules = /^([A-Za-z0-9\-_@.]+)$/;
 const nameRules = /^[а-яА-ЯЁё]+(-[а-яА-ЯЁё]+)?$/;
 const errorMessage = "Пожалуйста, проверьте, правильно ли указан адрес";
@@ -12,7 +12,6 @@ const minLengthPassword = "Минимальное количество симв�
 const maxLengthPassword = "Максимальное количество символов: 254";
 const minLengthName = "Минимальное количество символов: 2";
 const maxLengthName = "Максимальное количество символов: 32";
-// min 5 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
 
 export const advancedSchema = yup.object().shape({
   password: yup
