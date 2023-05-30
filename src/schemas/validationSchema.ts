@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const passwordRules = /^(?=.*[a-zа-я])(?=.*[A-ZА-Я]).+$/;
+const passwordRules = /^(?!.*\s)(?=.*[a-zа-я])(?=.*[A-ZА-Я]).+$/;
 const emailRules = /^([A-Za-z0-9\-_@.]+)$/;
 const nameRules = /^[а-яА-ЯЁё]+(-[а-яА-ЯЁё]+)?$/;
 const errorMessage = "Пожалуйста, проверьте, правильно ли указан адрес";

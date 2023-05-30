@@ -8,10 +8,12 @@ interface ProtectedRouteProps {
 export const ProtectedRoutes: React.FC<ProtectedRouteProps> = ({
   loggedIn,
 }) => {
-  return (
+  return loggedIn ? (
     <>
-      <Header/>
-      {loggedIn ? <Outlet /> : <Navigate to="/login" />}
+      {" "}
+      <Header /> <Outlet />{" "}
     </>
-    );
+  ) : (
+    <Navigate to="/login" />
+  );
 };

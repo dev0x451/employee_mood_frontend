@@ -25,6 +25,7 @@ export const App = () => {
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [currentUser, setCurrentUser] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -39,6 +40,7 @@ export const App = () => {
   }, [loggedIn]);
 
   const auth = async (jwt: string) => {
+    setIsLoading(true);
     try {
       const response = await ApiAuth.checkToken(jwt);
       if (response.statusText === "OK") {
@@ -53,13 +55,15 @@ export const App = () => {
       } else if (err.status === 401) {
         console.log("401 - переданный токен некорректен");
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   async function getUserInfo() {
     if (loggedIn) {
-      const response = await Api.getUser();
       try {
+        const response = await Api.getUser();
         setCurrentUser(response.data);
       } catch (err: any) {
         console.log(err);
@@ -97,6 +101,10 @@ export const App = () => {
   const closeErrorPopup = () => {
     setPopupOpened(false);
   };
+
+  if (isLoading) {
+    return <div></div>;
+  }
 
   return (
     <main className={styles.page}>
