@@ -30,6 +30,21 @@
   box-shadow: var(--shadow-medium);
 }
 
+.login-form-list {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.login-form-list-item {
+  margin-bottom: 25px;
+}
+
+.login-form-list-item:last-of-type {
+  margin: 0;
+}
+
 .form-link {
   display: block;
   width: fit-content;

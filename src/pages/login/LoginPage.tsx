@@ -1,4 +1,4 @@
-import { Formik, Field, Form } from "formik";
+import { Formik, Form } from "formik";
 import "@/shared/styles.css";
 import classes from "./loginpage.module.css";
 import { Button } from "@/shared/ui/Button/Button";
@@ -8,6 +8,7 @@ import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 import { MyFormValues } from "@/types";
 import React from "react";
+import { Input } from "@/shared/ui/Input/Input";
 
 interface LoginProps {
   handleLogin: (values: MyFormValues) => void;
@@ -45,42 +46,21 @@ export const LoginPage: React.FC<LoginProps> = ({
         }}
         validationSchema={basicSchema}
       >
-        {({ errors, touched }) => (
-          <Form noValidate className={classes.loginForm}>
-            <h2 className={classes.loginTitle}>Авторизуйтесь, пожалуйста</h2>
-            <label className="label" htmlFor="email">
-              Введите email
-            </label>
-            <Field
-              className={
-                errors.email && touched.email ? "input input-error" : "input"
-              }
-              id="email"
-              name="email"
-              type="email"
-            />
-            {errors.email && touched.email ? (
-              <div className="error-message">{errors.email}</div>
-            ) : null}
-            <label className="label" htmlFor="password">
-              Введите пароль
-            </label>
-            <Field
-              className={
-                errors.password && touched.password
-                  ? "input input-error"
-                  : "input"
-              }
-              id="password"
-              name="password"
-              type="password"
-            />
-            <Button title="Войти" type="submit" mode="primary" />
-            <Link className={classes.formLink} to="/refresh-password">
-              Забыли пароль?
-            </Link>
-          </Form>
-        )}
+        <Form noValidate className={classes.loginForm}>
+          <h2 className={classes.loginTitle}>Авторизуйтесь, пожалуйста</h2>
+          <ul className={classes.loginFormList}>
+            <li className={classes.loginFormListItem}>
+              <Input label="Введите email" name="email" type="text" />
+            </li>
+            <li className={classes.loginFormListItem}>
+              <Input label="Введите пароль" name="password" type="password" />
+            </li>
+          </ul>
+          <Button title="Войти" type="submit" mode="primary" />
+          <Link className={classes.formLink} to="/refresh-password">
+            Забыли пароль?
+          </Link>
+        </Form>
       </Formik>
     </div>
   );
