@@ -1,6 +1,12 @@
 import styles from "./BurnoutTestBanner.module.css";
 import image from "./burnout-image.png";
-export const BurnoutTestBanner = () => {
+import { Link } from "react-router-dom";
+
+interface BurnoutTestProps {
+  id: string
+}
+
+export const BurnoutTestBanner: React.FC<BurnoutTestProps> = ({id}) => {
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
@@ -13,7 +19,9 @@ export const BurnoutTestBanner = () => {
             Профессиональное выгорание трудно распознать оно может серьёзно
             подорвать здоровье и привести к депрессии.
           </p>
-          <button className={styles.button}>Пройти тест</button>
+          <Link to={`/tests/${id}`} key={id}>
+            <button type='button' className={styles.button}>Пройти тест</button>
+          </Link>
         </div>
       </div>
       <div className={styles.imageContainer}>

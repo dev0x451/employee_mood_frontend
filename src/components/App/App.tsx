@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { Main } from "../../pages/main/Main";
 import { Tests } from "../../pages/tests/Tests";
+import { Test } from "../Test/Test";
 import { Advices } from "../../pages/advices/Advices";
 import { Events } from "../../pages/events/Events";
 import { Bookmarks } from "../../pages/bookmarks/Bookmarks";
@@ -21,7 +22,7 @@ import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 
 export const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [currentUser, setCurrentUser] = useState([]);
@@ -108,6 +109,8 @@ export const App = () => {
           <Route path="/" element={<Main />} />
 
           <Route path="tests" element={<Tests />} />
+
+          <Route path="tests/:id" element={<Test />} />
 
           <Route path="advices" element={<Advices />} />
 

@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: var(--color-accent-gray);
+  gap: 20px;
+}
+
+.question {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  background: white;
+}
+
+.text {
+  font: var(--font-body)
+}
+
+.checkbox {
+  /* display: inline-block; */
+  align-self: flex-start;
+}
