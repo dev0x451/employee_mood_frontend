@@ -1,0 +1,70 @@
+.myteam {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 40px 52px 40px 43px;
+  background-color: var(--color-main-background);
+}
+
+.left-screen {
+  position: relative;
+  width: 62%;
+  height: 100%;
+  padding: 10px;
+  margin-right: 13px;
+
+  /* border: 1px black solid; */
+
+  /* border-radius: 20px; */
+}
+
+.right-screen {
+  width: 30%;
+  height: 100%;
+  padding: 10px;
+
+  /* border: 1px black solid; */
+
+  /* border-radius: 20px; */
+}
+
+.input {
+  width: 100%;
+  height: 36px;
+  padding: 8px 12px 8px 36px;
+  border: 0;
+  border-radius: 12px;
+  margin-top: 24px;
+  background-color: white;
+  color: var(--color-icon-secondary);
+  font: var(--font-search-input);
+  outline: 0;
+}
+
+.search-icon {
+  position: absolute;
+  top: 73px;
+  left: 20px;
+}
+
+.title {
+  margin: 0;
+  font-family: Montserrat;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 28px;
+}
+
+.subtitle {
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.text {
+  display: inline-block;
+  font-size: 50px;
+}

@@ -1,0 +1,47 @@
+.events {
+  width: 324px;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-black);
+  font: var(--font-h3);
+}
+
+.list {
+  padding: 0;
+  list-style: none;
+}
+
+.point {
+  display: flex;
+  width: 100%;
+  padding: 8px 16px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+  background: #fff;
+}
+
+.img {
+  width: 48px;
+  height: 48px;
+  margin-right: 12px;
+}
+
+.point-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+}
+
+.text {
+  margin: 0;
+  color: var(--color-black);
+  font: var(--font-body);
+}
+
+.time {
+  color: #818c99;
+  font: var(--font-body);
+}

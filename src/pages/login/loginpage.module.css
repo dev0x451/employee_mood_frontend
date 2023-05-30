@@ -1,0 +1,67 @@
+.login-page {
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-image: url('../../assets/gradient-background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.login-title {
+  box-sizing: border-box;
+  padding: 20px 16px 20px 0;
+  margin: 0 0 10px;
+  color: var(--color-black);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: var(--font-line-xl);
+}
+
+.login-form {
+  width: 472px;
+  box-sizing: border-box;
+  padding: 20px 56px;
+  border-radius: 20px;
+  background-color: var(--color-background-white);
+  box-shadow: var(--shadow-medium);
+}
+
+.login-form-list {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.login-form-list-item {
+  margin-bottom: 25px;
+}
+
+.login-form-list-item:last-of-type {
+  margin: 0;
+}
+
+.form-link {
+  display: block;
+  width: fit-content;
+  margin: 12px auto;
+  color: var(--color-accent-purple);
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  line-height: var(--font-line-m);
+  text-align: center;
+  text-decoration: none;
+}
+
+.form-link:hover {
+  color: var(--color-accent-violet);
+
+}
+
+.form-link:active {
+  color: var(--color-accent-secondary);
+}

@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  width: 122px;
+  height: 58px;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0 0 12px 12px;
+  filter: drop-shadow(0 0 2px rgb(0 0 0 / 6%))
+    drop-shadow(0 4px 2px rgb(0 0 0 / 3%));
+  font: var(--font-button);
+  gap: 12px;
+}
+
+.mood-button-red {
+  border-top: 6px solid #fa3d33;
+}
+
+.mood-button-orange {
+  border-top: 6px solid #ff6941;
+}
+
+.mood-button-yellow {
+  border-top: 6px solid #feab23;
+}
+
+.mood-button-green {
+  border-top: 6px solid #99ca65;
+}
+
+.mood-button-supergreen {
+  border-top: 6px solid #00b750;
+}
