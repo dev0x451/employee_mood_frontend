@@ -21,7 +21,7 @@ import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 
 export const App = () => {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [currentUser, setCurrentUser] = useState([]);

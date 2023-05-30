@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 export interface ArticleInterface {
   type: string;
   title: string;
@@ -10,6 +8,14 @@ export interface ArticleInterface {
 type Department = {
   department: number;
 };
+
+export interface EmployeeInterface {
+  avatar?: string;
+  name: string;
+  position: string;
+  // colorball: string;
+  state: string;
+}
 
 export interface SelectOption {
   label: string;
@@ -40,36 +46,8 @@ export interface Image {
   id: string;
 }
 
-export interface Card {
-  mainImage: Image;
-}
-
-export interface FullCard extends Card {
-  images: Image[];
+export interface RecordInterface {
   description: string;
-}
-// 7
-// 7
-// 7
-// 7
-// 7
-// 7
-
-export interface DragItem {
-  id: string;
-  children: ReactNode;
-}
-
-export interface Column {
-  name: string;
-  items: DragItem[];
-}
-
-export interface Columns {
-  [key: string]: Column;
-}
-
-export interface MathSign {
-  id: string;
-  content: string;
+  date: string;
+  state: string;
 }
