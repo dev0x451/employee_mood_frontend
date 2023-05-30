@@ -55,8 +55,6 @@ export const App = () => {
       } else if (err.status === 401) {
         console.log("401 - переданный токен некорректен");
       }
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -67,6 +65,8 @@ export const App = () => {
         setCurrentUser(response.data);
       } catch (err: any) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     }
   }

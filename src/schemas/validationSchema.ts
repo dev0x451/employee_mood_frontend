@@ -60,15 +60,14 @@ export const basicSchema = yup.object().shape({
   password: yup.string().required(requiredMessage),
 });
 
-/*
-
- singleSelectCustom: yup
-    .object()
-    .shape({
-      value: yup.string(),
-      label: yup.string(),
-      isDisabled: yup.boolean(),
+export const refreshEmailSchema = yup.object().shape({
+  email: yup
+    .string()
+    .min(8, minLengthPassword)
+    .max(254, maxLengthPassword)
+    .matches(emailRules, {
+      message: errorMessage,
     })
-    .nullable()
-    .required("This field is required."),
- */
+    .email(errorMessage)
+    .required(errorMessage),
+});
