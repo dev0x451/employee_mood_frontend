@@ -107,7 +107,6 @@ export const RegisterPage: React.FC<RegisterProps> = ({
           }}
           onSubmit={(values, actions) => {
             handleRegister(values, invite_code_decoded);
-            console.log(values);
             actions.setSubmitting(false);
           }}
           validationSchema={advancedSchema}
@@ -159,7 +158,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
                 Регистрируясь, вы принимаете Пользовательское соглашение и даете
                 Согласие на обработку персональных данных.
               </p>
-              <Button title="Зарегистрироваться" mode="primary" />
+              <Button title="Зарегистрироваться" mode="primary" width="360px" />
             </Form>
           )}
         </Formik>

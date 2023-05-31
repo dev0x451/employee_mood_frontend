@@ -5,9 +5,10 @@ interface ButtonProps {
   title: string;
   mode: string;
   type?: "submit" | "reset" | "button" | undefined;
+  width?: string;
 }
 
-export const Button: React.FC<ButtonProps> = ({ title, mode, type }) => {
+export const Button: React.FC<ButtonProps> = ({ title, mode, type, width }) => {
   const className = cl(classes.button, {
     [classes.buttonPrimary]: mode === "primary",
     [classes.buttonSecondary]: mode === "secondary",
@@ -15,7 +16,7 @@ export const Button: React.FC<ButtonProps> = ({ title, mode, type }) => {
   });
 
   return (
-    <button className={className} type={type}>
+    <button className={className} style={{ width: width }} type={type}>
       {title}
     </button>
   );

@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-const passwordRules = /^[A-Za-zА-Яа-яЁё\d@$!%*#?&]+$/;
+const passwordRules = /^(?!.*\s)(?=.*[a-zа-я])(?=.*[A-ZА-Я]).+$/;
 const emailRules = /^([A-Za-z0-9\-_@.]+)$/;
 const nameRules = /^[а-яА-ЯЁё]+(-[а-яА-ЯЁё]+)?$/;
 const errorMessage = "Пожалуйста, проверьте, правильно ли указан адрес";
@@ -69,4 +69,19 @@ export const refreshEmailSchema = yup.object().shape({
     })
     .email(errorMessage)
     .required(errorMessage),
+});
+
+export const refreshPasswordSchema = yup.object().shape({
+  password: yup
+    .string()
+    .required(requiredMessage)
+    .min(8, minLengthPassword)
+    .max(254, maxLengthPassword)
+    .matches(passwordRules, {
+      message: passwordErrorMessage,
+    }),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Пароли не совпадают")
+    .required(requiredMessage),
 });

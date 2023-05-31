@@ -24,6 +24,7 @@ export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [currentUser, setCurrentUser] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
@@ -94,12 +95,40 @@ export const App = () => {
       }
     } catch {
       setPopupOpened(true);
-      setError("Что-то пошло не так. Попробуйте еще раз.");
+      setError("Что-то пошло не так. Попробуйте еще раз");
+    }
+  }
+
+  async function handleSendResetCode(email: string) {
+    try {
+      const response = await ApiAuth.sendResetCode(email);
+      if (response) {
+        setPopupOpened(true);
+        setSuccess("Письмо отправлено на почту");
+        setError("");
+      }
+    } catch (err) {
+      setPopupOpened(true);
+      setError("Не удалось найти пользователя с таким e-mail");
+    }
+  }
+
+  async function handleResetPassword(values: FormikValues, resetCode: string) {
+    try {
+      const response = await ApiAuth.resetPassword(values, resetCode);
+      if (response) {
+        navigate("/login");
+      }
+    } catch (err) {
+      setPopupOpened(true);
+      setError("Недействительный ключ");
     }
   }
 
   const closeErrorPopup = () => {
     setPopupOpened(false);
+    setError("");
+    setSuccess("");
   };
 
   if (isLoading) {
@@ -146,7 +175,19 @@ export const App = () => {
             />
           }
         />
-        <Route path="password-reset" element={<RefreshPasswordPage />} />
+        <Route
+          path="password-reset"
+          element={
+            <RefreshPasswordPage
+              handleSendResetCode={handleSendResetCode}
+              handleResetPassword={handleResetPassword}
+              success={success}
+              error={error}
+              closeErrorPopup={closeErrorPopup}
+              popupOpened={popupOpened}
+            />
+          }
+        />
       </Routes>
     </main>
   );
