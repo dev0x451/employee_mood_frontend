@@ -11,6 +11,8 @@ export const Input = (props: OtherProps & FieldHookConfig<string>) => {
   const [field, meta] = useField(props);
   const [passwordOpened, setPasswordOpened] = useState(false);
 
+  console.log(field);
+
   const handleOpenPassword = () => {
     if (passwordOpened) {
       setPasswordOpened(false);
@@ -27,7 +29,11 @@ export const Input = (props: OtherProps & FieldHookConfig<string>) => {
       {props.type === "password" ? (
         <div className={styles.inputContainer}>
           <input
-            className={styles.input}
+            className={
+              meta.touched && meta.error
+                ? `${styles.input} ${styles.inputError}`
+                : styles.input
+            }
             {...field}
             type={!passwordOpened ? props.type : "text"}
           />
@@ -37,7 +43,15 @@ export const Input = (props: OtherProps & FieldHookConfig<string>) => {
           />
         </div>
       ) : (
-        <input className={styles.input} {...field} type={props.type} />
+        <input
+          className={
+            meta.touched && meta.error
+              ? `${styles.input} ${styles.inputError}`
+              : styles.input
+          }
+          {...field}
+          type={props.type}
+        />
       )}
       {meta.touched && meta.error ? (
         <ErrorMessage>{meta.error}</ErrorMessage>
