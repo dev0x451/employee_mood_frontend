@@ -1,6 +1,9 @@
 .button {
+  display: flex;
+  justify-content: center;
   width: 100%;
   height: 44px;
+  align-items: center;
   border: none;
   border-radius: 16px;
   margin: 0;
@@ -50,4 +53,8 @@
 .button-outline:active {
   border-color: var(--color-accent-secondary);
   color: var(--color-accent-secondary);
+}
+
+.add-icon {
+  margin-right: 10px;
 }

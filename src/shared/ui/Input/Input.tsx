@@ -11,8 +11,6 @@ export const Input = (props: OtherProps & FieldHookConfig<string>) => {
   const [field, meta] = useField(props);
   const [passwordOpened, setPasswordOpened] = useState(false);
 
-  console.log(field);
-
   const handleOpenPassword = () => {
     if (passwordOpened) {
       setPasswordOpened(false);

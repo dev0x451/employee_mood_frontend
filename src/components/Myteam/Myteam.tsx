@@ -5,9 +5,9 @@ import { Navbar } from "@/components/Navbar/Navbar";
 import { Articles } from "../Articles/Articles";
 import { Employees } from "../Employees/Employees";
 import { ArticleInterface } from "@/types";
+import { Button } from "@/shared/ui/Button/Button";
 
 export const Myteam: React.FC = () => {
-
   const articles: ArticleInterface[] = [
     {
       type: "видео",
@@ -46,19 +46,27 @@ export const Myteam: React.FC = () => {
       <Navbar />
       <div className={styles.myteam}>
         <div className={styles.leftScreen}>
-          <h2 className={styles.title}>Моя команда</h2>
+          <div className={styles.topContent}>
+            <h2 className={styles.title}>Моя команда</h2>
+            <Button
+              title="Добавить сотрудника"
+              mode="primary"
+              width="236px"
+              height="36px"
+            />
+          </div>
           <input
             className={styles.input}
             name="myteam-search-input"
             placeholder="Начните вводить имя"
           />
           <img className={styles.searchIcon} src={icon} alt="search icon" />
-          <Employees/>
+          <Employees />
         </div>
         <div className={styles.rightScreen}>
           <Articles
             articles={articles}
-            title={'Как помочь сотрудникам справиться со стрессом'}
+            title={"Как помочь сотрудникам справиться со стрессом"}
           />
         </div>
       </div>
