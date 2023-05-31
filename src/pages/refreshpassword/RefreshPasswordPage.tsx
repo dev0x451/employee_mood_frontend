@@ -1,49 +1,22 @@
 import "@/shared/styles.css";
 import classes from "./refreshpasswordpage.module.css";
-import { Button } from "@/shared/ui/Button/Button";
-import { Formik, Form, FormikHelpers } from "formik";
-import { refreshEmailSchema } from "@/schemas/validationSchema";
 import { LogoImg } from "@/shared/ui/Logo/LogoImg";
-import { Input } from "@/shared/ui/Input/Input";
-interface Values {
-  password?: string;
-  email: string;
-  confirmPassword?: string;
-}
+import { useSearchParams } from "react-router-dom";
+import { EmailFormRefresh } from "@/components/EmailFormRefresh/EmailFormRefresh";
+import { PasswordFormRefresh } from "@/components/PasswordFormRefresh/PasswordFormRefresh";
 
 export const RefreshPasswordPage = () => {
+  // получение reset-кода для восстановления пароля
+  const [searchParams] = useSearchParams();
+  const reset_code = searchParams.get("invite_code");
+  const reset_code_decoded =
+    (reset_code && reset_code.replace("%3D", "=").replace(/ /g, "+")) || "";
   return (
     <div className={classes.refreshPasswordPage}>
       <div className="logo-container">
         <LogoImg />
       </div>
-      <Formik
-        initialValues={{
-          email: "",
-        }}
-        onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
-        ) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 500);
-        }}
-        validationSchema={refreshEmailSchema}
-      >
-        <Form noValidate className={classes.refreshPasswordForm}>
-          <h2 className={classes.refreshPasswordTitle}>
-            Восстановление пароля
-          </h2>
-          <p className={classes.refreshPasswordInfo}>
-            Укажите адрес электронной почты, и мы вышлем инструкцию по
-            восстановлению пароля.
-          </p>
-          <Input label="Введите email" name="email" type="text" />
-          <Button title="Воcстановить" type="submit" mode="primary" />
-        </Form>
-      </Formik>
+      {!reset_code_decoded ? <EmailFormRefresh /> : <PasswordFormRefresh />}
     </div>
   );
 };

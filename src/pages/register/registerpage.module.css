@@ -17,7 +17,7 @@
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
-  padding: 20px 40px;
+  padding: 20px 40px 28px;
   border-radius: 20px;
   background-color: var(--color-background-white);
   box-shadow: var(--shadow-medium);
@@ -63,7 +63,7 @@
 .register-agreement {
   max-width: 740px;
   align-self: flex-start;
-  margin: 25px 0 3px;
+  margin: 25px 0 24px;
   color: var(--color-text-primary);
   font-size: 14px;
   font-weight: 400;

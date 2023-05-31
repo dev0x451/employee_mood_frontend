@@ -70,3 +70,18 @@ export const refreshEmailSchema = yup.object().shape({
     .email(errorMessage)
     .required(errorMessage),
 });
+
+export const refreshPasswordSchema = yup.object().shape({
+  password: yup
+    .string()
+    .required(requiredMessage)
+    .min(8, minLengthPassword)
+    .max(254, maxLengthPassword)
+    .matches(passwordRules, {
+      message: passwordErrorMessage,
+    }),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password")], "Пароли не совпадают")
+    .required(requiredMessage),
+});
