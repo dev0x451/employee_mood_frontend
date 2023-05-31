@@ -20,6 +20,12 @@ export const registerUser = (values: FormikValues, invite_code: string) => {
   });
 };
 
+export const sendResetCode = (email: string) => {
+  return axios.post(`${BASE_URL}/users/password_reset`, {
+    email: email,
+  });
+};
+
 export const checkToken = (token: string) => {
   return axios.post(`${BASE_URL}/auth/jwt/verify`, { token });
 };
