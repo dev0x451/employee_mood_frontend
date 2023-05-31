@@ -1,14 +1,11 @@
 import "@/shared/styles.css";
 import classes from "./emailformrefresh.module.css";
 import { Button } from "@/shared/ui/Button/Button";
-import { Formik, Form, FormikHelpers } from "formik";
+import { Formik, Form } from "formik";
 import { refreshEmailSchema } from "@/schemas/validationSchema";
 import { Input } from "@/shared/ui/Input/Input";
 import React from "react";
 import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
-interface Values {
-  email: string;
-}
 
 interface ComponentProps {
   handleSendResetCode: (email: string) => void;
@@ -31,13 +28,9 @@ export const EmailFormRefresh: React.FC<ComponentProps> = ({
         initialValues={{
           email: "",
         }}
-        onSubmit={(
-          values: Values,
-          { setSubmitting }: FormikHelpers<Values>
-        ) => {
-          console.log(values.email);
+        onSubmit={(values, actions) => {
           handleSendResetCode(values.email);
-          setSubmitting(false);
+          actions.setSubmitting(false);
         }}
         validationSchema={refreshEmailSchema}
       >

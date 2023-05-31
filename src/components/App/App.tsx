@@ -113,6 +113,18 @@ export const App = () => {
     }
   }
 
+  async function handleResetPassword(values: FormikValues, resetCode: string) {
+    try {
+      const response = await ApiAuth.resetPassword(values, resetCode);
+      if (response) {
+        navigate("/login");
+      }
+    } catch (err) {
+      setPopupOpened(true);
+      setError("Недействительный ключ");
+    }
+  }
+
   const closeErrorPopup = () => {
     setPopupOpened(false);
     setError("");
@@ -168,6 +180,7 @@ export const App = () => {
           element={
             <RefreshPasswordPage
               handleSendResetCode={handleSendResetCode}
+              handleResetPassword={handleResetPassword}
               success={success}
               error={error}
               closeErrorPopup={closeErrorPopup}

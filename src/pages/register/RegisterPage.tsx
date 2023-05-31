@@ -107,7 +107,6 @@ export const RegisterPage: React.FC<RegisterProps> = ({
           }}
           onSubmit={(values, actions) => {
             handleRegister(values, invite_code_decoded);
-            console.log(values);
             actions.setSubmitting(false);
           }}
           validationSchema={advancedSchema}
