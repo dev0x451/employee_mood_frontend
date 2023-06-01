@@ -1,11 +1,11 @@
 import styles from "./myteam.module.css";
-import React from "react";
-import icon from "@/assets/search_icon.svg";
+import React, { useState } from "react";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Articles } from "../Articles/Articles";
 import { Employees } from "../Employees/Employees";
 import { ArticleInterface } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";
+import { AddEmployee } from "@/components/AddEmployeePopup/AddEmployee";
 
 export const Myteam: React.FC = () => {
   const articles: ArticleInterface[] = [
@@ -41,6 +41,16 @@ export const Myteam: React.FC = () => {
     },
   ];
 
+  const [addPopupVisible, setAddPopupVisible] = useState(false);
+
+  const openAddPopup = () => {
+    setAddPopupVisible(true);
+  };
+
+  const closeAddPopup = () => {
+    setAddPopupVisible(false);
+  };
+
   return (
     <div className="page-container">
       <Navbar />
@@ -53,6 +63,7 @@ export const Myteam: React.FC = () => {
               mode="primary"
               width="236px"
               height="36px"
+              openAddPopup={openAddPopup}
             />
           </div>
           <input
@@ -60,7 +71,6 @@ export const Myteam: React.FC = () => {
             name="myteam-search-input"
             placeholder="Начните вводить имя"
           />
-          <img className={styles.searchIcon} src={icon} alt="search icon" />
           <Employees />
         </div>
         <div className={styles.rightScreen}>
@@ -70,6 +80,10 @@ export const Myteam: React.FC = () => {
           />
         </div>
       </div>
+      <AddEmployee
+        addPopupVisible={addPopupVisible}
+        closeAddPopup={closeAddPopup}
+      />
     </div>
   );
 };

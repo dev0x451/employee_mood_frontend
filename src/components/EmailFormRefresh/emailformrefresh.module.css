@@ -1,5 +1,4 @@
 .title {
-  box-sizing: border-box;
   align-self: flex-start;
   margin: 0;
   color: var(--color-black);

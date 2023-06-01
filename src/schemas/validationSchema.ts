@@ -5,6 +5,7 @@ const passwordRules =
 const emailRules = /^([A-Za-z0-9\-_@.]+)$/;
 const nameRules = /^[а-яА-ЯЁё]+(-[а-яА-ЯЁё]+)?$/;
 const errorMessage = "Пожалуйста, проверьте, правильно ли указан адрес";
+const emailMessage = "Некорректный e-mail";
 const passwordErrorMessage = "Пароль не соответствует требованиям";
 const nameErrorMessage = "Некорректное имя или есть лишние пробелы";
 const lastNameErrorMessage = "Некорректная фамилия или есть лишние пробелы";
@@ -70,6 +71,18 @@ export const refreshEmailSchema = yup.object().shape({
     })
     .email(errorMessage)
     .required(errorMessage),
+});
+
+export const addEmailSchema = yup.object().shape({
+  email: yup
+    .string()
+    .min(8, minLengthPassword)
+    .max(254, maxLengthPassword)
+    .matches(emailRules, {
+      message: emailMessage,
+    })
+    .email(emailMessage)
+    .required(emailMessage),
 });
 
 export const refreshPasswordSchema = yup.object().shape({

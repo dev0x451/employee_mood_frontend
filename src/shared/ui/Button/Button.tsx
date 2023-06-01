@@ -8,6 +8,7 @@ interface ButtonProps {
   type?: "submit" | "reset" | "button" | undefined;
   width?: string;
   height?: string;
+  openAddPopup?: () => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -16,6 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
   type,
   width,
   height,
+  openAddPopup,
 }) => {
   const className = cl(classes.button, {
     [classes.buttonPrimary]: mode === "primary",
@@ -23,16 +25,27 @@ export const Button: React.FC<ButtonProps> = ({
     [classes.buttonOutline]: mode === "outline",
   });
 
-  return (
-    <button
-      className={className}
-      style={{ width: width, height: height }}
-      type={type}
-    >
-      {title === "Добавить сотрудника" && (
+  if (title === "Добавить сотрудника") {
+    return (
+      <button
+        onClick={openAddPopup}
+        className={className}
+        style={{ width: width, height: height }}
+        type={type}
+      >
         <img className={classes.addIcon} src={AddIcon} />
-      )}
-      {title}
-    </button>
-  );
+        {title}
+      </button>
+    );
+  } else {
+    return (
+      <button
+        className={className}
+        style={{ width: width, height: height }}
+        type={type}
+      >
+        {title}
+      </button>
+    );
+  }
 };

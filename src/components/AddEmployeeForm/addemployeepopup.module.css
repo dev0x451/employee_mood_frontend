@@ -1,0 +1,77 @@
+.add-employee-popup {
+  position: fixed;
+  z-index: 10;
+  background: rgb(0 0 0 / 40%);
+  inset: 0;
+  opacity: 0;
+  transition: all .3s ease-in-out;
+  visibility: hidden;
+}
+
+.add-employee-popup-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.add-employee-popup-content {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 52%;
+  height: 100vh;
+  background-image: url('../../assets/gradient-background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  transform: translateX(100%);
+  transition: transform 0.7s;
+}
+
+.add-employee-popup-content-active {
+  transform: translateX(0);
+}
+
+.form {
+  width: 472px;
+  box-sizing: border-box;
+  padding: 40px 56px 36px;
+  border-radius: 20px;
+  margin: 144px auto 0;
+  background-color: var(--color-background-white);
+  box-shadow: var(--shadow-medium);
+}
+
+.title {
+  align-self: flex-start;
+  margin: 0 0 30px;
+  color: var(--color-black);
+  font: var(--font-h2);
+  text-align: center;
+}
+
+.input-container {
+  margin-bottom: 30px;
+}
+
+.button {
+  position: absolute;
+  top: 80px;
+  left: -56px;
+  width: 56px;
+  height: 52px;
+  border: none;
+  border-radius: 20px 0 0 20px;
+  background-color: var(--color-accent-purple);
+  background-image: url('./cancel_outline_28.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: var(--color-accent-violet);
+}
+
+.button:active {
+  background-color: var(--color-accent-secondary);
+}
