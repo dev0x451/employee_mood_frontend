@@ -5,9 +5,24 @@ import { Articles } from "../Articles/Articles";
 import { Employees } from "../Employees/Employees";
 import { ArticleInterface } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";
-import { AddEmployee } from "@/components/AddEmployeePopup/AddEmployee";
+import { AddEmployeePopup } from "@/components/AddEmployeePopup/AddEmployeePopup";
 
-export const Myteam: React.FC = () => {
+interface Props {
+  resetMessages: () => void;
+  handleSendInviteCode: (email: string) => Promise<void>;
+  success: string;
+  error: string;
+  closeErrorPopup: () => void;
+  popupOpened: boolean;
+}
+export const Myteam: React.FC<Props> = ({
+  resetMessages,
+  handleSendInviteCode,
+  success,
+  error,
+  closeErrorPopup,
+  popupOpened,
+}) => {
   const articles: ArticleInterface[] = [
     {
       type: "видео",
@@ -49,6 +64,7 @@ export const Myteam: React.FC = () => {
 
   const closeAddPopup = () => {
     setAddPopupVisible(false);
+    resetMessages();
   };
 
   return (
@@ -80,9 +96,14 @@ export const Myteam: React.FC = () => {
           />
         </div>
       </div>
-      <AddEmployee
-        addPopupVisible={addPopupVisible}
+      <AddEmployeePopup
         closeAddPopup={closeAddPopup}
+        addPopupVisible={addPopupVisible}
+        handleSendInviteCode={handleSendInviteCode}
+        success={success}
+        error={error}
+        closeErrorPopup={closeErrorPopup}
+        popupOpened={popupOpened}
       />
     </div>
   );

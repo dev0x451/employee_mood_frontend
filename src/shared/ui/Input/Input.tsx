@@ -21,7 +21,7 @@ export const Input = (props: OtherProps & FieldHookConfig<string>) => {
 
   return (
     <div className={styles.inputArea}>
-      <label className={styles.label} htmlFor={props.id || props.name}>
+      <label className={styles.label} htmlFor={props.name}>
         {props.label}
       </label>
       {props.type === "password" ? (

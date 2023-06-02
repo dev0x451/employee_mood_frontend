@@ -25,3 +25,17 @@ export const getPositions = (invite_code: string) => {
     },
   });
 };
+
+export const sendInviteCode = (email: string) => {
+  return axios.post(
+    `${BASE_URL}/users/send_invite`,
+    {
+      email: email,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
+};
