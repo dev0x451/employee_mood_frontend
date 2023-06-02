@@ -1,8 +1,9 @@
 import axios from "axios";
 import { TestResult } from "@/types";
 // заголовок авторизации установлен для всех запросов по умолчанию
-axios.defaults.headers.common['authorization'] = `Bearer ${localStorage.getItem("jwt")}`
-
+axios.defaults.headers.common["authorization"] = `Bearer ${localStorage.getItem(
+  "jwt"
+)}`;
 
 const BASE_URL = "https://em-dev.usolcev.com/api/v1";
 
@@ -36,10 +37,11 @@ export const getTestQuestions = (test: string | null) => {
 
 export const sendTestResults = (results: TestResult) => {
   return axios.post(`${BASE_URL}/metrics/results`, {
-      positive_value: results.positive_value,
-      negative_value: results.negative_value,
-      survey: results.survey,
+    positive_value: results.positive_value,
+    negative_value: results.negative_value,
+    survey: results.survey,
   });
+};
 
 export const sendInviteCode = (email: string) => {
   return axios.post(

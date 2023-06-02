@@ -1,12 +1,13 @@
 import styles from "./BurnoutTestBanner.module.css";
 import image from "./burnout-image.png";
 import { Link } from "react-router-dom";
+import React from "react";
 
 interface BurnoutTestProps {
-  id: string
+  id?: string;
 }
 
-export const BurnoutTestBanner: React.FC<BurnoutTestProps> = ({id}) => {
+export const BurnoutTestBanner: React.FC<BurnoutTestProps> = ({ id }) => {
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>
@@ -20,7 +21,9 @@ export const BurnoutTestBanner: React.FC<BurnoutTestProps> = ({id}) => {
             подорвать здоровье и привести к депрессии.
           </p>
           <Link to={`/tests/${id}`} className={styles.link}>
-            <button type='button' className={styles.button}>Пройти тест</button>
+            <button type="button" className={styles.button}>
+              Пройти тест
+            </button>
           </Link>
         </div>
       </div>
