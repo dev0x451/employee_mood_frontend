@@ -19,13 +19,14 @@ import { MyFormValues } from "@/types";
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
+import { Account } from "@/pages/account/Account";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [currentUser, setCurrentUser] = useState([]);
+  const [currentUser, setCurrentUser] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -84,6 +85,13 @@ export const App = () => {
       setError("Неверный логин или пароль");
     }
   }
+
+  const handleSignOut = () => {
+    setLoggedIn(false);
+    setCurrentUser({});
+    navigate("/login");
+    localStorage.removeItem("jwt");
+  };
 
   async function handleRegister(values: FormikValues, invite_code: string) {
     try {
@@ -155,7 +163,14 @@ export const App = () => {
   return (
     <main className={styles.page}>
       <Routes>
-        <Route element={<ProtectedRoutes loggedIn={loggedIn} />}>
+        <Route
+          element={
+            <ProtectedRoutes
+              loggedIn={loggedIn}
+              handleSignOut={handleSignOut}
+            />
+          }
+        >
           <Route path="/" element={<Main />} />
 
           <Route path="tests" element={<Tests />} />
@@ -167,7 +182,7 @@ export const App = () => {
           <Route path="bookmarks" element={<Bookmarks />} />
 
           <Route path="calendar" element={<Calendar />} />
-
+          <Route path="account" element={<Account />} />
           <Route
             path="myteam"
             element={

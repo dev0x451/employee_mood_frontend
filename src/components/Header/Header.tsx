@@ -1,8 +1,30 @@
 import styles from "./header.module.css";
 import { NavLink } from "react-router-dom";
 import { LogoSideMenu } from "@/shared/ui/LogoSideMenu/LogoImg";
+import { AccountPopup } from "@/components/AccountPopup/AccountPopup";
+import { useState } from "react";
 
-export const Header = () => {
+interface Props {
+  handleSignOut: () => void;
+}
+
+export const Header: React.FC<Props> = ({ handleSignOut }) => {
+  const [isAccountPopupOpened, setIsAccountPopupOpened] = useState(false);
+
+  const openAccountPopup = () => {
+    if (!isAccountPopupOpened) {
+      setIsAccountPopupOpened(true);
+    } else {
+      setIsAccountPopupOpened(false);
+    }
+  };
+
+  const closeAccountPopup = () => {
+    if (isAccountPopupOpened) {
+      setIsAccountPopupOpened(false);
+    }
+  };
+
   return (
     <header className={styles.header}>
       <NavLink className={styles.logo} to="/">
@@ -15,8 +37,16 @@ export const Header = () => {
       />
       <div className={styles.profileAndNotify}>
         <div className={styles.notify}></div>
-        <div className={styles.profile}></div>
+        <button
+          onClick={() => openAccountPopup()}
+          className={styles.profileBtn}
+        ></button>
       </div>
+      <AccountPopup
+        isAccountPopupOpened={isAccountPopupOpened}
+        closeAccountPopup={closeAccountPopup}
+        handleSignOut={handleSignOut}
+      />
     </header>
   );
 };
