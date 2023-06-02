@@ -51,3 +51,35 @@ export interface RecordInterface {
   date: string;
   state: string;
 }
+
+export interface Question {
+  text: string
+}
+
+export interface TestInterface {
+  author: number;
+  creation_date: string;
+  department: number;
+  description: string;
+  frequency: number;
+  id: number;
+  is_active: boolean;
+  questions: Question[];
+  title: string;
+}
+
+export interface TestResult {
+  positive_value: number,
+  negative_value: number,
+  survey: number,
+}
+
+export interface ExpressDiagnoseResponse {
+  "completion_date": string,
+  "employee": number,
+  "id": number,
+  "next_attempt_date": string,
+  "result": string,
+  "survey": number
+}
+

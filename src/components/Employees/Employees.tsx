@@ -37,7 +37,7 @@ export const Employees: React.FC = () => {
       </div>
       {employees &&
         employees.map((employee, index) => (
-          <div key={index} className={styles.employee}>
+          <div key={employee.name.slice(-10)} className={styles.employee}>
             <div className={styles.avatar}>
               <img
                 className={styles.image}

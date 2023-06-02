@@ -64,6 +64,14 @@
   outline: none;
 }
 
+.button:hover {
+  cursor: pointer;
+}
+
+.link {
+  text-decoration: none;
+}
+
 /* .text {
   display: inline-block;
   height: 100%;

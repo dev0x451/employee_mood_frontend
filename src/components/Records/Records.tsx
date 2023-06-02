@@ -34,8 +34,8 @@ export const Records: React.FC = () => {
           <button className={styles.sortButton}>Дата проведения {sortIcon}</button>
           <button className={styles.sortButton}>Результат {sortIcon}</button>
        </div>
-       {records && records.map((record) => (
-        <div className={styles.record}>
+       {records && records.map((record, index) => (
+        <div key={index} className={styles.record}>
           <p className={styles.text}>{record.description}</p>
           <p className={styles.text}>{record.date}</p>
           <p className={styles.text}>{record.state}</p>

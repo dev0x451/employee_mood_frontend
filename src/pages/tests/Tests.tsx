@@ -14,7 +14,7 @@ export const Tests = () => {
         <div className={styles.tests}>
           <h2 className={styles.title}>Тесты</h2>
             <div className={styles.banerblock}>
-              <BurnoutTestBanner />
+              <BurnoutTestBanner id={'123123'}/>
               <PsychologistInfo />
             </div>
             <div className={styles.records}>
