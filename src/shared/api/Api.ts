@@ -10,7 +10,7 @@ export const getUser = () => {
   });
 };
 
-export const getDepartments = (invite_code: string | null) => {
+export const getDepartments = (invite_code: string) => {
   return axios.get(`${BASE_URL}/departments`, {
     params: {
       invite_code: invite_code,
@@ -18,10 +18,24 @@ export const getDepartments = (invite_code: string | null) => {
   });
 };
 
-export const getPositions = (invite_code: string | null) => {
-  return axios.get(`${BASE_URL}/positions`, {
+export const getPositions = (invite_code: string) => {
+  return axios.get(`${BASE_URL}/positions?limit=999`, {
     params: {
       invite_code: invite_code,
     },
   });
+};
+
+export const sendInviteCode = (email: string) => {
+  return axios.post(
+    `${BASE_URL}/users/send_invite`,
+    {
+      email: email,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
 };

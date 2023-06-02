@@ -5,7 +5,7 @@
   height: 68px;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 132px 0 24px;
+  padding-right: 132px;
   background-color: var(--color-white);
 }
 
@@ -16,6 +16,9 @@
   border: 0;
   border-radius: 12px;
   background-color: var(--color-background);
+  background-image: url('@/assets/search_icon.svg');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
   color: var(--color-icon-secondary);
   font: var(--font-search-input);
 

@@ -24,7 +24,9 @@ export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const [currentUser, setCurrentUser] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -39,6 +41,7 @@ export const App = () => {
   }, [loggedIn]);
 
   const auth = async (jwt: string) => {
+    setIsLoading(true);
     try {
       const response = await ApiAuth.checkToken(jwt);
       if (response.statusText === "OK") {
@@ -58,11 +61,13 @@ export const App = () => {
 
   async function getUserInfo() {
     if (loggedIn) {
-      const response = await Api.getUser();
       try {
+        const response = await Api.getUser();
         setCurrentUser(response.data);
       } catch (err: any) {
         console.log(err);
+      } finally {
+        setIsLoading(false);
       }
     }
   }
@@ -80,10 +85,7 @@ export const App = () => {
     }
   }
 
-  async function handleRegister(
-    values: FormikValues,
-    invite_code: string | null
-  ) {
+  async function handleRegister(values: FormikValues, invite_code: string) {
     try {
       const response = await ApiAuth.registerUser(values, invite_code);
       if (response) {
@@ -93,13 +95,62 @@ export const App = () => {
       }
     } catch {
       setPopupOpened(true);
-      setError("Что-то пошло не так. Попробуйте еще раз.");
+      setError("Что-то пошло не так. Попробуйте еще раз");
+    }
+  }
+
+  async function handleSendResetCode(email: string) {
+    try {
+      const response = await ApiAuth.sendResetCode(email);
+      if (response) {
+        setPopupOpened(true);
+        setSuccess("Письмо отправлено на почту");
+        setError("");
+      }
+    } catch (err) {
+      setPopupOpened(true);
+      setError("Не удалось найти пользователя с таким e-mail");
+    }
+  }
+
+  async function handleSendInviteCode(email: string) {
+    try {
+      const response = await Api.sendInviteCode(email);
+      if (response) {
+        setSuccess("Приглашение отправлено!");
+        setError("");
+      }
+    } catch (err) {
+      setPopupOpened(true);
+      setError("Пользователь с таким e-mail уже существует");
+    }
+  }
+
+  async function handleResetPassword(values: FormikValues, resetCode: string) {
+    try {
+      const response = await ApiAuth.resetPassword(values, resetCode);
+      if (response) {
+        navigate("/login");
+      }
+    } catch (err) {
+      setPopupOpened(true);
+      setError("Недействительный ключ");
     }
   }
 
   const closeErrorPopup = () => {
     setPopupOpened(false);
+    resetMessages();
   };
+
+  const resetMessages = () => {
+    setError("");
+    setSuccess("");
+  };
+
+  if (isLoading) {
+    return <div></div>;
+  }
 
   return (
     <main className={styles.page}>
@@ -117,7 +168,19 @@ export const App = () => {
 
           <Route path="calendar" element={<Calendar />} />
 
-          <Route path="myteam" element={<Myteam />} />
+          <Route
+            path="myteam"
+            element={
+              <Myteam
+                success={success}
+                error={error}
+                closeErrorPopup={closeErrorPopup}
+                popupOpened={popupOpened}
+                resetMessages={resetMessages}
+                handleSendInviteCode={handleSendInviteCode}
+              />
+            }
+          />
         </Route>
         <Route
           path="login"
@@ -141,7 +204,19 @@ export const App = () => {
             />
           }
         />
-        <Route path="password-reset" element={<RefreshPasswordPage />} />
+        <Route
+          path="password-reset"
+          element={
+            <RefreshPasswordPage
+              handleSendResetCode={handleSendResetCode}
+              handleResetPassword={handleResetPassword}
+              success={success}
+              error={error}
+              closeErrorPopup={closeErrorPopup}
+              popupOpened={popupOpened}
+            />
+          }
+        />
       </Routes>
     </main>
   );

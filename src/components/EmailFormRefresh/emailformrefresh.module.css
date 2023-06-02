@@ -1,0 +1,25 @@
+.title {
+  align-self: flex-start;
+  margin: 0;
+  color: var(--color-black);
+  font: var(--font-h1-form);
+}
+
+.info {
+  max-width: 360px;
+  margin: 10px 0 30px;
+  font: var(--font-search-input);
+}
+
+.form {
+  width: 512px;
+  box-sizing: border-box;
+  padding: 60px 80px 50px;
+  border-radius: 20px;
+  background-color: var(--color-background-white);
+  box-shadow: var(--shadow-medium);
+}
+
+.input-container {
+  margin-bottom: 24px;
+}
