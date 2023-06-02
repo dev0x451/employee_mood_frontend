@@ -3,6 +3,7 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 
 import { Main } from "../../pages/main/Main";
 import { Tests } from "../../pages/tests/Tests";
+import { Test } from "../Test/Test";
 import { Advices } from "../../pages/advices/Advices";
 import { Events } from "../../pages/events/Events";
 import { Bookmarks } from "../../pages/bookmarks/Bookmarks";
@@ -15,10 +16,11 @@ import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
 import { LoginPage } from "@/pages/login/LoginPage";
-import { MyFormValues } from "@/types";
+import { MyFormValues, TestResult, ExpressDiagnoseResponse } from "@/types";
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
+import { useRequest } from "@/shared/hooks/useRequest";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -26,11 +28,11 @@ export const App = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [currentUser, setCurrentUser] = useState([]);
+  const [resultOfPsychoTest, setResultOfPsychoTest] = useState<ExpressDiagnoseResponse>();
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  console.log(currentUser);
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -64,6 +66,7 @@ export const App = () => {
       try {
         const response = await Api.getUser();
         setCurrentUser(response.data);
+        console.log('currentUser', response.data)
       } catch (err: any) {
         console.log(err);
       } finally {
@@ -138,10 +141,22 @@ export const App = () => {
     }
   }
 
+  async function handleSendTestResult(result: TestResult) {
+    try {
+      const response = await Api.sendTestResults(result);
+      setResultOfPsychoTest(response.data);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
+  const [expressTest] = useRequest(() => Api.getTestQuestions('1'));
+
   const closeErrorPopup = () => {
     setPopupOpened(false);
     resetMessages();
   };
+
 
   const resetMessages = () => {
     setError("");
@@ -159,6 +174,14 @@ export const App = () => {
           <Route path="/" element={<Main />} />
 
           <Route path="tests" element={<Tests />} />
+
+          <Route path="tests/:id" element={
+            <Test
+              test={expressTest}
+              onSendTestResult={handleSendTestResult}
+              resultOfPsychoTest={resultOfPsychoTest}
+            />}
+          />
 
           <Route path="advices" element={<Advices />} />
 
