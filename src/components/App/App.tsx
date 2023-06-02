@@ -28,12 +28,15 @@ export const App = () => {
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [currentUser, setCurrentUser] = useState([]);
-  const [resultOfPsychoTest, setResultOfPsychoTest] = useState<ExpressDiagnoseResponse>();
+  const [currentUser, setCurrentUser] = useState({});
+  const [resultOfPsychoTest, setResultOfPsychoTest] =
+    useState<ExpressDiagnoseResponse>();
   const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  console.log(currentUser);
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -67,7 +70,7 @@ export const App = () => {
       try {
         const response = await Api.getUser();
         setCurrentUser(response.data);
-        console.log('currentUser', response.data)
+        console.log("currentUser", response.data);
       } catch (err: any) {
         console.log(err);
       } finally {
@@ -158,13 +161,12 @@ export const App = () => {
     }
   }
 
-  const [expressTest] = useRequest(() => Api.getTestQuestions('1'));
+  const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
 
   const closeErrorPopup = () => {
     setPopupOpened(false);
     resetMessages();
   };
-
 
   const resetMessages = () => {
     setError("");
@@ -190,12 +192,15 @@ export const App = () => {
 
           <Route path="tests" element={<Tests />} />
 
-          <Route path="tests/:id" element={
-            <Test
-              test={expressTest}
-              onSendTestResult={handleSendTestResult}
-              resultOfPsychoTest={resultOfPsychoTest}
-            />}
+          <Route
+            path="tests/:id"
+            element={
+              <Test
+                test={expressTest}
+                onSendTestResult={handleSendTestResult}
+                resultOfPsychoTest={resultOfPsychoTest}
+              />
+            }
           />
 
           <Route path="advices" element={<Advices />} />
