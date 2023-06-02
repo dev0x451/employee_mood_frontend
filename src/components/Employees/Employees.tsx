@@ -38,7 +38,7 @@ export const Employees: React.FC = () => {
         <button className={styles.sortButton}>Состояние {sortIcon}</button>
       </div>
       {employees && employees.map((employee) => (
-        <div className={styles.employee}>
+        <div key={employee.name.slice(-10)} className={styles.employee}>
           <div className={styles.avatar}>
             <img className={styles.image} src={employee.avatar} alt='Avatar'/>
             <p className={styles.text}>{employee.name}</p>

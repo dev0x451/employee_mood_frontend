@@ -16,20 +16,20 @@ import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
 import { LoginPage } from "@/pages/login/LoginPage";
-import { MyFormValues } from "@/types";
+import { MyFormValues, TestResult, ExpressDiagnoseResponse } from "@/types";
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
+import { useRequest } from "@/shared/hooks/useRequest";
 
 export const App = () => {
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [currentUser, setCurrentUser] = useState([]);
+  const [resultOfPsychoTest, setResultOfPsychoTest] = useState<ExpressDiagnoseResponse>();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  console.log(currentUser);
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -62,6 +62,7 @@ export const App = () => {
       const response = await Api.getUser();
       try {
         setCurrentUser(response.data);
+        console.log('currentUser', response.data)
       } catch (err: any) {
         console.log(err);
       }
@@ -98,9 +99,21 @@ export const App = () => {
     }
   }
 
+  async function handleSendTestResult(result: TestResult) {
+    try {
+      const response = await Api.sendTestResults(result);
+      setResultOfPsychoTest(response.data);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
+  const [expressTest] = useRequest(() => Api.getTestQuestions('1'));
+
   const closeErrorPopup = () => {
     setPopupOpened(false);
   };
+
 
   return (
     <main className={styles.page}>
@@ -110,7 +123,13 @@ export const App = () => {
 
           <Route path="tests" element={<Tests />} />
 
-          <Route path="tests/:id" element={<Test />} />
+          <Route path="tests/:id" element={
+            <Test
+              test={expressTest}
+              onSendTestResult={handleSendTestResult}
+              resultOfPsychoTest={resultOfPsychoTest}
+            />}
+          />
 
           <Route path="advices" element={<Advices />} />
 

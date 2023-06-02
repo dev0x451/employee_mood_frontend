@@ -19,7 +19,7 @@ export const BurnoutTestBanner: React.FC<BurnoutTestProps> = ({id}) => {
             Профессиональное выгорание трудно распознать оно может серьёзно
             подорвать здоровье и привести к депрессии.
           </p>
-          <Link to={`/tests/${id}`} key={id}>
+          <Link to={`/tests/${id}`} className={styles.link}>
             <button type='button' className={styles.button}>Пройти тест</button>
           </Link>
         </div>
