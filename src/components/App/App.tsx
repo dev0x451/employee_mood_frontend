@@ -113,6 +113,19 @@ export const App = () => {
     }
   }
 
+  async function handleSendInviteCode(email: string) {
+    try {
+      const response = await Api.sendInviteCode(email);
+      if (response) {
+        setSuccess("Приглашение отправлено!");
+        setError("");
+      }
+    } catch (err) {
+      setPopupOpened(true);
+      setError("Пользователь с таким e-mail уже существует");
+    }
+  }
+
   async function handleResetPassword(values: FormikValues, resetCode: string) {
     try {
       const response = await ApiAuth.resetPassword(values, resetCode);
@@ -127,6 +140,10 @@ export const App = () => {
 
   const closeErrorPopup = () => {
     setPopupOpened(false);
+    resetMessages();
+  };
+
+  const resetMessages = () => {
     setError("");
     setSuccess("");
   };
@@ -151,7 +168,19 @@ export const App = () => {
 
           <Route path="calendar" element={<Calendar />} />
 
-          <Route path="myteam" element={<Myteam />} />
+          <Route
+            path="myteam"
+            element={
+              <Myteam
+                success={success}
+                error={error}
+                closeErrorPopup={closeErrorPopup}
+                popupOpened={popupOpened}
+                resetMessages={resetMessages}
+                handleSendInviteCode={handleSendInviteCode}
+              />
+            }
+          />
         </Route>
         <Route
           path="login"

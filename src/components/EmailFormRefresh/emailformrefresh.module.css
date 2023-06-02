@@ -1,19 +1,14 @@
 .title {
-  box-sizing: border-box;
   align-self: flex-start;
   margin: 0;
   color: var(--color-black);
-  font-size: var(--font-size-xl);
-  font-weight: 600;
-  line-height: var(--font-line-xl);
+  font: var(--font-h1-form);
 }
 
 .info {
   max-width: 360px;
   margin: 10px 0 30px;
-  font-size: var(--font-size-m);
-  font-weight: 400;
-  line-height: var(--font-line-m);
+  font: var(--font-search-input);
 }
 
 .form {

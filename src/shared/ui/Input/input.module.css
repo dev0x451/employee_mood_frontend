@@ -12,9 +12,7 @@
 .label {
   margin-bottom: 8px;
   color: var(--color-text-primary);
-  font-size: var(--font-size-m);
-  font-weight: 400;
-  line-height: var(--font-line-m);
+  font: var(--font-search-input);
 }
 
 .input {
@@ -25,8 +23,7 @@
   border-radius: 12px;
   background-color: var(--color-background);
   color: var(--color-text-primary);
-  font: var(--font-size-m) / var(--font-line-m);
-  font-weight: 400;
+  font: var(--font-search-input);
   outline: none;
 }
 

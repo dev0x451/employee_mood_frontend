@@ -1,7 +1,5 @@
 .error {
   margin: 5px 0 0;
   color: var(--color-error);
-  font-family: Roboto, sans-serif;
-  font-size: 13px;
-  line-height: 16px;
+  font: var(--font-text);
 }

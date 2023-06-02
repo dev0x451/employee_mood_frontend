@@ -4,7 +4,7 @@ import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import { useSearchParams } from "react-router-dom";
 import { EmailFormRefresh } from "@/components/EmailFormRefresh/EmailFormRefresh";
 import { PasswordFormRefresh } from "@/components/PasswordFormRefresh/PasswordFormRefresh";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FormikValues } from "formik";
 
 interface Props {

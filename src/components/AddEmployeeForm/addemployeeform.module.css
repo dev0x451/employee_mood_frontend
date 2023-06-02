@@ -1,0 +1,21 @@
+.form {
+  width: 472px;
+  box-sizing: border-box;
+  padding: 40px 56px 36px;
+  border-radius: 20px;
+  margin: 144px auto 0;
+  background-color: var(--color-background-white);
+  box-shadow: var(--shadow-medium);
+}
+
+.title {
+  align-self: flex-start;
+  margin: 0 0 30px;
+  color: var(--color-black);
+  font: var(--font-h2);
+  text-align: center;
+}
+
+.input-container {
+  margin-bottom: 30px;
+}

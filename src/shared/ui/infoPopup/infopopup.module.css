@@ -27,10 +27,7 @@
 }
 
 .popup-text {
-  font-family: Montserrat, sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 18px;
+  font: var(--font-h3);
 }
 
 .close-btn {
