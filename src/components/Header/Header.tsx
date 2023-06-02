@@ -1,14 +1,13 @@
 import styles from "./header.module.css";
 import icon from "@/assets/search_icon.svg";
 import { NavLink } from "react-router-dom";
-import logo from "@/assets/logo-with-name.svg";
-
+import { LogoSideMenu } from "@/shared/ui/LogoSideMenu/LogoImg";
 
 export const Header = () => {
   return (
     <header className={styles.header}>
       <NavLink className={styles.logo} to="/">
-        <img src={logo} alt="logo" />
+        <LogoSideMenu />
       </NavLink>
       <input
         className={styles.input}
