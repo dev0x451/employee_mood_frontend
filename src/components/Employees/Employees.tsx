@@ -4,30 +4,28 @@ import { EmployeeInterface } from "@/types";
 import { sortIcon } from "@/assets";
 
 export const Employees: React.FC = () => {
-
   const employees: EmployeeInterface[] = [
     {
       avatar: "/image.png",
-      name: 'Анастасия',
-      position: 'Столбовая дворянка',
+      name: "Анастасия",
+      position: "Столбовая дворянка",
       // colorball: 'blue';
-      state: 'удовлетворительное',
+      state: "удовлетворительное",
     },
     {
       avatar: "/image.png",
-      name: 'Роман',
-      position: 'Стольничий',
+      name: "Роман",
+      position: "Стольничий",
       // colorball: 'red';
-      state: 'в группе риска',
+      state: "в группе риска",
     },
     {
       avatar: "/image.png",
-      name: 'Аркадий',
-      position: 'Стремянной',
+      name: "Аркадий",
+      position: "Стремянной",
       // colorball: 'green',
-      state: 'в группе риска',
+      state: "в группе риска",
     },
-
   ];
 
   return (
@@ -37,16 +35,21 @@ export const Employees: React.FC = () => {
         <button className={styles.sortButton}>Должность {sortIcon}</button>
         <button className={styles.sortButton}>Состояние {sortIcon}</button>
       </div>
-      {employees && employees.map((employee) => (
-        <div key={employee.name.slice(-10)} className={styles.employee}>
-          <div className={styles.avatar}>
-            <img className={styles.image} src={employee.avatar} alt='Avatar'/>
-            <p className={styles.text}>{employee.name}</p>
+      {employees &&
+        employees.map((employee, index) => (
+          <div key={employee.name.slice(-10)} className={styles.employee}>
+            <div className={styles.avatar}>
+              <img
+                className={styles.image}
+                src={employee.avatar}
+                alt="Avatar"
+              />
+              <p className={styles.text}>{employee.name}</p>
+            </div>
+            <p className={styles.text}>{employee.position}</p>
+            <p className={styles.text}>{employee.state}</p>
           </div>
-          <p className={styles.text}>{employee.position}</p>
-          <p className={styles.text}>{employee.state}</p>
-        </div>
-      ))}
+        ))}
     </div>
   );
 };

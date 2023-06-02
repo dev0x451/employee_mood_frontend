@@ -8,16 +8,27 @@ export const loginUser = (values: MyFormValues) => {
   return axios.post(`${BASE_URL}/auth/jwt/create`, values);
 };
 
-export const registerUser = (
-  values: FormikValues,
-  invite_code: string | null
-) => {
+export const registerUser = (values: FormikValues, invite_code: string) => {
   return axios.post(`${BASE_URL}/users/register`, {
     invite_code,
     first_name: values.firstName,
     last_name: values.lastName,
     department: values.department,
     position: values.position,
+    password: values.password,
+    password_confirm: values.confirmPassword,
+  });
+};
+
+export const sendResetCode = (email: string) => {
+  return axios.post(`${BASE_URL}/users/password_reset`, {
+    email: email,
+  });
+};
+
+export const resetPassword = (values: FormikValues, resetCode: string) => {
+  return axios.post(`${BASE_URL}/users/password_reset_confirm`, {
+    reset_code: resetCode,
     password: values.password,
     password_confirm: values.confirmPassword,
   });

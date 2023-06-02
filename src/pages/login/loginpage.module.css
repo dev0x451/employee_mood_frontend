@@ -16,9 +16,7 @@
   padding: 20px 16px 20px 0;
   margin: 0 0 10px;
   color: var(--color-black);
-  font-size: var(--font-size-xl);
-  font-weight: 600;
-  line-height: var(--font-line-xl);
+  font: var(--font-h1-form);
 }
 
 .login-form {
@@ -33,7 +31,7 @@
 .login-form-list {
   width: 100%;
   padding: 0;
-  margin: 0;
+  margin: 0 0 34px;
   list-style-type: none;
 }
 
@@ -48,11 +46,9 @@
 .form-link {
   display: block;
   width: fit-content;
-  margin: 12px auto;
+  margin: 22px auto 16px;
   color: var(--color-accent-purple);
-  font-size: var(--font-size-m);
-  font-weight: 500;
-  line-height: var(--font-line-m);
+  font: var(--font-button);
   text-align: center;
   text-decoration: none;
 }

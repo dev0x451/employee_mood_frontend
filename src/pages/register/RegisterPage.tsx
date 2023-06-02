@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Formik, Form, FormikValues } from "formik";
 import * as Api from "@/shared/api/Api";
 import { advancedSchema } from "@/schemas/validationSchema";
-import { useRequest } from "@/shared/hooks/useRequest";
 import { SelectOption } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";
 import { LogoImg } from "@/shared/ui/Logo/LogoImg";
@@ -14,10 +13,7 @@ import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 import { useSearchParams } from "react-router-dom";
 
 interface RegisterProps {
-  handleRegister: (
-    formikValues: FormikValues,
-    invite_code: string | null
-  ) => void;
+  handleRegister: (formikValues: FormikValues, invite_code: string) => void;
   closeErrorPopup: () => void;
   popupOpened: boolean;
   registerError: string;
@@ -33,13 +29,10 @@ export const RegisterPage: React.FC<RegisterProps> = ({
   const [searchParams] = useSearchParams();
   const invite_code = searchParams.get("invite_code");
   const invite_code_decoded =
-    invite_code && invite_code.replace("%3D", "=").replace(/ /g, "+");
+    (invite_code && invite_code.replace("%3D", "=").replace(/ /g, "+")) || "";
 
-  //получаем с бэка массив с должностями и позициями
-  const [departments, error] = useRequest(() =>
-    Api.getDepartments(invite_code_decoded)
-  );
-  const [positions] = useRequest(() => Api.getPositions(invite_code_decoded));
+  const [departments, setDepartments] = useState([]);
+  const [positions, setPositions] = useState([]);
 
   // трансформированные массивы с должностями и позициями со свойствами value и label (для react-select)
   const [optionsDepartments, setOptionsDepartments] = useState<SelectOption[]>(
@@ -50,14 +43,30 @@ export const RegisterPage: React.FC<RegisterProps> = ({
   useEffect(() => {
     if (departments && positions) {
       const arrayDepartments = transformArray(departments, "Выберите отдел");
-      const arrayPositions = transformArray(
-        positions.results,
-        "Выберите должность"
-      );
+      const arrayPositions = transformArray(positions, "Выберите должность");
       setOptionsDepartments(arrayDepartments);
       setOptionsPositions(arrayPositions);
     }
   }, [departments]);
+
+  useEffect(() => {
+    if (invite_code_decoded) {
+      getRegisterInfo(invite_code_decoded);
+    }
+  }, []);
+
+  async function getRegisterInfo(invite_code_decoded: string) {
+    try {
+      const responseDepartments = await Api.getDepartments(invite_code_decoded);
+      const responsePositions = await Api.getPositions(invite_code_decoded);
+      if (responseDepartments && responsePositions) {
+        setDepartments(responseDepartments.data);
+        setPositions(responsePositions.data.results);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   // трансформируем полученные массивы до нужного формата и добавляем значение по умолчанию
   function transformArray(
@@ -84,7 +93,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
       <div className="logo-container">
         <LogoImg />
       </div>
-      {error ? (
+      {!departments ? (
         <div>Ссылка недействительна!</div>
       ) : (
         <Formik
@@ -98,7 +107,6 @@ export const RegisterPage: React.FC<RegisterProps> = ({
           }}
           onSubmit={(values, actions) => {
             handleRegister(values, invite_code_decoded);
-            console.log(values);
             actions.setSubmitting(false);
           }}
           validationSchema={advancedSchema}
@@ -150,7 +158,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
                 Регистрируясь, вы принимаете Пользовательское соглашение и даете
                 Согласие на обработку персональных данных.
               </p>
-              <Button title="Зарегистрироваться" mode="primary" />
+              <Button title="Зарегистрироваться" mode="primary" width="360px" />
             </Form>
           )}
         </Formik>

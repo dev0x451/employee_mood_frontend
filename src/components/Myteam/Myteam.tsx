@@ -1,13 +1,28 @@
 import styles from "./myteam.module.css";
-import React from "react";
-import icon from "@/assets/search_icon.svg";
+import React, { useState } from "react";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Articles } from "../Articles/Articles";
 import { Employees } from "../Employees/Employees";
 import { ArticleInterface } from "@/types";
+import { Button } from "@/shared/ui/Button/Button";
+import { AddEmployeePopup } from "@/components/AddEmployeePopup/AddEmployeePopup";
 
-export const Myteam: React.FC = () => {
-
+interface Props {
+  resetMessages: () => void;
+  handleSendInviteCode: (email: string) => Promise<void>;
+  success: string;
+  error: string;
+  closeErrorPopup: () => void;
+  popupOpened: boolean;
+}
+export const Myteam: React.FC<Props> = ({
+  resetMessages,
+  handleSendInviteCode,
+  success,
+  error,
+  closeErrorPopup,
+  popupOpened,
+}) => {
   const articles: ArticleInterface[] = [
     {
       type: "видео",
@@ -41,27 +56,55 @@ export const Myteam: React.FC = () => {
     },
   ];
 
+  const [addPopupVisible, setAddPopupVisible] = useState(false);
+
+  const openAddPopup = () => {
+    setAddPopupVisible(true);
+  };
+
+  const closeAddPopup = () => {
+    setAddPopupVisible(false);
+    resetMessages();
+  };
+
   return (
     <div className="page-container">
       <Navbar />
       <div className={styles.myteam}>
         <div className={styles.leftScreen}>
-          <h2 className={styles.title}>Моя команда</h2>
+          <div className={styles.topContent}>
+            <h2 className={styles.title}>Моя команда</h2>
+            <Button
+              title="Добавить сотрудника"
+              mode="primary"
+              width="236px"
+              height="36px"
+              openAddPopup={openAddPopup}
+            />
+          </div>
           <input
             className={styles.input}
             name="myteam-search-input"
             placeholder="Начните вводить имя"
           />
-          <img className={styles.searchIcon} src={icon} alt="search icon" />
-          <Employees/>
+          <Employees />
         </div>
         <div className={styles.rightScreen}>
           <Articles
             articles={articles}
-            title={'Как помочь сотрудникам справиться со стрессом'}
+            title={"Как помочь сотрудникам справиться со стрессом"}
           />
         </div>
       </div>
+      <AddEmployeePopup
+        closeAddPopup={closeAddPopup}
+        addPopupVisible={addPopupVisible}
+        handleSendInviteCode={handleSendInviteCode}
+        success={success}
+        error={error}
+        closeErrorPopup={closeErrorPopup}
+        popupOpened={popupOpened}
+      />
     </div>
   );
 };

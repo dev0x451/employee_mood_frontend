@@ -57,7 +57,7 @@ export const LoginPage: React.FC<LoginProps> = ({
             </li>
           </ul>
           <Button title="Войти" type="submit" mode="primary" />
-          <Link className={classes.formLink} to="/refresh-password">
+          <Link className={classes.formLink} to="/password-reset">
             Забыли пароль?
           </Link>
         </Form>

@@ -21,13 +21,17 @@ export const Input = (props: OtherProps & FieldHookConfig<string>) => {
 
   return (
     <div className={styles.inputArea}>
-      <label className={styles.label} htmlFor={props.id || props.name}>
+      <label className={styles.label} htmlFor={props.name}>
         {props.label}
       </label>
       {props.type === "password" ? (
         <div className={styles.inputContainer}>
           <input
-            className={styles.input}
+            className={
+              meta.touched && meta.error
+                ? `${styles.input} ${styles.inputError}`
+                : styles.input
+            }
             {...field}
             type={!passwordOpened ? props.type : "text"}
           />
@@ -37,7 +41,15 @@ export const Input = (props: OtherProps & FieldHookConfig<string>) => {
           />
         </div>
       ) : (
-        <input className={styles.input} {...field} type={props.type} />
+        <input
+          className={
+            meta.touched && meta.error
+              ? `${styles.input} ${styles.inputError}`
+              : styles.input
+          }
+          {...field}
+          type={props.type}
+        />
       )}
       {meta.touched && meta.error ? (
         <ErrorMessage>{meta.error}</ErrorMessage>
