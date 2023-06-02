@@ -8,9 +8,7 @@
   border-radius: 16px;
   margin: 0;
   cursor: pointer;
-  font-size: var(--font-size-m);
-  font-weight: 500;
-  line-height: var(--font-line-m);
+  font: var(--font-button);
 }
 
 .button-primary {
