@@ -16,7 +16,10 @@ export const Account = () => {
             </ul>
           </div>
         </div>
-        <div className={styles.accountInfoContainer}></div>
+        <div className={styles.accountInfoContainer}>
+          <h2 className={styles.titleAbout}>Обо мне</h2>
+          <textarea className={styles.textarea} />
+        </div>
       </div>
     </div>
   );

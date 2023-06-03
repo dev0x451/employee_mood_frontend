@@ -8,13 +8,13 @@
 .account-info-container {
   width: 500px;
   height: 198px;
-  padding: 24px 0 0 20px;
+  padding: 24px 20px;
   border-radius: 20px;
   background-color: var(--color-background-white);
 }
 
 .title {
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
   font: var(--font-h1);
 }
 
@@ -48,11 +48,30 @@
 }
 
 .name-info {
-  font: var(--font-button);
   margin-bottom: 4px;
+  font: var(--font-button);
 }
 
 .job-info {
   color: var(--color-black);
   font: var(--font-body);
+}
+
+.title-about {
+  margin: 0 0 12px;
+  font: var(--font-h2);
+}
+
+.textarea {
+  width: 460px;
+  height: 114px;
+  padding: 12px;
+  border: 0.5px solid rgb(0 0 0 /12%);
+  border-radius: 12px;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font: var(--font-search-input);
+  outline: none;
+  resize: none;
+  text-align: start;
 }
