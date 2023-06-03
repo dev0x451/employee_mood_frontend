@@ -57,6 +57,7 @@ export const Myteam: React.FC<Props> = ({
   ];
 
   const [addPopupVisible, setAddPopupVisible] = useState(false);
+  const [textInput, setTextInput] = useState('')
 
   const openAddPopup = () => {
     setAddPopupVisible(true);
@@ -67,6 +68,10 @@ export const Myteam: React.FC<Props> = ({
     resetMessages();
   };
 
+  const handleInputSort = (e) => {
+    setTextInput(e.target.value);
+  }
+  // console.log(textInput);
   return (
     <div className="page-container">
       <Navbar />
@@ -86,8 +91,10 @@ export const Myteam: React.FC<Props> = ({
             className={styles.input}
             name="myteam-search-input"
             placeholder="Начните вводить имя"
+            value = {textInput}
+            onChange={handleInputSort}
           />
-          <Employees />
+          <Employees valueInputSort={textInput}/>
         </div>
         <div className={styles.rightScreen}>
           <Articles
