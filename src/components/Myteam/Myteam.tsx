@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Articles } from "../Articles/Articles";
 import { Employees } from "../Employees/Employees";
-import { ArticleInterface } from "@/types";
+import { ArticleInterface, EmployeeInterface } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";
 import { AddEmployeePopup } from "@/components/AddEmployeePopup/AddEmployeePopup";
 
@@ -14,6 +14,7 @@ interface Props {
   error: string;
   closeErrorPopup: () => void;
   popupOpened: boolean;
+  employees: EmployeeInterface[];
 }
 export const Myteam: React.FC<Props> = ({
   resetMessages,
@@ -22,6 +23,7 @@ export const Myteam: React.FC<Props> = ({
   error,
   closeErrorPopup,
   popupOpened,
+  employees,
 }) => {
   const articles: ArticleInterface[] = [
     {
@@ -95,7 +97,7 @@ export const Myteam: React.FC<Props> = ({
             value = {textInput}
             onChange={handleInputSort}
           />
-          <Employees valueInputSort={textInput}/>
+          <Employees valueInputSort={textInput} employees={employees}/>
         </div>
         <div className={styles.rightScreen}>
           <Articles

@@ -56,3 +56,11 @@ export const sendInviteCode = (email: string) => {
     }
   );
 };
+
+export const getUsers = () => {
+  return axios.get(`${BASE_URL}/users/?limit=100`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};

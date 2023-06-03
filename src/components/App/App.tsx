@@ -32,6 +32,7 @@ export const App = () => {
   const [resultOfPsychoTest, setResultOfPsychoTest] =
     useState<ExpressDiagnoseResponse>();
   const [isLoading, setIsLoading] = useState(false);
+  const [employees, setEmployees] = useState([]);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -70,7 +71,7 @@ export const App = () => {
       try {
         const response = await Api.getUser();
         setCurrentUser(response.data);
-        console.log("currentUser", response.data);
+        // console.log("currentUser", response.data);
       } catch (err: any) {
         console.log(err);
       } finally {
@@ -161,6 +162,17 @@ export const App = () => {
     }
   }
 
+  async function handleEmployees() {
+    try {
+      const response = await Api.getUsers();
+      // console.log(response);
+      setEmployees(response.data.results)
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+  useEffect(()=>{handleEmployees()},[])
+
   const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
 
   const closeErrorPopup = () => {
@@ -221,6 +233,7 @@ export const App = () => {
                 popupOpened={popupOpened}
                 resetMessages={resetMessages}
                 handleSendInviteCode={handleSendInviteCode}
+                employees={employees}
               />
             }
           />

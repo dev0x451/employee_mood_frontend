@@ -5,34 +5,14 @@ import { sortIcon } from "@/assets";
 
 interface Props {
   valueInputSort: string;
+  employees: EmployeeInterface[];
 }
 
 export const Employees: React.FC<Props> = (
-  {valueInputSort}
+  {valueInputSort, employees}
 ) => {
-  const employees: EmployeeInterface[] = [
-    {
-      avatar: "/image.png",
-      name: "Анастасия",
-      position: "Столбовая дворянка",
-      // colorball: 'blue';
-      state: "удовлетворительное",
-    },
-    {
-      avatar: "/image.png",
-      name: "Роман",
-      position: "Стольничий",
-      // colorball: 'red';
-      state: "в группе риска",
-    },
-    {
-      avatar: "/image.png",
-      name: "Аркадий",
-      position: "Стремянной",
-      // colorball: 'green',
-      state: "в группе риска",
-    },
-  ];
+
+  // console.log(employees);
 
   const [employeesSort, setEmployeesSort] = useState(employees)
   const [isSortName, setIsSortName] = useState(true)
@@ -41,25 +21,32 @@ export const Employees: React.FC<Props> = (
 
   useEffect(()=>{
     setEmployeesSort(employees.filter((employee)=>
-      employee.name.toLowerCase().includes(valueInputSort) || employee.position.toLowerCase().includes(valueInputSort)
+      employee.first_name.toLowerCase().includes(valueInputSort) ||
+      employee.last_name.toLowerCase().includes(valueInputSort) ||
+      employee.position.name.toLowerCase().includes(valueInputSort)
     ));
   },[valueInputSort]);
 
-  const sortField = (a:{name: string, position: string, state: string}, b: {name: string, position: string, state: string}, field: string) => {
+  const sortField =
+    (
+      a:{first_name: string, last_name: string, position: {name: string}, mental_state: string},
+      b: {first_name: string, last_name: string, position: {name: string}, mental_state: string},
+      field: string
+    ) => {
     let x = '';
     let y = '';
     switch(field) {
       case 'name':
-        x = a.name;
-        y = b.name;
+        x = a.first_name + a.last_name;
+        y = b.first_name + b.last_name;
       break;
       case 'position':
-        x = a.position;
-        y = b.position;
+        x = a.position.name;
+        y = b.position.name;
       break;
       case 'state':
-        x = a.state;
-        y = b.state;
+        x = a.mental_state;
+        y = b.mental_state;
       break;
       default:
         x = '';
@@ -69,7 +56,6 @@ export const Employees: React.FC<Props> = (
     if (x < y) {return -1}
     if (x > y) {return 1}
     return 0;
-
   }
 
   const sortFields = (field: string, isSortField: boolean) => {
@@ -100,17 +86,17 @@ export const Employees: React.FC<Props> = (
       </div>
       {employeesSort &&
         employeesSort.map((employee) => (
-          <div key={employee.name.slice(-10)} className={styles.employee}>
+          <div key={employee.id} className={styles.employee}>
             <div className={styles.avatar}>
               <img
                 className={styles.image}
-                src={employee.avatar}
+                src={employee.avatar === null ? '/image.png' : employee.avatar}
                 alt="Avatar"
               />
-              <p className={styles.text}>{employee.name}</p>
+              <p className={styles.text}>{employee.first_name} {employee.last_name}</p>
             </div>
-            <p className={styles.text}>{employee.position}</p>
-            <p className={styles.text}>{employee.state}</p>
+            <p className={styles.text}>{employee.position.name}</p>
+            <p className={styles.text}>{employee.mental_state}</p>
           </div>
         ))}
     </div>
