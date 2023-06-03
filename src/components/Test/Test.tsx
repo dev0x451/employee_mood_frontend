@@ -11,7 +11,7 @@ import {
   resetValues
 } from "@/store/reducers/testCounter/testCounterReducer";
 import { Navbar } from "../Navbar/Navbar";
-import { TestResultPopup } from "../TestResultPopup/TestResultPopup";
+// import { TestResultPopup } from "../TestResultPopup/TestResultPopup";
 import { TestInterface, TestResult, ExpressDiagnoseResponse } from "@/types";
 
 
