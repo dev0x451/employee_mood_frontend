@@ -68,10 +68,11 @@ export const Myteam: React.FC<Props> = ({
     resetMessages();
   };
 
-  const handleInputSort = (e) => {
+
+  const handleInputSort = (e: {target:{value:string}}) => {
     setTextInput(e.target.value);
   }
-  // console.log(textInput);
+
   return (
     <div className="page-container">
       <Navbar />

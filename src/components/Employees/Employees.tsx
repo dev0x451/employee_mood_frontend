@@ -6,10 +6,7 @@ import { sortIcon } from "@/assets";
 interface Props {
   valueInputSort: string;
 }
-// interface ArticlesListProps {
-//   articles: ArticleInterface[];
-//   title: string;
-// }
+
 export const Employees: React.FC<Props> = (
   {valueInputSort}
 ) => {
@@ -48,9 +45,7 @@ export const Employees: React.FC<Props> = (
     ));
   },[valueInputSort]);
 
-
-
-  const sortField = (a, b, field) => {
+  const sortField = (a:{name: string, position: string, state: string}, b: {name: string, position: string, state: string}, field: string) => {
     let x = '';
     let y = '';
     switch(field) {
@@ -77,7 +72,7 @@ export const Employees: React.FC<Props> = (
 
   }
 
-  const sortFields = (field, isSortField) => {
+  const sortFields = (field: string, isSortField: boolean) => {
     isSortField ?
     setEmployeesSort(employeesSort.sort((a, b)=>sortField(a, b, field))) :
     setEmployeesSort(employeesSort.sort((b, a)=>sortField(a, b, field)))
