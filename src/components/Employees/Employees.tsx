@@ -12,12 +12,17 @@ export const Employees: React.FC<Props> = (
   {valueInputSort, employees}
 ) => {
 
-  // console.log(employees);
-
   const [employeesSort, setEmployeesSort] = useState(employees)
   const [isSortName, setIsSortName] = useState(true)
   const [isSortPosition, setIsSortPosition] = useState(true)
   const [isSortState, setIsSortState] = useState(true)
+
+  useEffect(()=>{
+    setEmployeesSort(employees)
+  },[employees.length])
+
+  // console.log(employees);
+  // console.log(employeesSort);
 
   useEffect(()=>{
     setEmployeesSort(employees.filter((employee)=>
