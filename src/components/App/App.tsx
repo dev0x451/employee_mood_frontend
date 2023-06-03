@@ -22,8 +22,7 @@ import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 import { Account } from "@/pages/account/Account";
 import { useRequest } from "@/shared/hooks/useRequest";
-
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCurrentUser, resetCurrentUser} from "@/store/reducers/currentUser/currentUserReducer";
 
 export const App = () => {
@@ -34,7 +33,10 @@ export const App = () => {
   const [resultOfPsychoTest, setResultOfPsychoTest] = useState<ExpressDiagnoseResponse>();
   const [allTestsResults, setallTestsResults] = useState<ExpressDiagnoseResponse[]>()
   const [isLoading, setIsLoading] = useState(false);
+  const [employees, setEmployees] = useState([]);
+  const role = useAppSelector((state)=>state.currentUserSlice.role)
   const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -69,6 +71,9 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
+        setCurrentUser(response.data);
+        // console.log("currentUser", response.data);
+
         dispatch(setCurrentUser(response.data.role))
         console.log("currentUser", response.data.role);
       } catch (err: any) {
@@ -171,6 +176,22 @@ export const App = () => {
     }
   }
 
+  async function handleEmployees() {
+    try {
+      if (role === 'hr' || role === 'chief') {
+        const response = await Api.getUsers();
+        setEmployees(response.data.results)
+      }
+
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+  // console.log(role);
+  // useEffect(()=>{handleEmployees()},[]);
+  // useEffect(()=>{handleEmployees()},[loggedIn]);
+  useEffect(()=>{handleEmployees()},[role]);
+
   const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
 
   const closeErrorPopup = () => {
@@ -235,6 +256,7 @@ export const App = () => {
                 popupOpened={popupOpened}
                 resetMessages={resetMessages}
                 handleSendInviteCode={handleSendInviteCode}
+                employees={employees}
               />
             }
           />
