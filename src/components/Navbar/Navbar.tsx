@@ -1,7 +1,8 @@
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./navbar.module.css";
 import { useAppSelector } from "@/store/hooks";
-import { selectConstructor } from "@/store/reducers/constructor/constructorReducer";
+import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
 import cn from "classnames";
 
 import {
@@ -16,10 +17,9 @@ import {
 
 } from "@/assets";
 
-// import logo from "@/assets/logo-with-name.svg";
-
 export const Navbar = () => {
-  const isChief = useAppSelector(selectConstructor);
+  const [isChief, setIsChief] = useState(false)
+  const user = useAppSelector(selectRole);
 
   const notificationClassname = cn(styles.logoContainer, styles.notification )
 
@@ -29,13 +29,12 @@ export const Navbar = () => {
     } else return `${styles.commonLink} ${styles.inactiveLink}`;
   };
 
+  useEffect (() => {
+    setIsChief(user !== 'employee')
+  }, [user])
+
   return (
     <aside className={styles.aside}>
-
-      {/* <NavLink className={styles.logo} to="/">
-        <img src={logo} alt="logo" />
-      </NavLink> */}
-
       <div className={styles.navLinks}>
         <NavLink className={({ isActive }) => linkClassName(isActive)} to="/">
           <div className={styles.logoContainer}>

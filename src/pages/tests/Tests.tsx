@@ -4,8 +4,13 @@ import { Navbar } from "@/components/Navbar/Navbar";
 import { BurnoutTestBanner } from "@/components/BurnoutTestBanner/BurnoutTestBanner";
 import { PsychologistInfo } from "@/components/PsychologistInfo/PsychologistInfo";
 import { Records } from "@/components/Records/Records";
+import { ExpressDiagnoseResponse } from "@/types";
 
-export const Tests = () => {
+interface Tests {
+  allTestsResults?: ExpressDiagnoseResponse[]
+}
+
+export const Tests: React.FC<Tests> = ({allTestsResults}) => {
   return (
     <div className="page-container">
       <Navbar />
@@ -19,7 +24,7 @@ export const Tests = () => {
             </div>
             <div className={styles.records}>
               <h3 className={styles.subtitle}>Пройденные тесты</h3>
-              <Records />
+              <Records allTestsResults={allTestsResults}/>
             </div>
         </div>
       </div>
