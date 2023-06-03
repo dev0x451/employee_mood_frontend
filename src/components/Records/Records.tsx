@@ -1,47 +1,43 @@
 import styles from "./recodrds.module.css";
-import React from "react";
+import React, {useState} from "react";
 import { sortIcon } from "@/assets";
-import { RecordInterface } from "@/types";
-export const Records: React.FC = () => {
+import { TestResultPopup } from "../TestResultPopup/TestResultPopup";
+import { ExpressDiagnoseResponse } from "@/types";
 
-    const records: RecordInterface[] = [
-        {
-          description: 'Диагностика эмоционального выгорания',
-          date: '20 марта 2023',
-          state: '33% (повышенная тревожность)',
-        },
-        {
-            description: 'Диагностика эмоционального выгорания',
-            date: '20 марта 2023',
-            state: '33% (повышенная тревожность)',
-        },
-        {
-            description: 'Диагностика эмоционального выгорания',
-            date: '20 марта 2023',
-            state: '33% (повышенная тревожность)',
-        },
-        {
-            description: 'Диагностика эмоционального выгорания',
-            date: '28 мая 2023',
-            state: '50% (умеренная тревожность)',
-        },
+interface Records {
+  allTestsResults?: ExpressDiagnoseResponse[]
+}
 
-      ];
-    return (
-      <div className={styles.recodrds}>
-        <div className={styles.tableRecords}>
-          <button className={styles.sortButton}>Наименование опроса {sortIcon}</button>
-          <button className={styles.sortButton}>Дата проведения {sortIcon}</button>
-          <button className={styles.sortButton}>Результат {sortIcon}</button>
-       </div>
-       {records && records.map((record) => (
-        <div className={styles.record}>
-          <p className={styles.text}>{record.description}</p>
-          <p className={styles.text}>{record.date}</p>
-          <p className={styles.text}>{record.state}</p>
-          <button className={styles.recordButton}>Подробнее</button>
-        </div>
-      ))}
-      </div>
-    );
+export const Records: React.FC<Records> = ({allTestsResults}) => {
+  const [isOpen, setOpen] = useState<boolean>(false);
+  const [result, setResult] = useState<ExpressDiagnoseResponse>();
+
+  function handleOpenPopup (record: ExpressDiagnoseResponse) {
+    setOpen(true);
+    setResult(record);
+  }
+
+  function handleClosePopup() {
+    setOpen(false);
+  }
+
+  return (
+    <div className={styles.recodrds}>
+      <section className={styles.tableRecords}>
+        <button className={styles.sortButton}>Наименование опроса {sortIcon}</button>
+        <button className={styles.sortButton}>Дата проведения {sortIcon}</button>
+        <button className={styles.sortButton}>Результат {sortIcon}</button>
+      </section>
+      {allTestsResults && allTestsResults.map((record, index) => (
+      <section key={index} className={styles.record}>
+        <p className={styles.text}>Диагностика эмоционального выгорания</p>
+        <p className={styles.text}>{record.completion_date}</p>
+        <p className={styles.text}>{record.result}</p>
+        <button type="button" onClick={() => handleOpenPopup(record)} className={styles.recordButton}>Подробнее</button>
+      </section>
+    ))}
+
+    <TestResultPopup isVisible={isOpen} resultOfPsychoTest={result} onClose={handleClosePopup}/>
+    </div>
+  );
 };

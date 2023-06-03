@@ -1,11 +1,13 @@
 import styles from "./myteam.module.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Articles } from "../Articles/Articles";
 import { Employees } from "../Employees/Employees";
 import { ArticleInterface } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";
 import { AddEmployeePopup } from "@/components/AddEmployeePopup/AddEmployeePopup";
+import { useAppSelector } from "@/store/hooks";
+import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
 
 interface Props {
   resetMessages: () => void;
@@ -57,6 +59,8 @@ export const Myteam: React.FC<Props> = ({
   ];
 
   const [addPopupVisible, setAddPopupVisible] = useState(false);
+  const [isChief, setIsChief] = useState(false)
+  const user = useAppSelector(selectRole);
 
   const openAddPopup = () => {
     setAddPopupVisible(true);
@@ -67,6 +71,10 @@ export const Myteam: React.FC<Props> = ({
     resetMessages();
   };
 
+  useEffect (() => {
+    setIsChief(user === 'hr')
+  }, [user])
+
   return (
     <div className="page-container">
       <Navbar />
@@ -74,13 +82,13 @@ export const Myteam: React.FC<Props> = ({
         <div className={styles.leftScreen}>
           <div className={styles.topContent}>
             <h2 className={styles.title}>Моя команда</h2>
-            <Button
+            {isChief && <Button
               title="Добавить сотрудника"
               mode="primary"
               width="236px"
               height="36px"
               openAddPopup={openAddPopup}
-            />
+            />}
           </div>
           <input
             className={styles.input}

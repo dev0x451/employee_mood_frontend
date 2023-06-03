@@ -29,6 +29,10 @@
   color: var(--color-accent-purple);
 }
 
+.button-hidden {
+  display: none;
+}
+
 .button-secondary:hover {
   background-color: #E1DEDE;
 }
