@@ -1,0 +1,58 @@
+.account {
+  display: flex;
+  padding: 40px 0 0 52px;
+  background-color: var(--color-background);
+  gap: 28px;
+}
+
+.account-info-container {
+  width: 500px;
+  height: 198px;
+  padding: 24px 0 0 20px;
+  border-radius: 20px;
+  background-color: var(--color-background-white);
+}
+
+.title {
+  margin: 0 0 16px 0;
+  font: var(--font-h1);
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.photo {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+}
+
+.no-photo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-background-accent);
+  color: var(--color-accent-purple);
+  font-family: Roboto, sans-serif;
+  font-size: 36px;
+  font-weight: 500;
+}
+
+.text-info-list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.name-info {
+  font: var(--font-button);
+  margin-bottom: 4px;
+}
+
+.job-info {
+  color: var(--color-black);
+  font: var(--font-body);
+}
