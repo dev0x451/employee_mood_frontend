@@ -23,20 +23,20 @@ import { useLocation } from "react-router";
 import { Account } from "@/pages/account/Account";
 import { useRequest } from "@/shared/hooks/useRequest";
 
+import { useAppDispatch } from "@/store/hooks";
+import { setCurrentUser, resetCurrentUser} from "@/store/reducers/currentUser/currentUserReducer";
+
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [currentUser, setCurrentUser] = useState({});
-  const [resultOfPsychoTest, setResultOfPsychoTest] =
-    useState<ExpressDiagnoseResponse>();
+  const [resultOfPsychoTest, setResultOfPsychoTest] = useState<ExpressDiagnoseResponse>();
+  const [allTestsResults, setallTestsResults] = useState<ExpressDiagnoseResponse[]>()
   const [isLoading, setIsLoading] = useState(false);
-
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  console.log(currentUser);
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
@@ -69,8 +69,8 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
-        setCurrentUser(response.data);
-        console.log("currentUser", response.data);
+        dispatch(setCurrentUser(response.data.role))
+        console.log("currentUser", response.data.role);
       } catch (err: any) {
         console.log(err);
       } finally {
@@ -94,7 +94,7 @@ export const App = () => {
 
   const handleSignOut = () => {
     setLoggedIn(false);
-    setCurrentUser({});
+    dispatch(resetCurrentUser())
     navigate("/login");
     localStorage.removeItem("jwt");
   };
@@ -159,6 +159,16 @@ export const App = () => {
     } catch (err: any) {
       console.log(err);
     }
+    getAllTestsResult()
+  }
+
+  async function getAllTestsResult() {
+    try {
+      const response = await Api.getAllTestsResults();
+      setallTestsResults(response.data.results);
+    } catch (err: any) {
+      console.log(err);
+    }
   }
 
   const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
@@ -172,6 +182,10 @@ export const App = () => {
     setError("");
     setSuccess("");
   };
+
+  useEffect(() => {
+    getAllTestsResult()
+  }, [])
 
   if (isLoading) {
     return <div></div>;
@@ -190,7 +204,7 @@ export const App = () => {
         >
           <Route path="/" element={<Main />} />
 
-          <Route path="tests" element={<Tests />} />
+          <Route path="tests" element={<Tests allTestsResults={allTestsResults}/>} />
 
           <Route
             path="tests/:id"
