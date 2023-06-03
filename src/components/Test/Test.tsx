@@ -11,6 +11,7 @@ import {
   resetValues
 } from "@/store/reducers/testCounter/testCounterReducer";
 import { Navbar } from "../Navbar/Navbar";
+// import { TestResultPopup } from "../TestResultPopup/TestResultPopup";
 import { TestInterface, TestResult, ExpressDiagnoseResponse } from "@/types";
 
 
@@ -196,6 +197,9 @@ export const Test: React.FC<Test> = ({test, onSendTestResult, resultOfPsychoTest
           </div>
           <button type='button' onClick={handleClose} className={styles.closeBtn}/>
         </section>
+
+        {/* необходимо исправить позиционирование и заменить повторяющийся код */}
+        {/* <TestResultPopup isVisible={isResultsPopapVisible} onClose={handleClose} resultOfPsychoTest={resultOfPsychoTest}/> */}
       </article>
     </div>
   );
