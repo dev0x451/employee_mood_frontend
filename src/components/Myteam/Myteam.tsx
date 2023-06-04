@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { Articles } from "../Articles/Articles";
 import { Employees } from "../Employees/Employees";
-import { ArticleInterface } from "@/types";
+import { ArticleInterface, EmployeeInterface } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";
 import { AddEmployeePopup } from "@/components/AddEmployeePopup/AddEmployeePopup";
 import { useAppSelector } from "@/store/hooks";
@@ -16,6 +16,7 @@ interface Props {
   error: string;
   closeErrorPopup: () => void;
   popupOpened: boolean;
+  employees: EmployeeInterface[];
 }
 export const Myteam: React.FC<Props> = ({
   resetMessages,
@@ -24,6 +25,7 @@ export const Myteam: React.FC<Props> = ({
   error,
   closeErrorPopup,
   popupOpened,
+  employees,
 }) => {
   const articles: ArticleInterface[] = [
     {
@@ -59,6 +61,7 @@ export const Myteam: React.FC<Props> = ({
   ];
 
   const [addPopupVisible, setAddPopupVisible] = useState(false);
+  const [textInput, setTextInput] = useState("");
   const [isChief, setIsChief] = useState(false);
   const user = useAppSelector(selectRole);
 
@@ -69,6 +72,10 @@ export const Myteam: React.FC<Props> = ({
   const closeAddPopup = () => {
     setAddPopupVisible(false);
     resetMessages();
+  };
+
+  const handleInputSort = (e: { target: { value: string } }) => {
+    setTextInput(e.target.value);
   };
 
   useEffect(() => {
@@ -88,7 +95,7 @@ export const Myteam: React.FC<Props> = ({
                 mode="primary"
                 width="236px"
                 height="36px"
-                handleClick={openAddPopup}
+                openAddPopup={openAddPopup}
               />
             )}
           </div>
@@ -96,8 +103,10 @@ export const Myteam: React.FC<Props> = ({
             className={styles.input}
             name="myteam-search-input"
             placeholder="Начните вводить имя"
+            value={textInput}
+            onChange={handleInputSort}
           />
-          <Employees />
+          <Employees valueInputSort={textInput} employees={employees} />
         </div>
         <div className={styles.rightScreen}>
           <Articles

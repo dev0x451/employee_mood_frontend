@@ -20,30 +20,17 @@ import {
   MyFormValues,
   TestResult,
   ExpressDiagnoseResponse,
-  UserInfo,
+  TestInterface,
 } from "@/types";
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 import { Account } from "@/pages/account/Account";
-import { useRequest } from "@/shared/hooks/useRequest";
-
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   setCurrentUser,
   resetCurrentUser,
-  setCurrentUserFirstName,
-  setCurrentUserLastName,
-  setCurrentUserPosition,
-  setCurrentUserAbout,
-  setCurrentUserAvatar,
-  resetCurrentUserFirstName,
-  resetCurrentUserLastName,
-  resetCurrentUserPosition,
-  resetCurrentUserAvatar,
-  resetCurrentUserAbout,
 } from "@/store/reducers/currentUser/currentUserReducer";
-import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -52,10 +39,14 @@ export const App = () => {
   const [success, setSuccess] = useState("");
   const [resultOfPsychoTest, setResultOfPsychoTest] =
     useState<ExpressDiagnoseResponse>();
+  const [expressTest, setExpressTest] = useState<TestInterface | null>(null);
   const [allTestsResults, setallTestsResults] =
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
+  const [employees, setEmployees] = useState([]);
+  const role = useAppSelector((state) => state.currentUserSlice.role);
   const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -90,30 +81,16 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
+        setCurrentUser(response.data);
+        // console.log("currentUser", response.data);
+
         dispatch(setCurrentUser(response.data.role));
-        dispatch(setCurrentUserFirstName(response.data.first_name));
-        dispatch(setCurrentUserLastName(response.data.last_name));
-        dispatch(setCurrentUserPosition(response.data.position.name));
-        dispatch(setCurrentUserAbout(response.data.about));
-        dispatch(setCurrentUserAvatar(response.data.avatar));
         console.log("currentUser", response.data.role);
       } catch (err: any) {
         console.log(err);
       } finally {
         setIsLoading(false);
       }
-    }
-  }
-
-  async function handleChangeUserInfo(userInfo: UserInfo) {
-    try {
-      const response = await Api.changeUserInfo(userInfo);
-      if (response) {
-        setSuccess("Изменения сохранены");
-        getUserInfo();
-      }
-    } catch (err) {
-      console.log(err);
     }
   }
 
@@ -133,11 +110,6 @@ export const App = () => {
   const handleSignOut = () => {
     setLoggedIn(false);
     dispatch(resetCurrentUser());
-    dispatch(resetCurrentUserFirstName());
-    dispatch(resetCurrentUserLastName());
-    dispatch(resetCurrentUserPosition());
-    dispatch(resetCurrentUserAbout());
-    dispatch(resetCurrentUserAvatar());
     navigate("/login");
     localStorage.removeItem("jwt");
   };
@@ -214,7 +186,42 @@ export const App = () => {
     }
   }
 
-  const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
+  async function getTestsQuestions() {
+    try {
+      const response = await Api.getTestQuestions("1");
+      setExpressTest(response.data);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
+  // if (loggedIn) {
+  // const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
+  // }
+
+  useEffect(() => {
+    if (loggedIn) {
+      getAllTestsResult();
+      getTestsQuestions();
+    }
+  }, [loggedIn]);
+
+  async function handleEmployees() {
+    try {
+      if (role === "hr" || role === "chief") {
+        const response = await Api.getUsers();
+        setEmployees(response.data.results);
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+  // console.log(role);
+  // useEffect(()=>{handleEmployees()},[]);
+  // useEffect(()=>{handleEmployees()},[loggedIn]);
+  useEffect(() => {
+    handleEmployees();
+  }, [role]);
 
   const closeErrorPopup = () => {
     setPopupOpened(false);
@@ -226,24 +233,12 @@ export const App = () => {
     setSuccess("");
   };
 
-  useEffect(() => {
-    getAllTestsResult();
-  }, []);
-
   if (isLoading) {
     return <div></div>;
   }
 
   return (
     <main className={styles.page}>
-      {success && (
-        <InfoPopup
-          isPositive={true}
-          popupMessage={success}
-          closeErrorPopup={closeErrorPopup}
-          popupOpened={popupOpened}
-        />
-      )}
       <Routes>
         <Route
           element={
@@ -278,15 +273,7 @@ export const App = () => {
           <Route path="bookmarks" element={<Bookmarks />} />
 
           <Route path="calendar" element={<Calendar />} />
-          <Route
-            path="account"
-            element={
-              <Account
-                handleChangeUserInfo={handleChangeUserInfo}
-                success={success}
-              />
-            }
-          />
+          <Route path="account" element={<Account />} />
           <Route
             path="myteam"
             element={
@@ -297,6 +284,7 @@ export const App = () => {
                 popupOpened={popupOpened}
                 resetMessages={resetMessages}
                 handleSendInviteCode={handleSendInviteCode}
+                employees={employees}
               />
             }
           />

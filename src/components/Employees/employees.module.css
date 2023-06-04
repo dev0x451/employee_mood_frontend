@@ -23,6 +23,11 @@
   background-color: inherit;
   font: var(--font-h3);
   gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.5s linear;
+}
+.sort-button:hover {
+  opacity: 0.6;
 }
 
 .employee {
