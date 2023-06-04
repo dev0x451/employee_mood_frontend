@@ -16,19 +16,12 @@ import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
 import { LoginPage } from "@/pages/login/LoginPage";
-import {
-  MyFormValues,
-  TestResult,
-  ExpressDiagnoseResponse,
-  UserInfo,
-} from "@/types";
+import { MyFormValues, TestResult, ExpressDiagnoseResponse, TestInterface, UserInfo } from "@/types";
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 import { Account } from "@/pages/account/Account";
-import { useRequest } from "@/shared/hooks/useRequest";
-
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   setCurrentUser,
   resetCurrentUser,
@@ -49,12 +42,14 @@ export const App = () => {
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [resultOfPsychoTest, setResultOfPsychoTest] =
-    useState<ExpressDiagnoseResponse>();
-  const [allTestsResults, setallTestsResults] =
-    useState<ExpressDiagnoseResponse[]>();
+  const [resultOfPsychoTest, setResultOfPsychoTest] = useState<ExpressDiagnoseResponse>();
+  const [expressTest, setExpressTest] = useState<TestInterface| null>(null)
+  const [allTestsResults, setallTestsResults] = useState<ExpressDiagnoseResponse[]>()
   const [isLoading, setIsLoading] = useState(false);
+  const [employees, setEmployees] = useState([]);
+  const role = useAppSelector((state)=>state.currentUserSlice.role)
   const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -196,6 +191,11 @@ export const App = () => {
     }
   }
 
+
+
+
+
+
   async function handleSendTestResult(result: TestResult) {
     try {
       const response = await Api.sendTestResults(result);
@@ -207,7 +207,7 @@ export const App = () => {
   }
 
   async function getAllTestsResult() {
-    try {
+      try {
       const response = await Api.getAllTestsResults();
       setallTestsResults(response.data.results);
     } catch (err: any) {
@@ -215,7 +215,50 @@ export const App = () => {
     }
   }
 
-  const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
+  async function getTestsQuestions() {
+      try {
+      const response = await Api.getTestQuestions('1');
+      setExpressTest(response.data);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
+  // if (loggedIn) {
+    // const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
+  // }
+
+
+  useEffect(() => {
+    if (loggedIn) {
+      getAllTestsResult();
+      getTestsQuestions();
+    }
+  }, [loggedIn])
+
+
+
+
+
+
+
+
+  async function handleEmployees() {
+    try {
+      if (role === 'hr' || role === 'chief') {
+        const response = await Api.getUsers();
+        setEmployees(response.data.results)
+      }
+
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+  // console.log(role);
+  // useEffect(()=>{handleEmployees()},[]);
+  // useEffect(()=>{handleEmployees()},[loggedIn]);
+  useEffect(()=>{handleEmployees()},[role]);
+
 
   const closeErrorPopup = () => {
     setPopupOpened(false);
@@ -227,9 +270,6 @@ export const App = () => {
     setSuccess("");
   };
 
-  useEffect(() => {
-    getAllTestsResult();
-  }, []);
 
   if (isLoading) {
     return <div></div>;
@@ -293,6 +333,7 @@ export const App = () => {
                 popupOpened={popupOpened}
                 resetMessages={resetMessages}
                 handleSendInviteCode={handleSendInviteCode}
+                employees={employees}
               />
             }
           />

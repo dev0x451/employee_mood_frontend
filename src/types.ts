@@ -12,11 +12,13 @@ type Department = {
 };
 
 export interface EmployeeInterface {
+  id: number;
   avatar?: string;
-  name: string;
-  position: string;
+  first_name: string;
+  last_name: string;
+  position: {name:string};
   // colorball: string;
-  state: string;
+  mental_state: string;
 }
 
 export interface SelectOption {

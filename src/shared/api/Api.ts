@@ -47,6 +47,14 @@ export const getTestQuestions = (test: string | null) => {
   });
 };
 
+export const getAllTestsResults = () => {
+  return axios.get(`${BASE_URL}/metrics/results/?my_results=true`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
 export const sendTestResults = (results: TestResult) => {
   return axios.post(
     `${BASE_URL}/metrics/results`,
@@ -77,8 +85,8 @@ export const sendInviteCode = (email: string) => {
   );
 };
 
-export const getAllTestsResults = () => {
-  return axios.get(`${BASE_URL}/metrics/results/?my_results=true`, {
+export const getUsers = () => {
+  return axios.get(`${BASE_URL}/users/?limit=100`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },

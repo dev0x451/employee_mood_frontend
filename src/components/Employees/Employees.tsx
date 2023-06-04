@@ -1,53 +1,104 @@
 import styles from "./employees.module.css";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { EmployeeInterface } from "@/types";
 import { sortIcon } from "@/assets";
 
-export const Employees: React.FC = () => {
-  const employees: EmployeeInterface[] = [
-    {
-      avatar: "/image.png",
-      name: "Анастасия",
-      position: "Столбовая дворянка",
-      // colorball: 'blue';
-      state: "удовлетворительное",
-    },
-    {
-      avatar: "/image.png",
-      name: "Роман",
-      position: "Стольничий",
-      // colorball: 'red';
-      state: "в группе риска",
-    },
-    {
-      avatar: "/image.png",
-      name: "Аркадий",
-      position: "Стремянной",
-      // colorball: 'green',
-      state: "в группе риска",
-    },
-  ];
+interface Props {
+  valueInputSort: string;
+  employees: EmployeeInterface[];
+}
+
+export const Employees: React.FC<Props> = (
+  {valueInputSort, employees}
+) => {
+
+  const [employeesSort, setEmployeesSort] = useState(employees)
+  const [isSortName, setIsSortName] = useState(true)
+  const [isSortPosition, setIsSortPosition] = useState(true)
+  const [isSortState, setIsSortState] = useState(true)
+
+  useEffect(()=>{
+    setEmployeesSort(employees)
+  },[employees.length])
+
+  useEffect(()=>{
+    setEmployeesSort(employees.filter((employee)=>
+      employee.first_name.toLowerCase().includes(valueInputSort.toLowerCase()) ||
+      employee.last_name.toLowerCase().includes(valueInputSort.toLowerCase()) ||
+      employee.position.name.toLowerCase().includes(valueInputSort.toLowerCase())
+    ));
+  },[valueInputSort]);
+
+  const sortField =
+    (
+      a:{first_name: string, last_name: string, position: {name: string}, mental_state: string},
+      b: {first_name: string, last_name: string, position: {name: string}, mental_state: string},
+      field: string
+    ) => {
+    let x = '';
+    let y = '';
+    switch(field) {
+      case 'name':
+        x = a.first_name + a.last_name;
+        y = b.first_name + b.last_name;
+      break;
+      case 'position':
+        x = a.position.name;
+        y = b.position.name;
+      break;
+      case 'state':
+        x = a.mental_state;
+        y = b.mental_state;
+      break;
+      default:
+        x = '';
+        y = '';
+      break;
+    }
+    if (x < y) {return -1}
+    if (x > y) {return 1}
+    return 0;
+  }
+
+  const sortFields = (field: string, isSortField: boolean) => {
+    isSortField ?
+    setEmployeesSort(employeesSort.sort((a, b)=>sortField(a, b, field))) :
+    setEmployeesSort(employeesSort.sort((b, a)=>sortField(a, b, field)))
+  }
+
+  const sortName = () => {
+    setIsSortName(!isSortName);
+    sortFields('name', isSortName);
+  }
+  const sortPosition = () => {
+    setIsSortPosition(!isSortPosition);
+    sortFields('position', isSortPosition);
+  }
+  const sortState = () => {
+    setIsSortState(!isSortState);
+    sortFields('state', isSortState);
+  }
 
   return (
     <div className={styles.employees}>
       <div className={styles.sortContainer}>
-        <button className={styles.sortButton}>Сотрудник {sortIcon}</button>
-        <button className={styles.sortButton}>Должность {sortIcon}</button>
-        <button className={styles.sortButton}>Состояние {sortIcon}</button>
+        <button className={styles.sortButton} onClick={sortName}>Сотрудник {sortIcon}</button>
+        <button className={styles.sortButton} onClick={sortPosition}>Должность {sortIcon}</button>
+        <button className={styles.sortButton} onClick={sortState}>Состояние {sortIcon}</button>
       </div>
-      {employees &&
-        employees.map((employee) => (
-          <div key={employee.name.slice(-10)} className={styles.employee}>
+      {employeesSort &&
+        employeesSort.map((employee) => (
+          <div key={employee.id} className={styles.employee}>
             <div className={styles.avatar}>
               <img
                 className={styles.image}
-                src={employee.avatar}
+                src={employee.avatar === null ? '/image.png' : employee.avatar}
                 alt="Avatar"
               />
-              <p className={styles.text}>{employee.name}</p>
+              <p className={styles.text}>{employee.first_name} {employee.last_name}</p>
             </div>
-            <p className={styles.text}>{employee.position}</p>
-            <p className={styles.text}>{employee.state}</p>
+            <p className={styles.text}>{employee.position.name}</p>
+            <p className={styles.text}>{employee.mental_state}</p>
           </div>
         ))}
     </div>
