@@ -7,9 +7,8 @@
   margin-top: 35px;
   background-color: white;
 
-  /* background-image: url("./MoodGraph-TO_BE_DELETED.png"); */
-
-  /* background-size: cover; */
+  /* background-image: url("./MoodGraph-TO_BE_DELETED.png");
+  background-size: cover; */
 }
 
 .top-container {
@@ -20,6 +19,15 @@
 .heading {
   margin: 0;
   font: var(--font-h3);
+}
+
+.x-axis {
+  position: absolute;
+  bottom: 13px;
+  left: 52px;
+  width: 604px;
+  height: 24px;
+  background-image: url("/public/moodlevel_axisX.svg");
 }
 
 .stacked-smiles {
