@@ -21,7 +21,6 @@ import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 import { Account } from "@/pages/account/Account";
-import { useRequest } from "@/shared/hooks/useRequest";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCurrentUser, resetCurrentUser} from "@/store/reducers/currentUser/currentUserReducer";
 

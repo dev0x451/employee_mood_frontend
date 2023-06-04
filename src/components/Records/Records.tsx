@@ -17,8 +17,8 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
 
   const [testResultsSort, setTestResultsSort] = useState(allTestsResults)
   const [isSortName, setIsSortName] = useState(true)
-  const [isSortPosition, setIsSortPosition] = useState(true)
-  const [isSortState, setIsSortState] = useState(true)
+  // const [isSortPosition, setIsSortPosition] = useState(true)
+  // const [isSortState, setIsSortState] = useState(true)
 
   useEffect(()=>{
     if (allTestsResults) setTestResultsSort(allTestsResults)
@@ -68,14 +68,14 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
     setIsSortName(!isSortName);
     sortFields('name', isSortName);
   }
-  const sortPosition = () => {
-    setIsSortPosition(!isSortPosition);
-    sortFields('position', isSortPosition);
-  }
-  const sortState = () => {
-    setIsSortState(!isSortState);
-    sortFields('state', isSortState);
-  }
+  // const sortPosition = () => {
+  //   setIsSortPosition(!isSortPosition);
+  //   sortFields('position', isSortPosition);
+  // }
+  // const sortState = () => {
+  //   setIsSortState(!isSortState);
+  //   sortFields('state', isSortState);
+  // }
 
   function handleOpenPopup (record: ExpressDiagnoseResponse) {
     setOpen(true);
