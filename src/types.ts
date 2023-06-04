@@ -16,7 +16,7 @@ export interface EmployeeInterface {
   avatar?: string;
   first_name: string;
   last_name: string;
-  position: {name:string};
+  position: { name: string };
   // colorball: string;
   mental_state: string;
 }

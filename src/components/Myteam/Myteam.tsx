@@ -61,8 +61,8 @@ export const Myteam: React.FC<Props> = ({
   ];
 
   const [addPopupVisible, setAddPopupVisible] = useState(false);
-  const [textInput, setTextInput] = useState('')
-  const [isChief, setIsChief] = useState(false)
+  const [textInput, setTextInput] = useState("");
+  const [isChief, setIsChief] = useState(false);
   const user = useAppSelector(selectRole);
 
   const openAddPopup = () => {
@@ -74,14 +74,13 @@ export const Myteam: React.FC<Props> = ({
     resetMessages();
   };
 
-  const handleInputSort = (e: {target:{value:string}}) => {
+  const handleInputSort = (e: { target: { value: string } }) => {
     setTextInput(e.target.value);
-  }
+  };
 
-  useEffect (() => {
-    setIsChief(user === 'hr')
-  }, [user])
-
+  useEffect(() => {
+    setIsChief(user === "hr");
+  }, [user]);
 
   return (
     <div className="page-container">
@@ -104,10 +103,10 @@ export const Myteam: React.FC<Props> = ({
             className={styles.input}
             name="myteam-search-input"
             placeholder="Начните вводить имя"
-            value = {textInput}
+            value={textInput}
             onChange={handleInputSort}
           />
-          <Employees valueInputSort={textInput} employees={employees}/>
+          <Employees valueInputSort={textInput} employees={employees} />
         </div>
         <div className={styles.rightScreen}>
           <Articles

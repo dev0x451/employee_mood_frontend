@@ -114,7 +114,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({
           {({ values }) => (
             <Form noValidate className={classes.registerForm}>
               <h2 className={classes.registerTitle}>
-                Добро пожаловать в службу заботы о сотрудниках CareFor
+                Добро пожаловать в службу заботы о сотрудниках MoodBeat
               </h2>
               <ul className={classes.registerFormList}>
                 <li className={classes.registerFormListItem}>
