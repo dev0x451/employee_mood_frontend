@@ -89,9 +89,9 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
   return (
     <div className={styles.recodrds}>
       <section className={styles.tableRecords}>
-        <button className={styles.sortButton} onClick={sortName}>Наименование опроса {sortIcon}</button>
-        <button className={styles.sortButton} onClick={sortName}>Дата проведения {sortIcon}</button>
-        <button className={styles.sortButton} onClick={sortName}>Результат {sortIcon}</button>
+        <button className={styles.sortButton}>Наименование опроса {sortIcon}</button>
+        <button className={styles.sortButton}>Дата проведения {sortIcon}</button>
+        <button className={styles.sortButton}>Результат {sortIcon}</button>
       </section>
       {allTestsResults && allTestsResults.map((record, index) => (
       <section key={index} className={styles.record}>

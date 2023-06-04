@@ -157,11 +157,6 @@ export const App = () => {
     }
   }
 
-
-
-
-
-
   async function handleSendTestResult(result: TestResult) {
     try {
       const response = await Api.sendTestResults(result);
@@ -175,6 +170,7 @@ export const App = () => {
   async function getAllTestsResult() {
       try {
       const response = await Api.getAllTestsResults();
+      console.log(response);
       setallTestsResults(response.data.results);
     } catch (err: any) {
       console.log(err);
@@ -194,20 +190,12 @@ export const App = () => {
     // const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
   // }
 
-
   useEffect(() => {
     if (loggedIn) {
       getAllTestsResult();
       getTestsQuestions();
     }
   }, [loggedIn])
-
-
-
-
-
-
-
 
   async function handleEmployees() {
     try {
@@ -220,9 +208,7 @@ export const App = () => {
       console.log(err);
     }
   }
-  // console.log(role);
-  // useEffect(()=>{handleEmployees()},[]);
-  // useEffect(()=>{handleEmployees()},[loggedIn]);
+
   useEffect(()=>{handleEmployees()},[role]);
 
 
