@@ -2,6 +2,7 @@
   position: absolute;
   right: 130px;
   bottom: -89px;
+  display: none;
   width: 236px;
   height: 88px;
   padding: 8px 0;
@@ -11,12 +12,16 @@
   background-color: var(--color-background-white);
   box-shadow: var(--shadow-medium);
   list-style-type: none;
-  opacity: 0;
-  transition: opacity .3s;
+
+  /* opacity: 0; */
+
+  /* transition: opacity .3s; */
 }
 
 .account-settings-list-opened {
-  opacity: 1;
+  display: block;
+
+  /* opacity: 1; */
 }
 
 .account-settings-list-item {
