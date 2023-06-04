@@ -1,4 +1,3 @@
-// import { ResponsiveBar } from "@nivo/bar";
 import { ResponsiveLine } from "@nivo/line";
 import { useState, useEffect } from "react";
 
@@ -48,6 +47,8 @@ export const MoodGraph = () => {
         <div>{confusedIcon}</div>
         <div>{worriedIcon}</div>
       </div>
+      <div className={styles.xAxis}></div>
+
       <ResponsiveLine
         data={data3}
         margin={{ top: 50, right: 0, bottom: 40, left: 33 }}
@@ -62,6 +63,7 @@ export const MoodGraph = () => {
         colors={{ scheme: "pink_yellowGreen" }}
         isInteractive={false}
         axisLeft={null}
+        axisBottom={null}
       />
     </div>
   );
