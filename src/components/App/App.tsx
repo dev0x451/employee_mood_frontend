@@ -16,7 +16,12 @@ import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
 import { LoginPage } from "@/pages/login/LoginPage";
-import { MyFormValues, TestResult, ExpressDiagnoseResponse } from "@/types";
+import {
+  MyFormValues,
+  TestResult,
+  ExpressDiagnoseResponse,
+  UserInfo,
+} from "@/types";
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
@@ -24,15 +29,31 @@ import { Account } from "@/pages/account/Account";
 import { useRequest } from "@/shared/hooks/useRequest";
 
 import { useAppDispatch } from "@/store/hooks";
-import { setCurrentUser, resetCurrentUser} from "@/store/reducers/currentUser/currentUserReducer";
+import {
+  setCurrentUser,
+  resetCurrentUser,
+  setCurrentUserFirstName,
+  setCurrentUserLastName,
+  setCurrentUserPosition,
+  setCurrentUserAbout,
+  setCurrentUserAvatar,
+  resetCurrentUserFirstName,
+  resetCurrentUserLastName,
+  resetCurrentUserPosition,
+  resetCurrentUserAvatar,
+  resetCurrentUserAbout,
+} from "@/store/reducers/currentUser/currentUserReducer";
+import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [resultOfPsychoTest, setResultOfPsychoTest] = useState<ExpressDiagnoseResponse>();
-  const [allTestsResults, setallTestsResults] = useState<ExpressDiagnoseResponse[]>()
+  const [resultOfPsychoTest, setResultOfPsychoTest] =
+    useState<ExpressDiagnoseResponse>();
+  const [allTestsResults, setallTestsResults] =
+    useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -69,13 +90,30 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
-        dispatch(setCurrentUser(response.data.role))
+        dispatch(setCurrentUser(response.data.role));
+        dispatch(setCurrentUserFirstName(response.data.first_name));
+        dispatch(setCurrentUserLastName(response.data.last_name));
+        dispatch(setCurrentUserPosition(response.data.position.name));
+        dispatch(setCurrentUserAbout(response.data.about));
+        dispatch(setCurrentUserAvatar(response.data.avatar));
         console.log("currentUser", response.data.role);
       } catch (err: any) {
         console.log(err);
       } finally {
         setIsLoading(false);
       }
+    }
+  }
+
+  async function handleChangeUserInfo(userInfo: UserInfo) {
+    try {
+      const response = await Api.changeUserInfo(userInfo);
+      if (response) {
+        setSuccess("Изменения сохранены");
+        getUserInfo();
+      }
+    } catch (err) {
+      console.log(err);
     }
   }
 
@@ -94,7 +132,12 @@ export const App = () => {
 
   const handleSignOut = () => {
     setLoggedIn(false);
-    dispatch(resetCurrentUser())
+    dispatch(resetCurrentUser());
+    dispatch(resetCurrentUserFirstName());
+    dispatch(resetCurrentUserLastName());
+    dispatch(resetCurrentUserPosition());
+    dispatch(resetCurrentUserAbout());
+    dispatch(resetCurrentUserAvatar());
     navigate("/login");
     localStorage.removeItem("jwt");
   };
@@ -159,7 +202,7 @@ export const App = () => {
     } catch (err: any) {
       console.log(err);
     }
-    getAllTestsResult()
+    getAllTestsResult();
   }
 
   async function getAllTestsResult() {
@@ -184,8 +227,8 @@ export const App = () => {
   };
 
   useEffect(() => {
-    getAllTestsResult()
-  }, [])
+    getAllTestsResult();
+  }, []);
 
   if (isLoading) {
     return <div></div>;
@@ -193,6 +236,14 @@ export const App = () => {
 
   return (
     <main className={styles.page}>
+      {success && (
+        <InfoPopup
+          isPositive={true}
+          popupMessage={success}
+          closeErrorPopup={closeErrorPopup}
+          popupOpened={popupOpened}
+        />
+      )}
       <Routes>
         <Route
           element={
@@ -204,7 +255,10 @@ export const App = () => {
         >
           <Route path="/" element={<Main />} />
 
-          <Route path="tests" element={<Tests allTestsResults={allTestsResults}/>} />
+          <Route
+            path="tests"
+            element={<Tests allTestsResults={allTestsResults} />}
+          />
 
           <Route
             path="tests/:id"
@@ -224,7 +278,15 @@ export const App = () => {
           <Route path="bookmarks" element={<Bookmarks />} />
 
           <Route path="calendar" element={<Calendar />} />
-          <Route path="account" element={<Account />} />
+          <Route
+            path="account"
+            element={
+              <Account
+                handleChangeUserInfo={handleChangeUserInfo}
+                success={success}
+              />
+            }
+          />
           <Route
             path="myteam"
             element={

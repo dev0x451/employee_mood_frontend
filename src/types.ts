@@ -1,3 +1,5 @@
+import { ReactNode } from "react";
+
 export interface ArticleInterface {
   type: string;
   title: string;
@@ -47,7 +49,7 @@ export interface Image {
 }
 
 export interface Question {
-  text: string
+  text: string;
 }
 
 export interface TestInterface {
@@ -63,60 +65,65 @@ export interface TestInterface {
 }
 
 export interface TestResult {
-  positive_value: number,
-  negative_value: number,
-  survey: number,
+  positive_value: number;
+  negative_value: number;
+  survey: number;
 }
 
 export interface ExpressDiagnoseResponse {
-  completion_date: string,
-  employee: number,
-  id: number,
-  next_attempt_date: string,
-  result: string,
-  survey: number
+  completion_date: string;
+  employee: number;
+  id: number;
+  next_attempt_date: string;
+  result: string;
+  survey: number;
 }
 
 export interface UserDepartment {
-  id: number,
-  name: string,
-  description: string,
+  id: number;
+  name: string;
+  description: string;
 }
 
 export interface UserPosition {
-  id: number,
-  name: string,
-  chief_position: boolean,
-  departments: number[]
+  id: number;
+  name: string;
+  chief_position: boolean;
+  departments: number[];
 }
 
 export interface UserHobby {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 
 export interface UserLatestCondition {
-  id: number,
-  mood: number,
-  note: string| null,
-  date: string,
-  employee: number
+  id: number;
+  mood: number;
+  note: string | null;
+  date: string;
+  employee: number;
 }
 
 export interface User {
-  about: string | null,
-  avatar: string| null,
-  date_joined: string,
-  department: null | UserDepartment,
-  email: string,
-  first_name: string,
-  hobbies: null | UserHobby[],
-  id: number,
-  last_name: string,
-  latest_condition: null | UserLatestCondition,
-  mental_state: string,
-  patronymic: string | null,
-  phone: number,
-  position: null | UserPosition,
-  role: string
+  about: string | null;
+  avatar: string | null;
+  date_joined: string;
+  department: null | UserDepartment;
+  email: string;
+  first_name: string;
+  hobbies: null | UserHobby[];
+  id: number;
+  last_name: string;
+  latest_condition: null | UserLatestCondition;
+  mental_state: string;
+  patronymic: string | null;
+  phone: number;
+  position: ReactNode | UserPosition;
+  role: string;
+}
+
+export interface UserInfo {
+  photoToSubmit: string | null;
+  about: string;
 }

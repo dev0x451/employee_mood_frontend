@@ -59,7 +59,7 @@ export const Myteam: React.FC<Props> = ({
   ];
 
   const [addPopupVisible, setAddPopupVisible] = useState(false);
-  const [isChief, setIsChief] = useState(false)
+  const [isChief, setIsChief] = useState(false);
   const user = useAppSelector(selectRole);
 
   const openAddPopup = () => {
@@ -71,9 +71,9 @@ export const Myteam: React.FC<Props> = ({
     resetMessages();
   };
 
-  useEffect (() => {
-    setIsChief(user === 'hr')
-  }, [user])
+  useEffect(() => {
+    setIsChief(user === "hr");
+  }, [user]);
 
   return (
     <div className="page-container">
@@ -82,13 +82,15 @@ export const Myteam: React.FC<Props> = ({
         <div className={styles.leftScreen}>
           <div className={styles.topContent}>
             <h2 className={styles.title}>Моя команда</h2>
-            {isChief && <Button
-              title="Добавить сотрудника"
-              mode="primary"
-              width="236px"
-              height="36px"
-              openAddPopup={openAddPopup}
-            />}
+            {isChief && (
+              <Button
+                title="Добавить сотрудника"
+                mode="primary"
+                width="236px"
+                height="36px"
+                handleClick={openAddPopup}
+              />
+            )}
           </div>
           <input
             className={styles.input}
