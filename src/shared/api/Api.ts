@@ -1,5 +1,5 @@
 import axios from "axios";
-import { TestResult } from "@/types";
+import { TestResult, UserInfo } from "@/types";
 
 const BASE_URL = "https://em-dev.usolcev.com/api/v1";
 
@@ -9,6 +9,18 @@ export const getUser = () => {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   });
+};
+
+export const changeUserInfo = (userInfo: UserInfo) => {
+  return axios.patch(
+    `${BASE_URL}/users/current_user`,
+    { about: userInfo.about, avatar: userInfo.photoToSubmit },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
 };
 
 export const getDepartments = (invite_code: string) => {

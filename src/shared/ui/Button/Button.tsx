@@ -8,7 +8,8 @@ interface ButtonProps {
   type?: "submit" | "reset" | "button" | undefined;
   width?: string;
   height?: string;
-  openAddPopup?: () => void;
+  disabled?: boolean;
+  handleClick?: () => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -17,7 +18,8 @@ export const Button: React.FC<ButtonProps> = ({
   type,
   width,
   height,
-  openAddPopup,
+  disabled,
+  handleClick,
 }) => {
   const className = cl(classes.button, {
     [classes.buttonPrimary]: mode === "primary",
@@ -28,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
   if (title === "Добавить сотрудника") {
     return (
       <button
-        onClick={openAddPopup}
+        onClick={handleClick}
         className={className}
         style={{ width: width, height: height }}
         type={type}
@@ -40,7 +42,9 @@ export const Button: React.FC<ButtonProps> = ({
   } else {
     return (
       <button
-        className={className}
+        onClick={handleClick}
+        disabled={disabled}
+        className={disabled ? `${className} ${classes.disabled}` : className}
         style={{ width: width, height: height }}
         type={type}
       >
