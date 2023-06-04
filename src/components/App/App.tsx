@@ -109,11 +109,13 @@ export const App = () => {
     try {
       const response = await Api.changeUserInfo(userInfo);
       if (response) {
+        setPopupOpened(true);
         setSuccess("Изменения сохранены");
         getUserInfo();
       }
     } catch (err) {
-      console.log(err);
+      setPopupOpened(true);
+      setError("Что-то пошло не так. Попробуйте еще раз");
     }
   }
 
@@ -236,14 +238,6 @@ export const App = () => {
 
   return (
     <main className={styles.page}>
-      {success && (
-        <InfoPopup
-          isPositive={true}
-          popupMessage={success}
-          closeErrorPopup={closeErrorPopup}
-          popupOpened={popupOpened}
-        />
-      )}
       <Routes>
         <Route
           element={
@@ -284,6 +278,9 @@ export const App = () => {
               <Account
                 handleChangeUserInfo={handleChangeUserInfo}
                 success={success}
+                error={error}
+                closeErrorPopup={closeErrorPopup}
+                popupOpened={popupOpened}
               />
             }
           />
