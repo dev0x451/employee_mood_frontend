@@ -46,7 +46,7 @@ export const currentUserSlice = createSlice({
       state.position = action.payload;
     },
     resetCurrentUserPosition: (state) => {
-      state.position = "";
+      state.position = null;
     },
     setCurrentUserAbout: (state, action) => {
       state.about = action.payload;

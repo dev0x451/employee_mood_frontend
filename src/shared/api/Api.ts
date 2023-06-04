@@ -14,7 +14,7 @@ export const getUser = () => {
 export const changeUserInfo = (userInfo: UserInfo) => {
   return axios.patch(
     `${BASE_URL}/users/current_user`,
-    { about: userInfo.about, avatar: userInfo.photo },
+    { about: userInfo.about, avatar: userInfo.photoToSubmit },
     {
       headers: {
         authorization: `Bearer ${localStorage.getItem("jwt")}`,

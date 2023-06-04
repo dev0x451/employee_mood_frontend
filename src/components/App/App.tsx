@@ -21,7 +21,9 @@ import {
   TestResult,
   ExpressDiagnoseResponse,
   TestInterface,
+  UserInfo,
 } from "@/types";
+
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
@@ -30,6 +32,16 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   setCurrentUser,
   resetCurrentUser,
+  setCurrentUserFirstName,
+  setCurrentUserLastName,
+  setCurrentUserPosition,
+  setCurrentUserAbout,
+  setCurrentUserAvatar,
+  resetCurrentUserFirstName,
+  resetCurrentUserLastName,
+  resetCurrentUserPosition,
+  resetCurrentUserAvatar,
+  resetCurrentUserAbout,
 } from "@/store/reducers/currentUser/currentUserReducer";
 
 export const App = () => {
@@ -81,16 +93,32 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
-        setCurrentUser(response.data);
-        // console.log("currentUser", response.data);
-
         dispatch(setCurrentUser(response.data.role));
+        dispatch(setCurrentUserFirstName(response.data.first_name));
+        dispatch(setCurrentUserLastName(response.data.last_name));
+        dispatch(setCurrentUserPosition(response.data.position.name));
+        dispatch(setCurrentUserAbout(response.data.about));
+        dispatch(setCurrentUserAvatar(response.data.avatar));
         console.log("currentUser", response.data.role);
       } catch (err: any) {
         console.log(err);
       } finally {
         setIsLoading(false);
       }
+    }
+  }
+
+  async function handleChangeUserInfo(userInfo: UserInfo) {
+    try {
+      const response = await Api.changeUserInfo(userInfo);
+      if (response) {
+        setPopupOpened(true);
+        setSuccess("Изменения сохранены");
+        getUserInfo();
+      }
+    } catch (err) {
+      setPopupOpened(true);
+      setError("Что-то пошло не так. Попробуйте еще раз");
     }
   }
 
@@ -110,6 +138,11 @@ export const App = () => {
   const handleSignOut = () => {
     setLoggedIn(false);
     dispatch(resetCurrentUser());
+    dispatch(resetCurrentUserFirstName());
+    dispatch(resetCurrentUserLastName());
+    dispatch(resetCurrentUserPosition());
+    dispatch(resetCurrentUserAbout());
+    dispatch(resetCurrentUserAvatar());
     navigate("/login");
     localStorage.removeItem("jwt");
   };
@@ -273,7 +306,18 @@ export const App = () => {
           <Route path="bookmarks" element={<Bookmarks />} />
 
           <Route path="calendar" element={<Calendar />} />
-          <Route path="account" element={<Account />} />
+          <Route
+            path="account"
+            element={
+              <Account
+                handleChangeUserInfo={handleChangeUserInfo}
+                success={success}
+                error={error}
+                closeErrorPopup={closeErrorPopup}
+                popupOpened={popupOpened}
+              />
+            }
+          />
           <Route
             path="myteam"
             element={

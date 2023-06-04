@@ -1,6 +1,6 @@
 import styles from "./header.module.css";
 import { NavLink } from "react-router-dom";
-import { LogoSideMenu } from "@/shared/ui/LogoSideMenu/LogoImg";
+import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import { AccountPopup } from "@/components/AccountPopup/AccountPopup";
 import { useState } from "react";
 
@@ -28,7 +28,7 @@ export const Header: React.FC<Props> = ({ handleSignOut }) => {
   return (
     <header className={styles.header}>
       <NavLink className={styles.logo} to="/">
-        <LogoSideMenu />
+        <LogoImg />
       </NavLink>
       <input
         className={styles.input}

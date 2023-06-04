@@ -95,7 +95,7 @@ export const Myteam: React.FC<Props> = ({
                 mode="primary"
                 width="236px"
                 height="36px"
-                openAddPopup={openAddPopup}
+                handleClick={openAddPopup}
               />
             )}
           </div>

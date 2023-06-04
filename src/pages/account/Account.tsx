@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/Navbar/Navbar";
 import styles from "./account.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PhotoSettingsPopup } from "@/components/PhotoSettingsPopup/PhotoSettingsPopup";
 import { Button } from "@/shared/ui/Button/Button";
 import { useAppSelector } from "@/store/hooks";
@@ -14,12 +14,22 @@ import {
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
 import { AreYouSurePopup } from "@/components/AreYouSurePopup/AreYouSurePopup";
 import { UserInfo } from "@/types";
+import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo) => void;
   success: string;
+  error: string;
+  closeErrorPopup: () => void;
+  popupOpened: boolean;
 }
-export const Account: React.FC<Props> = ({ handleChangeUserInfo, success }) => {
+export const Account: React.FC<Props> = ({
+  handleChangeUserInfo,
+  success,
+  error,
+  closeErrorPopup,
+  popupOpened,
+}) => {
   const BASE_URL = "https://em-dev.usolcev.com";
   const initialPhoto = `${BASE_URL}${useAppSelector(selectAvatar)}`;
   const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
@@ -113,6 +123,12 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo, success }) => {
       <div className="page-container">
         <Navbar />
         <div className={styles.account} onClick={(e) => closePhotoSettings(e)}>
+          <InfoPopup
+            closeErrorPopup={closeErrorPopup}
+            popupOpened={popupOpened}
+            popupMessage={error ? error : success ? success : ""}
+            isPositive={error ? false : true}
+          />
           <ul className={styles.containersList}>
             <li className={styles.accountInfoContainer}>
               <h1 className={styles.title}>Контактная информация</h1>
@@ -152,7 +168,7 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo, success }) => {
                 value={about}
                 name={about}
                 onChange={(e) => aboutHandler(e)}
-                maxLength="257"
+                maxLength={257}
               />
             </li>
             {aboutError && (

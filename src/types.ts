@@ -16,7 +16,7 @@ export interface EmployeeInterface {
   avatar?: string;
   first_name: string;
   last_name: string;
-  position: {name:string};
+  position: { name: string };
   // colorball: string;
   mental_state: string;
 }
@@ -121,7 +121,7 @@ export interface User {
   mental_state: string;
   patronymic: string | null;
   phone: number;
-  position: ReactNode | UserPosition;
+  position: ReactNode | null;
   role: string;
 }
 

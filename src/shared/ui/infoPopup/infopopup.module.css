@@ -1,5 +1,6 @@
 .error-popup {
   position: absolute;
+  z-index: 100;
   top: 3%;
   right: 0;
   left: 0;
