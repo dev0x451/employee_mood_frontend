@@ -43,7 +43,6 @@ import {
   resetCurrentUserAvatar,
   resetCurrentUserAbout,
 } from "@/store/reducers/currentUser/currentUserReducer";
-import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);

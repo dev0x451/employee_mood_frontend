@@ -119,7 +119,7 @@ export interface User {
   mental_state: string;
   patronymic: string | null;
   phone: number;
-  position: ReactNode | UserPosition;
+  position: ReactNode | null;
   role: string;
 }
 

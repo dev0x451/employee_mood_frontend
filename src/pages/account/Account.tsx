@@ -1,6 +1,6 @@
 import { Navbar } from "@/components/Navbar/Navbar";
 import styles from "./account.module.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { PhotoSettingsPopup } from "@/components/PhotoSettingsPopup/PhotoSettingsPopup";
 import { Button } from "@/shared/ui/Button/Button";
 import { useAppSelector } from "@/store/hooks";
@@ -168,7 +168,7 @@ export const Account: React.FC<Props> = ({
                 value={about}
                 name={about}
                 onChange={(e) => aboutHandler(e)}
-                maxLength="257"
+                maxLength={257}
               />
             </li>
             {aboutError && (
