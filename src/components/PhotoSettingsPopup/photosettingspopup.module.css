@@ -1,10 +1,9 @@
-.account-settings-list {
+.photo-settings-list {
   position: absolute;
-  right: 130px;
   bottom: -89px;
-  display: none;
-  width: 236px;
-  height: 88px;
+  left: -62px;
+  width: 227px;
+  height: 80px;
   padding: 8px 0;
   border: 0.5px solid var(--color-button-secondary);
   border-radius: 12px;
@@ -12,19 +11,15 @@
   background-color: var(--color-background-white);
   box-shadow: var(--shadow-medium);
   list-style-type: none;
-
-  /* opacity: 0; */
-
-  /* transition: opacity .3s; */
+  opacity: 0;
+  transition: opacity .3s;
 }
 
-.account-settings-list-opened {
-  display: block;
-
-  /* opacity: 1; */
+.photo-settings-list-opened {
+  opacity: 1;
 }
 
-.account-settings-list-item {
+.photo-settings-list-item {
   display: flex;
   height: fit-content;
   height: 50%;
@@ -35,16 +30,16 @@
   gap: 8px;
 }
 
-.account-settings-list-item:hover {
+.photo-settings-list-item:hover {
   background-color: var(--color-background);
 }
 
-.account-settings-icon {
+.photo-settings-icon {
   width: 20px;
   height: 20px;
 }
 
-.account-settings-text {
+.photo-settings-text {
   margin: 0;
   font: var(--font-search-input);
 }

@@ -16,21 +16,26 @@ import { ProtectedRoutes } from "@/components/ProtectedRoutes";
 import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
 import { LoginPage } from "@/pages/login/LoginPage";
-import { MyFormValues, TestResult, ExpressDiagnoseResponse } from "@/types";
+import { MyFormValues, TestResult, ExpressDiagnoseResponse, TestInterface } from "@/types";
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 import { Account } from "@/pages/account/Account";
-import { useRequest } from "@/shared/hooks/useRequest";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setCurrentUser, resetCurrentUser} from "@/store/reducers/currentUser/currentUserReducer";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [currentUser, setCurrentUser] = useState([]);
   const [resultOfPsychoTest, setResultOfPsychoTest] = useState<ExpressDiagnoseResponse>();
+  const [expressTest, setExpressTest] = useState<TestInterface| null>(null)
+  const [allTestsResults, setallTestsResults] = useState<ExpressDiagnoseResponse[]>()
   const [isLoading, setIsLoading] = useState(false);
+  const [employees, setEmployees] = useState([]);
+  const role = useAppSelector((state)=>state.currentUserSlice.role)
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -67,7 +72,10 @@ export const App = () => {
       try {
         const response = await Api.getUser();
         setCurrentUser(response.data);
-        console.log('currentUser', response.data)
+        // console.log("currentUser", response.data);
+
+        dispatch(setCurrentUser(response.data.role))
+        console.log("currentUser", response.data.role);
       } catch (err: any) {
         console.log(err);
       } finally {
@@ -91,7 +99,7 @@ export const App = () => {
 
   const handleSignOut = () => {
     setLoggedIn(false);
-    setCurrentUser({});
+    dispatch(resetCurrentUser())
     navigate("/login");
     localStorage.removeItem("jwt");
   };
@@ -149,6 +157,11 @@ export const App = () => {
     }
   }
 
+
+
+
+
+
   async function handleSendTestResult(result: TestResult) {
     try {
       const response = await Api.sendTestResults(result);
@@ -156,15 +169,67 @@ export const App = () => {
     } catch (err: any) {
       console.log(err);
     }
+    getAllTestsResult()
   }
 
-  const [expressTest] = useRequest(() => Api.getTestQuestions('1'));
+  async function getAllTestsResult() {
+      try {
+      const response = await Api.getAllTestsResults();
+      setallTestsResults(response.data.results);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
+  async function getTestsQuestions() {
+      try {
+      const response = await Api.getTestQuestions('1');
+      setExpressTest(response.data);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
+  // if (loggedIn) {
+    // const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
+  // }
+
+
+  useEffect(() => {
+    if (loggedIn) {
+      getAllTestsResult();
+      getTestsQuestions();
+    }
+  }, [loggedIn])
+
+
+
+
+
+
+
+
+  async function handleEmployees() {
+    try {
+      if (role === 'hr' || role === 'chief') {
+        const response = await Api.getUsers();
+        setEmployees(response.data.results)
+      }
+
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+  // console.log(role);
+  // useEffect(()=>{handleEmployees()},[]);
+  // useEffect(()=>{handleEmployees()},[loggedIn]);
+  useEffect(()=>{handleEmployees()},[role]);
+
 
   const closeErrorPopup = () => {
     setPopupOpened(false);
     resetMessages();
   };
-
 
   const resetMessages = () => {
     setError("");
@@ -188,14 +253,17 @@ export const App = () => {
         >
           <Route path="/" element={<Main />} />
 
-          <Route path="tests" element={<Tests />} />
+          <Route path="tests" element={<Tests allTestsResults={allTestsResults}/>} />
 
-          <Route path="tests/:id" element={
-            <Test
-              test={expressTest}
-              onSendTestResult={handleSendTestResult}
-              resultOfPsychoTest={resultOfPsychoTest}
-            />}
+          <Route
+            path="tests/:id"
+            element={
+              <Test
+                test={expressTest}
+                onSendTestResult={handleSendTestResult}
+                resultOfPsychoTest={resultOfPsychoTest}
+              />
+            }
           />
 
           <Route path="advices" element={<Advices />} />
@@ -216,6 +284,7 @@ export const App = () => {
                 popupOpened={popupOpened}
                 resetMessages={resetMessages}
                 handleSendInviteCode={handleSendInviteCode}
+                employees={employees}
               />
             }
           />

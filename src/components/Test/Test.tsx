@@ -3,6 +3,7 @@ import styles from "./test.module.css";
 import cn from "classnames";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
+// import { closeBtn } from "@/assets";
 import {
   selectNegativValue,
   selectPositivValue,
@@ -11,18 +12,19 @@ import {
   resetValues
 } from "@/store/reducers/testCounter/testCounterReducer";
 import { Navbar } from "../Navbar/Navbar";
+// import { TestResultPopup } from "../TestResultPopup/TestResultPopup";
 import { TestInterface, TestResult, ExpressDiagnoseResponse } from "@/types";
 
 
 interface Test {
-  test: TestInterface;
+  test: TestInterface | null;
   onSendTestResult: (arg: TestResult) => void;
   resultOfPsychoTest?: ExpressDiagnoseResponse;
 }
 
 export const Test: React.FC<Test> = ({test, onSendTestResult, resultOfPsychoTest}) => {
   const navigate = useNavigate();
-  const questions = test.questions;
+  const questions = test?.questions;
 
   const [visibleIndex, setVisibleIndex] = useState<number>(0);
   const [nextButtonIsHidden, setNextButtonIsHidden] = useState<boolean>(false);
@@ -63,11 +65,13 @@ export const Test: React.FC<Test> = ({test, onSendTestResult, resultOfPsychoTest
 
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
-    onSendTestResult({
-      positive_value: positivValue,
-      negative_value: negativValue,
-      survey: test.id,
-    })
+    if (test) {
+      onSendTestResult({
+        positive_value: positivValue,
+        negative_value: negativValue,
+        survey: test.id,
+      })
+    }
     dispatch(resetValues())
     setResultsPopapVisible(true);
   }
@@ -98,16 +102,16 @@ export const Test: React.FC<Test> = ({test, onSendTestResult, resultOfPsychoTest
     setPage(1);
   }
 
-  function handleClose () {
+  function handleMysticalPopup () {
     setResultsPopapVisible(false);
     dispatch(resetValues());
-    navigate('/tests');
+    navigate('/');
     setPage(1)
   }
 
   function handleCallChief () {
     alert("Отправлена заявка на разговор с руководителем");
-    navigate('/tests');
+    navigate('/');
   }
 
   useEffect(() => {
@@ -151,7 +155,7 @@ export const Test: React.FC<Test> = ({test, onSendTestResult, resultOfPsychoTest
             <button type='submit' onClick={handleClick} className={finishButtonClassname}>Завершить</button>
           </div>
 
-          <button type='button' onClick={handleClose} className={styles.closeBtn}/>
+          <button type='button' onClick={handleMysticalPopup} className={styles.closeBtn}/>
           <p className={styles.paginate}>{page} из 2</p>
 
         </form>
@@ -192,10 +196,13 @@ export const Test: React.FC<Test> = ({test, onSendTestResult, resultOfPsychoTest
           </ol>
           <div className={styles.buttonContainer}>
             {(resultOfPsychoTest?.result !== "Нормальное состояние") && <button type='button' onClick={handleCallChief} className={styles.button}>Обсудить с руководителем</button>}
-            <button type='button' onClick={handleClose} className={styles.buttonBack}>Закрыть</button>
+            <button type='button' onClick={handleMysticalPopup} className={styles.buttonBack}>Закрыть</button>
           </div>
-          <button type='button' onClick={handleClose} className={styles.closeBtn}/>
+          <button type='button' onClick={handleMysticalPopup} className={styles.closeBtn}/>
         </section>
+
+        {/* необходимо исправить позиционирование и заменить повторяющийся код */}
+        {/* <TestResultPopup isVisible={isResultsPopapVisible} onClose={handleMysticalPopup} resultOfPsychoTest={resultOfPsychoTest}/> */}
       </article>
     </div>
   );
