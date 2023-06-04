@@ -23,6 +23,18 @@ export const changeUserInfo = (userInfo: UserInfo) => {
   );
 };
 
+export const changeUserInfoOnlyAbout = (userInfo: UserInfo) => {
+  return axios.patch(
+    `${BASE_URL}/users/current_user`,
+    { about: userInfo.about },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
+};
+
 export const getDepartments = (invite_code: string) => {
   return axios.get(`${BASE_URL}/departments`, {
     params: {
