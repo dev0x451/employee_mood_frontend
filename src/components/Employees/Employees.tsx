@@ -23,9 +23,9 @@ export const Employees: React.FC<Props> = (
 
   useEffect(()=>{
     setEmployeesSort(employees.filter((employee)=>
-      employee.first_name.toLowerCase().includes(valueInputSort) ||
-      employee.last_name.toLowerCase().includes(valueInputSort) ||
-      employee.position.name.toLowerCase().includes(valueInputSort)
+      employee.first_name.toLowerCase().includes(valueInputSort.toLowerCase()) ||
+      employee.last_name.toLowerCase().includes(valueInputSort.toLowerCase()) ||
+      employee.position.name.toLowerCase().includes(valueInputSort.toLowerCase())
     ));
   },[valueInputSort]);
 
