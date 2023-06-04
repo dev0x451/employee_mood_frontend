@@ -110,7 +110,12 @@ export const App = () => {
 
   async function handleChangeUserInfo(userInfo: UserInfo) {
     try {
-      const response = await Api.changeUserInfo(userInfo);
+      let response: any = "";
+      if (userInfo.photoToSubmit) {
+        response = await Api.changeUserInfo(userInfo);
+      } else {
+        response = await Api.changeUserInfoOnlyAbout(userInfo);
+      }
       if (response) {
         setPopupOpened(true);
         setSuccess("Изменения сохранены");
@@ -265,7 +270,6 @@ export const App = () => {
     setError("");
     setSuccess("");
   };
-
 
   if (isLoading) {
     return <div></div>;
