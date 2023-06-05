@@ -31,7 +31,8 @@ export const Account: React.FC<Props> = ({
   popupOpened,
 }) => {
   const BASE_URL = "https://em-dev.usolcev.com";
-  const initialPhoto = `${BASE_URL}${useAppSelector(selectAvatar)}`;
+  const photoLink = useAppSelector(selectAvatar);
+  const initialPhoto = photoLink !== null ? `${BASE_URL}${photoLink}` : "";
   const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
   const [isConfirmPopupOpened, setIsConfirmPopupOpened] =
     useState<boolean>(false);
@@ -111,6 +112,8 @@ export const Account: React.FC<Props> = ({
     setPhoto("");
     setIsPhotoClicked(false);
   };
+
+  console.log(photo);
 
   const cancelSettings = () => {
     closeConfirmPopup();

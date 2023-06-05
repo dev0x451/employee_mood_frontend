@@ -93,6 +93,7 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
+        console.log(response);
         dispatch(setCurrentUser(response.data.role));
         dispatch(setCurrentUserFirstName(response.data.first_name));
         dispatch(setCurrentUserLastName(response.data.last_name));
