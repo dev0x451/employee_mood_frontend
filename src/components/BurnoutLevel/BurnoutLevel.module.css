@@ -22,7 +22,7 @@
   left: 20px;
   width: 34px;
   height: 112px;
-  background-image: url("/public/burnout_axisY.svg");
+  background-image: url("/burnout_axisY.svg");
 }
 
 .x-axis {
@@ -31,7 +31,7 @@
   left: 54px;
   width: 536px;
   height: 18px;
-  background-image: url("/public/burnout_axisX.svg");
+  background-image: url("/burnout_axisX.svg");
 }
 
 .heading {
