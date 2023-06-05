@@ -3,6 +3,7 @@
 @import url("assets/fonts/Montserrat/Montserrat.css");
 
 :root {
+  overflow: scroll;
   font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -54,8 +55,8 @@
   --font-body: 400 14px/18px "Roboto", sans-serif;
   --font-button: 500 16px/20px "Roboto", sans-serif;
   --font-search-input: 400 16px/20px "Roboto", sans-serif;
-
 }
+
 
 body {
   height: 100%;
