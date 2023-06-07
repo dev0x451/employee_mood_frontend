@@ -1,4 +1,4 @@
-import React, { JSX, useEffect, useState } from "react";
+import React, { JSX, useState } from "react";
 import styles from "./test.module.css";
 import cn from "classnames";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +11,6 @@ import {
   resetValues
 } from "@/store/reducers/testCounter/testCounterReducer";
 import { Navbar } from "../Navbar/Navbar";
-import { WarningWithBall } from "../WarningWithBall/WarningWithBall";
 import { TestResultPopup } from "../TestResultPopup/TestResultPopup";
 import { TestInterface, TestResult, ExpressDiagnoseResponse } from "@/types";
 
