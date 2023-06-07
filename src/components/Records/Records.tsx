@@ -1,11 +1,12 @@
-import styles from "./recodrds.module.css";
+import styles from "./records.module.css";
 import React, {useState, useEffect} from "react";
 import { sortIcon } from "@/assets";
 import { TestResultPopup } from "../TestResultPopup/TestResultPopup";
+import { WarningWithBall } from "../WarningWithBall/WarningWithBall";
 import { ExpressDiagnoseResponse } from "@/types";
 
 interface Records {
-  allTestsResults?: ExpressDiagnoseResponse[]
+  allTestsResults?: ExpressDiagnoseResponse[],
 }
 
 //необходим полный рефакторинг логики сортировки
@@ -86,8 +87,18 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
     setOpen(false);
   }
 
+  function resultDate (date: string){
+    const ruDate = new Date(date).toLocaleString('ru',
+    {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    });
+    return ruDate.slice(0, -3)
+  }
+
   return (
-    <div className={styles.recodrds}>
+    <div className={styles.records}>
       <section className={styles.tableRecords}>
         <button className={styles.sortButton} onClick={sortName}>Наименование опроса {sortIcon}</button>
         <button className={styles.sortButton} onClick={sortName}>Дата проведения {sortIcon}</button>
@@ -96,13 +107,13 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
       {allTestsResults && allTestsResults.map((record, index) => (
       <section key={index} className={styles.record}>
         <p className={styles.text}>Диагностика эмоционального выгорания</p>
-        <p className={styles.text}>{record.completion_date}</p>
-        <p className={styles.text}>{record.result}</p>
+        {record.completion_date && resultDate(record.completion_date)}
+        <WarningWithBall resultOfPsychoTest={record}/>
         <button type="button" onClick={() => handleOpenPopup(record)} className={styles.recordButton}>Подробнее</button>
       </section>
     ))}
 
-    <TestResultPopup isVisible={isOpen} resultOfPsychoTest={result} onClose={handleClosePopup}/>
+      <TestResultPopup isTestsReulstLocated={true} isVisible={isOpen} resultOfPsychoTest={result} onClose={handleClosePopup}/>
     </div>
   );
 };
