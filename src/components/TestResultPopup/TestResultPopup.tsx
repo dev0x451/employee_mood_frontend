@@ -1,30 +1,28 @@
 import React, { useEffect, useState } from "react";
 import styles from "./testResultPopup.module.css";
+import { WarningWithBall } from "../WarningWithBall/WarningWithBall";
 import cn from "classnames";
 
 import { ExpressDiagnoseResponse } from "@/types";
 
 interface TestResultPopup {
   resultOfPsychoTest?: ExpressDiagnoseResponse;
-  isVisible?: boolean,
-  onClose?: () => void
+  isVisible: boolean,
+  onClose: () => void
+  isTestsReulstLocated: boolean;
 }
 
-export const TestResultPopup: React.FC<TestResultPopup> = ({isVisible, onClose, resultOfPsychoTest}) => {
+export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, isVisible, onClose, isTestsReulstLocated}) => {
 
   const [isResultsPopapVisible, setResultsPopapVisible] = useState<boolean | undefined>(false);
   const [resultExplanation, setResultExplanation] = useState<string>('');
-  const [mode, setWarningBallClass] = useState<string>('');
 
   const closePopupClassname = cn(styles.resultsPopup, {
-    [styles.hidden] : isResultsPopapVisible === false
+    [styles.hidden] : isResultsPopapVisible === false,
+    [styles.testsLocated] : isTestsReulstLocated === true
   })
 
-  const warningBallClassname = cn(styles.warningBall, {
-    [styles.green] : mode === 'green',
-    [styles.yellow] : mode === 'yellow',
-    [styles.red] : mode === 'red',
-  })
+
 
   function handleClose () {
     setResultsPopapVisible(false);
@@ -41,13 +39,10 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({isVisible, onClose, 
   useEffect(() => {
     if (resultOfPsychoTest?.result === 'Нормальное состояние') {
     setResultExplanation('В настоящий момент эмоциональное выгорание вам не грозит. Чтобы сохранить такое состояние в будущем, следуйте рекомендациям психологов, указанным ниже.');
-    setWarningBallClass('green')
   } else if (resultOfPsychoTest?.result === 'Тревожное') {
     setResultExplanation('У вас есть признаки эмоционального выгорания. По возможности советуем взять небольшой отпуск.')
-    setWarningBallClass('yellow')
   } else if (resultOfPsychoTest?.result === 'В группе риска') {
     setResultExplanation('Вы находитесь в активной стадии эмоционального выгорания. Пожалуйста, обратитесь за помощью к своему руководителю или психотерапевту.')
-    setWarningBallClass('red')
   }
   }, [resultOfPsychoTest])
 
@@ -55,10 +50,10 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({isVisible, onClose, 
     <section className={closePopupClassname}>
       <h1 className={styles.title}>Экспресс-оценка выгорания</h1>
       <h2 className={styles.subtitle}>Ваш результат</h2>
+
       <div className={styles.conditionContainer}>
         <h3 className={styles.conditionText}>Состояние:</h3>
-        <div className={warningBallClassname}></div>
-        {resultOfPsychoTest?.result}
+        <WarningWithBall resultOfPsychoTest={resultOfPsychoTest}/>
       </div>
 
       <p>{resultExplanation}</p>

@@ -1,13 +1,18 @@
 .results-popup {
+  position: relative;
+  height: 100%;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 20px 50px rgb(88 81 94 / 10%);
+}
+
+.tests-located {
   position: absolute;
   top: 100px;
   left: 280px;
   width: 75%;
   height: 90%;
-  padding: 40px;
-  border-radius: 20px;
-  background-color: white;
-  box-shadow: 0 20px 50px rgb(88 81 94 / 10%);
 }
 
 .title {
