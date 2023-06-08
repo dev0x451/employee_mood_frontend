@@ -75,8 +75,8 @@ export const Test = ({test, onSendTestResult, resultOfPsychoTest}: Test): JSX.El
   }
 
   function handleClick () {
-    setVisibleIndex(5);
-    setPage(2);
+    setVisibleIndex(visibleIndex + 5);
+    setPage(page + 1);
     setNextButtonIsHidden(true);
   }
 
@@ -84,9 +84,9 @@ export const Test = ({test, onSendTestResult, resultOfPsychoTest}: Test): JSX.El
 //выставляют значение ответа по умолчанию - "НЕТ"
   function handleBackClick () {
     dispatch(resetValues())
-    setVisibleIndex(0);
+    setVisibleIndex(visibleIndex - 5);
     setNextButtonIsHidden(false);
-    setPage(1);
+    setPage(page - 1);
   }
 
   function handleClosePopup () {
@@ -111,11 +111,13 @@ export const Test = ({test, onSendTestResult, resultOfPsychoTest}: Test): JSX.El
 
               <label className={styles.label}>
                 <input required name={question.text.slice(-8)} type="radio" onChange={handleChangeIncrement} className={styles.checkbox} value='Да'/>
+                <span className={styles.visibleCheckbox}></span>
                 Да
               </label>
 
               <label className={styles.label}>
                 <input required name={question.text.slice(-8)} type="radio" onChange={handleChangeDecrement} className={styles.checkbox} defaultChecked value='Нет'/>
+                <span className={styles.visibleCheckbox}></span>
                 Нет
               </label>
             </fieldset>
