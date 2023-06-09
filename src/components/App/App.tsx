@@ -63,26 +63,44 @@ export const App = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    const date = Date.now() / 1000;
     const jwt = localStorage.getItem("jwt");
-    if (jwt) {
+    const jwt_created = Number(localStorage.getItem("jwt_created"));
+    const refresh = localStorage.getItem("refresh");
+    if (jwt && jwt_created > date) {
+      auth(jwt);
+    } else if (jwt && refresh && jwt_created <= date) {
+      refreshToken(refresh);
       auth(jwt);
     }
-    getUserInfo();
   }, [loggedIn]);
+
+  const refreshToken = async (token: string) => {
+    try {
+      const response = await ApiAuth.refreshToken(token);
+      localStorage.setItem("jwt", response.data.access);
+      localStorage.setItem("jwt_created", String(Date.now()));
+      localStorage.setItem("refresh", response.data.refresh);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   const auth = async (jwt: string) => {
     setIsLoading(true);
     try {
       const response = await ApiAuth.checkToken(jwt);
-      if (response.statusText === "OK") {
+      if (response.status === 200) {
         setLoggedIn(true);
         ["/login", "/register"].includes(pathname)
           ? navigate("/")
           : navigate(pathname);
       }
+      getUserInfo();
     } catch (err: any) {
       if (err.status === 400) {
         console.log("400 - токен не передан или передан не в том формате");
+        navigate("/login");
       } else if (err.status === 401) {
         console.log("401 - переданный токен некорректен");
       }
@@ -93,7 +111,6 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
-        console.log(response);
         dispatch(setCurrentUser(response.data.role));
         dispatch(setCurrentUserFirstName(response.data.first_name));
         dispatch(setCurrentUserLastName(response.data.last_name));
@@ -131,8 +148,11 @@ export const App = () => {
   async function handleLogin(values: MyFormValues) {
     try {
       const response = await ApiAuth.loginUser(values);
-      if (response.data.access) {
+      console.log(response.data);
+      if (response.data.access && response.data.refresh) {
         localStorage.setItem("jwt", response.data.access);
+        localStorage.setItem("refresh", response.data.refresh);
+        localStorage.setItem("jwt_created", JSON.stringify(Date.now()));
         setLoggedIn(true);
       }
     } catch {
@@ -151,6 +171,8 @@ export const App = () => {
     dispatch(resetCurrentUserAvatar());
     navigate("/login");
     localStorage.removeItem("jwt");
+    localStorage.removeItem("jwt_created");
+    localStorage.removeItem("refresh");
   };
 
   async function handleRegister(values: FormikValues, invite_code: string) {
