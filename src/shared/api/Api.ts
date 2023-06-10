@@ -1,7 +1,7 @@
 import axios from "axios";
 import { TestResult, UserInfo } from "@/types";
 
-export const BASE_URL = "https://em-dev.usolcev.com/api/v1";
+const BASE_URL = "https://em-dev.usolcev.com/api/v1";
 
 export const getUser = () => {
   return axios.get(`${BASE_URL}/users/current_user`, {

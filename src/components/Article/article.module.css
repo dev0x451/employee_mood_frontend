@@ -1,6 +1,7 @@
 .article {
   display: flex;
-  width: 156px;
+  width: 47%;
+  min-width: 130px;
   height: 210px;
   flex-direction: column;
   align-items: flex-start;
@@ -18,6 +19,8 @@
 }
 
 .title {
+  width: 100%;
+  overflow: hidden;
   margin: 16px 0 0;
   font: var(--font-text);
 }
@@ -31,6 +34,7 @@
 }
 
 .text {
+  width: 100%;
   margin: 8px 0 0;
   color: var(--color-accent-gray);
   font: var(--font-caption);

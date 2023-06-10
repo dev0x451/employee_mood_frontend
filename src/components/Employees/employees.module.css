@@ -10,15 +10,15 @@
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 20px;
-  margin: 8px 0;
+  margin: 24px 20px 8px;
 }
 
 .sort-button {
+  width: 33%;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 0 0;
   border: none;
   background-color: inherit;
   font: var(--font-h3);
@@ -36,16 +36,22 @@
   box-sizing: border-box;
   padding: 10px 20px;
   border-radius: 20px;
-
-  /* margin: 8px 0; */
   margin-top: 10px;
   background-color: white;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 32%);
+  gap: 2%;
 }
 
-.avatar {
+.user {
   display: flex;
   align-items: center;
+}
+
+.textUser {
+  width: 100%;
+  font: var(--font-body);
+  align-self: center;
+  overflow: hidden;
 }
 
 .image {
@@ -74,9 +80,25 @@
 }
 
 .text {
+  width: 100%;
   font: var(--font-body);
-  justify-self: center;
-  text-align: left;
+  align-self: center;
+  overflow: hidden;
+  text-align: center;
 }
 
+.addButton {
+  margin-top: 15px;
+  display: flex;
+  border: 0;
+  color: var(--color-accent-purple);
+  background-color: var(--color-main-background);
+  font: var(--font-button);
+  outline: none;
+  cursor: pointer;
+  transition: opacity 0.5s linear;
+}
 
+.addButton:hover {
+  opacity: 0.6;
+}
