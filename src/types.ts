@@ -18,7 +18,7 @@ export interface EmployeeInterface {
   last_name: string;
   position: { name: string };
   // colorball: string;
-  mental_state: string;
+  mental_state: UserMentalState;
 }
 
 export interface SelectOption {
@@ -107,6 +107,13 @@ export interface UserLatestCondition {
   employee: number;
 }
 
+export interface UserMentalState {
+  id: number | string,
+  name: string,
+  description: string,
+  level: number
+}
+
 export interface User {
   about: string | null;
   avatar: string | null;
@@ -118,7 +125,7 @@ export interface User {
   id: number;
   last_name: string;
   latest_condition: null | UserLatestCondition;
-  mental_state: string;
+  mental_state: null | UserMentalState;
   patronymic: string | null;
   phone: number;
   position: ReactNode | null;
