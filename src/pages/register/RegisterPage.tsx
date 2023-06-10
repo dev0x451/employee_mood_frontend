@@ -7,7 +7,7 @@ import { Button } from "@/shared/ui/Button/Button";
 import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import { Input } from "@/shared/ui/Input/Input";
 import { DropDown } from "@/shared/ui/Dropdown/Dropdown";
-import "@/shared/styles.css";
+import "@/shared/styles/styles.css";
 import classes from "./registerpage.module.css";
 import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 import { useSearchParams } from "react-router-dom";

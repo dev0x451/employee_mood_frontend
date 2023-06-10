@@ -1,5 +1,5 @@
 import { Navbar } from "@/components/Navbar/Navbar";
-import styles from "./account.module.css";
+import styles from "./account.module.scss";
 import React, { useState } from "react";
 import { PhotoSettingsPopup } from "@/components/PhotoSettingsPopup/PhotoSettingsPopup";
 import { Button } from "@/shared/ui/Button/Button";
@@ -133,14 +133,19 @@ export const Account: React.FC<Props> = ({
             isPositive={error ? false : true}
           />
           <ul className={styles.containersList}>
-            <li className={styles.accountInfoContainer}>
+            <li className={styles.containersListItem}>
               <h1 className={styles.title}>Контактная информация</h1>
               <div className={styles.contactInfo}>
                 <div className={styles.avatarArea}>
                   {photo ? (
-                    <img className={styles.photo} src={photo || initialPhoto} />
+                    <img
+                      className={styles.avatarPhoto}
+                      src={photo || initialPhoto}
+                    />
                   ) : (
-                    <div className={`${styles.photo} ${styles.noPhoto}`}>
+                    <div
+                      className={`${styles.avatarPhoto} ${styles.avatarPhotoNo}`}
+                    >
                       {`${firstName[0]}${lastName[0]}`}
                     </div>
                   )}
@@ -164,7 +169,7 @@ export const Account: React.FC<Props> = ({
                 </ul>
               </div>
             </li>
-            <li className={styles.accountInfoContainer}>
+            <li className={styles.containersListItem}>
               <h2 className={styles.titleAbout}>Обо мне</h2>
               <textarea
                 className={styles.textarea}
