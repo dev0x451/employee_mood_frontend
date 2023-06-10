@@ -17,10 +17,11 @@ import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
 import { LoginPage } from "@/pages/login/LoginPage";
 import {
-  MyFormValues,
-  TestResult,
   ExpressDiagnoseResponse,
+  jwtTypes,
+  MyFormValues,
   TestInterface,
+  TestResult,
   UserInfo,
 } from "@/types";
 
@@ -30,18 +31,18 @@ import { useLocation } from "react-router";
 import { Account } from "@/pages/account/Account";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  setCurrentUser,
   resetCurrentUser,
-  setCurrentUserFirstName,
-  setCurrentUserLastName,
-  setCurrentUserPosition,
-  setCurrentUserAbout,
-  setCurrentUserAvatar,
+  resetCurrentUserAbout,
+  resetCurrentUserAvatar,
   resetCurrentUserFirstName,
   resetCurrentUserLastName,
   resetCurrentUserPosition,
-  resetCurrentUserAvatar,
-  resetCurrentUserAbout,
+  setCurrentUser,
+  setCurrentUserAbout,
+  setCurrentUserAvatar,
+  setCurrentUserFirstName,
+  setCurrentUserLastName,
+  setCurrentUserPosition,
 } from "@/store/reducers/currentUser/currentUserReducer";
 
 export const App = () => {
@@ -63,15 +64,22 @@ export const App = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const date = Date.now() / 1000;
     const jwt = localStorage.getItem("jwt");
-    const jwt_created = Number(localStorage.getItem("jwt_created"));
     const refresh = localStorage.getItem("refresh");
-    if (jwt && jwt_created > date) {
-      auth(jwt);
-    } else if (jwt && refresh && jwt_created <= date) {
-      refreshToken(refresh);
-      auth(jwt);
+    if (jwt && refresh) {
+      const { exp }: jwtTypes = JSON.parse(
+        window.atob(jwt.split(".")[1])
+      ) as jwtTypes;
+      const date = Date.now() / 1000;
+      if (exp > date) {
+        auth(jwt);
+      } else {
+        refreshToken(refresh);
+        const newJwt = localStorage.getItem("jwt");
+        if (newJwt) {
+          auth(newJwt);
+        }
+      }
     }
   }, [loggedIn]);
 
@@ -79,7 +87,6 @@ export const App = () => {
     try {
       const response = await ApiAuth.refreshToken(token);
       localStorage.setItem("jwt", response.data.access);
-      localStorage.setItem("jwt_created", String(Date.now()));
       localStorage.setItem("refresh", response.data.refresh);
     } catch (err: any) {
       console.log(err);
@@ -148,11 +155,9 @@ export const App = () => {
   async function handleLogin(values: MyFormValues) {
     try {
       const response = await ApiAuth.loginUser(values);
-      console.log(response.data);
       if (response.data.access && response.data.refresh) {
         localStorage.setItem("jwt", response.data.access);
         localStorage.setItem("refresh", response.data.refresh);
-        localStorage.setItem("jwt_created", JSON.stringify(Date.now()));
         setLoggedIn(true);
       }
     } catch {
@@ -171,7 +176,6 @@ export const App = () => {
     dispatch(resetCurrentUserAvatar());
     navigate("/login");
     localStorage.removeItem("jwt");
-    localStorage.removeItem("jwt_created");
     localStorage.removeItem("refresh");
   };
 
