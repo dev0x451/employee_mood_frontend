@@ -45,6 +45,7 @@
 
 .avatar {
   display: flex;
+  align-items: center;
 }
 
 .image {
@@ -52,12 +53,30 @@
   height: 48px;
   border-radius: 50%;
   margin-right: 12px;
+  object-fit: cover;
+}
+.noPhoto {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 48px;
+  min-height: 48px;
+  border-radius: 50%;
+  margin-right: 12px;
+  background-color: var(--color-background-accent);
+}
+
+.textNoAvatar {
+  color: var(--color-accent-purple);
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
 }
 
 .text {
   font: var(--font-body);
   justify-self: center;
-  text-align:left;
+  text-align: left;
 }
 
 

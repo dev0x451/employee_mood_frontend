@@ -2,7 +2,7 @@ import styles from "./employees.module.css";
 import React, { useState, useEffect } from "react";
 import { EmployeeInterface } from "@/types";
 import { sortIcon } from "@/assets";
-
+import { BASE_URL_MEDIA } from "@/shared/constants";
 interface Props {
   valueInputSort: string;
   employees: EmployeeInterface[];
@@ -11,12 +11,11 @@ interface Props {
 export const Employees: React.FC<Props> = (
   {valueInputSort, employees}
 ) => {
-
   const [employeesSort, setEmployeesSort] = useState(employees)
   const [isSortName, setIsSortName] = useState(true)
   const [isSortPosition, setIsSortPosition] = useState(true)
   const [isSortState, setIsSortState] = useState(true)
-
+  // const BASE_URL_MEDIA = "https://em-dev.usolcev.com/";
   useEffect(()=>{
     setEmployeesSort(employees)
   },[employees.length])
@@ -47,8 +46,11 @@ export const Employees: React.FC<Props> = (
         y = b.position.name;
       break;
       case 'state':
-        x = a.mental_state.name;
-        y = b.mental_state.name;
+        x = (a.mental_state !== null ? a.mental_state.name : 'яяя');
+        // console.log(x);
+        y = (b.mental_state !== null ? b.mental_state.name : 'яяя');
+        // console.log(y);
+
       break;
       default:
         x = '';
@@ -78,7 +80,7 @@ export const Employees: React.FC<Props> = (
     setIsSortState(!isSortState);
     sortFields('state', isSortState);
   }
-
+  console.log(employeesSort)
   return (
     <div className={styles.employees}>
       <div className={styles.sortContainer}>
@@ -90,12 +92,15 @@ export const Employees: React.FC<Props> = (
         employeesSort.map((employee) => (
           <div key={employee.id} className={styles.employee}>
             <div className={styles.avatar}>
-              <img
-                className={styles.image}
-                src={employee.avatar === null ? '/image.png' : employee.avatar}
-                alt="Avatar"
-              />
-              <p className={styles.text}>{employee.first_name}</p>
+              {employee.avatar !== null ?
+                <img
+                  className={styles.image}
+                  src={BASE_URL_MEDIA+employee.avatar}
+                  alt="Avatar"
+                /> :
+                <p className={styles.noPhoto}><span className={styles.textNoAvatar}>{employee.first_name[0] + employee.last_name[0]}</span></p>
+              }
+              <p className={styles.text}>{employee.first_name} {employee.last_name}</p>
             </div>
             <p className={styles.text}>{employee.position.name}</p>
             <p className={styles.text}>{employee.mental_state?.name}</p>
