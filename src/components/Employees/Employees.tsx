@@ -2,7 +2,7 @@ import styles from "./employees.module.css";
 import React, { useState, useEffect } from "react";
 import { EmployeeInterface } from "@/types";
 import { sortIcon } from "@/assets";
-import { BASE_URL_MEDIA } from "@/shared/constants";
+import { BASE_URL_MEDIA, COUNT_EMPLOYEES_PAGE } from "@/shared/constants";
 interface Props {
   valueInputSort: string;
   employees: EmployeeInterface[];
@@ -11,7 +11,7 @@ interface Props {
 export const Employees: React.FC<Props> = (
   {valueInputSort, employees}
 ) => {
-  const COUNT_EMPLOYEES_PAGE = 2;
+  // const COUNT_EMPLOYEES_PAGE = 2;
   const [employeesSort, setEmployeesSort] = useState(employees);
   const [isSortName, setIsSortName] = useState(true);
   const [isSortPosition, setIsSortPosition] = useState(true);
