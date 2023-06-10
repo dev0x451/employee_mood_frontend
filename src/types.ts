@@ -136,3 +136,11 @@ export interface UserInfo {
   photoToSubmit: string | null;
   about: string;
 }
+
+export interface jwtTypes {
+  token_type: string;
+  exp: number;
+  iat: number;
+  jti: string;
+  user_id: number;
+}

@@ -1,0 +1,25 @@
+@mixin size($width, $height) {
+  height: $height;
+  width: $width;
+}
+
+@mixin flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flex-align-center {
+  display: flex;
+  align-items: center;
+}
+
+@mixin list-initial-style {
+  padding: 0;
+  list-style-type: none;
+}
+
+@mixin reset {
+  padding: 0;
+  margin: 0;
+}

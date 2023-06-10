@@ -1,4 +1,4 @@
-import "@/shared/styles.css";
+import "@/shared/styles/styles.css";
 import classes from "./refreshpasswordpage.module.css";
 import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import { useSearchParams } from "react-router-dom";

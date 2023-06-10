@@ -1,5 +1,5 @@
 import { Formik, Form } from "formik";
-import "@/shared/styles.css";
+import "@/shared/styles/styles.css";
 import classes from "./loginpage.module.css";
 import { Button } from "@/shared/ui/Button/Button";
 import { Link } from "react-router-dom";
