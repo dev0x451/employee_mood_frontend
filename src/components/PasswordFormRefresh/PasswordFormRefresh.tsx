@@ -1,4 +1,4 @@
-import "@/shared/styles.css";
+import "@/shared/styles/styles.css";
 import classes from "./passwordformrefresh.module.css";
 import { Button } from "@/shared/ui/Button/Button";
 import { Formik, Form, FormikValues } from "formik";

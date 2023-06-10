@@ -1,6 +1,6 @@
 import { useField, FieldHookConfig } from "formik";
 import Select, { StylesConfig } from "react-select";
-import "@/shared/styles.css";
+import "@/shared/styles/styles.css";
 import React, { useEffect, useState } from "react";
 import { SelectOption } from "@/types";
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";

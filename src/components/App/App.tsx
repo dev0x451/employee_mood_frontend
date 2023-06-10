@@ -17,10 +17,11 @@ import { RegisterPage } from "@/pages/register/RegisterPage";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
 import { LoginPage } from "@/pages/login/LoginPage";
 import {
-  MyFormValues,
-  TestResult,
   ExpressDiagnoseResponse,
+  jwtTypes,
+  MyFormValues,
   TestInterface,
+  TestResult,
   UserInfo,
 } from "@/types";
 
@@ -30,18 +31,18 @@ import { useLocation } from "react-router";
 import { Account } from "@/pages/account/Account";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
-  setCurrentUser,
   resetCurrentUser,
-  setCurrentUserFirstName,
-  setCurrentUserLastName,
-  setCurrentUserPosition,
-  setCurrentUserAbout,
-  setCurrentUserAvatar,
+  resetCurrentUserAbout,
+  resetCurrentUserAvatar,
   resetCurrentUserFirstName,
   resetCurrentUserLastName,
   resetCurrentUserPosition,
-  resetCurrentUserAvatar,
-  resetCurrentUserAbout,
+  setCurrentUser,
+  setCurrentUserAbout,
+  setCurrentUserAvatar,
+  setCurrentUserFirstName,
+  setCurrentUserLastName,
+  setCurrentUserPosition,
 } from "@/store/reducers/currentUser/currentUserReducer";
 
 export const App = () => {
@@ -64,25 +65,49 @@ export const App = () => {
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
-    if (jwt) {
-      auth(jwt);
+    const refresh = localStorage.getItem("refresh");
+    if (jwt && refresh) {
+      const { exp }: jwtTypes = JSON.parse(
+        window.atob(jwt.split(".")[1])
+      ) as jwtTypes;
+      const date = Date.now() / 1000;
+      if (exp > date) {
+        auth(jwt);
+      } else {
+        refreshToken(refresh);
+        const newJwt = localStorage.getItem("jwt");
+        if (newJwt) {
+          auth(newJwt);
+        }
+      }
     }
-    getUserInfo();
   }, [loggedIn]);
+
+  const refreshToken = async (token: string) => {
+    try {
+      const response = await ApiAuth.refreshToken(token);
+      localStorage.setItem("jwt", response.data.access);
+      localStorage.setItem("refresh", response.data.refresh);
+    } catch (err: any) {
+      console.log(err);
+    }
+  };
 
   const auth = async (jwt: string) => {
     setIsLoading(true);
     try {
       const response = await ApiAuth.checkToken(jwt);
-      if (response.statusText === "OK") {
+      if (response.status === 200) {
         setLoggedIn(true);
         ["/login", "/register"].includes(pathname)
           ? navigate("/")
           : navigate(pathname);
       }
+      getUserInfo();
     } catch (err: any) {
       if (err.status === 400) {
         console.log("400 - токен не передан или передан не в том формате");
+        navigate("/login");
       } else if (err.status === 401) {
         console.log("401 - переданный токен некорректен");
       }
@@ -93,7 +118,6 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
-        console.log(response);
         dispatch(setCurrentUser(response.data.role));
         dispatch(setCurrentUserFirstName(response.data.first_name));
         dispatch(setCurrentUserLastName(response.data.last_name));
@@ -131,8 +155,9 @@ export const App = () => {
   async function handleLogin(values: MyFormValues) {
     try {
       const response = await ApiAuth.loginUser(values);
-      if (response.data.access) {
+      if (response.data.access && response.data.refresh) {
         localStorage.setItem("jwt", response.data.access);
+        localStorage.setItem("refresh", response.data.refresh);
         setLoggedIn(true);
       }
     } catch {
@@ -151,6 +176,7 @@ export const App = () => {
     dispatch(resetCurrentUserAvatar());
     navigate("/login");
     localStorage.removeItem("jwt");
+    localStorage.removeItem("refresh");
   };
 
   async function handleRegister(values: FormikValues, invite_code: string) {
