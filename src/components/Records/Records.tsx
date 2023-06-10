@@ -4,6 +4,7 @@ import { sortIcon } from "@/assets";
 import { TestResultPopup } from "../TestResultPopup/TestResultPopup";
 import { WarningWithBall } from "../WarningWithBall/WarningWithBall";
 import { ExpressDiagnoseResponse } from "@/types";
+// import { arrTest } from "@/shared/constants";
 
 interface Records {
   allTestsResults?: ExpressDiagnoseResponse[],
@@ -12,42 +13,47 @@ interface Records {
 //необходим полный рефакторинг логики сортировки
 
 export const Records: React.FC<Records> = ({allTestsResults}) => {
+  // eсли survey код вида тестирования, то в этот массив нужно записать названия видов тестирования в зависимости от кода
+  const arrSurvey = ['Проверка', 'Диагностика эмоционального выгорания', 'Что-то', 'Задача', "Тестирование", 'Психолог', 'Врач', 'Психолог', 'Разговор', 'Финал'];
+
   const [isOpen, setOpen] = useState<boolean>(false);
   const [result, setResult] = useState<ExpressDiagnoseResponse>();
 
+  const [testResultsSort, setTestResultsSort] = useState(allTestsResults);
+  // const [testResultsSort, setTestResultsSort] = useState(arrTest);
 
-  const [testResultsSort, setTestResultsSort] = useState(allTestsResults)
   const [isSortName, setIsSortName] = useState(true)
-  // const [isSortPosition, setIsSortPosition] = useState(true)
-  // const [isSortState, setIsSortState] = useState(true)
+  const [isSortData, setIsSortData] = useState(true)
+  const [isSortResult, setIsSortResult] = useState(true)
 
-  useEffect(()=>{
-    if (allTestsResults) setTestResultsSort(allTestsResults)
-  },[allTestsResults])
+  // useEffect(()=>{
+  //   if (allTestsResults) setTestResultsSort(allTestsResults)
+  // },[allTestsResults])
 
 //необходим полный рефакторинг логики сортировки
 
   const sortField =
     (
-      a:{result: string, completion_date: string},
-      b:{result: string, completion_date: string},
+      a:{survey: number, completion_date: string, result: string},
+      b:{survey: number, completion_date: string, result: string},
       field: string
     ) => {
     let x = '';
     let y = '';
+
     switch(field) {
       case 'name':
-        x = a.result + a.result;
-        y = b.result + b.result;
+        x = arrSurvey[a.survey];
+        y = arrSurvey[b.survey];
       break;
-      case 'position':
+      case 'data':
         x = a.completion_date;
         y = b.completion_date;
       break;
-      // case 'state':
-      //   x = a.mental_state;
-      //   y = b.mental_state;
-      // break;
+      case 'result':
+        x = a.result;
+        y = b.result;
+      break;
       default:
         x = '';
         y = '';
@@ -69,14 +75,14 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
     setIsSortName(!isSortName);
     sortFields('name', isSortName);
   }
-  // const sortPosition = () => {
-  //   setIsSortPosition(!isSortPosition);
-  //   sortFields('position', isSortPosition);
-  // }
-  // const sortState = () => {
-  //   setIsSortState(!isSortState);
-  //   sortFields('state', isSortState);
-  // }
+  const sortData = () => {
+    setIsSortData(!isSortData);
+    sortFields('data', isSortData);
+  }
+  const sortResult = () => {
+    setIsSortResult(!isSortResult);
+    sortFields('result', isSortResult);
+  }
 
   function handleOpenPopup (record: ExpressDiagnoseResponse) {
     setOpen(true);
@@ -97,16 +103,19 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
     return ruDate.slice(0, -3)
   }
 
+  // console.log(allTestsResults)
   return (
     <div className={styles.records}>
       <section className={styles.tableRecords}>
         <button className={styles.sortButton} onClick={sortName}>Наименование опроса {sortIcon}</button>
-        <button className={styles.sortButton} onClick={sortName}>Дата проведения {sortIcon}</button>
-        <button className={styles.sortButton} onClick={sortName}>Результат {sortIcon}</button>
+        <button className={styles.sortButton} onClick={sortData}>Дата проведения {sortIcon}</button>
+        <button className={styles.sortButton} onClick={sortResult}>Результат {sortIcon}</button>
       </section>
-      {allTestsResults && allTestsResults.map((record, index) => (
+      {testResultsSort && testResultsSort.map((record, index) => (
       <section key={index} className={styles.record}>
-        <p className={styles.text}>Диагностика эмоционального выгорания</p>
+        <p className={styles.text}>{arrSurvey[record.survey]}</p>
+        {/* <p className={styles.text}>Диагностика эмоционального выгорания</p> */}
+
         {record.completion_date && resultDate(record.completion_date)}
         <WarningWithBall resultOfPsychoTest={record}/>
         <button type="button" onClick={() => handleOpenPopup(record)} className={styles.recordButton}>Подробнее</button>
