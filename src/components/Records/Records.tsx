@@ -13,6 +13,7 @@ interface Records {
 //необходим полный рефакторинг логики сортировки
 
 export const Records: React.FC<Records> = ({allTestsResults}) => {
+
   // eсли survey код вида тестирования, то в этот массив нужно записать названия видов тестирования в зависимости от кода
   const arrSurvey = ['Проверка', 'Диагностика эмоционального выгорания', 'Что-то', 'Задача', "Тестирование", 'Психолог', 'Врач', 'Психолог', 'Разговор', 'Финал'];
 
@@ -26,9 +27,9 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
   const [isSortData, setIsSortData] = useState(true)
   const [isSortResult, setIsSortResult] = useState(true)
 
-  // useEffect(()=>{
-  //   if (allTestsResults) setTestResultsSort(allTestsResults)
-  // },[allTestsResults])
+  useEffect(()=>{
+    if (allTestsResults) setTestResultsSort(allTestsResults)
+  },[allTestsResults])
 
 //необходим полный рефакторинг логики сортировки
 
