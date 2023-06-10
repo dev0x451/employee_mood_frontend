@@ -11,10 +11,13 @@ interface Props {
 export const Employees: React.FC<Props> = (
   {valueInputSort, employees}
 ) => {
-  const [employeesSort, setEmployeesSort] = useState(employees)
-  const [isSortName, setIsSortName] = useState(true)
-  const [isSortPosition, setIsSortPosition] = useState(true)
-  const [isSortState, setIsSortState] = useState(true)
+  const COUNT_EMPLOYEES_PAGE = 2;
+  const [employeesSort, setEmployeesSort] = useState(employees);
+  const [isSortName, setIsSortName] = useState(true);
+  const [isSortPosition, setIsSortPosition] = useState(true);
+  const [isSortState, setIsSortState] = useState(true);
+  const [countEmployeePage, setCountEmployeePage] = useState(COUNT_EMPLOYEES_PAGE);
+
   // const BASE_URL_MEDIA = "https://em-dev.usolcev.com/";
   useEffect(()=>{
     setEmployeesSort(employees)
@@ -81,6 +84,10 @@ export const Employees: React.FC<Props> = (
     sortFields('state', isSortState);
   }
 
+  const addEmployees = () => {
+    setCountEmployeePage(countEmployeePage+COUNT_EMPLOYEES_PAGE)
+  }
+
   return (
     <div className={styles.employees}>
       <div className={styles.sortContainer}>
@@ -89,7 +96,8 @@ export const Employees: React.FC<Props> = (
         <button className={styles.sortButton} onClick={sortState}>Состояние {sortIcon}</button>
       </div>
       {employeesSort &&
-        employeesSort.map((employee) => (
+        employeesSort.map((employee, index) => (
+          index < countEmployeePage ?
           <div key={employee.id} className={styles.employee}>
             <div className={styles.user}>
               {employee.avatar !== null ?
@@ -104,8 +112,12 @@ export const Employees: React.FC<Props> = (
             </div>
             <p className={styles.text}>{employee.position.name}</p>
             <p className={styles.text}>{employee.mental_state?.name}</p>
-          </div>
-        ))}
+          </div> :
+          null
+        ))
+      }
+      {countEmployeePage <= employeesSort.length &&
+      <button className={styles.addButton} onClick={addEmployees}>Здесь должна быть кнопочка от дизайнеров</button>}
     </div>
   );
 };

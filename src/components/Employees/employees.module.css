@@ -87,4 +87,24 @@
   text-align: center;
 }
 
+.addButton {
+  margin-top: 15px;
+  display: flex;
+  /* width: 161px; */
+  /* height: 36px; */
+  /* align-items: center;
+  justify-content: center; */
+  /* padding: 10px 16px; */
+  border: 0;
+  /* border-radius: 16px; */
+  color: var(--color-accent-purple);
+  background-color: var(--color-main-background);
+  font: var(--font-button);
+  outline: none;
+  cursor: pointer;
+  transition: opacity 0.5s linear;
+}
 
+.addButton:hover {
+  opacity: 0.6;
+}
