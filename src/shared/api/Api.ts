@@ -1,10 +1,11 @@
 import axios from "axios";
 import { TestResult, UserInfo } from "@/types";
+import { BASE_URL_REQUEST } from "../constants";
 
-const BASE_URL = "https://em-dev.usolcev.com/api/v1";
+// const BASE_URL = "https://em-dev.usolcev.com/api/v1";
 
 export const getUser = () => {
-  return axios.get(`${BASE_URL}/users/current_user`, {
+  return axios.get(`${BASE_URL_REQUEST}/users/current_user`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
@@ -13,7 +14,7 @@ export const getUser = () => {
 
 export const changeUserInfo = (userInfo: UserInfo) => {
   return axios.patch(
-    `${BASE_URL}/users/current_user`,
+    `${BASE_URL_REQUEST}/users/current_user`,
     { about: userInfo.about, avatar: userInfo.photoToSubmit },
     {
       headers: {
@@ -25,7 +26,7 @@ export const changeUserInfo = (userInfo: UserInfo) => {
 
 export const changeUserInfoOnlyAbout = (userInfo: UserInfo) => {
   return axios.patch(
-    `${BASE_URL}/users/current_user`,
+    `${BASE_URL_REQUEST}/users/current_user`,
     { about: userInfo.about },
     {
       headers: {
@@ -36,7 +37,7 @@ export const changeUserInfoOnlyAbout = (userInfo: UserInfo) => {
 };
 
 export const getDepartments = (invite_code: string) => {
-  return axios.get(`${BASE_URL}/departments`, {
+  return axios.get(`${BASE_URL_REQUEST}/departments`, {
     params: {
       invite_code: invite_code,
     },
@@ -44,7 +45,7 @@ export const getDepartments = (invite_code: string) => {
 };
 
 export const getPositions = (invite_code: string) => {
-  return axios.get(`${BASE_URL}/positions?limit=999`, {
+  return axios.get(`${BASE_URL_REQUEST}/positions?limit=999`, {
     params: {
       invite_code: invite_code,
     },
@@ -52,7 +53,7 @@ export const getPositions = (invite_code: string) => {
 };
 
 export const getTestQuestions = (test: string | null) => {
-  return axios.get(`${BASE_URL}/metrics/surveys/${test}`, {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/surveys/${test}`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
@@ -60,7 +61,7 @@ export const getTestQuestions = (test: string | null) => {
 };
 
 export const getAllTestsResults = () => {
-  return axios.get(`${BASE_URL}/metrics/results/?my_results=true`, {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/results/?my_results=true`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
@@ -69,7 +70,7 @@ export const getAllTestsResults = () => {
 
 export const sendTestResults = (results: TestResult) => {
   return axios.post(
-    `${BASE_URL}/metrics/results`,
+    `${BASE_URL_REQUEST}/metrics/results`,
     {
       positive_value: results.positive_value,
       negative_value: results.negative_value,
@@ -85,7 +86,7 @@ export const sendTestResults = (results: TestResult) => {
 
 export const sendInviteCode = (email: string) => {
   return axios.post(
-    `${BASE_URL}/users/send_invite`,
+    `${BASE_URL_REQUEST}/users/send_invite`,
     {
       email: email,
     },
@@ -98,7 +99,7 @@ export const sendInviteCode = (email: string) => {
 };
 
 export const getUsers = () => {
-  return axios.get(`${BASE_URL}/users/?limit=100`, {
+  return axios.get(`${BASE_URL_REQUEST}/users/?limit=100`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },

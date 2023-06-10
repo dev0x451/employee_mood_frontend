@@ -1,5 +1,9 @@
 export const BASE_URL_MEDIA = "https://em-dev.usolcev.com/";
 
+export const BASE_URL_REQUEST = "https://em-dev.usolcev.com/api/v1";
+
+export const COUNT_EMPLOYEES_PAGE = 6;
+
 export const arrTest = [
   {
     completion_date: "2023-06-10",
