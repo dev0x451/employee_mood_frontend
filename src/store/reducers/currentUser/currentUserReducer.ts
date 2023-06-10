@@ -13,7 +13,7 @@ const initialState: User = {
   id: 0,
   last_name: "",
   latest_condition: null,
-  mental_state: "",
+  mental_state: null,
   patronymic: "",
   phone: 0,
   position: null,

@@ -31,8 +31,8 @@ export const Employees: React.FC<Props> = (
 
   const sortField =
     (
-      a:{first_name: string, last_name: string, position: {name: string}, mental_state: string},
-      b: {first_name: string, last_name: string, position: {name: string}, mental_state: string},
+      a:{first_name: string, last_name: string, position: {name: string}, mental_state: {name: string}},
+      b: {first_name: string, last_name: string, position: {name: string}, mental_state: {name: string}},
       field: string
     ) => {
     let x = '';
@@ -47,8 +47,8 @@ export const Employees: React.FC<Props> = (
         y = b.position.name;
       break;
       case 'state':
-        x = a.mental_state;
-        y = b.mental_state;
+        x = a.mental_state.name;
+        y = b.mental_state.name;
       break;
       default:
         x = '';
@@ -95,10 +95,10 @@ export const Employees: React.FC<Props> = (
                 src={employee.avatar === null ? '/image.png' : employee.avatar}
                 alt="Avatar"
               />
-              <p className={styles.text}>{employee.first_name} {employee.last_name}</p>
+              <p className={styles.text}>{employee.first_name}</p>
             </div>
             <p className={styles.text}>{employee.position.name}</p>
-            <p className={styles.text}>{employee.mental_state}</p>
+            <p className={styles.text}>{employee.mental_state?.name}</p>
           </div>
         ))}
     </div>
