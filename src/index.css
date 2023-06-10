@@ -3,7 +3,7 @@
 @import url("assets/fonts/Montserrat/Montserrat.css");
 
 :root {
-  overflow: scroll;
+  /* overflow: scroll; */
   font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial,
     sans-serif;
   -webkit-font-smoothing: antialiased;

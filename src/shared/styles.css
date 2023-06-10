@@ -62,8 +62,17 @@
 
 /* Layout */
 .page-container {
+  width: 100%;
   display: grid;
   height: fit-content;
   min-height: 100vh;
   grid-template-columns: 228px 1fr;
+}
+@media(max-width: 1120px) {
+  .page-container {
+    height: fit-content;
+    /* min-height: 100vh; */
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 1fr;
+  }
 }

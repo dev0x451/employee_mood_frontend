@@ -80,7 +80,7 @@ export const Employees: React.FC<Props> = (
     setIsSortState(!isSortState);
     sortFields('state', isSortState);
   }
-  console.log(employeesSort)
+
   return (
     <div className={styles.employees}>
       <div className={styles.sortContainer}>
@@ -91,7 +91,7 @@ export const Employees: React.FC<Props> = (
       {employeesSort &&
         employeesSort.map((employee) => (
           <div key={employee.id} className={styles.employee}>
-            <div className={styles.avatar}>
+            <div className={styles.user}>
               {employee.avatar !== null ?
                 <img
                   className={styles.image}
@@ -100,7 +100,7 @@ export const Employees: React.FC<Props> = (
                 /> :
                 <p className={styles.noPhoto}><span className={styles.textNoAvatar}>{employee.first_name[0] + employee.last_name[0]}</span></p>
               }
-              <p className={styles.text}>{employee.first_name} {employee.last_name}</p>
+              <p className={styles.textUser}>{employee.first_name} {employee.last_name}</p>
             </div>
             <p className={styles.text}>{employee.position.name}</p>
             <p className={styles.text}>{employee.mental_state?.name}</p>

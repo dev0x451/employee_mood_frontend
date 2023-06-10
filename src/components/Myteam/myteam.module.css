@@ -1,24 +1,24 @@
 .myteam {
-  position: relative;
   display: flex;
   width: 100%;
   flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-start;
-  padding: 28px 52px 40px 43px;
+  padding: 30px 132px 42px 42px;
   background-color: var(--color-main-background);
 }
 
 .left-screen {
   position: relative;
-  width: 62%;
+  width: 65%;
   height: 100%;
   padding: 10px;
-  margin-right: 13px;
+  margin-right: 8px;
 }
 
 .right-screen {
-  width: 30%;
+  width: 33%;
   height: 100%;
   padding: 10px;
 }
@@ -65,4 +65,16 @@
 .text {
   display: inline-block;
   font-size: 50px;
+}
+
+@media(max-width: 1120px) {
+  .myteam {
+    padding: 42px;
+  }
+}
+
+@media(max-width: 700px) {
+  .myteam {
+    flex-wrap: wrap;
+  }
 }
