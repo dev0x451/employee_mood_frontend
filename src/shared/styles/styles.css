@@ -71,7 +71,6 @@
 @media(max-width: 1120px) {
   .page-container {
     height: fit-content;
-    /* min-height: 100vh; */
     grid-template-columns: 1fr;
     grid-template-rows: 100px 1fr;
   }
