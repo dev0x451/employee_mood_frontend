@@ -2,6 +2,7 @@ import classes from "./alertpopup.module.scss";
 import Warning from "@/shared/ui/AlertPopup/ui/warning__28.svg";
 import Success from "@/shared/ui/AlertPopup/ui/success.svg";
 import React from "react";
+import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface AlertPopupProps {
   closeErrorPopup: () => void;
@@ -16,6 +17,8 @@ export const AlertPopup: React.FC<AlertPopupProps> = ({
   isPositive,
   popupMessage,
 }) => {
+  useEscapeKey(closeErrorPopup);
+
   return (
     <div
       className={

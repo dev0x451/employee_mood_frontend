@@ -9,6 +9,7 @@ import {
   selectFirstName,
   selectLastName,
 } from "@/store/reducers/currentUser/currentUserReducer";
+import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface Props {
   handleSignOut: () => void;
@@ -40,6 +41,8 @@ export const Header: React.FC<Props> = ({ handleSignOut }) => {
       setIsAccountPopupOpened(false);
     }
   };
+
+  useEscapeKey(closeAccountPopup);
 
   return (
     <header className={styles.header}>

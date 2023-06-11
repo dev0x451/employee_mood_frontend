@@ -14,6 +14,7 @@ import {
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
 import { AreYouSurePopup } from "@/components/AreYouSurePopup/AreYouSurePopup";
 import { UserInfo } from "@/types";
+import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo) => void;
@@ -66,6 +67,8 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
       setIsPhotoClicked(false);
     }
   };
+
+  useEscapeKey(() => setIsPhotoClicked(false));
 
   const openConfirmPopup = () => {
     setIsConfirmPopupOpened(true);
