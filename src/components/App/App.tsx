@@ -1,21 +1,8 @@
 import { useEffect, useState } from "react";
-import { Route, Routes, useNavigate } from "react-router-dom";
-
-import { Main } from "../../pages/main/Main";
-import { Tests } from "../../pages/tests/Tests";
-import { Test } from "../Test/Test";
-import { Advices } from "../../pages/advices/Advices";
-import { Events } from "../../pages/events/Events";
-import { Bookmarks } from "../../pages/bookmarks/Bookmarks";
-import { Calendar } from "../../pages/calendar/Calendar";
-import { Myteam } from "../Myteam/Myteam";
+import { useNavigate } from "react-router-dom";
 import { FormikValues } from "formik";
 
 import styles from "./app.module.css";
-import { ProtectedRoutes } from "@/components/ProtectedRoutes";
-import { RegisterPage } from "@/pages/register/RegisterPage";
-import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage";
-import { LoginPage } from "@/pages/login/LoginPage";
 import {
   ExpressDiagnoseResponse,
   jwtTypes,
@@ -28,7 +15,6 @@ import {
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
-import { Account } from "@/pages/account/Account";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   resetCurrentUser,
@@ -44,6 +30,8 @@ import {
   setCurrentUserLastName,
   setCurrentUserPosition,
 } from "@/store/reducers/currentUser/currentUserReducer";
+import { Routing } from "@/Routing";
+import { AlertPopup } from "@/shared/ui/AlertPopup/AlertPopup";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -304,103 +292,29 @@ export const App = () => {
 
   return (
     <main className={styles.page}>
-      <Routes>
-        <Route
-          element={
-            <ProtectedRoutes
-              loggedIn={loggedIn}
-              handleSignOut={handleSignOut}
-            />
-          }
-        >
-          <Route path="/" element={<Main />} />
-
-          <Route
-            path="tests"
-            element={<Tests allTestsResults={allTestsResults} />}
-          />
-
-          <Route
-            path="tests/:id"
-            element={
-              <Test
-                test={expressTest}
-                onSendTestResult={handleSendTestResult}
-                resultOfPsychoTest={resultOfPsychoTest}
-              />
-            }
-          />
-
-          <Route path="advices" element={<Advices />} />
-
-          <Route path="events" element={<Events />} />
-
-          <Route path="bookmarks" element={<Bookmarks />} />
-
-          <Route path="calendar" element={<Calendar />} />
-          <Route
-            path="account"
-            element={
-              <Account
-                handleChangeUserInfo={handleChangeUserInfo}
-                success={success}
-                error={error}
-                closeErrorPopup={closeErrorPopup}
-                popupOpened={popupOpened}
-              />
-            }
-          />
-          <Route
-            path="myteam"
-            element={
-              <Myteam
-                success={success}
-                error={error}
-                closeErrorPopup={closeErrorPopup}
-                popupOpened={popupOpened}
-                resetMessages={resetMessages}
-                handleSendInviteCode={handleSendInviteCode}
-                employees={employees}
-              />
-            }
-          />
-        </Route>
-        <Route
-          path="login"
-          element={
-            <LoginPage
-              handleLogin={handleLogin}
-              closeErrorPopup={closeErrorPopup}
-              popupOpened={popupOpened}
-              error={error}
-            />
-          }
-        />
-        <Route
-          path="register"
-          element={
-            <RegisterPage
-              handleRegister={handleRegister}
-              closeErrorPopup={closeErrorPopup}
-              popupOpened={popupOpened}
-              registerError={error}
-            />
-          }
-        />
-        <Route
-          path="password-reset"
-          element={
-            <RefreshPasswordPage
-              handleSendResetCode={handleSendResetCode}
-              handleResetPassword={handleResetPassword}
-              success={success}
-              error={error}
-              closeErrorPopup={closeErrorPopup}
-              popupOpened={popupOpened}
-            />
-          }
-        />
-      </Routes>
+      <AlertPopup
+        closeErrorPopup={closeErrorPopup}
+        popupOpened={popupOpened}
+        isPositive={success ? true : false}
+        popupMessage={success ? success : error ? error : ""}
+      />
+      <Routing
+        loggedIn={loggedIn}
+        handleSignOut={handleSignOut}
+        allTestsResults={allTestsResults}
+        expressTest={expressTest}
+        handleSendTestResult={handleSendTestResult}
+        resultOfPsychoTest={resultOfPsychoTest}
+        handleChangeUserInfo={handleChangeUserInfo}
+        success={success}
+        resetMessages={resetMessages}
+        employees={employees}
+        handleSendInviteCode={handleSendInviteCode}
+        handleLogin={handleLogin}
+        handleRegister={handleRegister}
+        handleSendResetCode={handleSendResetCode}
+        handleResetPassword={handleResetPassword}
+      />
     </main>
   );
 };
