@@ -5,22 +5,13 @@ import { Formik, Form } from "formik";
 import { refreshEmailSchema } from "@/schemas/validationSchema";
 import { Input } from "@/shared/ui/Input/Input";
 import React from "react";
-import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 
 interface ComponentProps {
   handleSendResetCode: (email: string) => void;
-  success: string;
-  error: string;
-  closeErrorPopup: () => void;
-  popupOpened: boolean;
 }
 
 export const EmailFormRefresh: React.FC<ComponentProps> = ({
   handleSendResetCode,
-  success,
-  error,
-  closeErrorPopup,
-  popupOpened,
 }) => {
   return (
     <>
@@ -46,22 +37,6 @@ export const EmailFormRefresh: React.FC<ComponentProps> = ({
           <Button title="Воcстановить" type="submit" mode="primary" />
         </Form>
       </Formik>
-      {success && (
-        <InfoPopup
-          closeErrorPopup={closeErrorPopup}
-          popupOpened={popupOpened}
-          popupMessage={success}
-          isPositive={true}
-        />
-      )}
-      {error && (
-        <InfoPopup
-          closeErrorPopup={closeErrorPopup}
-          popupOpened={popupOpened}
-          popupMessage={error}
-          isPositive={false}
-        />
-      )}
     </>
   );
 };

@@ -23,9 +23,6 @@ interface Props {
   resultOfPsychoTest: any;
   handleChangeUserInfo: any;
   success: any;
-  error: any;
-  closeErrorPopup: any;
-  popupOpened: any;
   resetMessages: any;
   employees: any;
   handleSendInviteCode: any;
@@ -43,9 +40,6 @@ export const Routing: React.FC<Props> = ({
   resultOfPsychoTest,
   handleChangeUserInfo,
   success,
-  error,
-  closeErrorPopup,
-  popupOpened,
   resetMessages,
   employees,
   handleSendInviteCode,
@@ -88,24 +82,13 @@ export const Routing: React.FC<Props> = ({
         <Route path="calendar" element={<Calendar />} />
         <Route
           path="account"
-          element={
-            <Account
-              handleChangeUserInfo={handleChangeUserInfo}
-              success={success}
-              error={error}
-              closeErrorPopup={closeErrorPopup}
-              popupOpened={popupOpened}
-            />
-          }
+          element={<Account handleChangeUserInfo={handleChangeUserInfo} />}
         />
         <Route
           path="myteam"
           element={
             <Myteam
               success={success}
-              error={error}
-              closeErrorPopup={closeErrorPopup}
-              popupOpened={popupOpened}
               resetMessages={resetMessages}
               handleSendInviteCode={handleSendInviteCode}
               employees={employees}
@@ -113,27 +96,10 @@ export const Routing: React.FC<Props> = ({
           }
         />
       </Route>
-      <Route
-        path="login"
-        element={
-          <LoginPage
-            handleLogin={handleLogin}
-            closeErrorPopup={closeErrorPopup}
-            popupOpened={popupOpened}
-            error={error}
-          />
-        }
-      />
+      <Route path="login" element={<LoginPage handleLogin={handleLogin} />} />
       <Route
         path="register"
-        element={
-          <RegisterPage
-            handleRegister={handleRegister}
-            closeErrorPopup={closeErrorPopup}
-            popupOpened={popupOpened}
-            registerError={error}
-          />
-        }
+        element={<RegisterPage handleRegister={handleRegister} />}
       />
       <Route
         path="password-reset"
@@ -141,10 +107,6 @@ export const Routing: React.FC<Props> = ({
           <RefreshPasswordPage
             handleSendResetCode={handleSendResetCode}
             handleResetPassword={handleResetPassword}
-            success={success}
-            error={error}
-            closeErrorPopup={closeErrorPopup}
-            popupOpened={popupOpened}
           />
         }
       />

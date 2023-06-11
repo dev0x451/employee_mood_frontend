@@ -5,22 +5,15 @@ import { Formik, Form, FormikValues } from "formik";
 import { refreshPasswordSchema } from "@/schemas/validationSchema";
 import { Input } from "@/shared/ui/Input/Input";
 import React from "react";
-import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 
 interface Props {
   resetCode: string;
   handleResetPassword: (values: FormikValues, resetCode: string) => void;
-  error: string;
-  closeErrorPopup: () => void;
-  popupOpened: boolean;
 }
 
 export const PasswordFormRefresh: React.FC<Props> = ({
   resetCode,
   handleResetPassword,
-  error,
-  closeErrorPopup,
-  popupOpened,
 }) => {
   return (
     <>
@@ -56,14 +49,6 @@ export const PasswordFormRefresh: React.FC<Props> = ({
           <Button title="Изменить" type="submit" mode="primary" />
         </Form>
       </Formik>
-      {error && (
-        <InfoPopup
-          closeErrorPopup={closeErrorPopup}
-          popupOpened={popupOpened}
-          popupMessage={error}
-          isPositive={false}
-        />
-      )}
     </>
   );
 };

@@ -14,22 +14,11 @@ import {
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
 import { AreYouSurePopup } from "@/components/AreYouSurePopup/AreYouSurePopup";
 import { UserInfo } from "@/types";
-import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo) => void;
-  success: string;
-  error: string;
-  closeErrorPopup: () => void;
-  popupOpened: boolean;
 }
-export const Account: React.FC<Props> = ({
-  handleChangeUserInfo,
-  success,
-  error,
-  closeErrorPopup,
-  popupOpened,
-}) => {
+export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
   const BASE_URL = "https://em-dev.usolcev.com";
   const photoLink = useAppSelector(selectAvatar);
   const initialPhoto = photoLink !== null ? `${BASE_URL}${photoLink}` : "";
@@ -126,12 +115,6 @@ export const Account: React.FC<Props> = ({
       <div className="page-container">
         <Navbar />
         <div className={styles.account} onClick={(e) => closePhotoSettings(e)}>
-          <InfoPopup
-            closeErrorPopup={closeErrorPopup}
-            popupOpened={popupOpened}
-            popupMessage={error ? error : success ? success : ""}
-            isPositive={error ? false : true}
-          />
           <ul className={styles.containersList}>
             <li className={styles.containersListItem}>
               <h1 className={styles.title}>Контактная информация</h1>

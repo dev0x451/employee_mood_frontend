@@ -31,6 +31,7 @@ import {
   setCurrentUserPosition,
 } from "@/store/reducers/currentUser/currentUserReducer";
 import { Routing } from "@/Routing";
+import { AlertPopup } from "@/shared/ui/AlertPopup/AlertPopup";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -291,6 +292,12 @@ export const App = () => {
 
   return (
     <main className={styles.page}>
+      <AlertPopup
+        closeErrorPopup={closeErrorPopup}
+        popupOpened={popupOpened}
+        isPositive={success ? true : false}
+        popupMessage={success ? success : error ? error : ""}
+      />
       <Routing
         loggedIn={loggedIn}
         handleSignOut={handleSignOut}
@@ -300,9 +307,6 @@ export const App = () => {
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}
         success={success}
-        error={error}
-        closeErrorPopup={closeErrorPopup}
-        popupOpened={popupOpened}
         resetMessages={resetMessages}
         employees={employees}
         handleSendInviteCode={handleSendInviteCode}

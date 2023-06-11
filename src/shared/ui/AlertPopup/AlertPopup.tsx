@@ -1,16 +1,16 @@
-import classes from "./infopopup.module.css";
-import Warning from "@/shared/ui/infoPopup/warning__28.svg";
-import Success from "@/shared/ui/infoPopup/success.svg";
+import classes from "./alertpopup.module.css";
+import Warning from "@/shared/ui/AlertPopup/warning__28.svg";
+import Success from "@/shared/ui/AlertPopup/success.svg";
 import React from "react";
 
-interface InfoPopupProps {
+interface AlertPopupProps {
   closeErrorPopup: () => void;
   popupOpened: boolean;
   isPositive: boolean;
   popupMessage: string;
 }
 
-export const InfoPopup: React.FC<InfoPopupProps> = ({
+export const AlertPopup: React.FC<AlertPopupProps> = ({
   closeErrorPopup,
   popupOpened,
   isPositive,

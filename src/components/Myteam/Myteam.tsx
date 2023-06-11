@@ -13,18 +13,12 @@ interface Props {
   resetMessages: () => void;
   handleSendInviteCode: (email: string) => Promise<void>;
   success: string;
-  error: string;
-  closeErrorPopup: () => void;
-  popupOpened: boolean;
   employees: EmployeeInterface[];
 }
 export const Myteam: React.FC<Props> = ({
   resetMessages,
   handleSendInviteCode,
   success,
-  error,
-  closeErrorPopup,
-  popupOpened,
   employees,
 }) => {
   const articles: ArticleInterface[] = [
@@ -120,9 +114,6 @@ export const Myteam: React.FC<Props> = ({
         addPopupVisible={addPopupVisible}
         handleSendInviteCode={handleSendInviteCode}
         success={success}
-        error={error}
-        closeErrorPopup={closeErrorPopup}
-        popupOpened={popupOpened}
       />
     </div>
   );

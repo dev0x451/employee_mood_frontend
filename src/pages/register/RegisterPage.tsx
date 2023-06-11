@@ -9,22 +9,13 @@ import { Input } from "@/shared/ui/Input/Input";
 import { DropDown } from "@/shared/ui/Dropdown/Dropdown";
 import "@/shared/styles/styles.css";
 import classes from "./registerpage.module.css";
-import { InfoPopup } from "@/shared/ui/infoPopup/InfoPopup";
 import { useSearchParams } from "react-router-dom";
 
 interface RegisterProps {
   handleRegister: (formikValues: FormikValues, invite_code: string) => void;
-  closeErrorPopup: () => void;
-  popupOpened: boolean;
-  registerError: string;
 }
 
-export const RegisterPage: React.FC<RegisterProps> = ({
-  handleRegister,
-  closeErrorPopup,
-  popupOpened,
-  registerError,
-}) => {
+export const RegisterPage: React.FC<RegisterProps> = ({ handleRegister }) => {
   // получение инвайт-кода для регистрации и декодирование
   const [searchParams] = useSearchParams();
   const invite_code = searchParams.get("invite_code");
@@ -162,14 +153,6 @@ export const RegisterPage: React.FC<RegisterProps> = ({
             </Form>
           )}
         </Formik>
-      )}
-      {registerError && (
-        <InfoPopup
-          closeErrorPopup={closeErrorPopup}
-          popupOpened={popupOpened}
-          popupMessage={registerError}
-          isPositive={false}
-        />
       )}
     </div>
   );
