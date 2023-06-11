@@ -1,10 +1,9 @@
 import { useField, FieldHookConfig } from "formik";
 import Select, { StylesConfig } from "react-select";
-import "@/shared/styles/styles.css";
 import React, { useEffect, useState } from "react";
 import { SelectOption } from "@/types";
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
-import styles from "./dropdown.module.css";
+import styles from "./dropdown.module.scss";
 
 interface DropdownProps {
   label: string;

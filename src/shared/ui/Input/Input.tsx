@@ -1,7 +1,7 @@
 import { FieldHookConfig, useField } from "formik";
-import styles from "./input.module.css";
+import styles from "./input.module.scss";
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
-import { InputButton } from "@/shared/ui/InputButton/InputButton";
+import { InputButton } from "@/shared/ui/Input/InputButton/InputButton";
 import { useState } from "react";
 
 interface OtherProps {
