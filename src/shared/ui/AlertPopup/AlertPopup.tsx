@@ -1,6 +1,6 @@
-import classes from "./alertpopup.module.css";
-import Warning from "@/shared/ui/AlertPopup/warning__28.svg";
-import Success from "@/shared/ui/AlertPopup/success.svg";
+import classes from "./alertpopup.module.scss";
+import Warning from "@/shared/ui/AlertPopup/ui/warning__28.svg";
+import Success from "@/shared/ui/AlertPopup/ui/success.svg";
 import React from "react";
 
 interface AlertPopupProps {

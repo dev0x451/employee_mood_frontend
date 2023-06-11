@@ -1,4 +1,4 @@
-import styles from "@/shared/ui/InputButton/inputbutton.module.css";
+import styles from "./inputbutton.module.scss";
 import React from "react";
 
 interface InputButtonProps {
@@ -19,6 +19,6 @@ export const InputButton: React.FC<InputButtonProps> = ({
           ? `${styles.button} ${styles.buttonOpened}`
           : `${styles.button} ${styles.buttonClosed}`
       }
-    ></button>
+    />
   );
 };

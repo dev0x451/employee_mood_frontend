@@ -1,7 +1,7 @@
-import classes from "./button.module.css";
+import classes from "./button.module.scss";
 import cl from "classnames";
 import React from "react";
-import AddIcon from "./add_20.svg";
+import AddIcon from "./ui/add_20.svg";
 interface ButtonProps {
   title: string;
   mode: string;

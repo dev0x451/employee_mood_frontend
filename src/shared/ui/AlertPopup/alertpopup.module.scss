@@ -1,3 +1,5 @@
+@import '@/shared/styles/mixins.scss';
+
 .error-popup {
   position: absolute;
   z-index: 100;
@@ -23,8 +25,7 @@
 }
 
 .popup-img {
-  width: 28px;
-  height: 28px;
+  @include size(28px, 28px);
 }
 
 .popup-text {
@@ -32,17 +33,14 @@
 }
 
 .close-btn {
+  @include size(24px, 24px);
   position: absolute;
   top: 10px;
   right: 10px;
-  width: 24px;
-  height: 24px;
   border: none;
   background-color: var(--color-background-white);
   background-image: url('../../../assets/closeBtn.svg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  @include background-no-repeat-center-cover;
   cursor: pointer;
 }
 
