@@ -136,6 +136,11 @@ export const Account: React.FC<Props> = ({
             <li className={styles.containersListItem}>
               <h1 className={styles.title}>Контактная информация</h1>
               <div className={styles.contactInfo}>
+                <PhotoSettingsPopup
+                  isPhotoClicked={isPhotoClicked}
+                  uploadPhoto={uploadPhoto}
+                  removePhoto={removePhoto}
+                />
                 <div className={styles.avatarArea}>
                   {photo ? (
                     <img
@@ -154,11 +159,6 @@ export const Account: React.FC<Props> = ({
                     className={styles.avatarButton}
                     type="button"
                     aria-label="Изменить аватар пользователя"
-                  />
-                  <PhotoSettingsPopup
-                    isPhotoClicked={isPhotoClicked}
-                    uploadPhoto={uploadPhoto}
-                    removePhoto={removePhoto}
                   />
                 </div>
                 <ul className={styles.textInfoList}>
