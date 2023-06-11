@@ -39,5 +39,5 @@ export const checkToken = (token: any) => {
 };
 
 export const refreshToken = (token: string) => {
-  return axios.post(`${BASE_URL}/auth/jwt/refresh`, { token });
+  return axios.post(`${BASE_URL}/auth/jwt/refresh`, { refresh: token });
 };
