@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { EmployeeInterface, ExpressDiagnoseResponse, arrUseSort } from "@/types";
+import { useState } from "react";
 
 export const BASE_URL_MEDIA = "https://em-dev.usolcev.com/";
 
