@@ -29,9 +29,7 @@
     "react-router": "^6.11.1",
     "react-router-dom": "^6.11.1",
     "react-select": "^5.7.3",
-    "sass": "^1.63.3",
     "ts-node": "^10.9.1",
-    "universal-cookie": "^4.0.4",
     "yup": "^1.1.1"
   },
   "devDependencies": {
@@ -54,6 +52,7 @@
     "lint-staged": "^13.2.2",
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
+    "sass": "^1.63.3",
     "stylelint": "^15.6.1",
     "stylelint-config-idiomatic-order": "^9.0.0",
     "stylelint-config-standard": "^33.0.0",
