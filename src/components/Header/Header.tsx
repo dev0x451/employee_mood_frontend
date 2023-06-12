@@ -9,7 +9,6 @@ import {
   selectFirstName,
   selectLastName,
 } from "@/store/reducers/currentUser/currentUserReducer";
-import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface Props {
   handleSignOut: () => void;
@@ -28,21 +27,9 @@ export const Header: React.FC<Props> = ({ handleSignOut }) => {
     setPhoto(initialPhoto);
   }, [initialPhoto]);
 
-  const openAccountPopup = () => {
-    if (!isAccountPopupOpened) {
-      setIsAccountPopupOpened(true);
-    } else {
-      setIsAccountPopupOpened(false);
-    }
-  };
-
   const closeAccountPopup = () => {
-    if (isAccountPopupOpened) {
-      setIsAccountPopupOpened(false);
-    }
+    setIsAccountPopupOpened(false);
   };
-
-  useEscapeKey(closeAccountPopup);
 
   return (
     <header className={styles.header}>
@@ -56,7 +43,10 @@ export const Header: React.FC<Props> = ({ handleSignOut }) => {
       />
       <div className={styles.profileAndNotify}>
         <div className={styles.notify}></div>
-        <div onClick={() => openAccountPopup()} className={styles.profileBtn}>
+        <div
+          onClick={() => setIsAccountPopupOpened(!isAccountPopupOpened)}
+          className={styles.profileBtn}
+        >
           {photo ? (
             <img className={styles.profilePhoto} src={photo || initialPhoto} />
           ) : (

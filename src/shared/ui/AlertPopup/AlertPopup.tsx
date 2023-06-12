@@ -1,8 +1,9 @@
 import classes from "./alertpopup.module.scss";
 import Warning from "@/shared/ui/AlertPopup/ui/warning__28.svg";
 import Success from "@/shared/ui/AlertPopup/ui/success.svg";
-import React from "react";
+import React, { useRef } from "react";
 import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
+import { useOutsideClick } from "@/shared/hooks/useOutsideClick";
 
 interface AlertPopupProps {
   closeErrorPopup: () => void;
@@ -17,7 +18,9 @@ export const AlertPopup: React.FC<AlertPopupProps> = ({
   isPositive,
   popupMessage,
 }) => {
+  const ref = useRef(null);
   useEscapeKey(closeErrorPopup);
+  useOutsideClick(closeErrorPopup, ref);
 
   return (
     <div
@@ -26,6 +29,7 @@ export const AlertPopup: React.FC<AlertPopupProps> = ({
           ? classes.errorPopup
           : `${classes.errorPopup} ${classes.errorPopupOpened}`
       }
+      ref={ref}
     >
       <button onClick={() => closeErrorPopup()} className={classes.closeBtn} />
       {isPositive ? (
