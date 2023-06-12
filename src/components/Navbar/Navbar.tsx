@@ -7,7 +7,6 @@ import cn from "classnames";
 
 import {
   homeIcon,
-  calendarIcon,
   advicesIcon,
   eventsIcon,
   bookmarkIcon,
@@ -80,15 +79,6 @@ export const Navbar = () => {
             {bookmarkIcon}
           </div>
           Закладки
-        </NavLink>
-        <NavLink
-          className={({ isActive }) => linkClassName(isActive)}
-          to="/calendar"
-        >
-          <div className={styles.logoContainer}>
-            {calendarIcon}
-          </div>
-         Календарь
         </NavLink>
 
         {isChief && (
