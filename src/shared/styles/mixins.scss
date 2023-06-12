@@ -1,6 +1,6 @@
 @mixin size($width, $height) {
-  height: $height;
   width: $width;
+  height: $height;
 }
 
 @mixin flex-center {

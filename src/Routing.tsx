@@ -6,7 +6,7 @@ import { Test } from "@/components/Test/Test.js";
 import { Advices } from "@/pages/advices/Advices.js";
 import { Events } from "@/pages/events/Events.js";
 import { Bookmarks } from "@/pages/bookmarks/Bookmarks.js";
-import { Calendar } from "@/pages/calendar/Calendar.js";
+import { Pagenotfound } from "./pages/pagenotfound/Pagenotfound";
 import { Account } from "@/pages/account/Account.js";
 import { Myteam } from "@/components/Myteam/Myteam.js";
 import { LoginPage } from "@/pages/login/LoginPage.js";
@@ -79,7 +79,6 @@ export const Routing: React.FC<Props> = ({
 
         <Route path="bookmarks" element={<Bookmarks />} />
 
-        <Route path="calendar" element={<Calendar />} />
         <Route
           path="account"
           element={<Account handleChangeUserInfo={handleChangeUserInfo} />}
@@ -95,6 +94,9 @@ export const Routing: React.FC<Props> = ({
             />
           }
         />
+
+        <Route path="*" element={<Pagenotfound />} />
+
       </Route>
       <Route path="login" element={<LoginPage handleLogin={handleLogin} />} />
       <Route
@@ -110,6 +112,8 @@ export const Routing: React.FC<Props> = ({
           />
         }
       />
+
+
     </Routes>
   );
 };

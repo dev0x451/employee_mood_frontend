@@ -14,7 +14,6 @@ export default defineConfig({
       generateScopedName: "[folder]--[local]-[hash:base64:5]",
       localsConvention: "camelCase",
     },
+  }
   },
-
-
-})
+)
