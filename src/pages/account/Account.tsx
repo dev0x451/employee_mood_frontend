@@ -14,6 +14,7 @@ import {
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
 import { AreYouSurePopup } from "@/components/AreYouSurePopup/AreYouSurePopup";
 import { UserInfo } from "@/types";
+import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo) => void;
@@ -51,25 +52,11 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
     handleChangeUserInfo({ photoToSubmit, about });
   };
 
-  const openPhotoSettings = () => {
-    if (!isPhotoClicked) {
-      setIsPhotoClicked(true);
-    } else {
-      setIsPhotoClicked(false);
-    }
+  const closePhotoSettings = () => {
+    setIsPhotoClicked(false);
   };
 
-  const closePhotoSettings = (
-    event: React.MouseEvent<HTMLDivElement>
-  ): void => {
-    if (event.target === event.currentTarget) {
-      setIsPhotoClicked(false);
-    }
-  };
-
-  const openConfirmPopup = () => {
-    setIsConfirmPopupOpened(true);
-  };
+  useEscapeKey(() => setIsPhotoClicked(false));
 
   const closeConfirmPopup = () => {
     setIsConfirmPopupOpened(false);
@@ -102,8 +89,6 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
     setIsPhotoClicked(false);
   };
 
-  console.log(photo);
-
   const cancelSettings = () => {
     closeConfirmPopup();
     setAbout(initialAbout || "");
@@ -114,12 +99,13 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
     <>
       <div className="page-container">
         <Navbar />
-        <div className={styles.account} onClick={(e) => closePhotoSettings(e)}>
+        <div className={styles.account}>
           <ul className={styles.containersList}>
             <li className={styles.containersListItem}>
               <h1 className={styles.title}>Контактная информация</h1>
               <div className={styles.contactInfo}>
                 <PhotoSettingsPopup
+                  closePopup={closePhotoSettings}
                   isPhotoClicked={isPhotoClicked}
                   uploadPhoto={uploadPhoto}
                   removePhoto={removePhoto}
@@ -129,6 +115,7 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
                     <img
                       className={styles.avatarPhoto}
                       src={photo || initialPhoto}
+                      alt="фотография пользователя"
                     />
                   ) : (
                     <div
@@ -138,7 +125,7 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
                     </div>
                   )}
                   <button
-                    onClick={() => openPhotoSettings()}
+                    onClick={() => setIsPhotoClicked(!isPhotoClicked)}
                     className={styles.avatarButton}
                     type="button"
                     aria-label="Изменить аватар пользователя"
@@ -180,7 +167,7 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
             </li>
             <li>
               <button
-                onClick={() => openConfirmPopup()}
+                onClick={() => setIsConfirmPopupOpened(true)}
                 className={styles.cancelButton}
               >
                 Отменить

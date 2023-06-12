@@ -2,7 +2,7 @@ import styles from "./employees.module.css";
 import React, { useState, useEffect } from "react";
 import { EmployeeInterface } from "@/types";
 import { sortIcon } from "@/assets";
-import { BASE_URL_MEDIA, COUNT_EMPLOYEES_PAGE } from "@/shared/constants";
+import { BASE_URL_MEDIA, COUNT_EMPLOYEES_PAGE, usePagination } from "@/shared/constants";
 interface Props {
   valueInputSort: string;
   employees: EmployeeInterface[];
@@ -10,15 +10,18 @@ interface Props {
 
 export const Employees: React.FC<Props> = (
   {valueInputSort, employees}
-) => {
-  // const COUNT_EMPLOYEES_PAGE = 2;
-  const [employeesSort, setEmployeesSort] = useState(employees);
+  ) => {
+  const [employeesSort, setEmployeesSort] = useState<EmployeeInterface[]>(employees);
+  const { countCardPage, addCard } = usePagination(COUNT_EMPLOYEES_PAGE);
   const [isSortName, setIsSortName] = useState(true);
   const [isSortPosition, setIsSortPosition] = useState(true);
   const [isSortState, setIsSortState] = useState(true);
-  const [countEmployeePage, setCountEmployeePage] = useState(COUNT_EMPLOYEES_PAGE);
+  // const { arrSort, isClick } = useSort(employeesSort)
 
-  // const BASE_URL_MEDIA = "https://em-dev.usolcev.com/";
+  // useEffect(()=>{
+  //   arrSort?.length > 0 && setEmployeesSort(arrSort)
+  // },[isClick])
+
   useEffect(()=>{
     setEmployeesSort(employees)
   },[employees.length])
@@ -50,10 +53,7 @@ export const Employees: React.FC<Props> = (
       break;
       case 'state':
         x = (a.mental_state !== null ? a.mental_state.name : 'яяя');
-        // console.log(x);
         y = (b.mental_state !== null ? b.mental_state.name : 'яяя');
-        // console.log(y);
-
       break;
       default:
         x = '';
@@ -84,10 +84,6 @@ export const Employees: React.FC<Props> = (
     sortFields('state', isSortState);
   }
 
-  const addEmployees = () => {
-    setCountEmployeePage(countEmployeePage+COUNT_EMPLOYEES_PAGE)
-  }
-
   return (
     <div className={styles.employees}>
       <div className={styles.sortContainer}>
@@ -97,7 +93,7 @@ export const Employees: React.FC<Props> = (
       </div>
       {employeesSort &&
         employeesSort.map((employee, index) => (
-          index < countEmployeePage ?
+          index < countCardPage ?
           <div key={employee.id} className={styles.employee}>
             <div className={styles.user}>
               {employee.avatar !== null ?
@@ -116,8 +112,8 @@ export const Employees: React.FC<Props> = (
           null
         ))
       }
-      {countEmployeePage <= employeesSort.length &&
-      <button className={styles.addButton} onClick={addEmployees}>Здесь должна быть кнопочка от дизайнеров</button>}
+      {countCardPage <= employeesSort.length &&
+      <button className={styles.addButton} onClick={addCard}>Здесь должна быть кнопочка от дизайнеров</button>}
     </div>
   );
 };

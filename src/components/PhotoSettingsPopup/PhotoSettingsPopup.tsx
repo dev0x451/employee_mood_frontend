@@ -1,18 +1,23 @@
 import styles from "./photosettingspopup.module.css";
-import React from "react";
+import React, { useRef } from "react";
 import UploadIcon from "./folder_20.svg";
 import DeleteIcon from "./door_20.svg";
+import { useOutsideClick } from "@/shared/hooks/useOutsideClick";
 
 interface Props {
   isPhotoClicked: boolean;
   uploadPhoto: (e: any) => void;
   removePhoto: () => void;
+  closePopup: () => void;
 }
 export const PhotoSettingsPopup: React.FC<Props> = ({
+  closePopup,
   isPhotoClicked,
   uploadPhoto,
   removePhoto,
 }) => {
+  const ref = useRef(null);
+  useOutsideClick(closePopup, ref);
   return (
     <ul
       className={
@@ -20,6 +25,7 @@ export const PhotoSettingsPopup: React.FC<Props> = ({
           ? styles.photoSettingsList
           : `${styles.photoSettingsList} ${styles.photoSettingsListOpened}`
       }
+      ref={ref}
     >
       <li className={styles.photoSettingsListItem}>
         <img
