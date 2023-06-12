@@ -10,16 +10,16 @@ import { useAppSelector } from "@/store/hooks";
 import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
 
 interface Props {
-  resetMessages: () => void;
   handleSendInviteCode: (email: string) => Promise<void>;
   success: string;
   employees: EmployeeInterface[];
+  resetMessages: () => void;
 }
 export const Myteam: React.FC<Props> = ({
-  resetMessages,
   handleSendInviteCode,
   success,
   employees,
+  resetMessages,
 }) => {
   const articles: ArticleInterface[] = [
     {
@@ -64,8 +64,8 @@ export const Myteam: React.FC<Props> = ({
   };
 
   const closeAddPopup = () => {
-    setAddPopupVisible(false);
     resetMessages();
+    setAddPopupVisible(false);
   };
 
   const handleInputSort = (e: { target: { value: string } }) => {
