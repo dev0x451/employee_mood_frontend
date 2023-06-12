@@ -27,18 +27,8 @@ export const Header: React.FC<Props> = ({ handleSignOut }) => {
     setPhoto(initialPhoto);
   }, [initialPhoto]);
 
-  const openAccountPopup = () => {
-    if (!isAccountPopupOpened) {
-      setIsAccountPopupOpened(true);
-    } else {
-      setIsAccountPopupOpened(false);
-    }
-  };
-
   const closeAccountPopup = () => {
-    if (isAccountPopupOpened) {
-      setIsAccountPopupOpened(false);
-    }
+    setIsAccountPopupOpened(false);
   };
 
   return (
@@ -53,7 +43,10 @@ export const Header: React.FC<Props> = ({ handleSignOut }) => {
       />
       <div className={styles.profileAndNotify}>
         <div className={styles.notify}></div>
-        <div onClick={() => openAccountPopup()} className={styles.profileBtn}>
+        <div
+          onClick={() => setIsAccountPopupOpened(!isAccountPopupOpened)}
+          className={styles.profileBtn}
+        >
           {photo ? (
             <img className={styles.profilePhoto} src={photo || initialPhoto} />
           ) : (
