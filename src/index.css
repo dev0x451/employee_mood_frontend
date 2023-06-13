@@ -1,6 +1,6 @@
-@import url("modern-normalize/modern-normalize.css");
-@import url("assets/fonts/Roboto/roboto.css");
-@import url("assets/fonts/Montserrat/Montserrat.css");
+@import "modern-normalize/modern-normalize.css";
+@import "assets/fonts/Roboto/roboto.css";
+@import "assets/fonts/Montserrat/Montserrat.css";
 
 :root {
   /* overflow: scroll; */
@@ -20,7 +20,7 @@
   --color-background-white: #fff;
   --color-white: #fff;
   --color-background-secondary: #ebebeb;
-  --color-background-accent: #F7EBFF;
+  --color-background-accent: #f7ebff;
   --color-icon-secondary: #99a2ad;
   --color-button-secondary: #ebebeb;
   --color-accent-secondary: #4c239d;
@@ -30,9 +30,8 @@
   --color-accent-gray: #99a2ad;
   --color-black: #2c2d2e;
   --color-error: #e64646;
-  --color-main-background: #EBF1F4;
+  --color-main-background: #ebf1f4;
   --color-burnout-banner-background: #d5d0ef;
-  --color-background-accent: #F7EBFF;
 
   /* Shadows */
   --shadow-medium: 0 15px 20px 0 rgb(88 81 94 / 10%);
@@ -58,7 +57,6 @@
   --font-button: 500 16px/20px "Roboto", sans-serif;
   --font-search-input: 400 16px/20px "Roboto", sans-serif;
 }
-
 
 body {
   height: 100%;
