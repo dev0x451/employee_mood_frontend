@@ -1,5 +1,5 @@
 import "@/shared/styles/styles.css";
-import classes from "./refreshpasswordpage.module.css";
+import classes from "./refreshpasswordpage.module.scss";
 import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import { useSearchParams } from "react-router-dom";
 import { EmailFormRefresh } from "@/components/EmailFormRefresh/EmailFormRefresh";
@@ -28,7 +28,7 @@ export const RefreshPasswordPage: React.FC<Props> = ({
 
   return (
     <div className={classes.refreshPasswordPage}>
-      <div className="logo-container">
+      <div className={classes.logoContainer}>
         <LogoImg />
       </div>
       {!resetCode ? (

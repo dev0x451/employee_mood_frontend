@@ -13,7 +13,7 @@
   border-radius: 12px;
   background-color: var(--color-background);
   color: var(--color-text-primary);
-  font: var(--font-search-input);
+  font: var(--font-body);
   outline: none;
   &-area {
     @include flex-column;
