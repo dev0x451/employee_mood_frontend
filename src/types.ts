@@ -106,10 +106,10 @@ export interface UserLatestCondition {
 }
 
 export interface UserMentalState {
-  id: number | string,
-  name: string,
-  description: string,
-  level: number
+  id: number | string;
+  name: string;
+  description: string;
+  level: number;
 }
 
 export interface UserPosition {
@@ -137,7 +137,7 @@ export interface User {
 }
 
 export interface UserInfo {
-  photoToSubmit: string | null;
+  avatar?: string | null;
   about: string;
 }
 

@@ -23,7 +23,7 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
   const [testResultsSort, setTestResultsSort] = useState(allTestsResults);
   // const [testResultsSort, setTestResultsSort] = useState(arrTest);
 
-  const [isSortName, setIsSortName] = useState(true)
+  const [isSortTest, setIsSortTest] = useState(true)
   const [isSortData, setIsSortData] = useState(true)
   const [isSortResult, setIsSortResult] = useState(true)
 
@@ -43,7 +43,7 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
     let y = '';
 
     switch(field) {
-      case 'name':
+      case 'test':
         x = arrSurvey[a.survey];
         y = arrSurvey[b.survey];
       break;
@@ -72,9 +72,9 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
     setTestResultsSort(testResultsSort.sort((b, a)=>sortField(a, b, field)))
   }
 
-  const sortName = () => {
-    setIsSortName(!isSortName);
-    sortFields('name', isSortName);
+  const sortTest = () => {
+    setIsSortTest(!isSortTest);
+    sortFields('test', isSortTest);
   }
   const sortData = () => {
     setIsSortData(!isSortData);
@@ -108,7 +108,7 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
   return (
     <div className={styles.records}>
       <section className={styles.tableRecords}>
-        <button className={styles.sortButton} onClick={sortName}>Наименование опроса {sortIcon}</button>
+        <button className={styles.sortButton} onClick={sortTest}>Наименование опроса {sortIcon}</button>
         <button className={styles.sortButton} onClick={sortData}>Дата проведения {sortIcon}</button>
         <button className={styles.sortButton} onClick={sortResult}>Результат {sortIcon}</button>
       </section>

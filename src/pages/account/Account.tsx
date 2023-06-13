@@ -14,9 +14,10 @@ import {
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
 import { AreYouSurePopup } from "@/components/AreYouSurePopup/AreYouSurePopup";
 import { UserInfo } from "@/types";
+import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface Props {
-  handleChangeUserInfo: (userInfo: UserInfo) => void;
+  handleChangeUserInfo: (userInfo: UserInfo, toDeletePhoto: string) => void;
 }
 export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
   const BASE_URL = "https://em-dev.usolcev.com";
@@ -34,6 +35,8 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
 
   const [aboutError, setAboutError] = useState("");
 
+  const [toDeletePhoto, setToDeletePhoto] = useState("");
+
   const aboutHandler = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     const target = e.target as HTMLTextAreaElement;
     setAbout(target.value);
@@ -47,29 +50,18 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
   };
 
   const handleUpdateUser = () => {
-    const photoToSubmit = photo === initialPhoto ? null : photo;
-    handleChangeUserInfo({ photoToSubmit, about });
-  };
-
-  const openPhotoSettings = () => {
-    if (!isPhotoClicked) {
-      setIsPhotoClicked(true);
+    if (photo.includes("data:image/png;base64")) {
+      handleChangeUserInfo({ avatar: photo, about: about }, toDeletePhoto);
     } else {
-      setIsPhotoClicked(false);
+      handleChangeUserInfo({ about: about }, toDeletePhoto);
     }
   };
 
-  const closePhotoSettings = (
-    event: React.MouseEvent<HTMLDivElement>
-  ): void => {
-    if (event.target === event.currentTarget) {
-      setIsPhotoClicked(false);
-    }
+  const closePhotoSettings = () => {
+    setIsPhotoClicked(false);
   };
 
-  const openConfirmPopup = () => {
-    setIsConfirmPopupOpened(true);
-  };
+  useEscapeKey(() => setIsPhotoClicked(false));
 
   const closeConfirmPopup = () => {
     setIsConfirmPopupOpened(false);
@@ -99,10 +91,9 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
 
   const removePhoto = () => {
     setPhoto("");
+    setToDeletePhoto("/?delete_avatar=true");
     setIsPhotoClicked(false);
   };
-
-  console.log(photo);
 
   const cancelSettings = () => {
     closeConfirmPopup();
@@ -114,12 +105,13 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
     <>
       <div className="page-container">
         <Navbar />
-        <div className={styles.account} onClick={(e) => closePhotoSettings(e)}>
+        <div className={styles.account}>
           <ul className={styles.containersList}>
             <li className={styles.containersListItem}>
               <h1 className={styles.title}>Контактная информация</h1>
               <div className={styles.contactInfo}>
                 <PhotoSettingsPopup
+                  closePopup={closePhotoSettings}
                   isPhotoClicked={isPhotoClicked}
                   uploadPhoto={uploadPhoto}
                   removePhoto={removePhoto}
@@ -129,6 +121,7 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
                     <img
                       className={styles.avatarPhoto}
                       src={photo || initialPhoto}
+                      alt="фотография пользователя"
                     />
                   ) : (
                     <div
@@ -138,7 +131,7 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
                     </div>
                   )}
                   <button
-                    onClick={() => openPhotoSettings()}
+                    onClick={() => setIsPhotoClicked(!isPhotoClicked)}
                     className={styles.avatarButton}
                     type="button"
                     aria-label="Изменить аватар пользователя"
@@ -186,12 +179,6 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
                 title="Отменить"
                 width="200px"
               />
-              {/* <button
-                onClick={() => openConfirmPopup()}
-                className={styles.cancelButton}
-              >
-                Отменить
-              </button> */}
             </li>
           </ul>
         </div>

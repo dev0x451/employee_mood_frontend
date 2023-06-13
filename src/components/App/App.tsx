@@ -22,7 +22,6 @@ import { AlertPopup } from "@/shared/ui/AlertPopup/AlertPopup";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [popupOpened, setPopupOpened] = useState(false); // попап с ошибкой авторизации
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [resultOfPsychoTest, setResultOfPsychoTest] =
@@ -103,21 +102,17 @@ export const App = () => {
     }
   }
 
-  async function handleChangeUserInfo(userInfo: UserInfo) {
+  async function handleChangeUserInfo(
+    userInfo: UserInfo,
+    toDeletePhoto: string
+  ) {
     try {
-      let response: any = "";
-      if (userInfo.photoToSubmit) {
-        response = await Api.changeUserInfo(userInfo);
-      } else {
-        response = await Api.changeUserInfoOnlyAbout(userInfo);
-      }
+      const response = await Api.changeUserInfo(userInfo, toDeletePhoto);
       if (response) {
-        setPopupOpened(true);
         setSuccess("Изменения сохранены");
         getUserInfo();
       }
     } catch (err) {
-      setPopupOpened(true);
       setError("Что-то пошло не так. Попробуйте еще раз");
     }
   }
@@ -131,7 +126,6 @@ export const App = () => {
         setLoggedIn(true);
       }
     } catch {
-      setPopupOpened(true);
       setError("Неверный логин или пароль");
     }
   }
@@ -153,7 +147,6 @@ export const App = () => {
         await handleLogin({ email, password });
       }
     } catch {
-      setPopupOpened(true);
       setError("Что-то пошло не так. Попробуйте еще раз");
     }
   }
@@ -162,12 +155,9 @@ export const App = () => {
     try {
       const response = await ApiAuth.sendResetCode(email);
       if (response) {
-        setPopupOpened(true);
         setSuccess("Письмо отправлено на почту");
-        setError("");
       }
     } catch (err) {
-      setPopupOpened(true);
       setError("Не удалось найти пользователя с таким e-mail");
     }
   }
@@ -177,10 +167,8 @@ export const App = () => {
       const response = await Api.sendInviteCode(email);
       if (response) {
         setSuccess("Приглашение отправлено!");
-        setError("");
       }
     } catch (err) {
-      setPopupOpened(true);
       setError("Пользователь с таким e-mail уже существует");
     }
   }
@@ -192,7 +180,6 @@ export const App = () => {
         navigate("/login");
       }
     } catch (err) {
-      setPopupOpened(true);
       setError("Недействительный ключ");
     }
   }
@@ -253,11 +240,6 @@ export const App = () => {
     handleEmployees();
   }, [role]);
 
-  const closeErrorPopup = () => {
-    setPopupOpened(false);
-    resetMessages();
-  };
-
   const resetMessages = () => {
     setError("");
     setSuccess("");
@@ -270,8 +252,7 @@ export const App = () => {
   return (
     <main className={styles.page}>
       <AlertPopup
-        closeErrorPopup={closeErrorPopup}
-        popupOpened={popupOpened}
+        resetMessages={resetMessages}
         isPositive={success ? true : false}
         popupMessage={success ? success : error ? error : ""}
       />
@@ -284,13 +265,13 @@ export const App = () => {
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}
         success={success}
-        resetMessages={resetMessages}
         employees={employees}
         handleSendInviteCode={handleSendInviteCode}
         handleLogin={handleLogin}
         handleRegister={handleRegister}
         handleSendResetCode={handleSendResetCode}
         handleResetPassword={handleResetPassword}
+        resetMessages={resetMessages}
       />
     </main>
   );

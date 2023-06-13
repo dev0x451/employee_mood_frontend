@@ -31,9 +31,7 @@
     "react-router": "^6.11.1",
     "react-router-dom": "^6.11.1",
     "react-select": "^5.7.3",
-    "sass": "^1.63.3",
     "ts-node": "^10.9.1",
-    "universal-cookie": "^4.0.4",
     "yup": "^1.1.1"
   },
   "devDependencies": {
@@ -65,10 +63,11 @@
     "lint-staged": "^13.2.2",
     "postcss": "^8.4.23",
     "prettier": "^2.8.8",
-    "prop-types": "^15.8.1",
-    "storybook": "^7.0.20",
     "stylelint": "^15.7.0",
     "stylelint-config-idiomatic-order": "^9.0.0",
+    "prop-types": "^15.8.1",
+    "storybook": "^7.0.20",
+    "sass": "^1.63.3",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-config-standard-scss": "^9.0.0",
     "typescript": "^5.0.2",
