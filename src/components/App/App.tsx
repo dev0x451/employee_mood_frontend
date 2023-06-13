@@ -16,20 +16,7 @@ import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {
-  resetCurrentUser,
-  resetCurrentUserAbout,
-  resetCurrentUserAvatar,
-  resetCurrentUserFirstName,
-  resetCurrentUserLastName,
-  resetCurrentUserPosition,
-  setCurrentUser,
-  setCurrentUserAbout,
-  setCurrentUserAvatar,
-  setCurrentUserFirstName,
-  setCurrentUserLastName,
-  setCurrentUserPosition,
-} from "@/store/reducers/currentUser/currentUserReducer";
+import { resetAllCurrentUserData, setAllCurrentUserData } from "@/store/reducers/currentUser/currentUserReducer";
 import { Routing } from "@/Routing";
 import { AlertPopup } from "@/shared/ui/AlertPopup/AlertPopup";
 
@@ -44,7 +31,7 @@ export const App = () => {
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
-  const role = useAppSelector((state) => state.currentUserSlice.role);
+  const role = useAppSelector((state) => state.currentUserSlice.currentUser.role);
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -105,12 +92,7 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
-        dispatch(setCurrentUser(response.data.role));
-        dispatch(setCurrentUserFirstName(response.data.first_name));
-        dispatch(setCurrentUserLastName(response.data.last_name));
-        dispatch(setCurrentUserPosition(response.data.position.name));
-        dispatch(setCurrentUserAbout(response.data.about));
-        dispatch(setCurrentUserAvatar(response.data.avatar));
+        dispatch(setAllCurrentUserData(response.data))
         console.log("currentUser", response.data.role);
       } catch (err: any) {
         console.log(err);
@@ -150,12 +132,7 @@ export const App = () => {
 
   const handleSignOut = () => {
     setLoggedIn(false);
-    dispatch(resetCurrentUser());
-    dispatch(resetCurrentUserFirstName());
-    dispatch(resetCurrentUserLastName());
-    dispatch(resetCurrentUserPosition());
-    dispatch(resetCurrentUserAbout());
-    dispatch(resetCurrentUserAvatar());
+    dispatch(resetAllCurrentUserData())
     navigate("/login");
     localStorage.removeItem("jwt");
     localStorage.removeItem("refresh");

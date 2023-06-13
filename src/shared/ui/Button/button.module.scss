@@ -1,5 +1,4 @@
-
-@import '@/shared/styles/mixins.scss';
+ @import '@/shared/styles/mixins';
 
 .button {
   @include flex-center;
@@ -10,7 +9,7 @@
   margin: 0;
   cursor: pointer;
   font: var(--font-button);
-  outline: 0px solid;
+  outline: 0 solid;
 
   &-primary {
     background-color: var(--color-accent-purple);
@@ -51,6 +50,26 @@
     &:active {
       border-color: var(--color-accent-secondary);
       color: var(--color-accent-secondary);
+    }
+  }
+
+  &-empty {
+    border: none;
+    background: none;
+    color: var(--color-accent-purple);
+
+    &:hover {
+      color: var(--color-accent-violet);
+    }
+
+    &:active {
+      border-color: var(--color-accent-secondary);
+      color: var(--color-accent-secondary);
+    }
+
+    &:disabled {
+      cursor: auto;
+      opacity: 0.64;
     }
   }
 

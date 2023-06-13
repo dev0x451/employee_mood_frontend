@@ -67,6 +67,10 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
     setIsConfirmPopupOpened(false);
   };
 
+  const openConfirmPopup = () => {
+    setIsConfirmPopupOpened(true);
+  };
+
   const uploadPhoto = async (e: any) => {
     const file = e.target.files[0];
     const base64: string = (await convertBase64(file)) as string;
@@ -172,12 +176,13 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
               />
             </li>
             <li>
-              <button
-                onClick={() => setIsConfirmPopupOpened(true)}
-                className={styles.cancelButton}
-              >
-                Отменить
-              </button>
+              <Button
+                handleClick={openConfirmPopup}
+                disabled={aboutError.length !== 0}
+                mode="empty"
+                title="Отменить"
+                width="200px"
+              />
             </li>
           </ul>
         </div>
