@@ -17,7 +17,7 @@ import { UserInfo } from "@/types";
 import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface Props {
-  handleChangeUserInfo: (userInfo: UserInfo) => void;
+  handleChangeUserInfo: (userInfo: UserInfo, toDeletePhoto: string) => void;
 }
 export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
   const BASE_URL = "https://em-dev.usolcev.com";
@@ -35,6 +35,8 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
 
   const [aboutError, setAboutError] = useState("");
 
+  const [toDeletePhoto, setToDeletePhoto] = useState("");
+
   const aboutHandler = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
     const target = e.target as HTMLTextAreaElement;
     setAbout(target.value);
@@ -48,8 +50,11 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
   };
 
   const handleUpdateUser = () => {
-    const photoToSubmit = photo === initialPhoto ? null : photo;
-    handleChangeUserInfo({ photoToSubmit, about });
+    if (photo.includes("data:image/png;base64")) {
+      handleChangeUserInfo({ avatar: photo, about: about }, toDeletePhoto);
+    } else {
+      handleChangeUserInfo({ about: about }, toDeletePhoto);
+    }
   };
 
   const closePhotoSettings = () => {
@@ -86,6 +91,7 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
 
   const removePhoto = () => {
     setPhoto("");
+    setToDeletePhoto("/?delete_avatar=true");
     setIsPhotoClicked(false);
   };
 

@@ -120,14 +120,12 @@ export const App = () => {
     }
   }
 
-  async function handleChangeUserInfo(userInfo: UserInfo) {
+  async function handleChangeUserInfo(
+    userInfo: UserInfo,
+    toDeletePhoto: string
+  ) {
     try {
-      let response: any = "";
-      if (userInfo.photoToSubmit) {
-        response = await Api.changeUserInfo(userInfo);
-      } else {
-        response = await Api.changeUserInfoOnlyAbout(userInfo);
-      }
+      const response = await Api.changeUserInfo(userInfo, toDeletePhoto);
       if (response) {
         setSuccess("Изменения сохранены");
         getUserInfo();
