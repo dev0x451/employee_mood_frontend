@@ -4,8 +4,8 @@ import React from "react";
 import AddIcon from "./ui/add_20.svg";
 interface ButtonProps {
   title: string;
-  mode: string;
-  type?: "submit" | "reset" | "button" | undefined;
+  mode: 'primary' | 'secondary' | 'outline' | 'empty';
+  type?: 'submit' | 'reset' | 'button' | undefined;
   width?: string;
   height?: string;
   disabled?: boolean;
@@ -25,6 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
     [classes.buttonPrimary]: mode === "primary",
     [classes.buttonSecondary]: mode === "secondary",
     [classes.buttonOutline]: mode === "outline",
+    [classes.buttonEmpty]: mode === "empty",
   });
 
   if (title === "Добавить сотрудника") {
@@ -44,7 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
       <button
         onClick={handleClick}
         disabled={disabled}
-        className={disabled ? `${className} ${classes.disabled}` : className}
+        className={disabled && mode !== 'empty' ? `${className} ${classes.disabled}` : className}
         style={{ width: width, height: height }}
         type={type}
       >

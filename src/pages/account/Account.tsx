@@ -179,12 +179,19 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
               />
             </li>
             <li>
-              <button
+              <Button
+                handleClick={openConfirmPopup}
+                disabled={aboutError.length !== 0}
+                mode="empty"
+                title="Отменить"
+                width="200px"
+              />
+              {/* <button
                 onClick={() => openConfirmPopup()}
                 className={styles.cancelButton}
               >
                 Отменить
-              </button>
+              </button> */}
             </li>
           </ul>
         </div>

@@ -114,6 +114,12 @@ export interface UserMentalState {
   level: number
 }
 
+export interface UserPosition {
+  id: number,
+  name: string,
+  chief_position: boolean
+}
+
 export interface User {
   about: string | null;
   avatar: string | null;
@@ -128,7 +134,7 @@ export interface User {
   mental_state: null | UserMentalState;
   patronymic: string | null;
   phone: number;
-  position: ReactNode | null;
+  position: UserPosition | null;
   role: string;
 }
 
