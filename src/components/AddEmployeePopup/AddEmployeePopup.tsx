@@ -1,6 +1,7 @@
 import { AddEmployeeForm } from "@/components/AddEmployeeForm/AddEmployeeForm";
-import styles from "./addemployeepopup.module.css";
+import styles from "./addemployeepopup.module.scss";
 import React from "react";
+import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface Props {
   closeAddPopup: () => void;
@@ -15,6 +16,7 @@ export const AddEmployeePopup: React.FC<Props> = ({
   handleSendInviteCode,
   success,
 }) => {
+  useEscapeKey(closeAddPopup);
   const handleCloseOutside = (
     event: React.MouseEvent<HTMLDivElement>
   ): void => {
@@ -32,20 +34,12 @@ export const AddEmployeePopup: React.FC<Props> = ({
           : styles.addEmployeePopup
       }
     >
-      <div
-        className={
-          addPopupVisible
-            ? `${styles.addEmployeePopupContent} ${styles.addEmployeePopupContentActive}`
-            : styles.addEmployeePopupContent
-        }
-      >
-        <button onClick={closeAddPopup} className={styles.button}></button>
-        <AddEmployeeForm
-          handleSendInviteCode={handleSendInviteCode}
-          addPopupVisible={addPopupVisible}
-        />
-        {success && <div className={styles.successMessage}>{success}</div>}
-      </div>
+      <AddEmployeeForm
+        success={success}
+        closeAddPopup={closeAddPopup}
+        handleSendInviteCode={handleSendInviteCode}
+        addPopupVisible={addPopupVisible}
+      />
     </div>
   );
 };
