@@ -67,6 +67,10 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
     setIsConfirmPopupOpened(false);
   };
 
+  const openConfirmPopup = () => {
+    setIsConfirmPopupOpened(true);
+  };
+
   const uploadPhoto = async (e: any) => {
     const file = e.target.files[0];
     const base64: string = (await convertBase64(file)) as string;
