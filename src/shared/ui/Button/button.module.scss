@@ -9,6 +9,7 @@
   margin: 0;
   cursor: pointer;
   font: var(--font-button);
+  outline: 0px solid;
 
   &-primary {
     background-color: var(--color-accent-purple);

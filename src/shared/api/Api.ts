@@ -12,22 +12,10 @@ export const getUser = () => {
   });
 };
 
-export const changeUserInfo = (userInfo: UserInfo) => {
+export const changeUserInfo = (userInfo: UserInfo, toDeletePhoto: string) => {
   return axios.patch(
-    `${BASE_URL_REQUEST}/users/current_user`,
-    { about: userInfo.about, avatar: userInfo.photoToSubmit },
-    {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
-    }
-  );
-};
-
-export const changeUserInfoOnlyAbout = (userInfo: UserInfo) => {
-  return axios.patch(
-    `${BASE_URL_REQUEST}/users/current_user`,
-    { about: userInfo.about },
+    `${BASE_URL_REQUEST}/users/current_user${toDeletePhoto}`,
+    userInfo,
     {
       headers: {
         authorization: `Bearer ${localStorage.getItem("jwt")}`,

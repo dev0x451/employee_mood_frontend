@@ -23,13 +23,13 @@ interface Props {
   resultOfPsychoTest: any;
   handleChangeUserInfo: any;
   success: any;
-  resetMessages: any;
   employees: any;
   handleSendInviteCode: any;
   handleLogin: any;
   handleRegister: any;
   handleSendResetCode: any;
   handleResetPassword: any;
+  resetMessages: any;
 }
 export const Routing: React.FC<Props> = ({
   loggedIn,
@@ -40,13 +40,13 @@ export const Routing: React.FC<Props> = ({
   resultOfPsychoTest,
   handleChangeUserInfo,
   success,
-  resetMessages,
   employees,
   handleSendInviteCode,
   handleLogin,
   handleRegister,
   handleSendResetCode,
   handleResetPassword,
+  resetMessages,
 }) => {
   return (
     <Routes>
@@ -87,8 +87,8 @@ export const Routing: React.FC<Props> = ({
           path="myteam"
           element={
             <Myteam
-              success={success}
               resetMessages={resetMessages}
+              success={success}
               handleSendInviteCode={handleSendInviteCode}
               employees={employees}
             />
@@ -96,7 +96,6 @@ export const Routing: React.FC<Props> = ({
         />
 
         <Route path="*" element={<Pagenotfound />} />
-
       </Route>
       <Route path="login" element={<LoginPage handleLogin={handleLogin} />} />
       <Route
@@ -112,8 +111,6 @@ export const Routing: React.FC<Props> = ({
           />
         }
       />
-
-
     </Routes>
   );
 };
