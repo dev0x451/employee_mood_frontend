@@ -23,14 +23,20 @@
   &-container {
     position: relative;
   }
-  &-error {
-    border: 0.5px solid var(--color-error);
-    background-color: rgb(230 70 70 / 8%);
-  }
   &:hover {
     border: 0.5px solid var(--color-icon-secondary);
   }
   &:focus {
     border: 0.5px solid var(--color-accent-purple);
+  }
+  &-error {
+    border: 0.5px solid var(--color-error);
+    background-color: rgb(230 70 70 / 8%);
+    &:hover {
+      border: 0.5px solid var(--color-error);
+    }
+    &:focus {
+      border: 0.5px solid var(--color-error);
+    }
   }
 }

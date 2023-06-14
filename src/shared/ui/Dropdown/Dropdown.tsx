@@ -43,7 +43,7 @@ export const DropDown: React.FC<DropdownProps & FieldHookConfig<string>> = ({
       fontWeight: "400",
       border: 0,
       boxShadow: "none",
-      marginTop: "10px",
+      marginTop: "5px",
     }),
     option: (styles, { isDisabled, isFocused, isSelected }) => {
       return {

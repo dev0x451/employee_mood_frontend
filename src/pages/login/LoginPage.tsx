@@ -46,7 +46,7 @@ export const LoginPage: React.FC<LoginProps> = ({ handleLogin }) => {
               mode="primary"
               disabled={!(isValid && dirty)}
             />
-            <Link className={classes.formLink} to="/password-reset">
+            <Link className={classes.loginFormLink} to="/password-reset">
               Забыли пароль?
             </Link>
           </Form>
