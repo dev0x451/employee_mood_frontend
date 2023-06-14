@@ -8,7 +8,7 @@ import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import { Input } from "@/shared/ui/Input/Input";
 import { DropDown } from "@/shared/ui/Dropdown/Dropdown";
 import "@/shared/styles/styles.css";
-import classes from "./registerpage.module.css";
+import classes from "./registerpage.module.scss";
 import { useSearchParams } from "react-router-dom";
 
 interface RegisterProps {
@@ -81,7 +81,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({ handleRegister }) => {
 
   return (
     <div className={classes.registerPage}>
-      <div className="logo-container">
+      <div className={classes.logoContainer}>
         <LogoImg />
       </div>
       {!departments ? (
@@ -102,7 +102,7 @@ export const RegisterPage: React.FC<RegisterProps> = ({ handleRegister }) => {
           }}
           validationSchema={advancedSchema}
         >
-          {({ values }) => (
+          {({ values, isValid, dirty }) => (
             <Form noValidate className={classes.registerForm}>
               <h2 className={classes.registerTitle}>
                 Добро пожаловать в службу заботы о сотрудниках MoodBeat
@@ -110,6 +110,8 @@ export const RegisterPage: React.FC<RegisterProps> = ({ handleRegister }) => {
               <ul className={classes.registerFormList}>
                 <li className={classes.registerFormListItem}>
                   <Input label="Имя" name="firstName" type="text" />
+                </li>
+                <li className={classes.registerFormListItem}>
                   <Input label="Фамилия" name="lastName" type="text" />
                 </li>
                 <li className={classes.registerFormListItem}>
@@ -120,6 +122,8 @@ export const RegisterPage: React.FC<RegisterProps> = ({ handleRegister }) => {
                     iid="department"
                     placeholder="Выбрать отдел"
                   />
+                </li>
+                <li className={classes.registerFormListItem}>
                   <DropDown
                     label="Должность"
                     name="position"
@@ -135,6 +139,11 @@ export const RegisterPage: React.FC<RegisterProps> = ({ handleRegister }) => {
                 </li>
                 <li className={classes.registerFormListItem}>
                   <Input label="Пароль" name="password" type="password" />
+                  <p className={classes.registerPasswordInfo}>
+                    Пароль должен содержать не менее 8 символов
+                  </p>
+                </li>
+                <li className={classes.registerFormListItem}>
                   <Input
                     label="Подтверждение пароля"
                     name="confirmPassword"
@@ -142,14 +151,16 @@ export const RegisterPage: React.FC<RegisterProps> = ({ handleRegister }) => {
                   />
                 </li>
               </ul>
-              <p className={classes.registerPasswordInfo}>
-                Пароль должен содержать не менее 8 символов
-              </p>
               <p className={classes.registerAgreement}>
                 Регистрируясь, вы принимаете Пользовательское соглашение и даете
                 Согласие на обработку персональных данных.
               </p>
-              <Button title="Зарегистрироваться" mode="primary" width="360px" />
+              <Button
+                title="Зарегистрироваться"
+                mode="primary"
+                width="360px"
+                disabled={!(isValid && dirty)}
+              />
             </Form>
           )}
         </Formik>

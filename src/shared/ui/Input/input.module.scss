@@ -13,7 +13,7 @@
   border-radius: 12px;
   background-color: var(--color-background);
   color: var(--color-text-primary);
-  font: var(--font-search-input);
+  font: var(--font-body);
   outline: none;
   &-area {
     @include flex-column;
@@ -23,14 +23,20 @@
   &-container {
     position: relative;
   }
-  &-error {
-    border: 0.5px solid var(--color-error);
-    background-color: rgb(230 70 70 / 8%);
-  }
   &:hover {
     border: 0.5px solid var(--color-icon-secondary);
   }
   &:focus {
     border: 0.5px solid var(--color-accent-purple);
+  }
+  &-error {
+    border: 0.5px solid var(--color-error);
+    background-color: rgb(230 70 70 / 8%);
+    &:hover {
+      border: 0.5px solid var(--color-error);
+    }
+    &:focus {
+      border: 0.5px solid var(--color-error);
+    }
   }
 }

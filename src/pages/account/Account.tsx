@@ -18,8 +18,14 @@ import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo, toDeletePhoto: string) => void;
+  showAvatarError: () => void;
+  error: string;
 }
-export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
+export const Account: React.FC<Props> = ({
+  handleChangeUserInfo,
+  error,
+  showAvatarError,
+}) => {
   const BASE_URL = "https://em-dev.usolcev.com";
   const photoLink = useAppSelector(selectAvatar);
   const initialPhoto = photoLink !== null ? `${BASE_URL}${photoLink}` : "";
@@ -50,10 +56,13 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
   };
 
   const handleUpdateUser = () => {
-    if (photo.includes("data:image/png;base64")) {
+    if (photo.includes("base64")) {
       handleChangeUserInfo({ avatar: photo, about: about }, toDeletePhoto);
     } else {
       handleChangeUserInfo({ about: about }, toDeletePhoto);
+    }
+    if (error) {
+      setPhoto(initialPhoto);
     }
   };
 
@@ -73,8 +82,12 @@ export const Account: React.FC<Props> = ({ handleChangeUserInfo }) => {
 
   const uploadPhoto = async (e: any) => {
     const file = e.target.files[0];
-    const base64: string = (await convertBase64(file)) as string;
-    setPhoto(base64);
+    if (file.size > 4000000 || !file.name.match(/(.jpg|.png|.jpeg)/)) {
+      showAvatarError();
+    } else {
+      const base64: string = (await convertBase64(file)) as string;
+      setPhoto(base64);
+    }
     setIsPhotoClicked(false);
   };
 

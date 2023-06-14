@@ -1,0 +1,42 @@
+@import '@/shared/styles/mixins.scss';
+
+.title {
+  margin: 0;
+  color: var(--color-black);
+  font: var(--font-h2);
+}
+
+.info {
+  max-width: 360px;
+  margin: 12px 0 30px;
+  font: var(--font-body);
+}
+
+.form {
+  position: relative;
+  width: 440px;
+  box-sizing: border-box;
+  padding: 60px 40px 35px;
+  border-radius: 16px;
+  background-color: var(--color-background-white);
+  box-shadow: var(--shadow-medium);
+}
+
+.input-container {
+  margin-bottom: 24px;
+}
+
+.back-button {
+  position: absolute;
+  top: 18.5px;
+  left: 21px;
+  @include size(9px, 15px);
+  @include background-no-repeat-center-cover;
+  background-color: transparent;
+  border: none;
+  background-image: url('./back-icon.svg');
+  cursor: pointer;
+  &:hover {
+    opacity: 0.6;
+  }
+}

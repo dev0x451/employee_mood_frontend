@@ -1,6 +1,6 @@
-@import url("modern-normalize/modern-normalize.css");
-@import url("assets/fonts/Roboto/roboto.css");
-@import url("assets/fonts/Montserrat/Montserrat.css");
+@import "modern-normalize/modern-normalize.css";
+@import "assets/fonts/Roboto/roboto.css";
+@import "assets/fonts/Montserrat/Montserrat.css";
 
 :root {
   /* overflow: scroll; */
@@ -32,7 +32,6 @@
   --color-error: #e64646;
   --color-main-background: #EBF1F4;
   --color-burnout-banner-background: #d5d0ef;
-  --color-background-accent: #F7EBFF;
 
   /* Shadows */
   --shadow-medium: 0 15px 20px 0 rgb(88 81 94 / 10%);
@@ -49,7 +48,6 @@
   --font-line-l: 24px;
   --font-line-xl: 28px;
   --font-h1: 600 24px/28px "Montserrat", sans-serif;
-  --font-h1-form: 600 24px/28px "Roboto", sans-serif;
   --font-h2: 600 20px/24px "Montserrat", sans-serif;
   --font-h3: 600 16px/18px "Montserrat", sans-serif;
   --font-text: 400 13px/16px "Roboto", sans-serif;
