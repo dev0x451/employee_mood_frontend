@@ -131,9 +131,13 @@ export const App = () => {
         getUserInfo();
       }
     } catch (err) {
-      setError("Что-то пошло не так. Попробуйте еще раз");
+      setError("Что-то пошло не так. Попробуйте еще раз.");
     }
   }
+
+  const showAvatarError = () => {
+    setError("Фотография неподходящего размера или формата");
+  };
 
   async function handleLogin(values: MyFormValues) {
     try {
@@ -288,6 +292,7 @@ export const App = () => {
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}
         success={success}
+        error={error}
         employees={employees}
         handleSendInviteCode={handleSendInviteCode}
         handleLogin={handleLogin}
@@ -295,6 +300,7 @@ export const App = () => {
         handleSendResetCode={handleSendResetCode}
         handleResetPassword={handleResetPassword}
         resetMessages={resetMessages}
+        showAvatarError={showAvatarError}
       />
     </main>
   );
