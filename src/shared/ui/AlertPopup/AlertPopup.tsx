@@ -20,7 +20,7 @@ export const AlertPopup: React.FC<AlertPopupProps> = ({
   const ref = useRef(null);
 
   useEscapeKey(resetMessages);
-  useOutsideClick(resetMessages, ref);
+  //useOutsideClick(resetMessages, ref);
 
   return (
     <div

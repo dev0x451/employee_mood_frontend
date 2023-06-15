@@ -16,7 +16,10 @@ import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { resetAllCurrentUserData, setAllCurrentUserData } from "@/store/reducers/currentUser/currentUserReducer";
+import {
+  resetAllCurrentUserData,
+  setAllCurrentUserData,
+} from "@/store/reducers/currentUser/currentUserReducer";
 import { Routing } from "@/Routing";
 import { AlertPopup } from "@/shared/ui/AlertPopup/AlertPopup";
 
@@ -31,7 +34,9 @@ export const App = () => {
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
-  const role = useAppSelector((state) => state.currentUserSlice.currentUser.role);
+  const role = useAppSelector(
+    (state) => state.currentUserSlice.currentUser.role
+  );
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -92,7 +97,7 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
-        dispatch(setAllCurrentUserData(response.data))
+        dispatch(setAllCurrentUserData(response.data));
         console.log("currentUser", response.data.role);
       } catch (err: any) {
         console.log(err);
@@ -136,7 +141,7 @@ export const App = () => {
 
   const handleSignOut = () => {
     setLoggedIn(false);
-    dispatch(resetAllCurrentUserData())
+    dispatch(resetAllCurrentUserData());
     navigate("/login");
     localStorage.removeItem("jwt");
     localStorage.removeItem("refresh");
