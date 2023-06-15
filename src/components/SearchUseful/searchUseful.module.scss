@@ -1,0 +1,24 @@
+.input {
+  width: 324px;
+  height: 36px;
+  padding: 8px 12px 8px 36px;
+  border-style: none;
+  border-radius: 12px;
+  background-color: var(--color-background-white);
+  background-image: url('@/assets/search_icon.svg');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  color: var(--color-icon-secondary);
+  font: var(--font-search-input);
+  outline: 0;
+}
+
+.input::placeholder {
+  color: var(--color-icon-secondary);
+}
+
+.search-icon {
+  position: absolute;
+  top: 26px;
+  left: 270px;
+}

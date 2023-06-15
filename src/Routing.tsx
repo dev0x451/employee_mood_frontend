@@ -1,17 +1,18 @@
-import { Route, Routes } from "react-router-dom";
-import { ProtectedRoutes } from "@/components/ProtectedRoutes.js";
-import { Main } from "@/pages/main/Main.js";
-import { Tests } from "@/pages/tests/Tests.js";
-import { Test } from "@/components/Test/Test.js";
-import { Advices } from "@/pages/advices/Advices.js";
-import { Events } from "@/pages/events/Events.js";
-import { Bookmarks } from "@/pages/bookmarks/Bookmarks.js";
-import { Pagenotfound } from "./pages/pagenotfound/Pagenotfound";
-import { Account } from "@/pages/account/Account.js";
-import { Myteam } from "@/components/Myteam/Myteam.js";
-import { LoginPage } from "@/pages/login/LoginPage.js";
-import { RegisterPage } from "@/pages/register/RegisterPage.js";
-import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage.js";
+import {Route, Routes} from "react-router-dom";
+import {ProtectedRoutes} from "@/components/ProtectedRoutes.js";
+import {Main} from "@/pages/main/Main.js";
+import {Tests} from "@/pages/tests/Tests.js";
+import {Useful} from "@/pages/useful/Useful.js";
+import {Test} from "@/components/Test/Test.js";
+import {Advices} from "@/pages/advices/Advices.js";
+import {Events} from "@/pages/events/Events.js";
+import {Bookmarks} from "@/pages/bookmarks/Bookmarks.js";
+import {Pagenotfound} from "./pages/pagenotfound/Pagenotfound";
+import {Account} from "@/pages/account/Account.js";
+import {Myteam} from "@/components/Myteam/Myteam.js";
+import {LoginPage} from "@/pages/login/LoginPage.js";
+import {RegisterPage} from "@/pages/register/RegisterPage.js";
+import {RefreshPasswordPage} from "@/pages/refreshpassword/RefreshPasswordPage.js";
 import React from "react";
 
 interface Props {
@@ -33,37 +34,38 @@ interface Props {
   resetMessages: any;
   showAvatarError: any;
 }
+
 export const Routing: React.FC<Props> = ({
-  loggedIn,
-  handleSignOut,
-  allTestsResults,
-  expressTest,
-  handleSendTestResult,
-  resultOfPsychoTest,
-  handleChangeUserInfo,
-  success,
-  error,
-  employees,
-  handleSendInviteCode,
-  handleLogin,
-  handleRegister,
-  handleSendResetCode,
-  handleResetPassword,
-  resetMessages,
-  showAvatarError,
-}) => {
+                                           loggedIn,
+                                           handleSignOut,
+                                           allTestsResults,
+                                           expressTest,
+                                           handleSendTestResult,
+                                           resultOfPsychoTest,
+                                           handleChangeUserInfo,
+                                           success,
+                                           error,
+                                           employees,
+                                           handleSendInviteCode,
+                                           handleLogin,
+                                           handleRegister,
+                                           handleSendResetCode,
+                                           handleResetPassword,
+                                           resetMessages,
+                                           showAvatarError,
+                                         }) => {
   return (
     <Routes>
       <Route
         element={
-          <ProtectedRoutes loggedIn={loggedIn} handleSignOut={handleSignOut} />
+          <ProtectedRoutes loggedIn={loggedIn} handleSignOut={handleSignOut}/>
         }
       >
-        <Route path="/" element={<Main />} />
+        <Route path="/" element={<Main/>}/>
 
         <Route
           path="tests"
-          element={<Tests allTestsResults={allTestsResults} />}
+          element={<Tests allTestsResults={allTestsResults}/>}
         />
 
         <Route
@@ -77,11 +79,13 @@ export const Routing: React.FC<Props> = ({
           }
         />
 
-        <Route path="advices" element={<Advices />} />
+        <Route path="advices" element={<Advices/>}/>
 
-        <Route path="events" element={<Events />} />
+        <Route path="events" element={<Events/>}/>
 
-        <Route path="bookmarks" element={<Bookmarks />} />
+        <Route path="bookmarks" element={<Bookmarks/>}/>
+
+        <Route path="useful" element={<Useful/>}/>
 
         <Route
           path="account"
@@ -105,12 +109,12 @@ export const Routing: React.FC<Props> = ({
           }
         />
 
-        <Route path="*" element={<Pagenotfound />} />
+        <Route path="*" element={<Pagenotfound/>}/>
       </Route>
-      <Route path="login" element={<LoginPage handleLogin={handleLogin} />} />
+      <Route path="login" element={<LoginPage handleLogin={handleLogin}/>}/>
       <Route
         path="register"
-        element={<RegisterPage handleRegister={handleRegister} />}
+        element={<RegisterPage handleRegister={handleRegister}/>}
       />
       <Route
         path="password-reset"
