@@ -36,15 +36,15 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
   useEffect(() => (setResultsPopapVisible(isVisible)), [isVisible]);
 
 
-  useEffect(() => {
-    if (resultOfPsychoTest?.result === 'Нормальное состояние') {
-    setResultExplanation('В настоящий момент эмоциональное выгорание вам не грозит. Чтобы сохранить такое состояние в будущем, следуйте рекомендациям психологов, указанным ниже.');
-  } else if (resultOfPsychoTest?.result === 'Тревожное') {
-    setResultExplanation('У вас есть признаки эмоционального выгорания. По возможности советуем взять небольшой отпуск.')
-  } else if (resultOfPsychoTest?.result === 'В группе риска') {
-    setResultExplanation('Вы находитесь в активной стадии эмоционального выгорания. Пожалуйста, обратитесь за помощью к своему руководителю или психотерапевту.')
-  }
-  }, [resultOfPsychoTest])
+  // useEffect(() => {
+  //   if (resultOfPsychoTest?.result === 'Нормальное состояние') {
+  //   setResultExplanation('В настоящий момент эмоциональное выгорание вам не грозит. Чтобы сохранить такое состояние в будущем, следуйте рекомендациям психологов, указанным ниже.');
+  // } else if (resultOfPsychoTest?.result === 'Тревожное') {
+  //   setResultExplanation('У вас есть признаки эмоционального выгорания. По возможности советуем взять небольшой отпуск.')
+  // } else if (resultOfPsychoTest?.result === 'В группе риска') {
+  //   setResultExplanation('Вы находитесь в активной стадии эмоционального выгорания. Пожалуйста, обратитесь за помощью к своему руководителю или психотерапевту.')
+  // }
+  // }, [resultOfPsychoTest])
 
   return (
     <section className={closePopupClassname}>
@@ -56,9 +56,10 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
         <WarningWithBall resultOfPsychoTest={resultOfPsychoTest}/>
       </div>
 
-      <p>{resultExplanation}</p>
+      {/* <p>{resultExplanation}</p> */}
+      <p>{resultOfPsychoTest?.mental_state.message}</p>
       <h2 className={styles.subtitle}>Рекомендации</h2>
-      <ol className={styles.list}>
+      {/* <ol className={styles.list}>
         <li>
           <p>Определение краткосрочных и долгосрочных целей в трудовой деятельности.</p>
         </li>
@@ -80,9 +81,10 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
         <li>
           <p>Переключение. Занятия делом, не связанным с профессиональной деятельностью (хобби, кино, развлечения)</p>
         </li>
-      </ol>
+      </ol> */}
+      {resultOfPsychoTest?.survey.text}
       <div className={styles.buttonContainer}>
-        {(resultOfPsychoTest?.result !== "Нормальное состояние") && <button type='button' onClick={handleCallChief} className={styles.button}>Обсудить с руководителем</button>}
+        {(resultOfPsychoTest?.mental_state.name !== "Нормальное") && <button type='button' onClick={handleCallChief} className={styles.button}>Обсудить с руководителем</button>}
         <button type='button' onClick={handleClose} className={styles.buttonBack}>Закрыть</button>
       </div>
       <button type='button' onClick={handleClose} className={styles.closeBtn}/>

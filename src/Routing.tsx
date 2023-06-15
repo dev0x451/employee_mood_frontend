@@ -32,6 +32,7 @@ interface Props {
   handleResetPassword: any;
   resetMessages: any;
   showAvatarError: any;
+  openTestAlertPopup: any;
 }
 export const Routing: React.FC<Props> = ({
   loggedIn,
@@ -51,6 +52,7 @@ export const Routing: React.FC<Props> = ({
   handleResetPassword,
   resetMessages,
   showAvatarError,
+  openTestAlertPopup,
 }) => {
   return (
     <Routes>
@@ -73,6 +75,7 @@ export const Routing: React.FC<Props> = ({
               test={expressTest}
               onSendTestResult={handleSendTestResult}
               resultOfPsychoTest={resultOfPsychoTest}
+              openTestAlertPopup={openTestAlertPopup}
             />
           }
         />

@@ -254,6 +254,10 @@ export const App = () => {
     setSuccess("");
   };
 
+  const openTestAlertPopup = () => {
+    setError(`Для перехода на следующий шаг нужно ответить на все вопросы`);
+  };
+
   if (isLoading) {
     return <div></div>;
   }
@@ -283,6 +287,7 @@ export const App = () => {
         handleResetPassword={handleResetPassword}
         resetMessages={resetMessages}
         showAvatarError={showAvatarError}
+        openTestAlertPopup={openTestAlertPopup}
       />
     </main>
   );
