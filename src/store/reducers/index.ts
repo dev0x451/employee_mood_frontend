@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import currentUserSlice from './currentUser/currentUserReducer';
-import testCounterSlice from './testCounter/testCounterReducer';
+import testSlice from './test/testReducer';
 
 export default combineReducers({
   currentUserSlice,
-  testCounterSlice
+  testSlice
 });
