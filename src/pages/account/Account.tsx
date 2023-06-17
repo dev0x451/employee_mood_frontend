@@ -1,14 +1,13 @@
 import { Navbar } from "@/components/Navbar/Navbar";
 import styles from "./account.module.scss";
 import React, { ReactElement, useState } from "react";
-import { PhotoSettingsPopup } from "@/components/PhotoSettingsPopup/PhotoSettingsPopup";
 import { Button } from "@/shared/ui/Button/Button";
 import { useAppSelector } from "@/store/hooks";
 import { selectUserInfo } from "@/store/reducers/currentUser/currentUserReducer";
-import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
 import { UserInfo } from "@/types";
-import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
-import PseudoInput from "@/pages/account/components/PseudoInput/PseudoInput";
+import { AboutSection } from "@/pages/account/components/AboutSection/AboutSection";
+import { convertBase64 } from "@/pages/account/helpers/convertBase64";
+import { PhotoSection } from "@/pages/account/components/PhotoSection/PhotoSection";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo, toDeletePhoto: string) => void;
@@ -25,10 +24,8 @@ export const Account = ({
 
   const initialPhoto =
     currentUser.avatar !== null ? `${BASE_URL}${currentUser.avatar}` : "";
-  const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
   const [photo, setPhoto] = useState(initialPhoto);
   const [about, setAbout] = useState(currentUser.about || "");
-  const initialAbout = currentUser.about;
   const [aboutError, setAboutError] = useState("");
   const [toDeletePhoto, setToDeletePhoto] = useState("");
 
@@ -55,12 +52,6 @@ export const Account = ({
     }
   };
 
-  const closePhotoSettings = () => {
-    setIsPhotoClicked(false);
-  };
-
-  useEscapeKey(() => setIsPhotoClicked(false));
-
   const uploadPhoto = async (e: any) => {
     const file = e.target.files[0];
     if (file.size > 4000000 || !file.name.match(/(.jpg|.png|.jpeg)/)) {
@@ -72,21 +63,6 @@ export const Account = ({
     setIsPhotoClicked(false);
   };
 
-  const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
   const removePhoto = () => {
     setPhoto("");
     setToDeletePhoto("/?delete_avatar=true");
@@ -94,7 +70,7 @@ export const Account = ({
   };
 
   const cancelSettings = () => {
-    setAbout(initialAbout || "");
+    setAbout(currentUser.about || "");
     setPhoto(initialPhoto || "");
   };
 
@@ -106,74 +82,12 @@ export const Account = ({
           <div className={styles.accountContainer}>
             <h1 className={styles.title}>Контактная информация</h1>
             <div className={styles.content}>
-              <div className={styles.contentPhoto}>
-                <PhotoSettingsPopup
-                  closePopup={closePhotoSettings}
-                  isPhotoClicked={isPhotoClicked}
-                  uploadPhoto={uploadPhoto}
-                  removePhoto={removePhoto}
-                />
-                <div className={styles.avatarArea}>
-                  {photo ? (
-                    <img
-                      className={styles.avatarPhoto}
-                      src={photo || initialPhoto}
-                      alt="фотография пользователя"
-                    />
-                  ) : (
-                    <div
-                      className={`${styles.avatarPhoto} ${styles.avatarPhotoNo}`}
-                    >
-                      {`${currentUser.first_name[0]}${currentUser.last_name[0]}`}
-                    </div>
-                  )}
-                  <button
-                    onClick={() => setIsPhotoClicked(!isPhotoClicked)}
-                    className={styles.avatarButton}
-                    type="button"
-                    aria-label="Изменить аватар пользователя"
-                  />
-                </div>
-              </div>
-              <ul className={styles.contentAbout}>
-                <li className={styles.contentAboutItem}>
-                  <PseudoInput
-                    label="Имя"
-                    placeholder={currentUser.first_name}
-                  />
-                  <PseudoInput
-                    label="Фамилия"
-                    placeholder={currentUser.last_name}
-                  />
-                </li>
-                <li className={styles.contentAboutItem}>
-                  <PseudoInput
-                    label="Телефон"
-                    placeholder={currentUser.phone}
-                  />
-                  <PseudoInput label="Почта" placeholder={currentUser.email} />
-                </li>
-                <li className={styles.contentAboutItem}>
-                  <div className={styles.interests}>
-                    <h3 className={styles.contentAboutTitle}>Интересы</h3>
-                  </div>
-                  <div className={styles.about}>
-                    <h3 className={styles.contentAboutTitle}>Обо мне</h3>
-                    <textarea
-                      className={styles.aboutTextarea}
-                      value={about}
-                      name={about}
-                      onChange={(e) => aboutHandler(e)}
-                      maxLength={257}
-                    />
-                    {aboutError && (
-                      <div className={styles.aboutError}>
-                        <ErrorMessage>{aboutError}</ErrorMessage>
-                      </div>
-                    )}
-                  </div>
-                </li>
-              </ul>
+              <PhotoSection />
+              <AboutSection
+                about={about}
+                aboutError={aboutError}
+                aboutHandler={aboutHandler}
+              />
             </div>
             <ul className={styles.buttonsList}>
               <li>

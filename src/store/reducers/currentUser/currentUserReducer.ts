@@ -57,10 +57,6 @@ export const selectFirstName = (state: RootState) =>
   state.currentUserSlice.currentUser.first_name;
 export const selectLastName = (state: RootState) =>
   state.currentUserSlice.currentUser.last_name;
-export const selectPosition = (state: RootState) =>
-  state.currentUserSlice.currentUser.position?.name;
-export const selectAbout = (state: RootState) =>
-  state.currentUserSlice.currentUser.about;
 export const selectAvatar = (state: RootState) =>
   state.currentUserSlice.currentUser.avatar;
 export const selectUserInfo = (state: RootState) =>

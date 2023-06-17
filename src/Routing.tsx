@@ -30,7 +30,6 @@ interface Props {
   handleRegister: any;
   handleSendResetCode: any;
   handleResetPassword: any;
-  resetMessages: any;
   showAvatarError: any;
   openTestAlertPopup: any;
 }
@@ -50,7 +49,6 @@ export const Routing: React.FC<Props> = ({
   handleRegister,
   handleSendResetCode,
   handleResetPassword,
-  resetMessages,
   showAvatarError,
   openTestAlertPopup,
 }) => {
@@ -100,7 +98,6 @@ export const Routing: React.FC<Props> = ({
           path="myteam"
           element={
             <Myteam
-              resetMessages={resetMessages}
               success={success}
               handleSendInviteCode={handleSendInviteCode}
               employees={employees}
