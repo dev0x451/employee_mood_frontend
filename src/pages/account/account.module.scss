@@ -4,58 +4,90 @@
   position: relative;
   padding: 40px 0 0 52px;
   background-color: var(--color-background);
-}
-
-.containers-list {
-  position: relative;
-  display: flex;
-  margin: 0;
-  @include list-initial-style;
-  gap: 28px;
-  &-item {
-    @include size(500px, 198px);
-    padding: 24px 20px;
-    border-radius: 20px;
+  &-container {
     background-color: var(--color-background-white);
+    border-radius: 20px;
+    min-height: 568px;
+    width: 1028px;
+    padding: 40px;
   }
 }
 
-.buttons-list {
-  display: flex;
-  align-items: center;
-  padding: 0;
-  margin: 100px 0 0 300px;
-  gap: 28px;
-  list-style-type: none;
-}
-
 .title {
-  margin: 0 0 16px;
+  margin: 0 0 24px;
   font: var(--font-h1);
 }
 
-.contact-info {
-  @include flex-align-center;
-  gap: 20px;
+.content {
+  display: flex;
+  gap: 24px;
+  &-photo {
+    position: relative;
+  }
+  &-about {
+    width: 100%;
+    @include list-initial-style;
+    margin: 0;
+    &-item {
+      display: flex;
+      gap: 20px;
+      width: 100%;
+    }
+    &-title {
+      font: var(--font-h3);
+      margin: 0 0 8px 0;
+    }
+  }
+}
+
+.interests {
+  width: calc(100% - 20px / 2);
+}
+
+.about {
+  width: calc(100% - 20px / 2);
+  &-textarea {
+    width: 100%;
+    min-height: 150px;
+    padding: 12px;
+    border: 0.5px solid var(--color-background);
+    border-radius: 12px;
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font: var(--font-body);
+    outline: none;
+    resize: none;
+    text-align: start;
+    &:hover {
+      border: 0.5px solid rgb(0 0 0 /12%);
+    }
+  }
+  &-error {
+    position: absolute;
+    bottom: -30px;
+    left: 530px;
+  }
 }
 
 .avatar {
   &-area {
     position: relative;
-    @include size(96px, 96px);
+    @include size(138px, 138px);
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
   }
   &-photo {
     @include size (100%, 100%);
+    object-fit: cover;
     &-no {
       @include flex-center;
       background-color: var(--color-background-accent);
       color: var(--color-accent-purple);
       font-family: Roboto, sans-serif;
-      font-size: 36px;
-      font-weight: 500;
+      font-size: 51.75px;
+      line-height: 51.75px;
+      font-weight: 600;
     }
   }
   &-button {
@@ -65,57 +97,28 @@
     @include size (100%, 100%);
     padding: 0;
     border: none;
+    outline: 0px solid;
     border-radius: 50%;
     background-color: transparent;
     transition: background-color .2s;
     &:hover {
-      background: rgb(0 0 0 / 60%) url('./camera_28.svg') no-repeat center;
+      background: rgb(0 0 0 / 60%) url('./ui/camera_28.svg') no-repeat center;
       cursor: pointer;
     }
   }
 }
 
-.text-info-list {
-  @include list-initial-style;
-  margin: 0;
-}
-
-.name-info {
-  margin-bottom: 4px;
-  font: var(--font-button);
-}
-
-.job-info {
-  color: var(--color-black);
-  font: var(--font-body);
-}
-
-.title-about {
-  margin: 0 0 12px;
-  font: var(--font-h2);
-}
-
-.textarea {
-  @include size (460px, 114px);
-  padding: 12px;
-  border: 0.5px solid rgb(0 0 0 /12%);
-  border-radius: 12px;
-  background-color: var(--color-background);
-  color: var(--color-text-primary);
-  font: var(--font-body);
-  outline: none;
-  resize: none;
-  text-align: start;
-}
-
-.about-error {
-  position: absolute;
-  bottom: -30px;
-  left: 530px;
+.buttons-list {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 33px 0 0 163px;
+  gap: 47px;
+  list-style-type: none;
 }
 
 .cancel-button {
-  @include size(200px, 44px);
+  @include size(72px, 20px);
   border: none;
   background-color: transparent;
   color: var(--color-accent-purple);
@@ -128,3 +131,4 @@
     color: var(--color-accent-secondary);
   }
 }
+

@@ -1,46 +1,35 @@
 import { Navbar } from "@/components/Navbar/Navbar";
 import styles from "./account.module.scss";
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { PhotoSettingsPopup } from "@/components/PhotoSettingsPopup/PhotoSettingsPopup";
 import { Button } from "@/shared/ui/Button/Button";
 import { useAppSelector } from "@/store/hooks";
-import {
-  selectAbout,
-  selectAvatar,
-  selectFirstName,
-  selectLastName,
-  selectPosition,
-} from "@/store/reducers/currentUser/currentUserReducer";
+import { selectUserInfo } from "@/store/reducers/currentUser/currentUserReducer";
 import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
-import { AreYouSurePopup } from "@/components/AreYouSurePopup/AreYouSurePopup";
 import { UserInfo } from "@/types";
 import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
+import PseudoInput from "@/pages/account/components/PseudoInput/PseudoInput";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo, toDeletePhoto: string) => void;
   showAvatarError: () => void;
   error: string;
 }
-export const Account: React.FC<Props> = ({
+export const Account = ({
   handleChangeUserInfo,
   error,
   showAvatarError,
-}) => {
+}: Props): ReactElement => {
   const BASE_URL = "https://em-dev.usolcev.com";
-  const photoLink = useAppSelector(selectAvatar);
-  const initialPhoto = photoLink !== null ? `${BASE_URL}${photoLink}` : "";
+  const currentUser = useAppSelector(selectUserInfo);
+
+  const initialPhoto =
+    currentUser.avatar !== null ? `${BASE_URL}${currentUser.avatar}` : "";
   const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
-  const [isConfirmPopupOpened, setIsConfirmPopupOpened] =
-    useState<boolean>(false);
   const [photo, setPhoto] = useState(initialPhoto);
-  const [about, setAbout] = useState(useAppSelector(selectAbout) || "");
-  const firstName = useAppSelector(selectFirstName);
-  const lastName = useAppSelector(selectLastName);
-  const position = useAppSelector(selectPosition);
-  const initialAbout = useAppSelector(selectAbout);
-
+  const [about, setAbout] = useState(currentUser.about || "");
+  const initialAbout = currentUser.about;
   const [aboutError, setAboutError] = useState("");
-
   const [toDeletePhoto, setToDeletePhoto] = useState("");
 
   const aboutHandler = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
@@ -71,14 +60,6 @@ export const Account: React.FC<Props> = ({
   };
 
   useEscapeKey(() => setIsPhotoClicked(false));
-
-  const closeConfirmPopup = () => {
-    setIsConfirmPopupOpened(false);
-  };
-
-  const openConfirmPopup = () => {
-    setIsConfirmPopupOpened(true);
-  };
 
   const uploadPhoto = async (e: any) => {
     const file = e.target.files[0];
@@ -113,7 +94,6 @@ export const Account: React.FC<Props> = ({
   };
 
   const cancelSettings = () => {
-    closeConfirmPopup();
     setAbout(initialAbout || "");
     setPhoto(initialPhoto || "");
   };
@@ -123,10 +103,10 @@ export const Account: React.FC<Props> = ({
       <div className="page-container">
         <Navbar />
         <div className={styles.account}>
-          <ul className={styles.containersList}>
-            <li className={styles.containersListItem}>
-              <h1 className={styles.title}>Контактная информация</h1>
-              <div className={styles.contactInfo}>
+          <div className={styles.accountContainer}>
+            <h1 className={styles.title}>Контактная информация</h1>
+            <div className={styles.content}>
+              <div className={styles.contentPhoto}>
                 <PhotoSettingsPopup
                   closePopup={closePhotoSettings}
                   isPhotoClicked={isPhotoClicked}
@@ -144,7 +124,7 @@ export const Account: React.FC<Props> = ({
                     <div
                       className={`${styles.avatarPhoto} ${styles.avatarPhotoNo}`}
                     >
-                      {`${firstName[0]}${lastName[0]}`}
+                      {`${currentUser.first_name[0]}${currentUser.last_name[0]}`}
                     </div>
                   )}
                   <button
@@ -154,57 +134,69 @@ export const Account: React.FC<Props> = ({
                     aria-label="Изменить аватар пользователя"
                   />
                 </div>
-                <ul className={styles.textInfoList}>
-                  <li
-                    className={styles.nameInfo}
-                  >{`${firstName} ${lastName}`}</li>
-                  <li className={styles.jobInfo}>{position}</li>
-                </ul>
               </div>
-            </li>
-            <li className={styles.containersListItem}>
-              <h2 className={styles.titleAbout}>Обо мне</h2>
-              <textarea
-                className={styles.textarea}
-                value={about}
-                name={about}
-                onChange={(e) => aboutHandler(e)}
-                maxLength={257}
-              />
-            </li>
-            {aboutError && (
-              <div className={styles.aboutError}>
-                <ErrorMessage>{aboutError}</ErrorMessage>
-              </div>
-            )}
-          </ul>
-          <ul className={styles.buttonsList}>
-            <li>
-              <Button
-                handleClick={handleUpdateUser}
-                disabled={aboutError.length !== 0}
-                mode="primary"
-                title="Сохранить"
-                width="200px"
-              />
-            </li>
-            <li>
-              <Button
-                handleClick={openConfirmPopup}
-                disabled={aboutError.length !== 0}
-                mode="empty"
-                title="Отменить"
-                width="200px"
-              />
-            </li>
-          </ul>
+              <ul className={styles.contentAbout}>
+                <li className={styles.contentAboutItem}>
+                  <PseudoInput
+                    label="Имя"
+                    placeholder={currentUser.first_name}
+                  />
+                  <PseudoInput
+                    label="Фамилия"
+                    placeholder={currentUser.last_name}
+                  />
+                </li>
+                <li className={styles.contentAboutItem}>
+                  <PseudoInput
+                    label="Телефон"
+                    placeholder={currentUser.phone}
+                  />
+                  <PseudoInput label="Почта" placeholder={currentUser.email} />
+                </li>
+                <li className={styles.contentAboutItem}>
+                  <div className={styles.interests}>
+                    <h3 className={styles.contentAboutTitle}>Интересы</h3>
+                  </div>
+                  <div className={styles.about}>
+                    <h3 className={styles.contentAboutTitle}>Обо мне</h3>
+                    <textarea
+                      className={styles.aboutTextarea}
+                      value={about}
+                      name={about}
+                      onChange={(e) => aboutHandler(e)}
+                      maxLength={257}
+                    />
+                    {aboutError && (
+                      <div className={styles.aboutError}>
+                        <ErrorMessage>{aboutError}</ErrorMessage>
+                      </div>
+                    )}
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <ul className={styles.buttonsList}>
+              <li>
+                <Button
+                  handleClick={handleUpdateUser}
+                  disabled={aboutError.length !== 0}
+                  mode="primary"
+                  title="Сохранить"
+                  width="222px"
+                />
+              </li>
+              <li>
+                <Button
+                  handleClick={cancelSettings}
+                  disabled={aboutError.length !== 0}
+                  mode="empty"
+                  title="Отменить"
+                />
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      <AreYouSurePopup
-        isOpened={isConfirmPopupOpened}
-        closeConfirmPopup={closeConfirmPopup}
-        cancelSettings={cancelSettings}
-      />
     </>
   );
 };

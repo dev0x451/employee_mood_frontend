@@ -1,4 +1,5 @@
-import React, { JSX, useEffect, useState, useMemo } from "react";
+import React, { JSX, useEffect, useState, useMemo, ReactNode } from "react";
+import { HTMLInputTypeAttribute } from "react";
 import styles from "./test.module.css";
 import cn from "classnames";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +15,9 @@ import {
   TestInterface,
   SubmitArguments,
   ExpressDiagnoseResponse,
+  TestResults,
 } from "@/types";
+import { isNamedExportBindings } from "typescript";
 
 interface Test {
   test: TestInterface;

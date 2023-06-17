@@ -3,7 +3,7 @@
 .error-popup {
   position: absolute;
   z-index: 100;
-  top: 3%;
+  top: 60px;
   right: 0;
   left: 0;
   display: none;
@@ -11,6 +11,7 @@
   align-items: center;
   max-width: 396px;
   padding: 22px 36px 22px 24px;
+  border: 0.33px solid rgba(153, 162, 173, 0.3);
   border-radius: 20px;
   margin-right: auto;
   margin-left: auto;
