@@ -1,0 +1,40 @@
+@import '@/shared/styles/mixins.scss';
+
+.avatar {
+  &-area {
+    position: relative;
+    @include size(138px, 138px);
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  &-photo {
+    @include size (100%, 100%);
+    object-fit: cover;
+    &-no {
+      @include flex-center;
+      background-color: var(--color-background-accent);
+      color: var(--color-accent-purple);
+      font-family: Roboto, sans-serif;
+      font-size: 51.75px;
+      line-height: 51.75px;
+      font-weight: 600;
+    }
+  }
+  &-button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include size (100%, 100%);
+    padding: 0;
+    border: none;
+    outline: 0px solid;
+    border-radius: 50%;
+    background-color: transparent;
+    transition: background-color .2s;
+    &:hover {
+      background: rgb(0 0 0 / 60%) url('@/pages/account/ui/camera_28.svg') no-repeat center;
+      cursor: pointer;
+    }
+  }
+}

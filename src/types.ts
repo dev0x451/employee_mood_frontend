@@ -31,15 +31,6 @@ export interface MyFormValues {
   email: string;
 }
 
-export interface RegisterFormValues {
-  password: string;
-  confirmPassword: string;
-  lastName: string;
-  firstName: string;
-  department: string;
-  position: string;
-}
-
 export type CallbackFunction = () => void;
 
 export interface Image {
@@ -49,15 +40,15 @@ export interface Image {
 }
 
 export interface Question {
-  id: string,
-  text: string,
-  number: number
+  id: string;
+  text: string;
+  number: number;
 }
 
 export interface TestAuthor {
-  id: number,
-  first_name: string,
-  last_name: string
+  id: number;
+  first_name: string;
+  last_name: string;
 }
 
 export interface TestVariantAswer {
@@ -89,8 +80,8 @@ export interface TestInterface {
 // }
 
 export interface AnswerResult {
-  question_id: number,
-  variant_value: number
+  question_id: number;
+  variant_value: number;
 }
 
 export interface TestResults {
@@ -99,14 +90,14 @@ export interface TestResults {
 }
 
 export interface SubmitArguments {
-  results: AnswerResult[],
-  survey: number
+  results: AnswerResult[];
+  survey: number;
 }
 
 export interface ExpressDiagnoseEmployee {
-  id: number,
-  first_name: string,
-  last_name: string
+  id: number;
+  first_name: string;
+  last_name: string;
 }
 
 export interface ExpressDiagnoseSurvey {
@@ -132,9 +123,9 @@ export interface ExpressDiagnoseResponse {
   id: number;
   employee: ExpressDiagnoseEmployee;
   survey: ExpressDiagnoseSurvey;
-  mental_state: ExpressDiagnoseMentalState,
-  summary: string | null,
-  results: AnswerResult[]
+  mental_state: ExpressDiagnoseMentalState;
+  summary: string | null;
+  results: AnswerResult[];
   completion_date: string;
   next_attempt_date: string;
 }
@@ -173,9 +164,9 @@ export interface UserMentalState {
 }
 
 export interface UserPosition {
-  id: number,
-  name: string,
-  chief_position: boolean
+  id: number;
+  name: string;
+  chief_position: boolean;
 }
 
 export interface User {

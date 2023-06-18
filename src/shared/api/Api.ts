@@ -1,4 +1,5 @@
 import axios from "axios";
+
 import {
   UserInfo,
   // AnswerResult,
@@ -53,13 +54,15 @@ export const getTestQuestions = (test: string | null) => {
 };
 
 export const getAllTestsResults = () => {
-  return axios.get(`${BASE_URL_REQUEST}/metrics/surveys/results/?my_results=true`, {
-    headers: {
-      authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    },
-  });
+  return axios.get(
+    `${BASE_URL_REQUEST}/metrics/surveys/results/?my_results=true`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
 };
-
 
 // interface SubmitArguments {
 //   results: AnswerResult[],
@@ -73,7 +76,7 @@ export const sendTestResults = (results: SubmitArguments) => {
       // negative_value: results.negative_value,
       // survey: results.survey,
       survey: results.survey,
-      results: results.results
+      results: results.results,
     },
     {
       headers: {

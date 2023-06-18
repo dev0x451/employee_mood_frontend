@@ -11,15 +11,11 @@ import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
 
 interface Props {
   handleSendInviteCode: (email: string) => Promise<void>;
-  success: string;
   employees: EmployeeInterface[];
-  resetMessages: () => void;
 }
 export const Myteam: React.FC<Props> = ({
   handleSendInviteCode,
-  success,
   employees,
-  resetMessages,
 }) => {
   const articles: ArticleInterface[] = [
     {
@@ -65,7 +61,6 @@ export const Myteam: React.FC<Props> = ({
   };
 
   const closeAddPopup = () => {
-    resetMessages();
     setAddPopupVisible(false);
   };
 
@@ -122,7 +117,6 @@ export const Myteam: React.FC<Props> = ({
         closeAddPopup={closeAddPopup}
         addPopupVisible={addPopupVisible}
         handleSendInviteCode={handleSendInviteCode}
-        success={success}
       />
     </div>
   );

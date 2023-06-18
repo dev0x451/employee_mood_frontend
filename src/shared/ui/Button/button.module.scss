@@ -54,6 +54,8 @@
   }
 
   &-empty {
+    width: fit-content;
+    height: fit-content;
     border: none;
     background: none;
     color: var(--color-accent-purple);

@@ -15,7 +15,7 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import {
   addTestResults,
   resetTestResults,
-  selectTestResults
+  selectTestResults,
 } from "@/store/reducers/test/testReducer";
 import {
   TestInterface,
@@ -32,19 +32,27 @@ interface Test {
   openTestAlertPopup: () => void;
 }
 
-export const Test = ({test, onSendTestResult, resultOfPsychoTest, openTestAlertPopup}: Test): JSX.Element =>  {
+export const Test = ({
+  test,
+  onSendTestResult,
+  resultOfPsychoTest,
+  openTestAlertPopup,
+}: Test): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const testsResults = useAppSelector(selectTestResults);
   const questions = test?.questions;
   const questions_quantity = test?.questions_quantity;
 
-  function countPages (questions_quantity: number) {
+  function countPages(questions_quantity: number) {
     if (questions_quantity % 5 > 0) {
-      return parseInt((questions_quantity / 5).toString(), 2) + 1
-    } else return questions_quantity / 5
+      return parseInt((questions_quantity / 5).toString(), 2) + 1;
+    } else return questions_quantity / 5;
   }
-  const numberOfPages = useMemo(() => countPages(questions_quantity), [questions_quantity]);
+  const numberOfPages = useMemo(
+    () => countPages(questions_quantity),
+    [questions_quantity]
+  );
 
   // const form = document.getElementById('ExpressTestForm');
   // const inputs = form?.querySelectorAll('input');
@@ -53,46 +61,50 @@ export const Test = ({test, onSendTestResult, resultOfPsychoTest, openTestAlertP
   // console.log(inputs)
   // inputs?.forEach(item => console.log(item.checked))
 
-
-
   const [visibleIndex, setVisibleIndex] = useState<number>(0);
   const [nextButtonIsHidden, setNextButtonIsHidden] = useState<boolean>(false);
-  const [isResultsPopapVisible, setResultsPopapVisible] = useState<boolean>(false);
+  const [isResultsPopapVisible, setResultsPopapVisible] =
+    useState<boolean>(false);
   const [isSubmitForbidden, setIsSubmitForbidden] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
 
   const buttonClassname = cn(styles.button, {
-    [styles.hidden] : nextButtonIsHidden === true
-  })
+    [styles.hidden]: nextButtonIsHidden === true,
+  });
 
   const backButtonClassname = cn(styles.buttonBack, {
-    [styles.hidden] : nextButtonIsHidden === false
-  })
+    [styles.hidden]: nextButtonIsHidden === false,
+  });
 
   const finishButtonClassname = cn(styles.button, {
-    [styles.hidden] : nextButtonIsHidden === false,
-    [styles.disabled] : isSubmitForbidden === true,
-  })
+    [styles.hidden]: nextButtonIsHidden === false,
+    [styles.disabled]: isSubmitForbidden === true,
+  });
 
   const testFormClassname = cn(styles.test, {
-    [styles.hidden] : isResultsPopapVisible === true
-  })
+    [styles.hidden]: isResultsPopapVisible === true,
+  });
 
   function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault();
     if (test) {
       onSendTestResult({
         survey: test.id,
-        results: testsResults
-      })
+        results: testsResults,
+      });
     }
     dispatch(resetTestResults());
     setResultsPopapVisible(true);
   }
-// const [check, setCheck] = useState<boolean>(false)
-// function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>, questionId: string, answerValue: number) {
-function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
-    dispatch(addTestResults({'question_id': +e.target.id, 'variant_value': +e.target.value}))
+  // const [check, setCheck] = useState<boolean>(false)
+  // function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>, questionId: string, answerValue: number) {
+  function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
+    dispatch(
+      addTestResults({
+        question_id: +e.target.id,
+        variant_value: +e.target.value,
+      })
+    );
     // setCheck(isCheckboxChecked(questionId, answerValue))
   }
 
@@ -107,7 +119,7 @@ function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
   //   return result;
   // }
 
-  function handleClick () {
+  function handleClick() {
     if (testsResults.length >= 0 && testsResults.length < 5) {
       openTestAlertPopup();
     }
@@ -116,65 +128,118 @@ function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
     setNextButtonIsHidden(true);
   }
 
-  function handleBackClick () {
+  function handleBackClick() {
     setVisibleIndex(visibleIndex - 5);
     setNextButtonIsHidden(false);
     setPage(page - 1);
   }
 
-  function handleClosePopup () {
+  function handleClosePopup() {
     setResultsPopapVisible(false);
     dispatch(resetTestResults());
     navigate(-1);
-    setPage(1)
+    setPage(1);
   }
 
   useEffect(() => {
     if (testsResults.length < 10) {
-      setIsSubmitForbidden(true)
-    } else setIsSubmitForbidden(false)
-  }, [testsResults])
+      setIsSubmitForbidden(true);
+    } else setIsSubmitForbidden(false);
+  }, [testsResults]);
 
   return (
-    <div className='page-container'>
+    <div className="page-container">
       <Navbar />
       <article className={styles.container}>
-        <form id='ExpressTestForm' onSubmit={handleSubmit} className={testFormClassname}>
-
+        <form
+          id="ExpressTestForm"
+          onSubmit={handleSubmit}
+          className={testFormClassname}
+        >
           <h1 className={styles.title}>Экспресс-оценка выгорания</h1>
 
-          {questions && questions.slice(0 + visibleIndex, 5 + visibleIndex).map((question) => (
-            <fieldset key={question.id} className={styles.question}>
+          {questions &&
+            questions
+              .slice(0 + visibleIndex, 5 + visibleIndex)
+              .map((question) => (
+                <fieldset key={question.id} className={styles.question}>
+                  <p>
+                    {question.number}. {question.text}
+                  </p>
 
-              <p>{question.number}. {question.text}</p>
+                  <label className={styles.label}>
+                    <input
+                      required
+                      id={question.id}
+                      name={question.id}
+                      type="radio"
+                      onChange={handleChangeInput}
+                      className={styles.checkbox}
+                      value={1}
+                    />
+                    {/* <input required id={question.id} name={question.id} type="radio" checked={isCheckboxChecked(question.id, 1)} onChange={handleChangeInput} className={styles.checkbox} value={1}/> */}
+                    <span className={styles.visibleCheckbox}></span>
+                    {test.variants[0].text}
+                  </label>
 
-              <label className={styles.label}>
-                <input required id={question.id} name={question.id} type="radio" onChange={handleChangeInput} className={styles.checkbox} value={1}/>
-                {/* <input required id={question.id} name={question.id} type="radio" checked={isCheckboxChecked(question.id, 1)} onChange={handleChangeInput} className={styles.checkbox} value={1}/> */}
-                <span className={styles.visibleCheckbox}></span>
-                {test.variants[0].text}
-              </label>
-
-              <label className={styles.label}>
-                <input required id={question.id} name={question.id} type="radio" onChange={handleChangeInput} className={styles.checkbox} value={0}/>
-                {/* <input required id={question.id} name={question.id} checked={isCheckboxChecked(question.id, 0)} type="radio" onChange={handleChangeInput} className={styles.checkbox} value={0}/> */}
-                <span className={styles.visibleCheckbox}></span>
-                {test.variants[1].text}
-              </label>
-            </fieldset>
-          ))}
+                  <label className={styles.label}>
+                    <input
+                      required
+                      id={question.id}
+                      name={question.id}
+                      type="radio"
+                      onChange={handleChangeInput}
+                      className={styles.checkbox}
+                      value={0}
+                    />
+                    {/* <input required id={question.id} name={question.id} checked={isCheckboxChecked(question.id, 0)} type="radio" onChange={handleChangeInput} className={styles.checkbox} value={0}/> */}
+                    <span className={styles.visibleCheckbox}></span>
+                    {test.variants[1].text}
+                  </label>
+                </fieldset>
+              ))}
 
           <div className={styles.buttonContainer}>
-            <button type='button' onClick={handleClick} className={buttonClassname}>Далее</button>
-            <button onClick={handleBackClick} type='button' className={backButtonClassname}>Назад</button>
-            <button type='submit' onClick={handleClick} disabled={isSubmitForbidden} className={finishButtonClassname}>Завершить</button>
+            <button
+              type="button"
+              onClick={handleClick}
+              className={buttonClassname}
+            >
+              Далее
+            </button>
+            <button
+              onClick={handleBackClick}
+              type="button"
+              className={backButtonClassname}
+            >
+              Назад
+            </button>
+            <button
+              type="submit"
+              onClick={handleClick}
+              disabled={isSubmitForbidden}
+              className={finishButtonClassname}
+            >
+              Завершить
+            </button>
           </div>
 
-          <button type='button' onClick={handleClosePopup} className={styles.closeBtn}/>
-          <p className={styles.paginate}>{page} из {numberOfPages}</p>
+          <button
+            type="button"
+            onClick={handleClosePopup}
+            className={styles.closeBtn}
+          />
+          <p className={styles.paginate}>
+            {page} из {numberOfPages}
+          </p>
         </form>
 
-        <TestResultPopup isTestsReulstLocated={false} isVisible={isResultsPopapVisible} onClose={handleClosePopup} resultOfPsychoTest={resultOfPsychoTest}/>
+        <TestResultPopup
+          isTestsReulstLocated={false}
+          isVisible={isResultsPopapVisible}
+          onClose={handleClosePopup}
+          resultOfPsychoTest={resultOfPsychoTest}
+        />
       </article>
     </div>
   );

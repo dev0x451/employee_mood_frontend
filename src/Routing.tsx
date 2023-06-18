@@ -22,16 +22,12 @@ interface Props {
   handleSendTestResult: any;
   resultOfPsychoTest: any;
   handleChangeUserInfo: any;
-  success: any;
-  error: any;
   employees: any;
   handleSendInviteCode: any;
   handleLogin: any;
   handleRegister: any;
   handleSendResetCode: any;
   handleResetPassword: any;
-  resetMessages: any;
-  showAvatarError: any;
   openTestAlertPopup: any;
 }
 export const Routing: React.FC<Props> = ({
@@ -42,16 +38,12 @@ export const Routing: React.FC<Props> = ({
   handleSendTestResult,
   resultOfPsychoTest,
   handleChangeUserInfo,
-  success,
-  error,
   employees,
   handleSendInviteCode,
   handleLogin,
   handleRegister,
   handleSendResetCode,
   handleResetPassword,
-  resetMessages,
-  showAvatarError,
   openTestAlertPopup,
 }) => {
   return (
@@ -88,20 +80,12 @@ export const Routing: React.FC<Props> = ({
 
         <Route
           path="account"
-          element={
-            <Account
-              handleChangeUserInfo={handleChangeUserInfo}
-              error={error}
-              showAvatarError={showAvatarError}
-            />
-          }
+          element={<Account handleChangeUserInfo={handleChangeUserInfo} />}
         />
         <Route
           path="myteam"
           element={
             <Myteam
-              resetMessages={resetMessages}
-              success={success}
               handleSendInviteCode={handleSendInviteCode}
               employees={employees}
             />

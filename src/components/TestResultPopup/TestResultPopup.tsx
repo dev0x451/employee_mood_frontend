@@ -7,8 +7,8 @@ import { ExpressDiagnoseResponse } from "@/types";
 
 interface TestResultPopup {
   resultOfPsychoTest?: ExpressDiagnoseResponse;
-  isVisible: boolean,
-  onClose: () => void
+  isVisible: boolean;
+  onClose: () => void;
   isTestsReulstLocated: boolean;
 }
 
@@ -18,23 +18,20 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
   // const [resultExplanation, setResultExplanation] = useState<string>('');
 
   const closePopupClassname = cn(styles.resultsPopup, {
-    [styles.hidden] : isResultsPopapVisible === false,
-    [styles.testsLocated] : isTestsReulstLocated === true
-  })
+    [styles.hidden]: isResultsPopapVisible === false,
+    [styles.testsLocated]: isTestsReulstLocated === true,
+  });
 
-
-
-  function handleClose () {
+  function handleClose() {
     setResultsPopapVisible(false);
     if (onClose) onClose();
   }
 
-  function handleCallChief () {
+  function handleCallChief() {
     alert("Отправлена заявка на разговор с руководителем");
   }
 
-  useEffect(() => (setResultsPopapVisible(isVisible)), [isVisible]);
-
+  useEffect(() => setResultsPopapVisible(isVisible), [isVisible]);
 
   // useEffect(() => {
   //   if (resultOfPsychoTest?.result === 'Нормальное состояние') {
@@ -53,7 +50,7 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
 
       <div className={styles.conditionContainer}>
         <h3 className={styles.conditionText}>Состояние:</h3>
-        <WarningWithBall resultOfPsychoTest={resultOfPsychoTest}/>
+        <WarningWithBall resultOfPsychoTest={resultOfPsychoTest} />
       </div>
 
       {/* <p>{resultExplanation}</p> */}
@@ -84,10 +81,24 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
       </ol> */}
       {resultOfPsychoTest?.survey.text}
       <div className={styles.buttonContainer}>
-        {(resultOfPsychoTest?.mental_state.name !== "Нормальное") && <button type='button' onClick={handleCallChief} className={styles.button}>Обсудить с руководителем</button>}
-        <button type='button' onClick={handleClose} className={styles.buttonBack}>Закрыть</button>
+        {resultOfPsychoTest?.mental_state.name !== "Нормальное" && (
+          <button
+            type="button"
+            onClick={handleCallChief}
+            className={styles.button}
+          >
+            Обсудить с руководителем
+          </button>
+        )}
+        <button
+          type="button"
+          onClick={handleClose}
+          className={styles.buttonBack}
+        >
+          Закрыть
+        </button>
       </div>
-      <button type='button' onClick={handleClose} className={styles.closeBtn}/>
+      <button type="button" onClick={handleClose} className={styles.closeBtn} />
     </section>
   );
 };

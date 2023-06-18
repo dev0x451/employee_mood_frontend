@@ -1,17 +1,18 @@
 import React from "react";
 import { useFormikContext } from "formik";
+import { useAppSelector } from "@/store/hooks";
+import * as alertSuccessActions from "@/store/reducers/alertSuccess/alertSuccessReducer";
 
 interface Props {
   addPopupVisible: boolean;
-  success: string;
 }
-export const AutoResetForm: React.FC<Props> = ({
-  addPopupVisible,
-  success,
-}) => {
+export const AutoResetForm: React.FC<Props> = ({ addPopupVisible }) => {
+  const successMessage = useAppSelector(
+    alertSuccessActions.selectSuccessMessage
+  );
   const { resetForm } = useFormikContext();
   React.useEffect(() => {
-    if (success || addPopupVisible) {
+    if (successMessage || addPopupVisible) {
       resetForm();
     }
   }, [addPopupVisible]);
