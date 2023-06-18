@@ -54,6 +54,7 @@ export const Myteam: React.FC<Props> = ({
   const [textInput, setTextInput] = useState("");
   const [isChief, setIsChief] = useState(false);
   const user = useAppSelector(selectRole);
+  const reg = /[a-zA-Zа-яА-Я0-9-\ ]/;
 
   const openAddPopup = () => {
     setAddPopupVisible(true);
@@ -63,8 +64,13 @@ export const Myteam: React.FC<Props> = ({
     setAddPopupVisible(false);
   };
 
-  const handleInputSort = (e: { target: { value: string } }) => {
-    setTextInput(e.target.value);
+  const handleInputSort = (e: {target: { value: string }}) => {
+    const value = e.target.value;
+    console.log(value);
+    console.log(value.match(reg));
+    !(value.substring(value.length-2, value.length-1) === '-' && value.substring(value.length-1) === '-') &&
+    (value === '' || value.substring(value.length-1).match(reg) !== null) &&
+    setTextInput(value);
   };
 
   useEffect(() => {
@@ -84,6 +90,7 @@ export const Myteam: React.FC<Props> = ({
                 mode="primary"
                 width="236px"
                 height="36px"
+                padding="0"
                 handleClick={openAddPopup}
               />
             )}
@@ -91,6 +98,8 @@ export const Myteam: React.FC<Props> = ({
           <input
             className={styles.input}
             name="myteam-search-input"
+            minLength={2}
+            maxLength={32}
             placeholder="Начните вводить имя"
             value={textInput}
             onChange={handleInputSort}

@@ -189,7 +189,9 @@ export const App = () => {
     }
   }
 
-  async function handleSendTestResult(result: TestResults) {
+
+  async function handleSendTestResult(result: TestResults
+    ) {
     try {
       const response = await Api.sendTestResults(result);
       setResultOfPsychoTest(response.data);
