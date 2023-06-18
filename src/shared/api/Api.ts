@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  UserInfo, AnswerResult, SubmitArguments } from "@/types";
+import { UserInfo, SubmitArguments } from "@/types";
 import { BASE_URL_REQUEST } from "../constants";
 
 // const BASE_URL = "https://em-dev.usolcev.com/api/v1";
@@ -49,13 +49,15 @@ export const getTestQuestions = (test: string | null) => {
 };
 
 export const getAllTestsResults = () => {
-  return axios.get(`${BASE_URL_REQUEST}/metrics/surveys/results/?my_results=true`, {
-    headers: {
-      authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    },
-  });
+  return axios.get(
+    `${BASE_URL_REQUEST}/metrics/surveys/results/?my_results=true`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
 };
-
 
 // interface SubmitArguments {
 //   results: AnswerResult[],
@@ -69,7 +71,7 @@ export const sendTestResults = (results: SubmitArguments) => {
       // negative_value: results.negative_value,
       // survey: results.survey,
       survey: results.survey,
-      results: results.results
+      results: results.results,
     },
     {
       headers: {

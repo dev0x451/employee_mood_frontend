@@ -8,7 +8,7 @@ import {
   jwtTypes,
   MyFormValues,
   TestInterface,
-  TestResult,
+  TestResults,
   UserInfo,
 } from "@/types";
 
@@ -189,7 +189,7 @@ export const App = () => {
     }
   }
 
-  async function handleSendTestResult(result: TestResult) {
+  async function handleSendTestResult(result: TestResults) {
     try {
       const response = await Api.sendTestResults(result);
       setResultOfPsychoTest(response.data);
