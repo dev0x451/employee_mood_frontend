@@ -15,7 +15,7 @@ interface TestResultPopup {
 export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, isVisible, onClose, isTestsReulstLocated}) => {
 
   const [isResultsPopapVisible, setResultsPopapVisible] = useState<boolean | undefined>(false);
-  const [resultExplanation, setResultExplanation] = useState<string>('');
+  // const [resultExplanation, setResultExplanation] = useState<string>('');
 
   const closePopupClassname = cn(styles.resultsPopup, {
     [styles.hidden] : isResultsPopapVisible === false,

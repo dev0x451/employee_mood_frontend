@@ -1,7 +1,9 @@
 import styles from "./employees.module.css";
 import React, { useState, useEffect } from "react";
 import { EmployeeInterface } from "@/types";
-import { sortIcon } from "@/assets";
+import { sortIcon, greenIcon, orangeIcon, redIcon } from "@/assets";
+
+
 import { BASE_URL_MEDIA, COUNT_EMPLOYEES_PAGE, usePagination } from "@/shared/constants";
 interface Props {
   valueInputSort: string;
@@ -21,7 +23,7 @@ export const Employees: React.FC<Props> = (
   // useEffect(()=>{
   //   arrSort?.length > 0 && setEmployeesSort(arrSort)
   // },[isClick])
-
+  // console.log(employees)
   useEffect(()=>{
     setEmployeesSort(employees)
   },[employees.length])
@@ -36,8 +38,8 @@ export const Employees: React.FC<Props> = (
 
   const sortField =
     (
-      a:{first_name: string, last_name: string, position: {name: string}, mental_state: {name: string}},
-      b: {first_name: string, last_name: string, position: {name: string}, mental_state: {name: string}},
+      a:{first_name: string, last_name: string, position: {name: string}, mental_state: {level: number}},
+      b: {first_name: string, last_name: string, position: {name: string}, mental_state: {level: number}},
       field: string
     ) => {
     let x = '';
@@ -52,8 +54,8 @@ export const Employees: React.FC<Props> = (
         y = b.position.name;
       break;
       case 'state':
-        x = (a.mental_state !== null ? a.mental_state.name : 'яяя');
-        y = (b.mental_state !== null ? b.mental_state.name : 'яяя');
+        x = (a.mental_state !== null ? `${a.mental_state.level}` : '');
+        y = (b.mental_state !== null ? `${b.mental_state.level}` : '');
       break;
       default:
         x = '';
@@ -84,6 +86,20 @@ export const Employees: React.FC<Props> = (
     sortFields('state', isSortState);
   }
 
+  const setIconMentalState = (level:number) => {
+    switch (level) {
+      case (1):
+        return greenIcon;
+      case (2):
+        return orangeIcon;
+      case (3):
+        return redIcon;
+      default:
+        return null;
+    }
+
+
+  }
   return (
     <div className={styles.employees}>
       <div className={styles.sortContainer}>
@@ -106,8 +122,11 @@ export const Employees: React.FC<Props> = (
               }
               <p className={styles.textUser}>{employee.first_name} {employee.last_name}</p>
             </div>
-            <p className={styles.text}>{employee.position.name}</p>
-            <p className={styles.text}>{employee.mental_state?.name}</p>
+            <p className={styles.textName}>{employee.position.name}</p>
+            <p className={styles.textMentalState}>
+              <span>{setIconMentalState(employee.mental_state?.level)}</span>
+              {employee.mental_state?.name}
+            </p>
           </div> :
           null
         ))
