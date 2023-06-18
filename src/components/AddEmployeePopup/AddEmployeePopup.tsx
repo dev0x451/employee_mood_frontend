@@ -7,14 +7,12 @@ interface Props {
   closeAddPopup: () => void;
   addPopupVisible: boolean;
   handleSendInviteCode: (email: string) => Promise<void>;
-  success: string;
 }
 
 export const AddEmployeePopup: React.FC<Props> = ({
   closeAddPopup,
   addPopupVisible,
   handleSendInviteCode,
-  success,
 }) => {
   useEscapeKey(closeAddPopup);
   const handleCloseOutside = (
@@ -35,7 +33,6 @@ export const AddEmployeePopup: React.FC<Props> = ({
       }
     >
       <AddEmployeeForm
-        success={success}
         closeAddPopup={closeAddPopup}
         handleSendInviteCode={handleSendInviteCode}
         addPopupVisible={addPopupVisible}

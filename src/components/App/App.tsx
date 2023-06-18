@@ -27,8 +27,6 @@ import { setSuccessMessage } from "@/store/reducers/alertSuccess/alertSuccessRed
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [resultOfPsychoTest, setResultOfPsychoTest] =
     useState<ExpressDiagnoseResponse>();
   const [expressTest, setExpressTest] = useState<TestInterface | null>(null);
@@ -270,8 +268,6 @@ export const App = () => {
         handleSendTestResult={handleSendTestResult}
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}
-        success={success}
-        error={error}
         employees={employees}
         handleSendInviteCode={handleSendInviteCode}
         handleLogin={handleLogin}
