@@ -1,5 +1,9 @@
 import axios from "axios";
-import {  UserInfo, AnswerResult, SubmitArguments } from "@/types";
+import {
+  UserInfo,
+  // AnswerResult,
+  SubmitArguments
+} from "@/types";
 import { BASE_URL_REQUEST } from "../constants";
 
 // const BASE_URL = "https://em-dev.usolcev.com/api/v1";

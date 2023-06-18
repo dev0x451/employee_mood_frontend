@@ -94,7 +94,7 @@ export interface AnswerResult {
 }
 
 export interface TestResults {
-  // survey: number;
+  survey: number;
   results: AnswerResult[]
 }
 
