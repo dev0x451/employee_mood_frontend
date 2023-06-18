@@ -1,121 +1,67 @@
-import { Navbar } from "@/components/Navbar/Navbar";
+import { ReactElement, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { selectUserInfo } from "@/store/reducers/currentUser/currentUserReducer";
+import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
+import * as alertErrorActions from "@/store/reducers/alertError/alertErrorReducer";
+import { AboutSection } from "./components/AboutSection/AboutSection";
+import { PhotoSection } from "./components/PhotoSection/PhotoSection";
+import { PhotoSettingsPopup } from "./components/PhotoSettingsPopup/PhotoSettingsPopup";
+import { aboutHandler } from "./helpers/aboutHandler";
+import { removePhoto, uploadPhoto } from "./helpers/handlePhotoSettings";
 import styles from "./account.module.scss";
-import React, { useState } from "react";
-import { PhotoSettingsPopup } from "@/components/PhotoSettingsPopup/PhotoSettingsPopup";
-import { Button } from "@/shared/ui/Button/Button";
-import { useAppSelector } from "@/store/hooks";
-import {
-  selectAbout,
-  selectAvatar,
-  selectFirstName,
-  selectLastName,
-  selectPosition,
-} from "@/store/reducers/currentUser/currentUserReducer";
-import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
-import { AreYouSurePopup } from "@/components/AreYouSurePopup/AreYouSurePopup";
 import { UserInfo } from "@/types";
+import { BASE_URL_MEDIA } from "@/shared/constants";
 import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
+import { Navbar } from "@/components/Navbar/Navbar";
+import { ButtonsList } from "@/pages/account/components/ButtonsList/ButtonsList";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo, toDeletePhoto: string) => void;
-  showAvatarError: () => void;
-  error: string;
 }
-export const Account: React.FC<Props> = ({
-  handleChangeUserInfo,
-  error,
-  showAvatarError,
-}) => {
-  const BASE_URL = "https://em-dev.usolcev.com";
-  const photoLink = useAppSelector(selectAvatar);
-  const initialPhoto = photoLink !== null ? `${BASE_URL}${photoLink}` : "";
-  const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
-  const [isConfirmPopupOpened, setIsConfirmPopupOpened] =
-    useState<boolean>(false);
-  const [photo, setPhoto] = useState(initialPhoto);
-  const [about, setAbout] = useState(useAppSelector(selectAbout) || "");
-  const firstName = useAppSelector(selectFirstName);
-  const lastName = useAppSelector(selectLastName);
-  const position = useAppSelector(selectPosition);
-  const initialAbout = useAppSelector(selectAbout);
-
+export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
+  const dispatch = useAppDispatch();
+  const currentUser = useAppSelector(selectUserInfo);
+  const errorMessage = useAppSelector(alertErrorActions.selectErrorMessage);
+  const [photo, setPhoto] = useState(
+    currentUser.avatar !== null ? `${BASE_URL_MEDIA}${currentUser.avatar}` : ""
+  );
+  const [about, setAbout] = useState(currentUser.about || "");
   const [aboutError, setAboutError] = useState("");
-
   const [toDeletePhoto, setToDeletePhoto] = useState("");
-
-  const aboutHandler = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    const target = e.target as HTMLTextAreaElement;
-    setAbout(target.value);
-    if (target.value.length < 2 && target.value.length) {
-      setAboutError("Минимальное количество символов: 2");
-    } else if (target.value.length > 256) {
-      setAboutError("Максимальное количество символов: 256");
-    } else {
-      setAboutError("");
-    }
-  };
-
-  const handleUpdateUser = () => {
-    if (photo.includes("base64")) {
-      handleChangeUserInfo({ avatar: photo, about: about }, toDeletePhoto);
-    } else {
-      handleChangeUserInfo({ about: about }, toDeletePhoto);
-    }
-    if (error) {
-      setPhoto(initialPhoto);
-    }
-  };
-
-  const closePhotoSettings = () => {
-    setIsPhotoClicked(false);
-  };
+  const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
 
   useEscapeKey(() => setIsPhotoClicked(false));
 
-  const closeConfirmPopup = () => {
-    setIsConfirmPopupOpened(false);
-  };
+  const handleUpdateUser = () => {
+    const userInfo: UserInfo = {
+      about: about,
+    };
 
-  const openConfirmPopup = () => {
-    setIsConfirmPopupOpened(true);
-  };
-
-  const uploadPhoto = async (e: any) => {
-    const file = e.target.files[0];
-    if (file.size > 4000000 || !file.name.match(/(.jpg|.png|.jpeg)/)) {
-      showAvatarError();
-    } else {
-      const base64: string = (await convertBase64(file)) as string;
-      setPhoto(base64);
+    if (photo.includes("base64")) {
+      userInfo.avatar = photo;
     }
-    setIsPhotoClicked(false);
-  };
 
-  const convertBase64 = (file: any) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const removePhoto = () => {
-    setPhoto("");
-    setToDeletePhoto("/?delete_avatar=true");
-    setIsPhotoClicked(false);
+    handleChangeUserInfo(userInfo, toDeletePhoto);
+    if (errorMessage) {
+      setPhoto(
+        currentUser.avatar !== null
+          ? `${BASE_URL_MEDIA}${currentUser.avatar}`
+          : ""
+      );
+    }
   };
 
   const cancelSettings = () => {
-    closeConfirmPopup();
-    setAbout(initialAbout || "");
-    setPhoto(initialPhoto || "");
+    setAbout(currentUser.about || "");
+    setPhoto(
+      currentUser.avatar !== null
+        ? `${BASE_URL_MEDIA}${currentUser.avatar}`
+        : ""
+    );
+  };
+
+  const showAvatarError = () => {
+    dispatch(setErrorMessage("Фотография неподходящего размера или формата"));
   };
 
   return (
@@ -123,88 +69,44 @@ export const Account: React.FC<Props> = ({
       <div className="page-container">
         <Navbar />
         <div className={styles.account}>
-          <ul className={styles.containersList}>
-            <li className={styles.containersListItem}>
-              <h1 className={styles.title}>Контактная информация</h1>
-              <div className={styles.contactInfo}>
-                <PhotoSettingsPopup
-                  closePopup={closePhotoSettings}
-                  isPhotoClicked={isPhotoClicked}
-                  uploadPhoto={uploadPhoto}
-                  removePhoto={removePhoto}
-                />
-                <div className={styles.avatarArea}>
-                  {photo ? (
-                    <img
-                      className={styles.avatarPhoto}
-                      src={photo || initialPhoto}
-                      alt="фотография пользователя"
-                    />
-                  ) : (
-                    <div
-                      className={`${styles.avatarPhoto} ${styles.avatarPhotoNo}`}
-                    >
-                      {`${firstName[0]}${lastName[0]}`}
-                    </div>
-                  )}
-                  <button
-                    onClick={() => setIsPhotoClicked(!isPhotoClicked)}
-                    className={styles.avatarButton}
-                    type="button"
-                    aria-label="Изменить аватар пользователя"
-                  />
-                </div>
-                <ul className={styles.textInfoList}>
-                  <li
-                    className={styles.nameInfo}
-                  >{`${firstName} ${lastName}`}</li>
-                  <li className={styles.jobInfo}>{position}</li>
-                </ul>
-              </div>
-            </li>
-            <li className={styles.containersListItem}>
-              <h2 className={styles.titleAbout}>Обо мне</h2>
-              <textarea
-                className={styles.textarea}
-                value={about}
-                name={about}
-                onChange={(e) => aboutHandler(e)}
-                maxLength={257}
+          <div className={styles.accountContainer}>
+            <h1 className={styles.title}>Контактная информация</h1>
+            <div className={styles.content}>
+              <PhotoSettingsPopup
+                closePopup={() => setIsPhotoClicked(false)}
+                isPhotoClicked={isPhotoClicked}
+                uploadPhoto={(e: any) =>
+                  uploadPhoto(e, setPhoto, setIsPhotoClicked, showAvatarError)
+                }
+                removePhoto={() =>
+                  removePhoto(setPhoto, setToDeletePhoto, setIsPhotoClicked)
+                }
               />
-            </li>
-            {aboutError && (
-              <div className={styles.aboutError}>
-                <ErrorMessage>{aboutError}</ErrorMessage>
-              </div>
-            )}
-          </ul>
-          <ul className={styles.buttonsList}>
-            <li>
-              <Button
-                handleClick={handleUpdateUser}
-                disabled={aboutError.length !== 0}
-                mode="primary"
-                title="Сохранить"
-                width="200px"
+              <PhotoSection
+                photo={photo}
+                handleClick={() => setIsPhotoClicked(!isPhotoClicked)}
+                firstName={currentUser.first_name}
+                lastName={currentUser.last_name}
+                avatar={
+                  currentUser.avatar !== null
+                    ? `${BASE_URL_MEDIA}${currentUser.avatar}`
+                    : ""
+                }
               />
-            </li>
-            <li>
-              <Button
-                handleClick={openConfirmPopup}
-                disabled={aboutError.length !== 0}
-                mode="empty"
-                title="Отменить"
-                width="200px"
+              <AboutSection
+                about={about}
+                aboutError={aboutError}
+                aboutHandler={(e) => aboutHandler(e, setAbout, setAboutError)}
               />
-            </li>
-          </ul>
+            </div>
+            <ButtonsList
+              handleUpdateUser={handleUpdateUser}
+              aboutError={aboutError}
+              cancelSettings={cancelSettings}
+            />
+          </div>
         </div>
       </div>
-      <AreYouSurePopup
-        isOpened={isConfirmPopupOpened}
-        closeConfirmPopup={closeConfirmPopup}
-        cancelSettings={cancelSettings}
-      />
     </>
   );
 };

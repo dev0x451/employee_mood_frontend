@@ -1,5 +1,10 @@
 import axios from "axios";
-import { TestResult, UserInfo } from "@/types";
+
+import {
+  UserInfo,
+  // AnswerResult,
+  SubmitArguments
+} from "@/types";
 import { BASE_URL_REQUEST } from "../constants";
 
 // const BASE_URL = "https://em-dev.usolcev.com/api/v1";
@@ -49,20 +54,29 @@ export const getTestQuestions = (test: string | null) => {
 };
 
 export const getAllTestsResults = () => {
-  return axios.get(`${BASE_URL_REQUEST}/metrics/results/?my_results=true`, {
-    headers: {
-      authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    },
-  });
+  return axios.get(
+    `${BASE_URL_REQUEST}/metrics/surveys/results/?my_results=true`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
 };
 
-export const sendTestResults = (results: TestResult) => {
+// interface SubmitArguments {
+//   results: AnswerResult[],
+//   survey: number
+// }
+export const sendTestResults = (results: SubmitArguments) => {
   return axios.post(
-    `${BASE_URL_REQUEST}/metrics/results`,
+    `${BASE_URL_REQUEST}/metrics/surveys/results`,
     {
-      positive_value: results.positive_value,
-      negative_value: results.negative_value,
+      // positive_value: results.positive_value,
+      // negative_value: results.negative_value,
+      // survey: results.survey,
       survey: results.survey,
+      results: results.results,
     },
     {
       headers: {

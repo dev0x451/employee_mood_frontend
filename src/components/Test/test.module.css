@@ -44,6 +44,7 @@
 .label {
   display: flex;
   align-items: center;
+  padding-left: 15px;
   gap: 8px;
 }
 
@@ -93,6 +94,10 @@
   justify-content: center;
   margin-top: 52px;
   gap: 28px;
+}
+
+.disabled {
+  opacity: 0.64;
 }
 
 .button {

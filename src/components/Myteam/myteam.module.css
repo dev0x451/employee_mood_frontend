@@ -5,22 +5,23 @@
   flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-start;
-  padding: 30px 132px 42px 42px;
+  padding: 44px 132px 42px 52px;
   background-color: var(--color-main-background);
 }
 
 .left-screen {
   position: relative;
-  width: 65%;
+  width: 68.8%;
   height: 100%;
-  padding: 10px;
-  margin-right: 8px;
+  /* padding: 10px; */
+  margin-right: 28px;
 }
 
 .right-screen {
   width: 33%;
   height: 100%;
-  padding: 10px;
+  /* padding: 10px; */
+  padding-top: 64px;
 }
 
 .input {
@@ -35,7 +36,7 @@
   background-image: url('@/assets/search_icon.svg');
   background-position: 10px 10px;
   background-repeat: no-repeat;
-  color: var(--color-icon-secondary);
+  color: var(--color-black);
   font: var(--font-search-input);
   outline: 0;
 }

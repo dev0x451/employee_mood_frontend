@@ -1,0 +1,18 @@
+.container {
+  width: calc((100% - 20px) / 2);
+  margin-bottom: 20px;
+}
+
+.label {
+  font: var(--font-h3);
+  margin: 0 0 8px 0;
+}
+
+.input {
+  padding: 12px;
+  border: 0.5px solid var(--color-button-secondary);
+  border-radius: 12px;
+  background-color: var(--color-background);
+  color: var(--color-disabled);
+  font: var(--font-body);
+}
