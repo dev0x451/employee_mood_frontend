@@ -6,25 +6,32 @@
 }
 
 .sort-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr 1fr;
   width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  margin: 24px 20px 8px;
+  /* align-items: center;
+  justify-content: space-between; */
+  margin: 24px 0 8px;
+  padding: 0 34px 0 20px;
 }
 
 .sort-button {
-  width: 33%;
+  /* width: 33%; */
   padding: 0;
+  /* margin-left: 20px; */
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   border: none;
   background-color: inherit;
   font: var(--font-h3);
   gap: 8px;
   cursor: pointer;
   transition: opacity 0.5s linear;
+}
+.sort-button:nth-child(3) {
+  justify-content: flex-end;
+  /* margin-right: 20px; */
 }
 .sort-button:hover {
   opacity: 0.6;
@@ -34,11 +41,13 @@
   display: grid;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 20px;
+  padding: 10px 28px 10px 20px;
   border-radius: 20px;
   margin-top: 10px;
   background-color: white;
-  grid-template-columns: repeat(3, 32%);
+  /* grid-template-columns: repeat(3, 32%); */
+  grid-template-columns: 1.25fr 1fr 1fr;
+
   gap: 2%;
 }
 
@@ -79,12 +88,22 @@
   font-weight: 500;
 }
 
-.text {
+.textName {
   width: 100%;
   font: var(--font-body);
   align-self: center;
   overflow: hidden;
-  text-align: center;
+  text-align: left;
+}
+
+.textMentalState {
+  width: 100%;
+  font: var(--font-body);
+  align-self: center;
+  overflow: hidden;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
 }
 
 .addButton {

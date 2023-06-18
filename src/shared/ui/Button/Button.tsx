@@ -8,6 +8,7 @@ interface ButtonProps {
   type?: 'submit' | 'reset' | 'button' | undefined;
   width?: string;
   height?: string;
+  padding?: string;
   disabled?: boolean;
   handleClick?: () => void;
 }
@@ -18,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   type,
   width,
   height,
+  padding,
   disabled,
   handleClick,
 }) => {
@@ -33,7 +35,7 @@ export const Button: React.FC<ButtonProps> = ({
       <button
         onClick={handleClick}
         className={className}
-        style={{ width: width, height: height }}
+        style={{ width: width, height: height, padding: padding }}
         type={type}
       >
         <img className={classes.addIcon} src={AddIcon} />
@@ -46,7 +48,7 @@ export const Button: React.FC<ButtonProps> = ({
         onClick={handleClick}
         disabled={disabled}
         className={disabled && mode !== 'empty' ? `${className} ${classes.disabled}` : className}
-        style={{ width: width, height: height }}
+        style={{ width: width, height: height, padding: padding }}
         type={type}
       >
         {title}
