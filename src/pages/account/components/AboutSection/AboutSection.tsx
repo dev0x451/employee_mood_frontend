@@ -4,6 +4,7 @@ import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
 import { useAppSelector } from "@/store/hooks";
 import { selectUserInfo } from "@/store/reducers/currentUser/currentUserReducer";
 import React, { ReactElement } from "react";
+import { Interests } from "@/pages/account/components/Interests/Interests";
 
 interface Props {
   about: string;
@@ -29,9 +30,7 @@ export const AboutSection = ({
         <PseudoInput label="Почта" placeholder={currentUser.email} />
       </li>
       <li className={styles.contentAboutItem}>
-        <div className={styles.interests}>
-          <h3 className={styles.contentAboutTitle}>Интересы</h3>
-        </div>
+        <Interests />
         <div className={styles.about}>
           <h3 className={styles.contentAboutTitle}>Обо мне</h3>
           <textarea
