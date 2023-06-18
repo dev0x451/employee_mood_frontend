@@ -1,38 +1,36 @@
-import { useState } from "react";
 import styles from "./photosection.module.scss";
-import { PhotoSettingsPopup } from "@/components/PhotoSettingsPopup/PhotoSettingsPopup";
-import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
+import { ReactElement } from "react";
 
-export const PhotoSection = () => {
-  const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
-
-  const closePhotoSettings = () => {
-    setIsPhotoClicked(false);
-  };
-
-  useEscapeKey(() => setIsPhotoClicked(false));
+interface Props {
+  photo: string;
+  handleClick: () => void;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+}
+export const PhotoSection = ({
+  photo,
+  handleClick,
+  firstName,
+  lastName,
+  avatar,
+}: Props): ReactElement => {
   return (
     <div className={styles.contentPhoto}>
-      <PhotoSettingsPopup
-        closePopup={closePhotoSettings}
-        isPhotoClicked={isPhotoClicked}
-        uploadPhoto={uploadPhoto}
-        removePhoto={removePhoto}
-      />
       <div className={styles.avatarArea}>
         {photo ? (
           <img
             className={styles.avatarPhoto}
-            src={photo || initialPhoto}
+            src={photo || avatar}
             alt="фотография пользователя"
           />
         ) : (
           <div className={`${styles.avatarPhoto} ${styles.avatarPhotoNo}`}>
-            {`${currentUser.first_name[0]}${currentUser.last_name[0]}`}
+            {`${firstName[0]}${lastName[0]}`}
           </div>
         )}
         <button
-          onClick={() => setIsPhotoClicked(!isPhotoClicked)}
+          onClick={handleClick}
           className={styles.avatarButton}
           type="button"
           aria-label="Изменить аватар пользователя"

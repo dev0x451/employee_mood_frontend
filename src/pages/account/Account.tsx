@@ -1,77 +1,67 @@
-import { Navbar } from "@/components/Navbar/Navbar";
-import styles from "./account.module.scss";
-import React, { ReactElement, useState } from "react";
-import { Button } from "@/shared/ui/Button/Button";
-import { useAppSelector } from "@/store/hooks";
+import { ReactElement, useState } from "react";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { selectUserInfo } from "@/store/reducers/currentUser/currentUserReducer";
+import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
+import * as alertErrorActions from "@/store/reducers/alertError/alertErrorReducer";
+import { AboutSection } from "./components/AboutSection/AboutSection";
+import { PhotoSection } from "./components/PhotoSection/PhotoSection";
+import { PhotoSettingsPopup } from "./components/PhotoSettingsPopup/PhotoSettingsPopup";
+import { aboutHandler } from "./helpers/aboutHandler";
+import { removePhoto, uploadPhoto } from "./helpers/handlePhotoSettings";
+import styles from "./account.module.scss";
 import { UserInfo } from "@/types";
-import { AboutSection } from "@/pages/account/components/AboutSection/AboutSection";
-import { convertBase64 } from "@/pages/account/helpers/convertBase64";
-import { PhotoSection } from "@/pages/account/components/PhotoSection/PhotoSection";
+import { BASE_URL_MEDIA } from "@/shared/constants";
+import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
+import { Navbar } from "@/components/Navbar/Navbar";
+import { ButtonsList } from "@/pages/account/components/ButtonsList/ButtonsList";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo, toDeletePhoto: string) => void;
-  showAvatarError: () => void;
-  error: string;
 }
-export const Account = ({
-  handleChangeUserInfo,
-  error,
-  showAvatarError,
-}: Props): ReactElement => {
-  const BASE_URL = "https://em-dev.usolcev.com";
+export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
+  const dispatch = useAppDispatch();
   const currentUser = useAppSelector(selectUserInfo);
-
-  const initialPhoto =
-    currentUser.avatar !== null ? `${BASE_URL}${currentUser.avatar}` : "";
-  const [photo, setPhoto] = useState(initialPhoto);
+  const errorMessage = useAppSelector(alertErrorActions.selectErrorMessage);
+  const [photo, setPhoto] = useState(
+    currentUser.avatar !== null ? `${BASE_URL_MEDIA}${currentUser.avatar}` : ""
+  );
   const [about, setAbout] = useState(currentUser.about || "");
   const [aboutError, setAboutError] = useState("");
   const [toDeletePhoto, setToDeletePhoto] = useState("");
+  const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
 
-  const aboutHandler = (e: React.ChangeEvent<HTMLTextAreaElement>): void => {
-    const target = e.target as HTMLTextAreaElement;
-    setAbout(target.value);
-    if (target.value.length < 2 && target.value.length) {
-      setAboutError("Минимальное количество символов: 2");
-    } else if (target.value.length > 256) {
-      setAboutError("Максимальное количество символов: 256");
-    } else {
-      setAboutError("");
-    }
-  };
+  useEscapeKey(() => setIsPhotoClicked(false));
 
   const handleUpdateUser = () => {
+    const userInfo: UserInfo = {
+      about: about,
+    };
+
     if (photo.includes("base64")) {
-      handleChangeUserInfo({ avatar: photo, about: about }, toDeletePhoto);
-    } else {
-      handleChangeUserInfo({ about: about }, toDeletePhoto);
+      userInfo.avatar = photo;
     }
-    if (error) {
-      setPhoto(initialPhoto);
-    }
-  };
 
-  const uploadPhoto = async (e: any) => {
-    const file = e.target.files[0];
-    if (file.size > 4000000 || !file.name.match(/(.jpg|.png|.jpeg)/)) {
-      showAvatarError();
-    } else {
-      const base64: string = (await convertBase64(file)) as string;
-      setPhoto(base64);
+    handleChangeUserInfo(userInfo, toDeletePhoto);
+    if (errorMessage) {
+      setPhoto(
+        currentUser.avatar !== null
+          ? `${BASE_URL_MEDIA}${currentUser.avatar}`
+          : ""
+      );
     }
-    setIsPhotoClicked(false);
-  };
-
-  const removePhoto = () => {
-    setPhoto("");
-    setToDeletePhoto("/?delete_avatar=true");
-    setIsPhotoClicked(false);
   };
 
   const cancelSettings = () => {
     setAbout(currentUser.about || "");
-    setPhoto(initialPhoto || "");
+    setPhoto(
+      currentUser.avatar !== null
+        ? `${BASE_URL_MEDIA}${currentUser.avatar}`
+        : ""
+    );
+  };
+
+  const showAvatarError = () => {
+    dispatch(setErrorMessage("Фотография неподходящего размера или формата"));
   };
 
   return (
@@ -82,32 +72,38 @@ export const Account = ({
           <div className={styles.accountContainer}>
             <h1 className={styles.title}>Контактная информация</h1>
             <div className={styles.content}>
-              <PhotoSection />
+              <PhotoSettingsPopup
+                closePopup={() => setIsPhotoClicked(false)}
+                isPhotoClicked={isPhotoClicked}
+                uploadPhoto={(e: any) =>
+                  uploadPhoto(e, setPhoto, setIsPhotoClicked, showAvatarError)
+                }
+                removePhoto={() =>
+                  removePhoto(setPhoto, setToDeletePhoto, setIsPhotoClicked)
+                }
+              />
+              <PhotoSection
+                photo={photo}
+                handleClick={() => setIsPhotoClicked(!isPhotoClicked)}
+                firstName={currentUser.first_name}
+                lastName={currentUser.last_name}
+                avatar={
+                  currentUser.avatar !== null
+                    ? `${BASE_URL_MEDIA}${currentUser.avatar}`
+                    : ""
+                }
+              />
               <AboutSection
                 about={about}
                 aboutError={aboutError}
-                aboutHandler={aboutHandler}
+                aboutHandler={(e) => aboutHandler(e, setAbout, setAboutError)}
               />
             </div>
-            <ul className={styles.buttonsList}>
-              <li>
-                <Button
-                  handleClick={handleUpdateUser}
-                  disabled={aboutError.length !== 0}
-                  mode="primary"
-                  title="Сохранить"
-                  width="222px"
-                />
-              </li>
-              <li>
-                <Button
-                  handleClick={cancelSettings}
-                  disabled={aboutError.length !== 0}
-                  mode="empty"
-                  title="Отменить"
-                />
-              </li>
-            </ul>
+            <ButtonsList
+              handleUpdateUser={handleUpdateUser}
+              aboutError={aboutError}
+              cancelSettings={cancelSettings}
+            />
           </div>
         </div>
       </div>

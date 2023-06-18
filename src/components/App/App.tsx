@@ -124,10 +124,6 @@ export const App = () => {
     }
   }
 
-  const showAvatarError = () => {
-    dispatch(setErrorMessage("Фотография неподходящего размера или формата"));
-  };
-
   async function handleLogin(values: MyFormValues) {
     try {
       const response = await ApiAuth.loginUser(values);
@@ -282,7 +278,6 @@ export const App = () => {
         handleRegister={handleRegister}
         handleSendResetCode={handleSendResetCode}
         handleResetPassword={handleResetPassword}
-        showAvatarError={showAvatarError}
         openTestAlertPopup={openTestAlertPopup}
       />
     </main>

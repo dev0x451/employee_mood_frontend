@@ -30,7 +30,6 @@ interface Props {
   handleRegister: any;
   handleSendResetCode: any;
   handleResetPassword: any;
-  showAvatarError: any;
   openTestAlertPopup: any;
 }
 export const Routing: React.FC<Props> = ({
@@ -90,7 +89,6 @@ export const Routing: React.FC<Props> = ({
             <Account
               handleChangeUserInfo={handleChangeUserInfo}
               error={error}
-              showAvatarError={showAvatarError}
             />
           }
         />

@@ -21,71 +21,9 @@
 .content {
   display: flex;
   gap: 24px;
+
   &-photo {
     position: relative;
-  }
-}
-
-.avatar {
-  &-area {
-    position: relative;
-    @include size(138px, 138px);
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-  }
-  &-photo {
-    @include size (100%, 100%);
-    object-fit: cover;
-    &-no {
-      @include flex-center;
-      background-color: var(--color-background-accent);
-      color: var(--color-accent-purple);
-      font-family: Roboto, sans-serif;
-      font-size: 51.75px;
-      line-height: 51.75px;
-      font-weight: 600;
-    }
-  }
-  &-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    @include size (100%, 100%);
-    padding: 0;
-    border: none;
-    outline: 0px solid;
-    border-radius: 50%;
-    background-color: transparent;
-    transition: background-color .2s;
-    &:hover {
-      background: rgb(0 0 0 / 60%) url('./ui/camera_28.svg') no-repeat center;
-      cursor: pointer;
-    }
-  }
-}
-
-.buttons-list {
-  display: flex;
-  align-items: center;
-  padding: 0;
-  margin: 33px 0 0 163px;
-  gap: 47px;
-  list-style-type: none;
-}
-
-.cancel-button {
-  @include size(72px, 20px);
-  border: none;
-  background-color: transparent;
-  color: var(--color-accent-purple);
-  cursor: pointer;
-  font: var(--font-button);
-  &:hover {
-    color: var(--color-accent-violet);
-  }
-  &:active {
-    color: var(--color-accent-secondary);
   }
 }
 
