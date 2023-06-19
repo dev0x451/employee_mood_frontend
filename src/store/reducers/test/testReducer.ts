@@ -3,8 +3,8 @@ import type {RootState} from "../../store";
 import {AnswerResult, TestResults} from "@/types";
 
 const initialState: TestResults = {
-  survey: 0,
   results: [],
+  survey: 0,
 };
 
 export const testSlice = createSlice({
