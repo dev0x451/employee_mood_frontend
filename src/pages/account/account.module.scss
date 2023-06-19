@@ -4,127 +4,26 @@
   position: relative;
   padding: 40px 0 0 52px;
   background-color: var(--color-background);
-}
-
-.containers-list {
-  position: relative;
-  display: flex;
-  margin: 0;
-  @include list-initial-style;
-  gap: 28px;
-  &-item {
-    @include size(500px, 198px);
-    padding: 24px 20px;
-    border-radius: 20px;
+  &-container {
     background-color: var(--color-background-white);
+    border-radius: 20px;
+    min-height: 568px;
+    width: 1028px;
+    padding: 40px;
   }
-}
-
-.buttons-list {
-  display: flex;
-  align-items: center;
-  padding: 0;
-  margin: 100px 0 0 300px;
-  gap: 28px;
-  list-style-type: none;
 }
 
 .title {
-  margin: 0 0 16px;
+  margin: 0 0 24px;
   font: var(--font-h1);
 }
 
-.contact-info {
-  @include flex-align-center;
-  gap: 20px;
-}
+.content {
+  display: flex;
+  gap: 24px;
 
-.avatar {
-  &-area {
-    position: relative;
-    @include size(96px, 96px);
-    border-radius: 50%;
-    overflow: hidden;
-    cursor: pointer;
-  }
   &-photo {
-    @include size (100%, 100%);
-    &-no {
-      @include flex-center;
-      background-color: var(--color-background-accent);
-      color: var(--color-accent-purple);
-      font-family: Roboto, sans-serif;
-      font-size: 36px;
-      font-weight: 500;
-    }
-  }
-  &-button {
-    position: absolute;
-    top: 0;
-    left: 0;
-    @include size (100%, 100%);
-    padding: 0;
-    border: none;
-    border-radius: 50%;
-    background-color: transparent;
-    transition: background-color .2s;
-    &:hover {
-      background: rgb(0 0 0 / 60%) url('./camera_28.svg') no-repeat center;
-      cursor: pointer;
-    }
+    position: relative;
   }
 }
 
-.text-info-list {
-  @include list-initial-style;
-  margin: 0;
-}
-
-.name-info {
-  margin-bottom: 4px;
-  font: var(--font-button);
-}
-
-.job-info {
-  color: var(--color-black);
-  font: var(--font-body);
-}
-
-.title-about {
-  margin: 0 0 12px;
-  font: var(--font-h2);
-}
-
-.textarea {
-  @include size (460px, 114px);
-  padding: 12px;
-  border: 0.5px solid rgb(0 0 0 /12%);
-  border-radius: 12px;
-  background-color: var(--color-background);
-  color: var(--color-text-primary);
-  font: var(--font-body);
-  outline: none;
-  resize: none;
-  text-align: start;
-}
-
-.about-error {
-  position: absolute;
-  bottom: -30px;
-  left: 530px;
-}
-
-.cancel-button {
-  @include size(200px, 44px);
-  border: none;
-  background-color: transparent;
-  color: var(--color-accent-purple);
-  cursor: pointer;
-  font: var(--font-button);
-  &:hover {
-    color: var(--color-accent-violet);
-  }
-  &:active {
-    color: var(--color-accent-secondary);
-  }
-}

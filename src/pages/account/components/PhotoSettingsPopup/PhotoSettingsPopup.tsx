@@ -1,7 +1,7 @@
 import styles from "./photosettingspopup.module.css";
 import React, { useRef } from "react";
-import UploadIcon from "./folder_20.svg";
-import DeleteIcon from "./door_20.svg";
+import UploadIcon from "../../ui/folder_20.svg";
+import DeleteIcon from "../../ui/door_20.svg";
 import { useOutsideClick } from "@/shared/hooks/useOutsideClick";
 
 interface Props {

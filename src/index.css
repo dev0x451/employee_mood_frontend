@@ -32,6 +32,7 @@
   --color-error: #e64646;
   --color-main-background: #EBF1F4;
   --color-burnout-banner-background: #d5d0ef;
+  --color-disabled : #B6C1CF;
 
   /* Shadows */
   --shadow-medium: 0 15px 20px 0 rgb(88 81 94 / 10%);

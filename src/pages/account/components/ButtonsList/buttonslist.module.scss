@@ -1,0 +1,25 @@
+@import '@/shared/styles/mixins.scss';
+
+.buttons-list {
+  display: flex;
+  align-items: center;
+  padding: 0;
+  margin: 33px 0 0 163px;
+  gap: 47px;
+  list-style-type: none;
+}
+
+.cancel-button {
+  @include size(72px, 20px);
+  border: none;
+  background-color: transparent;
+  color: var(--color-accent-purple);
+  cursor: pointer;
+  font: var(--font-button);
+  &:hover {
+    color: var(--color-accent-violet);
+  }
+  &:active {
+    color: var(--color-accent-secondary);
+  }
+}
