@@ -8,7 +8,7 @@ import {
   jwtTypes,
   MyFormValues,
   TestInterface,
-  TestResult,
+  TestResults,
   UserInfo,
 } from "@/types";
 
@@ -16,14 +16,17 @@ import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
 import { useLocation } from "react-router";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { resetAllCurrentUserData, setAllCurrentUserData } from "@/store/reducers/currentUser/currentUserReducer";
+import {
+  resetAllCurrentUserData,
+  setAllCurrentUserData,
+} from "@/store/reducers/currentUser/currentUserReducer";
 import { Routing } from "@/Routing";
 import { AlertPopup } from "@/shared/ui/AlertPopup/AlertPopup";
+import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
+import { setSuccessMessage } from "@/store/reducers/alertSuccess/alertSuccessReducer";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
   const [resultOfPsychoTest, setResultOfPsychoTest] =
     useState<ExpressDiagnoseResponse>();
   const [expressTest, setExpressTest] = useState<TestInterface | null>(null);
@@ -31,7 +34,9 @@ export const App = () => {
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
-  const role = useAppSelector((state) => state.currentUserSlice.currentUser.role);
+  const role = useAppSelector(
+    (state) => state.currentUserSlice.currentUser.role
+  );
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -92,7 +97,7 @@ export const App = () => {
     if (loggedIn) {
       try {
         const response = await Api.getUser();
-        dispatch(setAllCurrentUserData(response.data))
+        dispatch(setAllCurrentUserData(response.data));
         console.log("currentUser", response.data.role);
       } catch (err: any) {
         console.log(err);
@@ -109,17 +114,13 @@ export const App = () => {
     try {
       const response = await Api.changeUserInfo(userInfo, toDeletePhoto);
       if (response) {
-        setSuccess("Изменения сохранены");
+        dispatch(setSuccessMessage("Изменения сохранены"));
         getUserInfo();
       }
     } catch (err) {
-      setError("Что-то пошло не так. Попробуйте еще раз.");
+      dispatch(setErrorMessage("Что-то пошло не так. Попробуйте еще раз."));
     }
   }
-
-  const showAvatarError = () => {
-    setError("Фотография неподходящего размера или формата");
-  };
 
   async function handleLogin(values: MyFormValues) {
     try {
@@ -130,13 +131,13 @@ export const App = () => {
         setLoggedIn(true);
       }
     } catch {
-      setError("Неверный логин или пароль");
+      dispatch(setErrorMessage("Неверный логин или пароль"));
     }
   }
 
   const handleSignOut = () => {
     setLoggedIn(false);
-    dispatch(resetAllCurrentUserData())
+    dispatch(resetAllCurrentUserData());
     navigate("/login");
     localStorage.removeItem("jwt");
     localStorage.removeItem("refresh");
@@ -151,7 +152,7 @@ export const App = () => {
         await handleLogin({ email, password });
       }
     } catch {
-      setError("Что-то пошло не так. Попробуйте еще раз");
+      dispatch(setErrorMessage("Что-то пошло не так. Попробуйте еще раз"));
     }
   }
 
@@ -159,10 +160,10 @@ export const App = () => {
     try {
       const response = await ApiAuth.sendResetCode(email);
       if (response) {
-        setSuccess("Письмо отправлено на почту");
+        dispatch(setSuccessMessage("Письмо отправлено на почту"));
       }
     } catch (err) {
-      setError("Не удалось найти пользователя с таким e-mail");
+      dispatch(setErrorMessage("Не удалось найти пользователя с таким e-mail"));
     }
   }
 
@@ -170,10 +171,10 @@ export const App = () => {
     try {
       const response = await Api.sendInviteCode(email);
       if (response) {
-        setSuccess("Приглашение отправлено!");
+        dispatch(setSuccessMessage("Приглашение отправлено!"));
       }
     } catch (err) {
-      setError("Пользователь с таким e-mail уже существует");
+      dispatch(setErrorMessage("Пользователь с таким e-mail уже существует"));
     }
   }
 
@@ -184,11 +185,13 @@ export const App = () => {
         navigate("/login");
       }
     } catch (err) {
-      setError("Недействительный ключ");
+      dispatch(setErrorMessage("Недействительный ключ"));
     }
   }
 
-  async function handleSendTestResult(result: TestResult) {
+
+  async function handleSendTestResult(result: TestResults
+    ) {
     try {
       const response = await Api.sendTestResults(result);
       setResultOfPsychoTest(response.data);
@@ -244,9 +247,12 @@ export const App = () => {
     handleEmployees();
   }, [role]);
 
-  const resetMessages = () => {
-    setError("");
-    setSuccess("");
+  const openTestAlertPopup = () => {
+    dispatch(
+      setErrorMessage(
+        `Для перехода на следующий шаг нужно ответить на все вопросы`
+      )
+    );
   };
 
   if (isLoading) {
@@ -255,11 +261,7 @@ export const App = () => {
 
   return (
     <main className={styles.page}>
-      <AlertPopup
-        resetMessages={resetMessages}
-        isPositive={success ? true : false}
-        popupMessage={success ? success : error ? error : ""}
-      />
+      <AlertPopup />
       <Routing
         loggedIn={loggedIn}
         handleSignOut={handleSignOut}
@@ -268,16 +270,13 @@ export const App = () => {
         handleSendTestResult={handleSendTestResult}
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}
-        success={success}
-        error={error}
         employees={employees}
         handleSendInviteCode={handleSendInviteCode}
         handleLogin={handleLogin}
         handleRegister={handleRegister}
         handleSendResetCode={handleSendResetCode}
         handleResetPassword={handleResetPassword}
-        resetMessages={resetMessages}
-        showAvatarError={showAvatarError}
+        openTestAlertPopup={openTestAlertPopup}
       />
     </main>
   );

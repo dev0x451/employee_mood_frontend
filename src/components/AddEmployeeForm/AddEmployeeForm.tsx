@@ -11,13 +11,11 @@ interface Props {
   addPopupVisible: boolean;
   handleSendInviteCode: (email: string) => Promise<void>;
   closeAddPopup: () => void;
-  success: string;
 }
 export const AddEmployeeForm: React.FC<Props> = ({
   addPopupVisible,
   handleSendInviteCode,
   closeAddPopup,
-  success,
 }) => {
   return (
     <div className={styles.form}>
@@ -33,7 +31,7 @@ export const AddEmployeeForm: React.FC<Props> = ({
         validationSchema={addEmailSchema}
       >
         <Form noValidate>
-          <AutoResetForm addPopupVisible={addPopupVisible} success={success} />
+          <AutoResetForm addPopupVisible={addPopupVisible} />
           <h2 className={styles.title}>Добавить сотрудника</h2>
           <div className={styles.inputContainer}>
             <Input label="Введите e-mail" name="email" type="text" />

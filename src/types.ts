@@ -31,15 +31,6 @@ export interface MyFormValues {
   email: string;
 }
 
-export interface RegisterFormValues {
-  password: string;
-  confirmPassword: string;
-  lastName: string;
-  firstName: string;
-  department: string;
-  position: string;
-}
-
 export type CallbackFunction = () => void;
 
 export interface Image {
@@ -49,34 +40,94 @@ export interface Image {
 }
 
 export interface Question {
+  id: string;
   text: string;
+  number: number;
+}
+
+export interface TestAuthor {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
+
+export interface TestVariantAswer {
+  text: string;
+  value: number;
 }
 
 export interface TestInterface {
-  author: number;
   creation_date: string;
+  type: string;
   department: number;
   description: string;
+  questions_quantity: number;
   frequency: number;
   id: number;
   is_active: boolean;
   questions: Question[];
   title: string;
+  text: string;
+  author: TestAuthor | null;
+  variants: TestVariantAswer[];
 }
 
-export interface TestResult {
-  positive_value: number;
-  negative_value: number;
+// export interface TestResult {
+//   // positive_value: number;
+//   // negative_value: number;
+//   survey: number;
+//   results:
+// }
+
+export interface AnswerResult {
+  question_id: number;
+  variant_value: number;
+}
+
+export interface TestResults {
   survey: number;
+  results: AnswerResult[]
+}
+
+export interface SubmitArguments {
+  results: AnswerResult[];
+  survey: number;
+}
+
+export interface ExpressDiagnoseEmployee {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
+
+export interface ExpressDiagnoseSurvey {
+  id: number;
+  title: string;
+  type: string;
+  frequency: number;
+  creation_date: string;
+  questions_quantity: number;
+  description: string;
+  text: string;
+  author: TestAuthor | number;
+}
+
+export interface ExpressDiagnoseMentalState {
+  name: string;
+  description: string;
+  message: string;
+  level: number;
 }
 
 export interface ExpressDiagnoseResponse {
-  completion_date: string;
-  employee: number;
   id: number;
+  employee: ExpressDiagnoseEmployee;
+  survey: ExpressDiagnoseSurvey;
+  mental_state: ExpressDiagnoseMentalState;
+  summary: string | null;
+  results: AnswerResult[];
+  completion_date: string;
   next_attempt_date: string;
-  result: string;
-  survey: number;
 }
 
 export interface UserDepartment {
@@ -113,9 +164,9 @@ export interface UserMentalState {
 }
 
 export interface UserPosition {
-  id: number,
-  name: string,
-  chief_position: boolean
+  id: number;
+  name: string;
+  chief_position: boolean;
 }
 
 export interface User {

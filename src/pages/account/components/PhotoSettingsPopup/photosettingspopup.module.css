@@ -1,7 +1,8 @@
 .photo-settings-list {
   position: absolute;
-  bottom: -55px;
-  left: -38px;
+  z-index: 10;
+  top: 280px;
+  left: 15px;
   display: none;
   width: 227px;
   height: 80px;

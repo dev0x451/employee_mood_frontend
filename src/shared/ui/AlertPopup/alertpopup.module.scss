@@ -3,15 +3,15 @@
 .error-popup {
   position: absolute;
   z-index: 100;
-  top: 3%;
+  top: 60px;
   right: 0;
   left: 0;
   display: none;
   width: fit-content;
-  height: 92px;
   align-items: center;
-  justify-content: center;
-  padding: 0 30px 0 24px;
+  max-width: 396px;
+  padding: 22px 36px 22px 24px;
+  border: 0.33px solid rgba(153, 162, 173, 0.3);
   border-radius: 20px;
   margin-right: auto;
   margin-left: auto;
@@ -29,10 +29,6 @@
 }
 
 .popup-text {
-  font: var(--font-h3);
-}
-
-.close-btn:hover {
-  opacity: 0.7;
+  font: var(--font-h4-alert);
 }
 
