@@ -1,18 +1,19 @@
-import {Route, Routes} from "react-router-dom";
-import {ProtectedRoutes} from "@/components/ProtectedRoutes.js";
-import {Main} from "@/pages/main/Main.js";
-import {Tests} from "@/pages/tests/Tests.js";
-import {Useful} from "@/pages/useful/Useful.js";
-import {Test} from "@/components/Test/Test.js";
-import {Advices} from "@/pages/advices/Advices.js";
-import {Events} from "@/pages/events/Events.js";
-import {Bookmarks} from "@/pages/bookmarks/Bookmarks.js";
-import {Pagenotfound} from "./pages/pagenotfound/Pagenotfound";
-import {Account} from "@/pages/account/Account.js";
-import {Myteam} from "@/components/Myteam/Myteam.js";
-import {LoginPage} from "@/pages/login/LoginPage.js";
-import {RegisterPage} from "@/pages/register/RegisterPage.js";
-import {RefreshPasswordPage} from "@/pages/refreshpassword/RefreshPasswordPage.js";
+import { Route, Routes } from "react-router-dom";
+import { ProtectedRoutes } from "@/components/ProtectedRoutes.js";
+import { Main } from "@/pages/main/Main.js";
+import { Tests } from "@/pages/tests/Tests.js";
+import { Useful } from "@/pages/useful/Useful.js";
+import { Test } from "@/components/Test/Test.js";
+import { BurnoutTest } from "./components/BurnoutTest/BurnoutTest";
+import { Advices } from "@/pages/advices/Advices.js";
+import { Events } from "@/pages/events/Events.js";
+import { Bookmarks } from "@/pages/bookmarks/Bookmarks.js";
+import { Pagenotfound } from "./pages/pagenotfound/Pagenotfound";
+import { Account } from "@/pages/account/Account.js";
+import { Myteam } from "@/components/Myteam/Myteam.js";
+import { LoginPage } from "@/pages/login/LoginPage.js";
+import { RegisterPage } from "@/pages/register/RegisterPage.js";
+import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage.js";
 import React from "react";
 
 interface Props {
@@ -20,6 +21,7 @@ interface Props {
   handleSignOut: any;
   allTestsResults: any;
   expressTest: any;
+  burnoutTest: any;
   handleSendTestResult: any;
   resultOfPsychoTest: any;
   handleChangeUserInfo: any;
@@ -37,6 +39,7 @@ export const Routing: React.FC<Props> = ({
   handleSignOut,
   allTestsResults,
   expressTest,
+  burnoutTest,
   handleSendTestResult,
   resultOfPsychoTest,
   handleChangeUserInfo,
@@ -63,7 +66,7 @@ export const Routing: React.FC<Props> = ({
         />
 
         <Route
-          path="tests/:id"
+          path="tests/express"
           element={
             <Test
               test={expressTest}
@@ -74,7 +77,19 @@ export const Routing: React.FC<Props> = ({
           }
         />
 
-        <Route path="advices" element={<Advices/>}/>
+        <Route
+          path="tests/burnout"
+          element={
+            <BurnoutTest
+              test={burnoutTest}
+              onSendTestResult={handleSendTestResult}
+              resultOfPsychoTest={resultOfPsychoTest}
+              openTestAlertPopup={openTestAlertPopup}
+            />
+          }
+        />
+
+        <Route path="advices" element={<Advices />} />
 
         <Route path="events" element={<Events/>}/>
 
