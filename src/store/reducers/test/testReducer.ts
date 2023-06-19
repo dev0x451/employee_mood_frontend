@@ -1,11 +1,10 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../../store";
-import { AnswerResult, TestResults } from "@/types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import type {RootState} from "../../store";
+import {AnswerResult, TestResults} from "@/types";
 
 const initialState: TestResults = {
   survey: 0,
   results: [],
-  survey: 0
 };
 
 export const testSlice = createSlice({
@@ -45,6 +44,6 @@ export const testSlice = createSlice({
 });
 
 export const selectTestResults = (state: RootState) => state.testSlice.results;
-export const { addTestResults, resetTestResults } = testSlice.actions;
+export const {addTestResults, resetTestResults} = testSlice.actions;
 
 export default testSlice.reducer;
