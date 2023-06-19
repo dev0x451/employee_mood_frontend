@@ -79,6 +79,7 @@ export interface AnswerResult {
 
 export interface TestResults {
   results: AnswerResult[]
+  survey: number
 }
 
 export interface SubmitArguments {
