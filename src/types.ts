@@ -187,8 +187,13 @@ export interface User {
   role: string;
 }
 
+export interface Hobby {
+  hobby: number;
+}
+
 export interface UserInfo {
   avatar?: string | null;
+  hobbies?: Hobby[];
   about: string;
 }
 
@@ -198,9 +203,4 @@ export interface jwtTypes {
   iat: number;
   jti: string;
   user_id: number;
-}
-
-export interface InterestInterface {
-  id: number;
-  name: string;
 }

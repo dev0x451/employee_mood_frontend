@@ -14,6 +14,10 @@ import { BASE_URL_MEDIA } from "@/shared/constants";
 import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { ButtonsList } from "@/pages/account/components/ButtonsList/ButtonsList";
+import {
+  arrayEquals,
+  getHobbiesId,
+} from "@/pages/account/helpers/handleHobbiesSettings";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo, toDeletePhoto: string) => void;
@@ -27,9 +31,14 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
   );
   const [about, setAbout] = useState(currentUser.about || "");
   const [hobbies, setHobbies] = useState(currentUser.hobbies || []);
+  const [isHobbiesEqual, setIsHobbiesEqual] = useState(true);
   const [aboutError, setAboutError] = useState("");
   const [toDeletePhoto, setToDeletePhoto] = useState("");
   const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
+
+  const removeInterest = (index: number) => {
+    setHobbies(hobbies.filter((_, i) => i !== index));
+  };
 
   useEscapeKey(() => setIsPhotoClicked(false));
 
@@ -40,6 +49,10 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
 
     if (photo.includes("base64")) {
       userInfo.avatar = photo;
+    }
+    arrayEquals(hobbies, currentUser.hobbies, setIsHobbiesEqual);
+    if (isHobbiesEqual) {
+      userInfo.hobbies = getHobbiesId(hobbies);
     }
 
     handleChangeUserInfo(userInfo, toDeletePhoto);
@@ -99,6 +112,7 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
                 aboutError={aboutError}
                 aboutHandler={(e) => aboutHandler(e, setAbout, setAboutError)}
                 interests={hobbies}
+                removeInterest={removeInterest}
               />
             </div>
             <ButtonsList

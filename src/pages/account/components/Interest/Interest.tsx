@@ -1,14 +1,19 @@
 import styles from "./interest.module.scss";
-import { InterestInterface } from "@/types";
+import { UserHobby } from "@/types";
 
 interface Props {
-  interest: InterestInterface;
+  interest: UserHobby;
+  removeInterest: (index: number) => void;
+  index: number;
 }
-export const Interest = ({ interest }: Props) => {
+export const Interest = ({ interest, removeInterest, index }: Props) => {
   return (
     <div key={interest.id} className={styles.interestItem}>
       <p className={styles.interestText}>{interest.name}</p>
-      <button className={styles.interestBtn} />
+      <button
+        className={styles.interestBtn}
+        onClick={() => removeInterest(index)}
+      />
     </div>
   );
 };

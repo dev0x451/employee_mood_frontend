@@ -1,0 +1,8 @@
+@import '@/shared/styles/mixins.scss';
+
+.container {
+  display: none;
+  &-visible {
+  display: block;
+   }
+}

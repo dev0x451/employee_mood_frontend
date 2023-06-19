@@ -4,14 +4,15 @@ import { ErrorMessage } from "@/shared/ui/ErrorMessage/ErrorMessage";
 import { useAppSelector } from "@/store/hooks";
 import { selectUserInfo } from "@/store/reducers/currentUser/currentUserReducer";
 import React, { ReactElement } from "react";
-import { Interest } from "@/types";
+import { UserHobby } from "@/types";
 import { Interests } from "@/pages/account/components/Interests/Interests";
 
 interface Props {
   about: string;
   aboutError: string;
   aboutHandler: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  interests: Interest[];
+  interests: UserHobby[];
+  removeInterest: (index: number) => void;
 }
 
 export const AboutSection = ({
@@ -19,6 +20,7 @@ export const AboutSection = ({
   aboutError,
   aboutHandler,
   interests,
+  removeInterest,
 }: Props): ReactElement => {
   const currentUser = useAppSelector(selectUserInfo);
 
@@ -33,7 +35,7 @@ export const AboutSection = ({
         <PseudoInput label="Почта" placeholder={currentUser.email} />
       </li>
       <li className={styles.contentAboutItem}>
-        <Interests interests={interests} />
+        <Interests interests={interests} removeInterest={removeInterest} />
         <div className={styles.about}>
           <h3 className={styles.contentAboutTitle}>Обо мне</h3>
           <textarea

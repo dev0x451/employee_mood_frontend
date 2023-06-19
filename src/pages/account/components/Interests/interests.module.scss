@@ -2,8 +2,6 @@
 
 .interests {
   width: calc(100% - 20px / 2);
-  &-container {
-  }
   &-list {
     display: flex;
     flex-wrap: wrap;
@@ -18,6 +16,7 @@
     margin-right: 4px;
     @include size (57px, 40px);
     border-radius: 12px;
+    outline: 0px solid;
     border: 1px solid var(--color-accent-purple);
     background-color: var(--color-background-white);
     background-image: url('@/pages/account/ui/plus_20_normal.svg');
@@ -31,6 +30,11 @@
     &:active {
       border: 1px solid var(--color-accent-secondary);
       background-image: url('@/pages/account/ui/plus_20_active.svg');
+    }
+    &-no-float {
+      float: none;
+      margin-bottom: 4px;
+      display: block;
     }
   }
 }
