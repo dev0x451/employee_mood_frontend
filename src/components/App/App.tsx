@@ -8,7 +8,7 @@ import {
   jwtTypes,
   MyFormValues,
   TestInterface,
-  TestResult,
+  SubmitArguments,
   UserInfo,
 } from "@/types";
 
@@ -30,6 +30,7 @@ export const App = () => {
   const [resultOfPsychoTest, setResultOfPsychoTest] =
     useState<ExpressDiagnoseResponse>();
   const [expressTest, setExpressTest] = useState<TestInterface | null>(null);
+  const [burnoutTest, setBurnoutTest] = useState<TestInterface | null>(null);
   const [allTestsResults, setallTestsResults] =
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
@@ -193,7 +194,7 @@ export const App = () => {
     }
   }
 
-  async function handleSendTestResult(result: TestResult) {
+  async function handleSendTestResult(result: SubmitArguments) {
     try {
       const response = await Api.sendTestResults(result);
       setResultOfPsychoTest(response.data);
@@ -221,6 +222,15 @@ export const App = () => {
     }
   }
 
+  async function getTestsBurnoutQuestions() {
+    try {
+      const response = await Api.getTestQuestions("2");
+      setBurnoutTest(response.data);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
   // if (loggedIn) {
   // const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
   // }
@@ -229,6 +239,7 @@ export const App = () => {
     if (loggedIn) {
       getAllTestsResult();
       getTestsQuestions();
+      getTestsBurnoutQuestions();
     }
   }, [loggedIn]);
 
@@ -274,6 +285,7 @@ export const App = () => {
         handleSignOut={handleSignOut}
         allTestsResults={allTestsResults}
         expressTest={expressTest}
+        burnoutTest={burnoutTest}
         handleSendTestResult={handleSendTestResult}
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}

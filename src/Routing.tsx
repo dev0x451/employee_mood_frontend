@@ -3,6 +3,7 @@ import { ProtectedRoutes } from "@/components/ProtectedRoutes.js";
 import { Main } from "@/pages/main/Main.js";
 import { Tests } from "@/pages/tests/Tests.js";
 import { Test } from "@/components/Test/Test.js";
+import { BurnoutTest } from "./components/BurnoutTest/BurnoutTest";
 import { Advices } from "@/pages/advices/Advices.js";
 import { Events } from "@/pages/events/Events.js";
 import { Bookmarks } from "@/pages/bookmarks/Bookmarks.js";
@@ -19,6 +20,7 @@ interface Props {
   handleSignOut: any;
   allTestsResults: any;
   expressTest: any;
+  burnoutTest: any;
   handleSendTestResult: any;
   resultOfPsychoTest: any;
   handleChangeUserInfo: any;
@@ -39,6 +41,7 @@ export const Routing: React.FC<Props> = ({
   handleSignOut,
   allTestsResults,
   expressTest,
+  burnoutTest,
   handleSendTestResult,
   resultOfPsychoTest,
   handleChangeUserInfo,
@@ -69,10 +72,22 @@ export const Routing: React.FC<Props> = ({
         />
 
         <Route
-          path="tests/:id"
+          path="tests/express"
           element={
             <Test
               test={expressTest}
+              onSendTestResult={handleSendTestResult}
+              resultOfPsychoTest={resultOfPsychoTest}
+              openTestAlertPopup={openTestAlertPopup}
+            />
+          }
+        />
+
+        <Route
+          path="tests/burnout"
+          element={
+            <BurnoutTest
+              test={burnoutTest}
               onSendTestResult={handleSendTestResult}
               resultOfPsychoTest={resultOfPsychoTest}
               openTestAlertPopup={openTestAlertPopup}

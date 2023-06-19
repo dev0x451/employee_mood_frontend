@@ -25,11 +25,9 @@ export const testSlice = createSlice({
             }
           })}
         else {
-          console.log("Закинул новое значени екакоо-то хуя")
           res.push(action.payload)
         }
       } else {
-        console.log("Отработало при нуле")
         res.push(action.payload)
       }
 
