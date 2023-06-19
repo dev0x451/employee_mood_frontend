@@ -14,7 +14,6 @@ import { Myteam } from "@/components/Myteam/Myteam.js";
 import { LoginPage } from "@/pages/login/LoginPage.js";
 import { RegisterPage } from "@/pages/register/RegisterPage.js";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage.js";
-import React from "react";
 
 interface Props {
   loggedIn: any;
