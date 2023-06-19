@@ -26,6 +26,7 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
     currentUser.avatar !== null ? `${BASE_URL_MEDIA}${currentUser.avatar}` : ""
   );
   const [about, setAbout] = useState(currentUser.about || "");
+  const [hobbies, setHobbies] = useState(currentUser.hobbies || []);
   const [aboutError, setAboutError] = useState("");
   const [toDeletePhoto, setToDeletePhoto] = useState("");
   const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
@@ -97,6 +98,7 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
                 about={about}
                 aboutError={aboutError}
                 aboutHandler={(e) => aboutHandler(e, setAbout, setAboutError)}
+                interests={hobbies}
               />
             </div>
             <ButtonsList

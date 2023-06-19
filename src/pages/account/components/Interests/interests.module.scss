@@ -2,11 +2,20 @@
 
 .interests {
   width: calc(100% - 20px / 2);
+  &-container {
+  }
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+  }
   &-title {
     font: var(--font-h3);
     margin: 0 0 8px 0;
   }
   &-btn {
+    float: left;
+    display: inline-block;
+    margin-right: 4px;
     @include size (57px, 40px);
     border-radius: 12px;
     border: 1px solid var(--color-accent-purple);

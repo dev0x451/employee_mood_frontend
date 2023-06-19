@@ -86,7 +86,7 @@ export interface AnswerResult {
 
 export interface TestResults {
   survey: number;
-  results: AnswerResult[]
+  results: AnswerResult[];
 }
 
 export interface SubmitArguments {
@@ -198,4 +198,9 @@ export interface jwtTypes {
   iat: number;
   jti: string;
   user_id: number;
+}
+
+export interface InterestInterface {
+  id: number;
+  name: string;
 }
