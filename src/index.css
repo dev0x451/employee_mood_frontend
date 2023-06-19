@@ -5,7 +5,7 @@
 :root {
   /* overflow: scroll; */
   font-family: Roboto, Montserrat, system-ui, Avenir, Helvetica, Arial,
-    sans-serif;
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-synthesis: none;
@@ -55,6 +55,7 @@
   --font-body: 400 14px/18px "Roboto", sans-serif;
   --font-button: 500 16px/20px "Roboto", sans-serif;
   --font-search-input: 400 16px/20px "Roboto", sans-serif;
+  --font-more: 500 15px/18px "Roboto", sans-serif;
 }
 
 
