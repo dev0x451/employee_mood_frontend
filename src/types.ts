@@ -199,3 +199,17 @@ export interface jwtTypes {
   jti: string;
   user_id: number;
 }
+
+
+export interface Card {
+  trailerLink: string;
+  image: string;
+  title: string;
+  text: string;
+  duration: string;
+  tags: string[];
+}
+
+// export interface ISearchUseful {
+//   cards: Card[];
+// }

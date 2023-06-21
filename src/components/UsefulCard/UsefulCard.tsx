@@ -1,38 +1,33 @@
-import React from "react";
+import React, {useEffect} from "react";
 import heart from "../../../public/unlike.svg";
 import play from "../../../public/play.svg";
 import styles from "./usefulCard.module.scss";
+import {Card} from "@/types.ts";
 
-interface CardProps {
-  trailerLink?: string;
-  image: string;
-  title: string;
-  text: string;
-  duration: string;
-}
 
-const UsefulCard: React.FC<CardProps> = ({trailerLink, image, title, text, duration}) => {
-  // {usefulItem, onSaveUsefulItem, onDeleteUsefulItem, savedUsefulItems}:{  usefulItem: string[];
-  // onSaveUsefulItem: string;
-  // onDeleteUsefulItem: string;
-  // savedUsefulItems: string}
-// ) {
+const UsefulCard: React.FC<Card> = ({
+                                      trailerLink,
+                                      image,
+                                      title,
+                                      text,
+                                      duration,
+                                      tags
+                                    }) => {
+  useEffect(() => {
 
-  // const isSaved = savedUsefulItems.find((item) => item.Id === usefulItem.id);
-
-  // function handleSaveUsefulItem() {
+  }, [])
   //
-  //   if (!isSaved) {
-  //     onSaveUsefulItem(usefulItem);
-  //   } else {
-  //     onDeleteUsefulItem(usefulItem);
-  //   }
+  // const handleClick = (event: Event) => {
+  //   event.target.closest(`.like`).querySelector(`[name=price]`)
+  //   console.log('Сердечко нажато!', event.target);
   // }
-
-  // function handleDeleteUsefulItem() {
   //
-  //   onDeleteUsefulItem(usefulItem);
-  // }
+  // const likes = document.querySelectorAll('.like')
+  //
+  // likes.forEach((element) => {
+  //   element.addEventListener('click', handleClick);
+  // });
+
 
   return (
 
@@ -41,7 +36,10 @@ const UsefulCard: React.FC<CardProps> = ({trailerLink, image, title, text, durat
         <a className="" href={trailerLink} target="blank">
           <img className="" src={image}
                alt={title}/>
-          <div className={styles.play}><img src={play} alt="play"/></div>
+          {tags.some((tag) => tag === 'видео') ?
+            <div className={styles.play}><img src={play} alt="play"/></div>
+            :
+            ""}
         </a>
 
         <div className={styles.like}><img src={heart} alt="heart"/></div>
@@ -55,8 +53,11 @@ const UsefulCard: React.FC<CardProps> = ({trailerLink, image, title, text, durat
           <p className={styles.duration}>{duration}</p>
         </div>
         <div className={styles.tags}>
-          <div className={styles.tag}>Видео</div>
-          <div className={styles.tag}>Психология</div>
+          {tags
+            .map((tag, index) => (
+              <div className={styles.tag} key={index}>{tag}</div>
+            ))
+          }
         </div>
       </div>
 
