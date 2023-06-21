@@ -17,12 +17,9 @@
   }
 }
 
-.interests {
-  width: calc(100% - 20px / 2);
-}
-
 .about {
   width: calc(100% - 20px / 2);
+  position: relative;
   &-textarea {
     width: 100%;
     min-height: 150px;
@@ -41,7 +38,6 @@
   }
   &-error {
     position: absolute;
-    bottom: -30px;
-    left: 530px;
+    bottom: -15px;
   }
 }

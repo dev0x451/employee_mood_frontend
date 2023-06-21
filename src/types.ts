@@ -192,8 +192,13 @@ export interface User {
   role: string;
 }
 
+export interface Hobby {
+  hobby: number;
+}
+
 export interface UserInfo {
   avatar?: string | null;
+  hobbies?: Hobby[];
   about: string;
 }
 

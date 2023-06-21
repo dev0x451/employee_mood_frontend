@@ -1,0 +1,49 @@
+@import '@/shared/styles/mixins.scss';
+
+.interests {
+  position: relative;
+  width: calc(100% - 20px / 2);
+  &-list {
+    @include list-initial-style;
+    margin: 0 0 4px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  &-title {
+    font: var(--font-h3);
+    margin: 0 0 8px 0;
+  }
+  &-btn {
+    @include size (57px, 40px);
+    border-radius: 12px;
+    outline: 0px solid;
+    border: 1px solid var(--color-accent-purple);
+    background-color: var(--color-background-white);
+    background-image: url('@/pages/account/ui/plus_20_normal.svg');
+    @include background-no-repeat-center-cover;
+    background-size: auto;
+    cursor: pointer;
+    &:hover {
+      border: 1px solid var(--color-accent-violet);
+      background-image: url('@/pages/account/ui/plus_20_hovered.svg');
+    }
+    &:active {
+      border: 1px solid var(--color-accent-secondary);
+      background-image: url('@/pages/account/ui/plus_20_active.svg');
+    }
+  }
+}
+
+.disabled {
+  @include size (57px, 40px);
+  border-radius: 12px;
+  outline: 0px solid;
+  border: 1px solid var(--color-accent-purple);
+  background-color: var(--color-background-white);
+  background-image: url('@/pages/account/ui/plus_20_normal.svg');
+  @include background-no-repeat-center-cover;
+  background-size: auto;
+  opacity: 0.64;
+  cursor: auto;
+}

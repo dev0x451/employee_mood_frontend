@@ -48,6 +48,10 @@ export const getTestQuestions = (test: string | null) => {
   });
 };
 
+export const getHobbies = (word: string) => {
+  return axios.get(`${BASE_URL_REQUEST}/hobbies?search=${word}`);
+};
+
 export const getAllTestsResults = () => {
   return axios.get(
     `${BASE_URL_REQUEST}/metrics/surveys/results/?my_results=true`,
