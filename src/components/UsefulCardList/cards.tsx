@@ -12,7 +12,8 @@ export const cards: Card[] = [
       чем опасна многозадачность и какие четыре
       стадии есть у синдрома переутомления.`,
     duration: '30 минут',
-    tags: ['видео', 'психология']
+    tags: ['видео', 'психология'],
+    isLiked: true
   },
   {
     trailerLink: "https://www.youtube.com/watch?v=-xDZwb-PY0M",
@@ -23,7 +24,8 @@ export const cards: Card[] = [
       чем опасна многозадачность и какие четыре
       стадии есть у синдрома переутомления.`,
     duration: '60 минут',
-    tags: ['статья', 'психология']
+    tags: ['статья', 'психология'],
+    isLiked: true
   },
   {
     trailerLink: "https://www.youtube.com/watch?v=-xDZwb-PY0M",
@@ -34,7 +36,8 @@ export const cards: Card[] = [
       чем опасна многозадачность и какие четыре
       стадии есть у синдрома переутомления.`,
     duration: '90 минут',
-    tags: ['статья', 'психология']
+    tags: ['статья', 'психология'],
+    isLiked: false
   },
   {
     trailerLink: "https://www.youtube.com/watch?v=-xDZwb-PY0M",
@@ -45,7 +48,8 @@ export const cards: Card[] = [
       чем опасна многозадачность и какие четыре
       стадии есть у синдрома переутомления.`,
     duration: '120 минут',
-    tags: ['видео', 'психология']
+    tags: ['видео', 'психология'],
+    isLiked: false
   },
   {
     trailerLink: "https://www.youtube.com/watch?v=-xDZwb-PY0M",
@@ -56,7 +60,8 @@ export const cards: Card[] = [
       чем опасна многозадачность и какие четыре
       стадии есть у синдрома переутомления.`,
     duration: '50 минут',
-    tags: ['видео', 'психология']
+    tags: ['видео', 'психология'],
+    isLiked: false
   },
   {
     trailerLink: "https://www.youtube.com/watch?v=-xDZwb-PY0M",
@@ -67,6 +72,7 @@ export const cards: Card[] = [
       чем опасна многозадачность и какие четыре
       стадии есть у синдрома переутомления.`,
     duration: '10 минут',
-    tags: ['видео', 'психология']
+    tags: ['видео', 'психология'],
+    isLiked: false
   }
 ]

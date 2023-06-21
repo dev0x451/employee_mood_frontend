@@ -23,6 +23,7 @@ const UsefulCardsList: React.FC<Props> = ({cards}) => {
             text={card.text}
             tags={card.tags}
             duration={card.duration}
+            isLiked={card.isLiked}
           />
         ))
       }
