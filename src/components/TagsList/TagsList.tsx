@@ -1,25 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./tagsList.module.scss";
 
 
 interface TagsListProps {
   tags: string[];
+  onChecked: any;
 }
 
-const TagsList: React.FC<TagsListProps> = ({tags}) => {
+const TagsList: React.FC<TagsListProps> = ({tags, onChecked}) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
+  useEffect(() => {
+    onChecked(selectedTags)
+    // console.log(selectedTags)
+  }, [selectedTags])
+
   const handleTagToggle = (tag: string) => {
+    // console.log(tags)
     const updatedTags = selectedTags.includes(tag)
       ? selectedTags.filter((selectedTag) => selectedTag !== tag)
       : [...selectedTags, tag];
     setSelectedTags(updatedTags);
   };
-
-  // Check Inputs
-  // const handleClick = () => {
-  //   console.log(selectedTags)
-  // };
 
   return (
     <div className={styles.tagslist}>

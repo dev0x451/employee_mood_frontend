@@ -7,7 +7,7 @@ import { BurnoutLevel } from "../BurnoutLevel/BurnoutLevel";
 export const CenterScreenMain = () => {
   return (
     <div className={styles.container}>
-      <BurnoutTestBanner />
+      <BurnoutTestBanner id='express'/>
       <section className={styles.moodTracker}>
         <h2 className={styles.moodTrackerHeading}>Оцените свое настроение</h2>
         <div className={styles.moodButtons}>

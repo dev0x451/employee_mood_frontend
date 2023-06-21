@@ -1,13 +1,13 @@
 import styles from "./BurnoutTestBanner.module.css";
 import image from "./burnout-image.png";
 import { Link } from "react-router-dom";
-import React from "react";
+import {JSX} from "react";
 
 interface BurnoutTestProps {
   id?: string;
 }
 
-export const BurnoutTestBanner: React.FC<BurnoutTestProps> = ({ id }) => {
+export const BurnoutTestBanner = ({ id }: BurnoutTestProps): JSX.Element=> {
   return (
     <div className={styles.container}>
       <div className={styles.textContainer}>

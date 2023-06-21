@@ -72,21 +72,14 @@ export interface TestInterface {
   variants: TestVariantAswer[];
 }
 
-// export interface TestResult {
-//   // positive_value: number;
-//   // negative_value: number;
-//   survey: number;
-//   results:
-// }
-
 export interface AnswerResult {
   question_id: number;
   variant_value: number;
 }
 
 export interface TestResults {
-  survey: number;
-  results: AnswerResult[];
+  results: AnswerResult[]
+  survey: number
 }
 
 export interface SubmitArguments {
@@ -119,13 +112,25 @@ export interface ExpressDiagnoseMentalState {
   level: number;
 }
 
+export interface Graph {
+  title: string,
+  size: string,
+  color: string,
+  value: number,
+  min_value: number,
+  max_value: number
+}
+export interface ExpressDiagnoseSummaryGraphs {
+  graphs: Graph[]
+}
+
 export interface ExpressDiagnoseResponse {
   id: number;
   employee: ExpressDiagnoseEmployee;
   survey: ExpressDiagnoseSurvey;
-  mental_state: ExpressDiagnoseMentalState;
-  summary: string | null;
-  results: AnswerResult[];
+  mental_state: ExpressDiagnoseMentalState,
+  summary: null | ExpressDiagnoseSummaryGraphs,
+  results: AnswerResult[]
   completion_date: string;
   next_attempt_date: string;
 }
@@ -204,3 +209,18 @@ export interface jwtTypes {
   jti: string;
   user_id: number;
 }
+
+
+export interface Card {
+  trailerLink: string;
+  image: string;
+  title: string;
+  text: string;
+  duration: string;
+  tags: string[];
+  isLiked: boolean;
+}
+
+// export interface ISearchUseful {
+//   cards: Card[];
+// }

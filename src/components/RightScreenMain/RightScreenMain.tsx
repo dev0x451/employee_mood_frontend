@@ -1,8 +1,8 @@
 import styles from "./rightScreenMain.module.css";
-import { PsychologistInfo } from "../PsychologistInfo/PsychologistInfo";
-import { Articles } from "../Articles/Articles";
-import { Events } from "../Events/Events";
-import { ArticleInterface } from "@/types";
+import {PsychologistInfo} from "../PsychologistInfo/PsychologistInfo";
+import {Articles} from "../Articles/Articles";
+import {Events} from "../Events/Events";
+import {ArticleInterface} from "@/types";
 
 export const RightScreenMain = () => {
   const articles: ArticleInterface[] = [
@@ -13,7 +13,7 @@ export const RightScreenMain = () => {
       banner: "/image.png",
     },
     {
-      type: "видео",
+      type: "статья",
       title: "Как понять, что у вас профессиональное выгорание",
       length: "5 минут",
       banner: "/image.png",
@@ -28,12 +28,12 @@ export const RightScreenMain = () => {
 
   return (
     <div className={styles.container}>
-      <PsychologistInfo />
+      <PsychologistInfo/>
       <Articles
         articles={articles}
         title={'Как улучшить ментальное здоровье'}
       />
-      <Events />
+      <Events/>
     </div>
   );
 };

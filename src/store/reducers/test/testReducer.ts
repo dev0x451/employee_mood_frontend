@@ -1,6 +1,6 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "../../store";
-import { AnswerResult, TestResults } from "@/types";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import type {RootState} from "../../store";
+import {AnswerResult, TestResults} from "@/types";
 
 const initialState: TestResults = {
   results: [],
@@ -25,14 +25,12 @@ export const testSlice = createSlice({
             if (item.question_id == question) {
               item.variant_value = answer;
             }
-          });
-        } else {
-          console.log("Закинул новое значени екакоо-то хуя");
-          res.push(action.payload);
+          })}
+        else {
+          res.push(action.payload)
         }
       } else {
-        console.log("Отработало при нуле");
-        res.push(action.payload);
+        res.push(action.payload)
       }
 
       state.results = res;
@@ -44,6 +42,6 @@ export const testSlice = createSlice({
 });
 
 export const selectTestResults = (state: RootState) => state.testSlice.results;
-export const { addTestResults, resetTestResults } = testSlice.actions;
+export const {addTestResults, resetTestResults} = testSlice.actions;
 
 export default testSlice.reducer;

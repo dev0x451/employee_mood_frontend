@@ -1,39 +1,38 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from "./searchUseful.module.scss";
 
-interface SearchUsefulProps {
-  data: string[];
+interface Props {
+  onSearch: any;
 }
 
-const SearchUseful: React.FC<SearchUsefulProps> = ({data}) => {
-  const [query, setQuery] = useState('');
-  const [filteredData, setFilteredData] = useState<string[]>(data);
+const SearchUseful: React.FC<Props> = ({onSearch}) => {
+  const [inputValue, setInputValue] = useState('');
 
-  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const searchTerm = event.target.value.toLowerCase();
-    setQuery(searchTerm);
+  useEffect(() => {
+    onSearch(inputValue);
+  }, [inputValue])
 
-    const filteredItems = data.filter((item) =>
-      item.toLowerCase().includes(searchTerm)
-    );
-    setFilteredData(filteredItems);
-  };
+  function handleInputChange(evt: { target: HTMLInputElement; }) {
+    setInputValue(evt.target.value);
+
+  }
+
 
   return (
     <div>
-      <input
-        className={styles.input}
-        type="text"
-        placeholder="Поиск"
-        value={query}
-        onChange={handleSearch}
-      />
-      <ul>
-        {filteredData.map((item, index) => (
-          // Ready for cards from array map
-          <li key={index}>{item}</li>
-        ))}
-      </ul>
+      <form className=""
+        // onSubmit={handleSubmitSearch}
+            noValidate>
+        <input
+          className={styles.input}
+          type="text"
+          placeholder="Поиск"
+          value={inputValue}
+          onChange={handleInputChange}
+        />
+        {/*<span className="search__error">{searchError.errorMessage}</span>*/}
+
+      </form>
     </div>
   );
 };

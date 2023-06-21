@@ -1,0 +1,33 @@
+.graph-container {
+  position: relative;
+  display: flex;
+  height: 18px;
+  align-items: center;
+  border-radius: 20px;
+  background: var(--color-background);
+}
+
+.graph-text {
+  margin: 0 12px;
+  color: white;
+  font: var(--font-body);
+}
+
+.warning-line {
+  display: flex;
+  height: 100%;
+  justify-content: end;
+  border-radius: 20px;
+}
+
+.green {
+  background-color: #00B750;
+}
+
+.yellow {
+  background-color: #FEAB23;
+}
+
+.red {
+  background-color: #FA3D33;
+}

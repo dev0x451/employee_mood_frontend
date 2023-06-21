@@ -1,38 +1,26 @@
-import React from "react";
-import heart from "../../../public/unlike.svg";
+import React, {useState} from "react";
+import heart from "../../../public/Vector.svg";
+import heartWhite from "../../../public/VectorWhite.svg";
 import play from "../../../public/play.svg";
 import styles from "./usefulCard.module.scss";
+import {Card} from "@/types.ts";
 
-interface CardProps {
-  trailerLink?: string;
-  image: string;
-  title: string;
-  text: string;
-  duration: string;
-}
 
-const UsefulCard: React.FC<CardProps> = ({trailerLink, image, title, text, duration}) => {
-  // {usefulItem, onSaveUsefulItem, onDeleteUsefulItem, savedUsefulItems}:{  usefulItem: string[];
-  // onSaveUsefulItem: string;
-  // onDeleteUsefulItem: string;
-  // savedUsefulItems: string}
-// ) {
+const UsefulCard: React.FC<Card> = ({
+                                      trailerLink,
+                                      image,
+                                      title,
+                                      text,
+                                      duration,
+                                      tags,
+                                      isLiked
+                                    }) => {
 
-  // const isSaved = savedUsefulItems.find((item) => item.Id === usefulItem.id);
+  const [isLikedTemp, setIsLiked] = useState(isLiked);
 
-  // function handleSaveUsefulItem() {
-  //
-  //   if (!isSaved) {
-  //     onSaveUsefulItem(usefulItem);
-  //   } else {
-  //     onDeleteUsefulItem(usefulItem);
-  //   }
-  // }
-
-  // function handleDeleteUsefulItem() {
-  //
-  //   onDeleteUsefulItem(usefulItem);
-  // }
+  const handleLike = () => {
+    setIsLiked(!isLikedTemp);
+  };
 
   return (
 
@@ -41,22 +29,25 @@ const UsefulCard: React.FC<CardProps> = ({trailerLink, image, title, text, durat
         <a className="" href={trailerLink} target="blank">
           <img className="" src={image}
                alt={title}/>
-          <div className={styles.play}><img src={play} alt="play"/></div>
+          {tags.some((tag) => tag === 'видео') ?
+            <div className={styles.play}><img src={play} alt="play"/></div>
+            :
+            ""}
         </a>
 
-        <div className={styles.like}><img src={heart} alt="heart"/></div>
-        {/*<button type="button"*/}
-        {/*        className={`usefulItem__button${isSaved ? ' usefulItem__button_saved' : ''}${(window.location.pathname === '/bookmarks') ? ' usefulItem__button_delete' : ''}`}*/}
-        {/*        onClick={(window.location.pathname === '/bookmarks') ? (handleDeleteUsefulItem) : (handleSaveUsefulItem)}*/}
-        {/*></button>*/}
+        <div className={styles.like}><img onClick={handleLike} src={isLikedTemp ? heart : heartWhite} alt="heart"/>
+        </div>
         <div className="">
           <h2 className={styles.title}>{title}</h2>
           <p className={styles.text}>{text}</p>
           <p className={styles.duration}>{duration}</p>
         </div>
         <div className={styles.tags}>
-          <div className={styles.tag}>Видео</div>
-          <div className={styles.tag}>Психология</div>
+          {tags
+            .map((tag, index) => (
+              <div className={styles.tag} key={index}>{tag}</div>
+            ))
+          }
         </div>
       </div>
 
