@@ -18,6 +18,7 @@ import {
   arrayEquals,
   getHobbiesId,
 } from "@/pages/account/helpers/handleHobbiesSettings";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   handleChangeUserInfo: (userInfo: UserInfo, toDeletePhoto: string) => void;
@@ -35,9 +36,12 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
   const [aboutError, setAboutError] = useState("");
   const [toDeletePhoto, setToDeletePhoto] = useState("");
   const [isPhotoClicked, setIsPhotoClicked] = useState<boolean>(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const removeInterest = (index: number) => {
     setHobbies(hobbies.filter((_, i) => i !== index));
+    setIsButtonDisabled(false);
   };
 
   useEscapeKey(() => setIsPhotoClicked(false));
@@ -63,6 +67,20 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
           : ""
       );
     }
+    setIsButtonDisabled(true);
+  };
+
+  const handleSelectChange = (selectedOption: any) => {
+    const isHobbyAdded = hobbies.some(
+      (hobby) => hobby.id === selectedOption.id
+    );
+    if (!isHobbyAdded) {
+      setHobbies((prevArray) => [
+        ...prevArray,
+        { id: selectedOption.id, name: selectedOption.name },
+      ]);
+      setIsButtonDisabled(false);
+    }
   };
 
   const cancelSettings = () => {
@@ -72,6 +90,8 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
         ? `${BASE_URL_MEDIA}${currentUser.avatar}`
         : ""
     );
+    setHobbies(currentUser.hobbies || []);
+    navigate(-1);
   };
 
   const showAvatarError = () => {
@@ -110,15 +130,18 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
               <AboutSection
                 about={about}
                 aboutError={aboutError}
-                aboutHandler={(e) => aboutHandler(e, setAbout, setAboutError)}
+                aboutHandler={(e) =>
+                  aboutHandler(e, setAbout, setAboutError, setIsButtonDisabled)
+                }
                 interests={hobbies}
                 removeInterest={removeInterest}
+                handleSelectChange={handleSelectChange}
               />
             </div>
             <ButtonsList
               handleUpdateUser={handleUpdateUser}
-              aboutError={aboutError}
               cancelSettings={cancelSettings}
+              disabled={isButtonDisabled}
             />
           </div>
         </div>

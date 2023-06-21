@@ -3,7 +3,7 @@ import axios from "axios";
 import {
   UserInfo,
   // AnswerResult,
-  SubmitArguments
+  SubmitArguments,
 } from "@/types";
 import { BASE_URL_REQUEST } from "../constants";
 
@@ -51,6 +51,10 @@ export const getTestQuestions = (test: string | null) => {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   });
+};
+
+export const getHobbies = (word: string) => {
+  return axios.get(`${BASE_URL_REQUEST}/hobbies?search=${word}`);
 };
 
 export const getAllTestsResults = () => {

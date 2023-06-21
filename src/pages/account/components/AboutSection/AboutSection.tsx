@@ -13,6 +13,7 @@ interface Props {
   aboutHandler: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   interests: UserHobby[];
   removeInterest: (index: number) => void;
+  handleSelectChange: (selectedOption: any) => void;
 }
 
 export const AboutSection = ({
@@ -21,6 +22,7 @@ export const AboutSection = ({
   aboutHandler,
   interests,
   removeInterest,
+  handleSelectChange,
 }: Props): ReactElement => {
   const currentUser = useAppSelector(selectUserInfo);
 
@@ -35,7 +37,6 @@ export const AboutSection = ({
         <PseudoInput label="Почта" placeholder={currentUser.email} />
       </li>
       <li className={styles.contentAboutItem}>
-        <Interests interests={interests} removeInterest={removeInterest} />
         <div className={styles.about}>
           <h3 className={styles.contentAboutTitle}>Обо мне</h3>
           <textarea
@@ -51,6 +52,11 @@ export const AboutSection = ({
             </div>
           )}
         </div>
+        <Interests
+          interests={interests}
+          removeInterest={removeInterest}
+          handleSelectChange={handleSelectChange}
+        />
       </li>
     </ul>
   );
