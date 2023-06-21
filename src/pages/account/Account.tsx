@@ -110,10 +110,21 @@ export const Account = ({ handleChangeUserInfo }: Props): ReactElement => {
                 closePopup={() => setIsPhotoClicked(false)}
                 isPhotoClicked={isPhotoClicked}
                 uploadPhoto={(e: any) =>
-                  uploadPhoto(e, setPhoto, setIsPhotoClicked, showAvatarError)
+                  uploadPhoto(
+                    e,
+                    setPhoto,
+                    setIsPhotoClicked,
+                    showAvatarError,
+                    setIsButtonDisabled
+                  )
                 }
                 removePhoto={() =>
-                  removePhoto(setPhoto, setToDeletePhoto, setIsPhotoClicked)
+                  removePhoto(
+                    setPhoto,
+                    setToDeletePhoto,
+                    setIsPhotoClicked,
+                    setIsButtonDisabled
+                  )
                 }
               />
               <PhotoSection

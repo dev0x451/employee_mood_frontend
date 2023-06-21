@@ -45,13 +45,14 @@
 }
 
 .results-list {
+  width: 100%;
   @include list-initial-style;
   background-color: var(--color-background-white);
   border-radius: 0 0 12px 12px;
   box-shadow: var(--shadow-medium);
   margin: 0;
   max-height: 72px;
-  overflow: scroll;
+  overflow-y: scroll;
   &-item {
     padding: 8px 14px;
     height: 36px;

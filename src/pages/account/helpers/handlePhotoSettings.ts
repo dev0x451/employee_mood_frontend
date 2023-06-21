@@ -5,7 +5,8 @@ export const uploadPhoto = async (
   e: ChangeEvent<HTMLInputElement>,
   handleSetPhoto: (arg: string) => void,
   handlePhotoClicked: (arg: boolean) => void,
-  handleShowAvatarError: () => void
+  handleShowAvatarError: () => void,
+  handleDisabledButton: (arg: boolean) => void
 ) => {
   const files = e.target.files;
   if (files && files.length > 0) {
@@ -22,14 +23,17 @@ export const uploadPhoto = async (
     }
   }
   handlePhotoClicked(false);
+  handleDisabledButton(false);
 };
 
 export const removePhoto = (
   handleSetPhoto: (arg: string) => void,
   handleAddParams: (arg: string) => void,
-  handlePhotoClicked: (arg: boolean) => void
+  handlePhotoClicked: (arg: boolean) => void,
+  handleDisabledButton: (arg: boolean) => void
 ) => {
   handleSetPhoto("");
   handleAddParams("/?delete_avatar=true");
   handlePhotoClicked(false);
+  handleDisabledButton(false);
 };
