@@ -1,5 +1,6 @@
-import React, {useEffect} from "react";
-import heart from "../../../public/unlike.svg";
+import React, {useState} from "react";
+import heart from "../../../public/Vector.svg";
+import heartWhite from "../../../public/VectorWhite.svg";
 import play from "../../../public/play.svg";
 import styles from "./usefulCard.module.scss";
 import {Card} from "@/types.ts";
@@ -11,23 +12,15 @@ const UsefulCard: React.FC<Card> = ({
                                       title,
                                       text,
                                       duration,
-                                      tags
+                                      tags,
+                                      isLiked
                                     }) => {
-  useEffect(() => {
 
-  }, [])
-  //
-  // const handleClick = (event: Event) => {
-  //   event.target.closest(`.like`).querySelector(`[name=price]`)
-  //   console.log('Сердечко нажато!', event.target);
-  // }
-  //
-  // const likes = document.querySelectorAll('.like')
-  //
-  // likes.forEach((element) => {
-  //   element.addEventListener('click', handleClick);
-  // });
+  const [isLikedTemp, setIsLiked] = useState(isLiked);
 
+  const handleLike = () => {
+    setIsLiked(!isLikedTemp);
+  };
 
   return (
 
@@ -42,11 +35,8 @@ const UsefulCard: React.FC<Card> = ({
             ""}
         </a>
 
-        <div className={styles.like}><img src={heart} alt="heart"/></div>
-        {/*<button type="button"*/}
-        {/*        className={`usefulItem__button${isSaved ? ' usefulItem__button_saved' : ''}${(window.location.pathname === '/bookmarks') ? ' usefulItem__button_delete' : ''}`}*/}
-        {/*        onClick={(window.location.pathname === '/bookmarks') ? (handleDeleteUsefulItem) : (handleSaveUsefulItem)}*/}
-        {/*></button>*/}
+        <div className={styles.like}><img onClick={handleLike} src={isLikedTemp ? heart : heartWhite} alt="heart"/>
+        </div>
         <div className="">
           <h2 className={styles.title}>{title}</h2>
           <p className={styles.text}>{text}</p>

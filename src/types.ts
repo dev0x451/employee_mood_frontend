@@ -213,6 +213,7 @@ export interface Card {
   text: string;
   duration: string;
   tags: string[];
+  isLiked: boolean;
 }
 
 // export interface ISearchUseful {
