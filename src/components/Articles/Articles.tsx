@@ -2,6 +2,7 @@ import {FC} from "react";
 import styles from "./articles.module.css";
 import {Article} from "../Article/Article";
 import {ArticleInterface} from "@/types";
+import vector from "../../assets/Vector.svg"
 
 interface ArticlesListProps {
   articles: ArticleInterface[];
@@ -20,7 +21,7 @@ export const Articles: FC<ArticlesListProps> = ({articles, title}) => {
           article={{
             type: "",
             title: "Смотреть все статьи и видео",
-            banner: "../../../src/assets/Vector.svg",
+            banner: vector,
             length: "",
           }}
         />

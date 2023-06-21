@@ -5,10 +5,11 @@
   border-radius: 20px;
   padding: 16px;
   position: relative;
+  cursor: pointer;
 }
 
-.container {
-
+.text {
+  font: var(--font-caption);
 }
 
 .title {

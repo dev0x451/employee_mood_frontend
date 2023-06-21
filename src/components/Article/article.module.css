@@ -9,6 +9,8 @@
   padding: 12px 16px 16px;
   border-radius: 20px;
   background-color: white;
+  cursor: pointer;
+  position: relative;
 }
 
 .image {
@@ -67,5 +69,20 @@
 }
 
 .article:last-of-type > .container {
+  display: none;
+}
+
+.play {
+  position: absolute;
+  margin: 0 auto;
+  color: #0c4128;
+  width: 24px;
+  height: 24px;
+  left: 66px;
+  top: 44px;
+  opacity: 0.8;
+}
+
+.article:last-of-type > .play {
   display: none;
 }
