@@ -1,0 +1,37 @@
+@import '@/shared/styles/mixins.scss';
+
+.interest {
+  &-item {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    width: fit-content;
+    height: 40px;
+    padding: 11px 18px;
+    border: 1px solid var(--color-button-secondary);
+    border-radius: 12px;
+  }
+  &-text {
+    margin: 0;
+    font: var(--font-body);
+  }
+  &-btn {
+    @include size (16px, 16px);
+    background-image: url('@/pages/account/ui/delete-hobby-normal.svg');
+    border: none;
+    border-radius: 4px;
+    background-color: var(--color-background-white);
+    @include background-no-repeat-center-cover;
+    background-size: auto;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba(44, 45, 46, 0.04);
+      background-image: url('@/pages/account/ui/delete-hobby-hovered.svg');
+    }
+    &:active {
+      background-color: rgba(44, 45, 46, 0.04);
+      background-image: url('@/pages/account/ui/delete-hobby-active.svg');
+    }
+  }
+}
