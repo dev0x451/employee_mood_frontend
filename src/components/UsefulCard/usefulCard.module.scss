@@ -1,56 +1,80 @@
 .card {
   width: 324px;
-  height: 371px;
+  height: 358px;
   background-color: var(--color-background-white);
   border-radius: 20px;
   padding: 16px;
   position: relative;
   cursor: pointer;
+  box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.03), 0 0 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.image {
+  width: 292px;
+  height: 175px;
+  border-radius: 20px;
 }
 
 .text {
   font: var(--font-caption);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 58px;
+  margin: 0;
+  margin-top: 26px;
 }
 
 .title {
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 500;
-  font-size: 15px;
-  line-height: 18px;
-  color: #2C2D2E;
+  font: var(--font-more);
+  color: var(--color-black);
   margin: 12px 0 8px;
 }
 
 .duration {
-  font-family: 'Roboto';
+  display: block;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
   line-height: 120%;
   text-align: right;
-  color: #99A2AD;
-  margin: 8px 0;
+  color: var(--color-accent-gray);
+  margin: 0;
+  align-self: flex-end;
+  //--------------------//
+  height: 15px; // временно
+  width: 30px; // временно
+  overflow: hidden; // временно
+}
+
+
+.tags_container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
 .tags {
   display: flex;
+  align-items: flex-end;
   justify-content: flex-start;
   flex-direction: row;
-  gap: 8px;
+  gap: 4px;
   flex-wrap: wrap;
+  margin-top: 12px;
+
 }
 
 .tag {
   display: block;
-  background-color: var(--color-background-white);
+  background-color: var(--color-accent-violet);
+  opacity: 90%;
   font-family: 'Roboto';
+  height: 23px;
   font-style: normal;
   font-weight: 400;
   font-size: 11px;
-  line-height: 100%;
-  border: 0.2px solid #4C239D;
-  color: var(--color-accent-secondary);
+  color: var(--color-accent-purple);
+  border-style: none;
   padding: 4px 6px;
   border-radius: 20px;
 }

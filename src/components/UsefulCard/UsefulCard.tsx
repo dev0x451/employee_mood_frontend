@@ -5,14 +5,21 @@ import play from "../../../public/play.svg";
 import styles from "./usefulCard.module.scss";
 import {Card} from "@/types.ts";
 
+export interface Category {
+  id: number,
+  name: string,
+  slug: string,
+  description: string;
+}
+
 
 const UsefulCard: React.FC<Card> = ({
-                                      trailerLink,
-                                      image,
+                                      id,
+                                      category,
                                       title,
+                                      preview_image,
                                       text,
-                                      duration,
-                                      tags,
+                                      created,
                                       isLiked
                                     }) => {
 
@@ -24,12 +31,12 @@ const UsefulCard: React.FC<Card> = ({
 
   return (
 
-    <article className={styles.card}>
+    <article className={styles.card} key={id}>
       <div className={styles.container}>
-        <a className="" href={trailerLink} target="blank">
-          <img className="" src={image}
+        <a className="" href={'/'} target="blank">
+          <img className={styles.image} src={preview_image} height={175} width={292}
                alt={title}/>
-          {tags.some((tag) => tag === 'видео') ?
+          {category.some((temp) => temp.id === 3) ?
             <div className={styles.play}><img src={play} alt="play"/></div>
             :
             ""}
@@ -40,14 +47,17 @@ const UsefulCard: React.FC<Card> = ({
         <div className="">
           <h2 className={styles.title}>{title}</h2>
           <p className={styles.text}>{text}</p>
-          <p className={styles.duration}>{duration}</p>
         </div>
-        <div className={styles.tags}>
-          {tags
-            .map((tag, index) => (
-              <div className={styles.tag} key={index}>{tag}</div>
-            ))
-          }
+        <div className={styles.tags_container}>
+          <div className={styles.tags}>
+            {category
+              .map((tag, id) => (
+                <div className={styles.tag} key={id}>{tag.name}</div>
+              ))
+            }
+
+          </div>
+          <p className={styles.duration}>{created}</p>
         </div>
       </div>
 
