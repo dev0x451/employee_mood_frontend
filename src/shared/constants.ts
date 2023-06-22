@@ -4,6 +4,8 @@ export const BASE_URL_MEDIA = "https://em-dev.usolcev.com/";
 
 export const BASE_URL_REQUEST = "https://em-dev.usolcev.com/api/v1";
 
+export const BASE_URL_WSS = "wss://em-dev.usolcev.com/ws";
+
 export const COUNT_EMPLOYEES_PAGE = 6;
 
 // примение: импортировать и деструктиурировать countCardPage, addCard, на вход принимает требуемое количество отображаемых карточек первоначально

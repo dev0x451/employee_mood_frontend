@@ -114,6 +114,7 @@ export interface ExpressDiagnoseMentalState {
 
 export interface Graph {
   title: string,
+  text: string,
   size: string,
   color: string,
   value: number,
@@ -221,6 +222,16 @@ export interface Card {
   isLiked: boolean;
 }
 
-// export interface ISearchUseful {
-//   cards: Card[];
-// }
+export interface WebSocketActiveEvent {
+  id: number,
+  incident_type: string,
+  incident_id: number
+}
+
+export interface WebSocketNotifications {
+  notifications: WebSocketActiveEvent[]
+}
+
+export interface WebSocketMessage {
+  message: WebSocketNotifications;
+}
