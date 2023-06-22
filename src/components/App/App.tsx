@@ -10,7 +10,10 @@ import {
   TestInterface,
   SubmitArguments,
   UserInfo,
+  WebSocketMessage
 } from "@/types";
+
+import { BASE_URL_WSS } from "@/shared/constants";
 
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
@@ -35,6 +38,48 @@ export const App = () => {
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
+
+  // получение уведомлений о тестах и мероприятиях с помощью WebSocket
+
+  const [webSocketNotifications, setWebSocketNotifications] = useState<WebSocketMessage>();
+  const [testsNotifications, setTestsNotifications] = useState(0);
+  const [eventsNotifications, setEventsNotifications] = useState(0);
+
+  useEffect(() => {
+    const socket = new WebSocket(`${BASE_URL_WSS}/notifications?2`);
+    socket.onopen = function (event) {
+      // console.log('соединено')
+      // socket.send('Привет, сервер!');
+    }
+    socket.onmessage = (event) => {
+      // console.log('сообщение пришло')
+      const newEvent: WebSocketMessage = JSON.parse(event.data)
+      setWebSocketNotifications(newEvent)
+    }
+    return () => {
+      if (socket.readyState === WebSocket.OPEN) {
+        socket.close();
+      }};
+  }, []);
+
+  useEffect(() => {
+
+    if (webSocketNotifications) {
+      webSocketNotifications.message.notifications.forEach(item => {
+        if (item.incident_type === 'Опрос') setTestsNotifications(state => state + 1)
+        if (item.incident_type === 'Событие') setEventsNotifications(state => state + 1)
+      })
+    }
+  }, [webSocketNotifications])
+
+  useEffect(() => {
+    console.log(testsNotifications, eventsNotifications)
+
+  }, [testsNotifications, eventsNotifications])
+
+
+  // конец блока получение уведомлений о тестах и мероприятиях с помощью WebSocket
+
   const role = useAppSelector(
     (state) => state.currentUserSlice.currentUser.role
   );

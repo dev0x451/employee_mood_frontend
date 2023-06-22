@@ -19,11 +19,11 @@ export function WarningWithBall ({resultOfPsychoTest}: WarningWithBall): JSX.Ele
   })
 
   useEffect(() => {
-    if (resultOfPsychoTest?.mental_state.name === 'Нормальное') {
+    if (resultOfPsychoTest?.mental_state.level === 1) {
     setWarningBallClass('green')
-  } else if (resultOfPsychoTest?.mental_state.name === 'Тревожное') {
+  } else if (resultOfPsychoTest?.mental_state.level === 2) {
     setWarningBallClass('yellow')
-  } else if (resultOfPsychoTest?.mental_state.name === 'В группе риска') {
+  } else if (resultOfPsychoTest?.mental_state.level === 3) {
     setWarningBallClass('red')
   }
   }, [resultOfPsychoTest])

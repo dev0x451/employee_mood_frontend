@@ -35,7 +35,7 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
 
   return (
     <section className={closePopupClassname}>
-      <h1 className={styles.title}>Экспресс-оценка выгорания</h1>
+      <h1 className={styles.title}>{resultOfPsychoTest?.survey.title}</h1>
       <h2 className={styles.subtitle}>Ваш результат</h2>
 
       <div className={styles.conditionContainer}>
