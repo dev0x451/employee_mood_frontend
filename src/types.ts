@@ -213,13 +213,21 @@ export interface jwtTypes {
 
 
 export interface Card {
-  trailerLink: string;
-  image: string;
+  id?: number;
+  category: Category[];
+  author?: string;
   title: string;
+  preview_image: string;
   text: string;
-  duration: string;
-  tags: string[];
-  isLiked: boolean;
+  created: string;
+  isLiked?: boolean;
+}
+
+export interface Category {
+  id: number,
+  name: string,
+  slug: string,
+  description: string;
 }
 
 export interface WebSocketActiveEvent {

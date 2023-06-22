@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
 import styles from "./tagsList.module.scss";
+import {Category} from "@/types.ts";
 
 
 interface TagsListProps {
-  tags: string[];
+  tags: Category[];
   onChecked: any;
 }
 
 const TagsList: React.FC<TagsListProps> = ({tags, onChecked}) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  //const [categoryNames, setCategoryNames] = useState<string[]>([]);
 
   useEffect(() => {
     onChecked(selectedTags)
@@ -17,6 +19,8 @@ const TagsList: React.FC<TagsListProps> = ({tags, onChecked}) => {
 
   const handleTagToggle = (tag: string) => {
     // console.log(tags)
+    // Проверка тегов
+    console.log(selectedTags)
     const updatedTags = selectedTags.includes(tag)
       ? selectedTags.filter((selectedTag) => selectedTag !== tag)
       : [...selectedTags, tag];
@@ -34,13 +38,13 @@ const TagsList: React.FC<TagsListProps> = ({tags, onChecked}) => {
 
           <input
             className={styles.checkbox}
-            name={tag}
-            value={tag}
+            name={tag.name}
+            value={tag.name}
             type="checkbox"
-            onChange={() => handleTagToggle(tag)}
+            onChange={() => handleTagToggle(tag.name)}
 
           />
-          <span className={styles.spanmark}>{tag}</span>
+          <span className={styles.spanmark}>{tag.name}</span>
         </label>
       ))}
     </div>

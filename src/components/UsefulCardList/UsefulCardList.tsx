@@ -14,16 +14,14 @@ const UsefulCardsList: React.FC<Props> = ({cards}) => {
     <section className={styles.cards}>
 
       {cards
-        .map((card, index) => (
+        .map((card) => (
           <UsefulCard
-            key={index}
-            trailerLink={card.trailerLink}
-            image={card.image}
+            key={card.id}
+            category={card.category}
             title={card.title}
+            preview_image={card.preview_image}
             text={card.text}
-            tags={card.tags}
-            duration={card.duration}
-            isLiked={card.isLiked}
+            created={card.created}
           />
         ))
       }
