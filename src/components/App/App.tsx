@@ -8,9 +8,12 @@ import {
   jwtTypes,
   MyFormValues,
   TestInterface,
-  TestResults,
+  SubmitArguments,
   UserInfo,
+  // WebSocketMessage
 } from "@/types";
+
+// import { BASE_URL_WSS } from "@/shared/constants";
 
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
@@ -30,10 +33,53 @@ export const App = () => {
   const [resultOfPsychoTest, setResultOfPsychoTest] =
     useState<ExpressDiagnoseResponse>();
   const [expressTest, setExpressTest] = useState<TestInterface | null>(null);
+  const [burnoutTest, setBurnoutTest] = useState<TestInterface | null>(null);
   const [allTestsResults, setallTestsResults] =
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
+
+  // получение уведомлений о тестах и мероприятиях с помощью WebSocket
+
+  // const [webSocketNotifications, setWebSocketNotifications] = useState<WebSocketMessage>();
+  // const [testsNotifications, setTestsNotifications] = useState(0);
+  // const [eventsNotifications, setEventsNotifications] = useState(0);
+
+  // useEffect(() => {
+  //   const socket = new WebSocket(`${BASE_URL_WSS}/notifications?2`);
+  //   socket.onopen = function (event) {
+  //     // console.log('соединено')
+  //     // socket.send('Привет, сервер!');
+  //   }
+  //   socket.onmessage = (event) => {
+  //     // console.log('сообщение пришло')
+  //     const newEvent: WebSocketMessage = JSON.parse(event.data)
+  //     setWebSocketNotifications(newEvent)
+  //   }
+  //   return () => {
+  //     if (socket.readyState === WebSocket.OPEN) {
+  //       socket.close();
+  //     }};
+  // }, []);
+
+  // useEffect(() => {
+
+  //   if (webSocketNotifications) {
+  //     webSocketNotifications.message.notifications.forEach(item => {
+  //       if (item.incident_type === 'Опрос') setTestsNotifications(state => state + 1)
+  //       if (item.incident_type === 'Событие') setEventsNotifications(state => state + 1)
+  //     })
+  //   }
+  // }, [webSocketNotifications])
+
+  // useEffect(() => {
+  //   console.log(testsNotifications, eventsNotifications)
+
+  // }, [testsNotifications, eventsNotifications])
+
+
+  // конец блока получение уведомлений о тестах и мероприятиях с помощью WebSocket
+
   const role = useAppSelector(
     (state) => state.currentUserSlice.currentUser.role
   );
@@ -190,8 +236,7 @@ export const App = () => {
   }
 
 
-  async function handleSendTestResult(result: TestResults
-    ) {
+  async function handleSendTestResult(result: SubmitArguments) {
     try {
       const response = await Api.sendTestResults(result);
       setResultOfPsychoTest(response.data);
@@ -219,6 +264,15 @@ export const App = () => {
     }
   }
 
+  async function getTestsBurnoutQuestions() {
+    try {
+      const response = await Api.getTestQuestions("2");
+      setBurnoutTest(response.data);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
   // if (loggedIn) {
   // const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
   // }
@@ -227,6 +281,7 @@ export const App = () => {
     if (loggedIn) {
       getAllTestsResult();
       getTestsQuestions();
+      getTestsBurnoutQuestions();
     }
   }, [loggedIn]);
 
@@ -267,6 +322,7 @@ export const App = () => {
         handleSignOut={handleSignOut}
         allTestsResults={allTestsResults}
         expressTest={expressTest}
+        burnoutTest={burnoutTest}
         handleSendTestResult={handleSendTestResult}
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}

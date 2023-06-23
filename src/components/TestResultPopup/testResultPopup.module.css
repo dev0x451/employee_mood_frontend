@@ -40,6 +40,14 @@
   font: var(--font-h3);
 }
 
+.condition-subtitle {
+  font: var(--font-h4-alert);
+}
+
+.condition-small-subtitle {
+  font: var(--font-body);
+}
+
 .warning-ball {
   width: 10px;
   height: 10px;
@@ -83,7 +91,7 @@
 .button-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 52px;
   gap: 28px;
 }
@@ -121,4 +129,10 @@
 
 .button:hover {
   cursor: pointer;
+}
+
+.summary-graph {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 30% 70%;
 }

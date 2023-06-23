@@ -70,6 +70,9 @@ export const Navbar = () => {
             {eventsIcon}
           </div>
           Мероприятия
+          <div className={notificationClassname}>
+            {3}
+          </div>
         </NavLink>
         <NavLink
           className={({ isActive }) => linkClassName(isActive)}

@@ -25,14 +25,12 @@ export const testSlice = createSlice({
             if (item.question_id == question) {
               item.variant_value = answer;
             }
-          });
-        } else {
-          console.log("Закинул новое значени екакоо-то хуя");
-          res.push(action.payload);
+          })}
+        else {
+          res.push(action.payload)
         }
       } else {
-        console.log("Отработало при нуле");
-        res.push(action.payload);
+        res.push(action.payload)
       }
 
       state.results = res;

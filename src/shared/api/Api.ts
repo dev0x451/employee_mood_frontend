@@ -1,11 +1,6 @@
 import axios from "axios";
-
-import {
-  UserInfo,
-  // AnswerResult,
-  SubmitArguments
-} from "@/types";
-import { BASE_URL_REQUEST } from "../constants";
+import {  UserInfo, SubmitArguments } from "@/types";
+import { BASE_URL_REQUEST, BASE_URL_WSS } from "../constants";
 
 // const BASE_URL = "https://em-dev.usolcev.com/api/v1";
 
@@ -51,6 +46,10 @@ export const getTestQuestions = (test: string | null) => {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   });
+};
+
+export const getHobbies = (word: string) => {
+  return axios.get(`${BASE_URL_REQUEST}/hobbies?search=${word}`);
 };
 
 export const getAllTestsResults = () => {
@@ -102,6 +101,15 @@ export const sendInviteCode = (email: string) => {
 
 export const getUsers = () => {
   return axios.get(`${BASE_URL_REQUEST}/users/?limit=100`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+
+export const connectToWebSocketNotifications = () => {
+  return axios.get(`${BASE_URL_WSS}/notifications?2`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },

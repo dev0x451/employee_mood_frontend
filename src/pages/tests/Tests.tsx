@@ -17,7 +17,7 @@ export const Tests: React.FC<Tests> = ({allTestsResults}) => {
         <div className={styles.tests}>
           <h2 className={styles.title}>Тесты</h2>
             <div className={styles.banerblock}>
-              <BurnoutTestBanner id={'123123'}/>
+              <BurnoutTestBanner id='burnout'/>
               <PsychologistInfo />
             </div>
             <div className={styles.records}>
