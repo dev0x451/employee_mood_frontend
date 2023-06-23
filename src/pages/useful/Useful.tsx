@@ -7,56 +7,50 @@ import {useEffect, useState} from "react";
 import {Card, Category} from "@/types.ts";
 import axios from 'axios';
 
-// interface Entry {
-//   id:number;
-//   category:object[];
-//   author:string;
-//   title:string;
-//   preview_image:string;
-//   text:string;
-//   created:string;
-// }
-
 export const Useful = () => {
   const [entries, setEntries] = useState<Card[]>([]);
-  // const [isLoading, setIsLoading] = useState(true);
-
   const [tempCards, setTempCards] = useState(entries);
   const [tempCheckedCards, setTempCheckedCards] = useState(entries);
   const [chosenCardList, setChosenCardList] = useState(entries);
-
   const [categories, setCategories] = useState<Category[]>([]);
+  const [searchValue, setSearchValue] = useState('');
+  // const [isLoading, setIsLoading] = useState(true);
 
-
-  const fetchData = async () => {
-    try {
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3NTAyODQ0LCJpYXQiOjE2ODc0MTY0NDQsImp0aSI6IjM4ZDYwOTNjZDAxYTRlYzM4NTZmZWNhY2NkOTNkNmYwIiwidXNlcl9pZCI6NH0.DRpIjF7F4arYdFSwTGrg5Yg0wNzf9sQqxXQvQLoTxeE'; // Замените на свой JWT Bearer Token
-      const headers = {Authorization: `Bearer ${token}`};
-      const response = await axios.get('https://em-dev.usolcev.com/api/v1/entries/', {headers});
-      setEntries(response.data.results);
-      // console.log(entries)
-      // console.log(chosenCardList)
-      // setIsLoading(false);
-    } catch (error) {
-      console.error('Error fetching data:', error);
-      // setIsLoading(false);
-    }
-  };
   useEffect(() => {
     fetchData().then(r => r);
   }, []);
 
+  useEffect(() => {
+    fetchCategories().then(r => r);
+  }, []);
 
-  // if (isLoading) {
-  //   return <p>Loading...</p>;
-  // }
+  const fetchData = async () => {
+
+    try {
+      const token = localStorage.getItem("jwt"); // Замените на свой JWT Bearer Token
+      const headers = {Authorization: `Bearer ${token}`};
+      const response = await axios.get('https://em-dev.usolcev.com/api/v1/entries/', {headers});
+      setEntries(response.data.results);
+      // setIsLoading(true);
+      // console.log(entries)
+      // console.log(chosenCardList)
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+
+    } finally {
+      // setIsLoading(false);
+    }
+  };
+
+
   //-------------------------------------
   //--------------------------------------
 
 
   const fetchCategories = async () => {
     try {
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjg3NTAyODQ0LCJpYXQiOjE2ODc0MTY0NDQsImp0aSI6IjM4ZDYwOTNjZDAxYTRlYzM4NTZmZWNhY2NkOTNkNmYwIiwidXNlcl9pZCI6NH0.DRpIjF7F4arYdFSwTGrg5Yg0wNzf9sQqxXQvQLoTxeE'; // Замените на ваш реальный JWT Bearer Token
+      const token = localStorage.getItem("jwt"); // Замените на ваш реальный JWT Bearer Token
 
       const response = await axios.get('https://em-dev.usolcev.com/api/v1/entries/categories', {
         headers: {
@@ -70,10 +64,6 @@ export const Useful = () => {
     }
   };
 
-  useEffect(() => {
-    fetchCategories().then(r => r);
-
-  }, []);
 
   //--------------------------------------
   // ----------------------------------------
@@ -92,10 +82,12 @@ export const Useful = () => {
 
 
   function handleSearchCards(value: string) {
+    setSearchValue(value)
     const searchedCards = entries.filter((item) =>
       item.title.toLowerCase().includes(value));
     // console.log(searchedCards)
     setTempCards(searchedCards);
+
   }
 
   function matchedItems(tempCards: Card[] = entries, tempCheckedCards: Card[] = entries) {
@@ -104,11 +96,6 @@ export const Useful = () => {
     const ret = tempCards.filter((item1) =>
       tempCheckedCards.some((item2) =>
         item1.title === item2.title &&
-        // item1.image === item2.image &&
-        // item1.tags === item2.tags &&
-        // item1.text === item2.text &&
-        // item1.trailerLink === item2.trailerLink &&
-        // item1.duration === item2.duration
         item1.id === item2.id &&
         item1.category === item2.category &&
         item1.author === item2.author &&
@@ -118,8 +105,8 @@ export const Useful = () => {
         item1.created === item2.created
       )
     );
-
     setChosenCardList(ret);
+    // setIsLoading(false);
   }
 
   function handleCheckedList(tags: string[]) {
@@ -134,6 +121,10 @@ export const Useful = () => {
     }
   }
 
+  // if (isLoading) {
+  //   return <div><p>Loading...</p></div>
+  //     ;
+  // }
 
   return (
     <div className="page-container">
@@ -145,8 +136,10 @@ export const Useful = () => {
           <TagsList tags={categories}
                     onChecked={handleCheckedList}
           />
-          <UsefulCardList cards={chosenCardList}/>
-
+          {/*{(isLoading) ? `Loading!!!!!` :*/}
+          <UsefulCardList cards={chosenCardList}
+                          searchValue={searchValue}
+                          allEntries={entries}/>
         </div>
       </div>
 
