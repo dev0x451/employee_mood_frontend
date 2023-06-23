@@ -70,23 +70,26 @@
   font: var(--font-caption);
 }
 
-@media(max-width: 1120px) {
+@media(width <= 1120px) {
   .nav-links {
+    flex-flow: row wrap;
+    align-items: center;
+
     /* display: flex;
     max-height: 100%; */
     justify-content: space-around;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
+
     /* margin-top: 40px;
     background-color: var(--color-white); */
     gap: 10px;
   }
+
   .common-link {
     width: fit-content;
     align-self: center;
     justify-self: center;
   }
+
   .logo-container {
     display: none;
   }

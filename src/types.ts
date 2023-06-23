@@ -233,5 +233,5 @@ export interface WebSocketNotifications {
 }
 
 export interface WebSocketMessage {
-  message: WebSocketNotifications;
+  message: WebSocketNotifications | null;
 }

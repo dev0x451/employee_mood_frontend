@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router";
 import { FormikValues } from "formik";
-
 import styles from "./app.module.css";
+
+import * as ApiAuth from "@/shared/api/ApiAuth";
+import * as Api from "@/shared/api/Api";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
+import { setSuccessMessage } from "@/store/reducers/alertSuccess/alertSuccessReducer";
+import {resetAllCurrentUserData, setAllCurrentUserData} from "@/store/reducers/currentUser/currentUserReducer";
+import { addNotifications } from "@/store/reducers/notifications/notificationsReducer";
+
 import {
   ExpressDiagnoseResponse,
   jwtTypes,
@@ -10,23 +19,12 @@ import {
   TestInterface,
   SubmitArguments,
   UserInfo,
-  // WebSocketMessage
+  WebSocketMessage
 } from "@/types";
 
-// import { BASE_URL_WSS } from "@/shared/constants";
-
-import * as ApiAuth from "@/shared/api/ApiAuth";
-import * as Api from "@/shared/api/Api";
-import { useLocation } from "react-router";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import {
-  resetAllCurrentUserData,
-  setAllCurrentUserData,
-} from "@/store/reducers/currentUser/currentUserReducer";
+import { BASE_URL_WSS } from "@/shared/constants";
 import { Routing } from "@/Routing";
 import { AlertPopup } from "@/shared/ui/AlertPopup/AlertPopup";
-import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
-import { setSuccessMessage } from "@/store/reducers/alertSuccess/alertSuccessReducer";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -38,47 +36,6 @@ export const App = () => {
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
-
-  // получение уведомлений о тестах и мероприятиях с помощью WebSocket
-
-  // const [webSocketNotifications, setWebSocketNotifications] = useState<WebSocketMessage>();
-  // const [testsNotifications, setTestsNotifications] = useState(0);
-  // const [eventsNotifications, setEventsNotifications] = useState(0);
-
-  // useEffect(() => {
-  //   const socket = new WebSocket(`${BASE_URL_WSS}/notifications?2`);
-  //   socket.onopen = function (event) {
-  //     // console.log('соединено')
-  //     // socket.send('Привет, сервер!');
-  //   }
-  //   socket.onmessage = (event) => {
-  //     // console.log('сообщение пришло')
-  //     const newEvent: WebSocketMessage = JSON.parse(event.data)
-  //     setWebSocketNotifications(newEvent)
-  //   }
-  //   return () => {
-  //     if (socket.readyState === WebSocket.OPEN) {
-  //       socket.close();
-  //     }};
-  // }, []);
-
-  // useEffect(() => {
-
-  //   if (webSocketNotifications) {
-  //     webSocketNotifications.message.notifications.forEach(item => {
-  //       if (item.incident_type === 'Опрос') setTestsNotifications(state => state + 1)
-  //       if (item.incident_type === 'Событие') setEventsNotifications(state => state + 1)
-  //     })
-  //   }
-  // }, [webSocketNotifications])
-
-  // useEffect(() => {
-  //   console.log(testsNotifications, eventsNotifications)
-
-  // }, [testsNotifications, eventsNotifications])
-
-
-  // конец блока получение уведомлений о тестах и мероприятиях с помощью WebSocket
 
   const role = useAppSelector(
     (state) => state.currentUserSlice.currentUser.role
@@ -309,6 +266,20 @@ export const App = () => {
       )
     );
   };
+
+   // получение уведомлений о тестах и мероприятиях с помощью WebSocket
+   useEffect(() => {
+    const socket = new WebSocket(`${BASE_URL_WSS}/notifications?2`);
+
+    socket.onmessage = (event) => {
+      const newEvent = JSON.parse(event.data) as WebSocketMessage;
+      dispatch(addNotifications(newEvent))
+    }
+    return () => {
+      if (socket.readyState === WebSocket.OPEN) {
+        socket.close();
+      }};
+  }, []);
 
   if (isLoading) {
     return <div></div>;

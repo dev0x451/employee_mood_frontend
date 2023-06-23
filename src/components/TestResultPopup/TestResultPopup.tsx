@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./testResultPopup.module.css";
+import ReactMarkdown from 'react-markdown';
+
 import { WarningWithBall } from "../WarningWithBall/WarningWithBall";
 import { WarningWithLine } from "../WarningWithLine/WarningWithLine";
 import cn from "classnames";
@@ -47,7 +49,7 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
       {(resultOfPsychoTest?.survey.type === 'yn') ?
         <>
           <h2 className={styles.subtitle}>Рекомендации</h2>
-          <p>{resultOfPsychoTest?.survey.text}</p>
+          <ReactMarkdown>{resultOfPsychoTest?.survey.text}</ReactMarkdown>
           <div className={styles.buttonContainer}>
             {(resultOfPsychoTest?.mental_state.level !== 1) && <button type='button' onClick={handleCallChief} className={styles.button}>Обсудить с руководителем</button>}
           </div>
@@ -86,7 +88,7 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
             })
           }
 
-          <p>{resultOfPsychoTest?.survey.text}</p>
+          <ReactMarkdown children={(resultOfPsychoTest?.survey.text !== undefined) ? resultOfPsychoTest?.survey.text : ''}/>
 
           <div className={styles.buttonContainer}>
             {(resultOfPsychoTest?.mental_state.level !== 1) && <button type='button' onClick={handleCallChief} className={styles.button}>Обсудить с руководителем</button>}
