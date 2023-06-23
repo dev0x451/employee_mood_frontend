@@ -63,6 +63,7 @@
   height: 1px;
   border: none;
   clip-path: inset(0 0 0 0);
+  visibility: hidden;
 }
 
 .burnout-visible-checkbox:hover {
@@ -134,7 +135,7 @@
   display: flex;
   align-items: center;
   align-self: center;
-  justify-content: start;
+  justify-content: flex-start;
 }
 
 .disabled {

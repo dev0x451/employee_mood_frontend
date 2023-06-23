@@ -9,27 +9,36 @@ import {
   selectFirstName,
   selectLastName,
 } from "@/store/reducers/currentUser/currentUserReducer";
+import { selectNotifications } from "@/store/reducers/notifications/notificationsReducer";
+
+const BASE_URL = "https://em-dev.usolcev.com";
 
 interface Props {
   handleSignOut: () => void;
 }
 
 export const Header: React.FC<Props> = ({ handleSignOut }) => {
-  const [isAccountPopupOpened, setIsAccountPopupOpened] = useState(false);
-  const BASE_URL = "https://em-dev.usolcev.com";
-  const photoLink = useAppSelector(selectAvatar);
-  const initialPhoto = photoLink !== null ? `${BASE_URL}${photoLink}` : "";
+
   const firstName = useAppSelector(selectFirstName);
   const lastName = useAppSelector(selectLastName);
-  const [photo, setPhoto] = useState(initialPhoto);
+  const allNotification = useAppSelector(selectNotifications);
+  const photoLink = useAppSelector(selectAvatar);
+  const initialPhoto = photoLink !== null ? `${BASE_URL}${photoLink}` : "";
 
-  useEffect(() => {
-    setPhoto(initialPhoto);
-  }, [initialPhoto]);
+  const [photo, setPhoto] = useState(initialPhoto);
+  const [isAccountPopupOpened, setIsAccountPopupOpened] = useState(false);
+
+  const handleNotificationClick = () => {
+    alert('Выполнен умопомрачительный переход на вкладку "События, люди, явления')
+  }
 
   const closeAccountPopup = () => {
     setIsAccountPopupOpened(false);
   };
+
+  useEffect(() => {
+    setPhoto(initialPhoto);
+  }, [initialPhoto]);
 
   return (
     <header className={styles.header}>
@@ -42,7 +51,13 @@ export const Header: React.FC<Props> = ({ handleSignOut }) => {
         placeholder="Поиск"
       />
       <div className={styles.profileAndNotify}>
-        <div className={styles.notify}></div>
+        <div onClick={handleNotificationClick} className={styles.notify}>
+          {(allNotification && allNotification?.length > 0) ?
+            <div className={styles.notificationNumber}>
+              {allNotification?.length}
+            </div>
+          : null}
+        </div>
         <div
           onClick={() => setIsAccountPopupOpened(!isAccountPopupOpened)}
           className={styles.profileBtn}

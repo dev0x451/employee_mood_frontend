@@ -16,12 +16,12 @@
 .warning-line {
   display: flex;
   height: 100%;
-  justify-content: end;
+  justify-content: flex-end;
   border-radius: 20px;
 }
 
 .green {
-  background-color: #99CA65,;
+  background-color: #99CA65;
 }
 
 .yellow {

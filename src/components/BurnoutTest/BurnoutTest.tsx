@@ -32,7 +32,7 @@ export const BurnoutTest = ({test, onSendTestResult, resultOfPsychoTest}: Test):
 
   const [visibleIndex, setVisibleIndex] = useState<number>(0);
   const [nextButtonIsHidden, setNextButtonIsHidden] = useState<boolean>(false);
-  const [backButtonIsHidden, setBackButtonIsHidden] = useState<boolean>(false);
+  const [backButtonIsHidden, setBackButtonIsHidden] = useState<boolean>(true);
   const [isResultsPopapVisible, setResultsPopapVisible] = useState<boolean>(false);
   const [isSubmitForbidden, setIsSubmitForbidden] = useState<boolean>(false);
   const [numberOfQuestion, setNumberOfQuestion] = useState<number>(1);
