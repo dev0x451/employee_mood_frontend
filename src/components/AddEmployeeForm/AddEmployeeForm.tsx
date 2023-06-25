@@ -30,14 +30,16 @@ export const AddEmployeeForm: React.FC<Props> = ({
         }}
         validationSchema={addEmailSchema}
       >
-        <Form noValidate>
-          <AutoResetForm addPopupVisible={addPopupVisible} />
-          <h2 className={styles.title}>Добавить сотрудника</h2>
-          <div className={styles.inputContainer}>
-            <Input label="Введите e-mail" name="email" type="text" />
-          </div>
-          <Button title="Добавить" type="submit" mode="primary" />
-        </Form>
+        {({ isValid, dirty }) => (
+          <Form noValidate>
+            <AutoResetForm addPopupVisible={addPopupVisible} />
+            <h2 className={styles.title}>Добавить сотрудника</h2>
+            <div className={styles.inputContainer}>
+              <Input label="Введите e-mail" name="email" type="text" />
+            </div>
+            <Button title="Добавить" type="submit" mode="primary" disabled={!(isValid && dirty)} />
+          </Form>
+        )}
       </Formik>
     </div>
   );
