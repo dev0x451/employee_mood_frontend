@@ -12,6 +12,14 @@ export const getUser = () => {
   });
 };
 
+export const getEmployeeInfo = (userId: string | undefined) => {
+  return axios.get(`${BASE_URL_REQUEST}/users/${userId}`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
 export const changeUserInfo = (userInfo: UserInfo, toDeletePhoto: string) => {
   return axios.patch(
     `${BASE_URL_REQUEST}/users/current_user${toDeletePhoto}`,
@@ -50,6 +58,17 @@ export const getTestQuestions = (test: string | null) => {
 
 export const getHobbies = (word: string) => {
   return axios.get(`${BASE_URL_REQUEST}/hobbies?search=${word}`);
+};
+
+export const getEmployeeTestResults = (userId: string | undefined) => {
+  return axios.get(
+    `${BASE_URL_REQUEST}/metrics/surveys/results?employee=${userId}`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
 };
 
 export const getAllTestsResults = () => {

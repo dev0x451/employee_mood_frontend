@@ -1,5 +1,6 @@
 import styles from "./employees.module.css";
 import React, { useState, useEffect } from "react";
+import {useNavigate} from 'react-router-dom';
 import { EmployeeInterface } from "@/types";
 import { sortIcon, greenIcon, orangeIcon, redIcon } from "@/assets";
 
@@ -35,6 +36,8 @@ export const Employees: React.FC<Props> = (
       employee.position.name.toLowerCase().includes(valueInputSort.toLowerCase())
     ));
   },[valueInputSort]);
+
+  const navigate = useNavigate();
 
   const sortField =
     (
@@ -110,24 +113,24 @@ export const Employees: React.FC<Props> = (
       {employeesSort &&
         employeesSort.map((employee, index) => (
           index < countCardPage ?
-          <div key={employee.id} className={styles.employee}>
-            <div className={styles.user}>
-              {employee.avatar !== null ?
-                <img
-                  className={styles.image}
-                  src={BASE_URL_MEDIA+employee.avatar}
-                  alt="Avatar"
-                /> :
-                <p className={styles.noPhoto}><span className={styles.textNoAvatar}>{employee.first_name[0] + employee.last_name[0]}</span></p>
-              }
-              <p className={styles.textUser}>{employee.first_name} {employee.last_name}</p>
-            </div>
-            <p className={styles.textName}>{employee.position.name}</p>
-            <p className={styles.textMentalState}>
-              <span>{setIconMentalState(employee.mental_state?.level)}</span>
-              {employee.mental_state?.name}
-            </p>
-          </div> :
+              <div key={employee.id} className={styles.employee} onClick={() => navigate('/myteam/' + employee.id)}>
+                <div className={styles.user}>
+                  {employee.avatar !== null ?
+                    <img
+                      className={styles.image}
+                      src={BASE_URL_MEDIA+employee.avatar}
+                      alt="Avatar"
+                    /> :
+                    <p className={styles.noPhoto}><span className={styles.textNoAvatar}>{employee.first_name[0] + employee.last_name[0]}</span></p>
+                  }
+                  <p className={styles.textUser}>{employee.first_name} {employee.last_name}</p>
+                </div>
+                <p className={styles.textName}>{employee.position.name}</p>
+                <p className={styles.textMentalState}>
+                  <span>{setIconMentalState(employee.mental_state?.level)}</span>
+                  {employee.mental_state?.name}
+                </p>
+              </div> :
           null
         ))
       }
