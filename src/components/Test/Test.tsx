@@ -21,6 +21,7 @@ interface Test {
   onSendTestResult: (arg: SubmitArguments) => void;
   resultOfPsychoTest?: ExpressDiagnoseResponse;
   openTestAlertPopup: () => void;
+  // takeNewEmployeesList: () => Promise<void>;
 }
 
 export const Test = ({
@@ -28,6 +29,7 @@ export const Test = ({
   onSendTestResult,
   resultOfPsychoTest,
   openTestAlertPopup,
+  // takeNewEmployeesList
 }: Test): JSX.Element => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -79,6 +81,7 @@ export const Test = ({
     }
     dispatch(resetTestResults());
     setResultsPopapVisible(true);
+    // takeNewEmployeesList();
   }
 
   function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {

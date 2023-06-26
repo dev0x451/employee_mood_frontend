@@ -31,6 +31,7 @@ interface Props {
   handleSendResetCode: any;
   handleResetPassword: any;
   openTestAlertPopup: any;
+  takeNewEmployeesList: any
 }
 
 export const Routing: React.FC<Props> = ({
@@ -49,6 +50,7 @@ export const Routing: React.FC<Props> = ({
   handleSendResetCode,
   handleResetPassword,
   openTestAlertPopup,
+  takeNewEmployeesList
 }) => {
   return (
     <Routes>
@@ -72,6 +74,7 @@ export const Routing: React.FC<Props> = ({
               onSendTestResult={handleSendTestResult}
               resultOfPsychoTest={resultOfPsychoTest}
               openTestAlertPopup={openTestAlertPopup}
+              // takeNewEmployeesList={takeNewEmployeesList}
             />
           }
         />
@@ -84,6 +87,7 @@ export const Routing: React.FC<Props> = ({
               onSendTestResult={handleSendTestResult}
               resultOfPsychoTest={resultOfPsychoTest}
               openTestAlertPopup={openTestAlertPopup}
+              // takeNewEmployeesList={takeNewEmployeesList}
             />
           }
         />
@@ -106,6 +110,7 @@ export const Routing: React.FC<Props> = ({
             <Myteam
               handleSendInviteCode={handleSendInviteCode}
               employees={employees}
+              takeNewEmployeesList={takeNewEmployeesList}
             />
           }
         />

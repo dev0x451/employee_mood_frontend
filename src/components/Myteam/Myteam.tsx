@@ -12,10 +12,12 @@ import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
 interface Props {
   handleSendInviteCode: (email: string) => Promise<void>;
   employees: EmployeeInterface[];
+  takeNewEmployeesList: () => Promise<void>;
 }
 export const Myteam: React.FC<Props> = ({
   handleSendInviteCode,
   employees,
+  takeNewEmployeesList
 }) => {
   const articles: ArticleInterface[] = [
     {
@@ -64,6 +66,10 @@ export const Myteam: React.FC<Props> = ({
     setAddPopupVisible(false);
   };
 
+  const refreshEmloyees = () => {
+    takeNewEmployeesList();
+  };
+
   const handleInputSort = (e: {target: { value: string }}) => {
     const value = e.target.value;
     console.log(value);
@@ -76,6 +82,10 @@ export const Myteam: React.FC<Props> = ({
   useEffect(() => {
     setIsChief(user === "hr");
   }, [user]);
+
+  useEffect(() => {
+    refreshEmloyees();
+  }, []);
 
   return (
     <div className="page-container">

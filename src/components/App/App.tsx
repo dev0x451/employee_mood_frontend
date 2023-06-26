@@ -6,7 +6,7 @@ import styles from "./app.module.css";
 
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
-import { useAppDispatch, useAppSelector } from "@/store/hooks";
+import { useAppDispatch } from "@/store/hooks";
 import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
 import { setSuccessMessage } from "@/store/reducers/alertSuccess/alertSuccessReducer";
 import {resetAllCurrentUserData, setAllCurrentUserData} from "@/store/reducers/currentUser/currentUserReducer";
@@ -37,9 +37,9 @@ export const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
 
-  const role = useAppSelector(
-    (state) => state.currentUserSlice.currentUser.role
-  );
+  // const role = useAppSelector(
+  //   (state) => state.currentUserSlice.currentUser.role
+  // );
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -197,10 +197,15 @@ export const App = () => {
     try {
       const response = await Api.sendTestResults(result);
       setResultOfPsychoTest(response.data);
+
+      // отправка GET запроса с ID пройденного теста, чтобы сделать уведомление неактивным
+      Api.makeEventNotificationUnactive(result.survey.toString());
+
     } catch (err: any) {
       console.log(err);
     }
     getAllTestsResult();
+    handleEmployees();
   }
 
   async function getAllTestsResult() {
@@ -244,20 +249,18 @@ export const App = () => {
 
   async function handleEmployees() {
     try {
-      if (role === "hr" || role === "chief") {
+      // if (role === "hr" || role === "chief") {
         const response = await Api.getUsers();
         setEmployees(response.data.results);
-      }
+      // }
     } catch (err: any) {
       console.log(err);
     }
   }
-  // console.log(role);
-  // useEffect(()=>{handleEmployees()},[]);
-  // useEffect(()=>{handleEmployees()},[loggedIn]);
-  useEffect(() => {
-    handleEmployees();
-  }, [role]);
+
+  // useEffect(() => {
+  //   handleEmployees();
+  // }, [role]);
 
   const openTestAlertPopup = () => {
     dispatch(
@@ -304,6 +307,7 @@ export const App = () => {
         handleSendResetCode={handleSendResetCode}
         handleResetPassword={handleResetPassword}
         openTestAlertPopup={openTestAlertPopup}
+        takeNewEmployeesList={handleEmployees}
       />
     </main>
   );
