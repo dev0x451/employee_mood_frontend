@@ -7,17 +7,21 @@ import {Info} from "@/pages/profile/components/Info/Info.tsx";
 import {About} from "@/pages/profile/components/About/About.tsx";
 import {Hobbies} from "@/pages/profile/components/Hobbies/Hobbies.tsx";
 import {Meetings} from "@/pages/profile/components/Meetings/Meetings.tsx";
+import TestResults from "@/pages/profile/components/TestResults/TestResults.tsx";
+import {ReactElement} from "react";
 
-export const Profile = () => {
+export const Profile = (): ReactElement => {
   const {userId} = useParams();
   const [userInfo] = useRequest(() => getEmployeeInfo(userId));
-  const [data] =useRequest(() => getEmployeeTestResults(userId));
+  const [testResults] =useRequest(() => getEmployeeTestResults(userId));
 
-  if(data) {
+
+    /*
     data.results.forEach((result) => {
       console.log(`${result.survey.title} ${result.completion_date} ${result.mental_state.name}`)
     })
-  }
+
+     */
 
 
   if(userInfo) {
@@ -39,11 +43,14 @@ export const Profile = () => {
               </div>
               <div className={styles.analyticsSection}>
                 <Meetings />
+                {testResults && <TestResults results={testResults.results}/>}
               </div>
             </div>
           </div>
         </div>
       </>
     )
+  } else {
+    return <div></div>
   }
 };
