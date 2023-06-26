@@ -1,0 +1,25 @@
+@import '@/shared/styles/mixins.scss';
+
+.meetings-log {
+  position: relative;
+  width: 100%;
+  border-radius: 20px;
+  padding: 12px 20px 16px;
+  background-color: var(--color-background-white);
+}
+
+.button {
+  position: absolute;
+  top: 22px;
+  right: 32px;
+  font: var(--font-button);
+  color: var(--color-accent-purple);
+  border: none;
+  background-color: var(--color-background-white);
+}
+
+.title {
+  margin: 8px 0 19px;
+  color: var(--color-black);
+  font: var(--font-h2);
+}

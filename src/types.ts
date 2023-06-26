@@ -230,6 +230,14 @@ export interface Category {
   description: string;
 }
 
+export interface Meeting {
+  id?: number;
+  date: string;
+  title: string;
+  level: number;
+  comment: string;
+}
+
 export interface WebSocketActiveEvent {
   id: number,
   incident_type: string,

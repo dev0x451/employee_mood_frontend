@@ -7,32 +7,37 @@
 
 .sort-container {
   display: grid;
-  grid-template-columns: 1.25fr 1fr 1fr;
   width: 100%;
+  padding: 0 34px 0 20px;
+
   /* align-items: center;
   justify-content: space-between; */
   margin: 24px 0 8px;
-  padding: 0 34px 0 20px;
+  grid-template-columns: 1.25fr 1fr 1fr;
 }
 
 .sort-button {
-  /* width: 33%; */
-  padding: 0;
   /* margin-left: 20px; */
   display: flex;
   align-items: center;
   justify-content: flex-start;
+
+  /* width: 33%; */
+  padding: 0;
   border: none;
   background-color: inherit;
+  cursor: pointer;
   font: var(--font-h3);
   gap: 8px;
-  cursor: pointer;
   transition: opacity 0.5s linear;
 }
+
 .sort-button:nth-child(3) {
   justify-content: flex-end;
+
   /* margin-right: 20px; */
 }
+
 .sort-button:hover {
   opacity: 0.6;
 }
@@ -45,10 +50,11 @@
   border-radius: 20px;
   margin-top: 10px;
   background-color: white;
+  cursor: pointer;
+  gap: 2%;
+
   /* grid-template-columns: repeat(3, 32%); */
   grid-template-columns: 1.25fr 1fr 1fr;
-
-  gap: 2%;
 }
 
 .user {
@@ -57,10 +63,10 @@
 }
 
 .textUser {
-  width: 100%;
-  font: var(--font-body);
-  align-self: center;
   overflow: hidden;
+  width: 100%;
+  align-self: center;
+  font: var(--font-body);
 }
 
 .image {
@@ -70,12 +76,13 @@
   margin-right: 12px;
   object-fit: cover;
 }
+
 .noPhoto {
   display: flex;
-  justify-content: center;
-  align-items: center;
   min-width: 48px;
   min-height: 48px;
+  align-items: center;
+  justify-content: center;
   border-radius: 50%;
   margin-right: 12px;
   background-color: var(--color-background-accent);
@@ -89,32 +96,32 @@
 }
 
 .textName {
-  width: 100%;
-  font: var(--font-body);
-  align-self: center;
   overflow: hidden;
+  width: 100%;
+  align-self: center;
+  font: var(--font-body);
   text-align: left;
 }
 
 .textMentalState {
-  width: 100%;
-  font: var(--font-body);
-  align-self: center;
-  overflow: hidden;
   display: flex;
-  gap: 8px;
+  overflow: hidden;
+  width: 100%;
+  align-self: center;
   justify-content: flex-end;
+  font: var(--font-body);
+  gap: 8px;
 }
 
 .addButton {
-  margin-top: 15px;
   display: flex;
   border: 0;
-  color: var(--color-accent-purple);
+  margin-top: 15px;
   background-color: var(--color-main-background);
+  color: var(--color-accent-purple);
+  cursor: pointer;
   font: var(--font-button);
   outline: none;
-  cursor: pointer;
   transition: opacity 0.5s linear;
 }
 

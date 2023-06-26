@@ -14,6 +14,7 @@ import { Myteam } from "@/components/Myteam/Myteam.js";
 import { LoginPage } from "@/pages/login/LoginPage.js";
 import { RegisterPage } from "@/pages/register/RegisterPage.js";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage.js";
+import {Profile} from "@/pages/profile/Profile.tsx";
 
 interface Props {
   loggedIn: any;
@@ -103,6 +104,10 @@ export const Routing: React.FC<Props> = ({
         <Route
           path="account"
           element={<Account handleChangeUserInfo={handleChangeUserInfo} />}
+        />
+        <Route
+          path="myteam/:userId"
+          element={<Profile />}
         />
         <Route
           path="myteam"

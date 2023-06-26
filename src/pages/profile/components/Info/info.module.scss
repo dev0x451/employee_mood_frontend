@@ -1,0 +1,44 @@
+@import '@/shared/styles/mixins.scss';
+
+.info {
+  width: 100%;
+  border-radius: 20px;
+  padding: 12px 20px 16px;
+  background-color: var(--color-background-white);
+  @include flex-column-center;
+}
+
+.employee {
+  &-photo {
+    @include size (96px, 96px);
+    border-radius: 50%;
+  }
+  &-no-photo {
+    @include size (96px, 96px);
+    @include flex-center;
+    border-radius: 50%;
+    background-color: var(--color-background-accent);
+    font-size: 36px;
+    font-family: Roboto, sans-serif;
+    font-weight: 600;
+    color: var(--color-accent-purple);
+  }
+  &-title {
+    margin: 12px 0 5px;
+    font: var(--font-h3);
+    color: var(--color-black);
+  }
+  &-position {
+    margin: 0;
+    font: var(--font-body);
+    color: var(--color-icon-secondary);
+  }
+  &-contacts {
+    margin: 12px 0 0;
+    font: var(--font-body);
+    color: var(--color-black);
+    &:last-of-type {
+      margin: 0;
+    }
+  }
+}
