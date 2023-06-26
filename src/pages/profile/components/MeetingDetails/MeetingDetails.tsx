@@ -1,7 +1,7 @@
 import {Meeting} from "@/types.ts";
 import {ReactElement} from "react";
 import styles from './meetingdetails.module.scss';
-import {WarningBall} from "@/pages/profile/WarningBall/WarningBall.tsx";
+import {WarningBall} from "@/pages/profile/components/WarningBall/WarningBall.tsx";
 
 export const MeetingDetails = ({title, date, level, comment}: Meeting): ReactElement => {
 

@@ -1,0 +1,7 @@
+@import '@/shared/styles/mixins.scss';
+
+.empty-message {
+  color: var(--color-icon-secondary);
+  font: var(--font-body);
+  margin: 0;
+}

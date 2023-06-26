@@ -7,7 +7,7 @@ import {Info} from "@/pages/profile/components/Info/Info.tsx";
 import {About} from "@/pages/profile/components/About/About.tsx";
 import {Hobbies} from "@/pages/profile/components/Hobbies/Hobbies.tsx";
 import {Meetings} from "@/pages/profile/components/Meetings/Meetings.tsx";
-import TestResults from "@/pages/profile/components/TestResults/TestResults.tsx";
+import {TestResults} from "@/pages/profile/components/TestResults/TestResults.tsx";
 import {ReactElement} from "react";
 
 export const Profile = (): ReactElement => {
@@ -34,12 +34,8 @@ export const Profile = (): ReactElement => {
             <div className={styles.innerContainer}>
               <div className={styles.contactsSection}>
                 <Info avatar={userInfo.avatar} firstName={userInfo.first_name} lastName={userInfo.last_name} position={userInfo.position} department={userInfo.department} phone={userInfo.phone} email={userInfo.email}/>
-                {
-                  userInfo.about && <About firstName={userInfo.first_name} about={userInfo.about}/>
-                }
-                {
-                  userInfo.hobbies && <Hobbies hobbies={userInfo.hobbies}/>
-                }
+                <About firstName={userInfo.first_name} about={userInfo.about}/>
+                <Hobbies hobbies={userInfo.hobbies}/>
               </div>
               <div className={styles.analyticsSection}>
                 <Meetings />

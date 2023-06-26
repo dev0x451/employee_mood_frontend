@@ -1,5 +1,6 @@
 import styles from './meetingslog.module.scss';
 import {MeetingDetails} from "@/pages/profile/components/MeetingDetails/MeetingDetails.tsx";
+import {Button} from "@/shared/ui/Button/Button";
 
 export const MeetingsLog = () => {
 
@@ -43,7 +44,7 @@ export const MeetingsLog = () => {
 
   return (
     <div className={styles.meetingsLog}>
-      <button className={styles.button}>Посмотреть все (5)</button>
+      <div className={styles.button}><Button mode="empty" title="Посмотреть все (5)"/></div>
       <h2 className={styles.title}>История встреч</h2>
       <MeetingDetails date={meetings[0].last_date} title={meetings[0].mental_name} level={meetings[0].mental_level} comment={meetings[0].comment}/>
     </div>

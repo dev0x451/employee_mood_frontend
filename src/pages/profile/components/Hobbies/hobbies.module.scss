@@ -5,12 +5,11 @@
   border-radius: 20px;
   padding: 12px 20px 16px;
   background-color: var(--color-background-white);
-  min-height: 154px;
 }
 
 .employee {
   &-title {
-    margin: 0;
+    margin: 0 0 12px 0;
     font: var(--font-h3);
     color: var(--color-black);
   }
@@ -22,7 +21,7 @@
     flex-wrap: wrap;
     gap: 4px;
     @include list-initial-style;
-    margin: 12px 0 0;
+    margin: 0;
   }
   &-item {
     padding: 10px 12px;
