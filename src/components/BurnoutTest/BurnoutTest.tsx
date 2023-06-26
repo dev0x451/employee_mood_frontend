@@ -133,7 +133,7 @@ function handleChangeInput(e: React.ChangeEvent<HTMLInputElement>) {
 
           {questions && questions.slice(0 + visibleIndex, 1 + visibleIndex).map((question) => (
             <div key={question.id}>
-              <p className={styles.burnoutSubtitle} key={question.id}>{question.text}</p>
+              <p className={styles.burnoutSubtitle} key={question.id}>{question.number}. {question.text}</p>
               {test.variants && test.variants.map((variant) => (
                 <fieldset key={variant.text} className={styles.burnoutQuestion}>
                   <label className={styles.burnoutLabel}>

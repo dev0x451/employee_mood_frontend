@@ -103,13 +103,14 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
         <button className={styles.sortButton} onClick={sortTest}>Наименование опроса {sortIcon}</button>
         <button className={styles.sortButton} onClick={sortData}>Дата проведения {sortIcon}</button>
         <button className={styles.sortButton} onClick={sortResult}>Результат {sortIcon}</button>
+        <div className={styles.plug}></div>
       </section>
       {testResultsSort && testResultsSort.map((record, index) => (
         <section key={index} className={styles.record}>
           <p className={styles.text}>{arrSurvey[record.survey.id]}</p>
           {record.completion_date && resultDate(record.completion_date)}
           <WarningWithBall resultOfPsychoTest={record}/>
-          <button type="button" onClick={() => handleOpenPopup(record)} className={styles.recordButton}>Подробнее</button>
+          <button type="button" onClick={() => handleOpenPopup(record)} disabled={isOpen} className={styles.recordButton}>Подробнее</button>
         </section>
     ))}
 

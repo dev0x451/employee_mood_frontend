@@ -1,6 +1,5 @@
 .results-popup {
   position: relative;
-  height: 100%;
   padding: 40px;
   border-radius: 20px;
   background-color: white;
@@ -9,10 +8,9 @@
 
 .tests-located {
   position: absolute;
-  top: 100px;
-  left: 280px;
-  width: 75%;
-  height: 90%;
+  top: 0;
+  left: -10px;
+  width: calc(100% + 20px);
 }
 
 .title {

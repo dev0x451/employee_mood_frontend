@@ -115,3 +115,11 @@ export const connectToWebSocketNotifications = () => {
     },
   });
 };
+
+export const makeEventNotificationUnactive = (id: string) => {
+  return axios.get(`${BASE_URL_REQUEST}/notifications/${id}/viewed`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
