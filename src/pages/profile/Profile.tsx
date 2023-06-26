@@ -6,6 +6,7 @@ import {getEmployeeInfo, getEmployeeTestResults} from "@/shared/api/Api.ts";
 import {Info} from "@/pages/profile/components/Info/Info.tsx";
 import {About} from "@/pages/profile/components/About/About.tsx";
 import {Hobbies} from "@/pages/profile/components/Hobbies/Hobbies.tsx";
+import {Meetings} from "@/pages/profile/components/Meetings/Meetings.tsx";
 
 export const Profile = () => {
   const {userId} = useParams();
@@ -36,7 +37,9 @@ export const Profile = () => {
                   userInfo.hobbies && <Hobbies hobbies={userInfo.hobbies}/>
                 }
               </div>
-              <div className={styles.analyticsSection}>sddsg</div>
+              <div className={styles.analyticsSection}>
+                <Meetings />
+              </div>
             </div>
           </div>
         </div>
