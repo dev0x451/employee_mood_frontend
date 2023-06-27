@@ -1,0 +1,115 @@
+.custom-input {
+  position: relative;
+}
+
+.custom-input input {
+  width: 157px;
+  height: 44px;
+  padding-left: 12px;
+  border: 0.5px solid var(--color-button-secondary, #EBEBEB);
+  border-radius: 12px;
+  background-color: var(--color-background-white);
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  letter-spacing: 0.1px;
+  line-height: 20px;
+  outline: none;
+}
+
+.custom-input input:hover {
+   border: 0.5px solid var(--color-icon-secondary);
+ }
+
+.custom-input input:focus {
+   border: 0.5px solid var(--color-accent-purple);
+ }
+
+.custom-input .custom-icon {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  background-image: url('@/pages/profile/ui/calendar_24.svg');
+  background-repeat: no-repeat;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.react-datepicker-header {
+  background-color: white;
+}
+
+.react-datepicker-day-name {
+  color: #888;
+}
+
+.prev-month {
+  width: 28px;
+  height: 20px;
+  background-image: url('@/pages/profile/ui/arrow-left.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.next-month {
+  width: 28px;
+  height: 20px;
+  background-image: url('@/pages/profile/ui/arrow-right.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.custom-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.current-month-year {
+  font-family: Roboto, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  line-height: 20px;
+}
+
+.selected-date {
+  background-color: white;
+}
+
+.custom-datepicker .react-datepicker-day-selected,
+.custom-datepicker .react-datepicker-day-selected:hover {
+  border-radius: 0;
+  border-bottom: 2px solid var(--color-accent-purple);
+  background-color: white;
+  color: #000;
+}
+
+.custom-datepicker .react-datepicker-day-keyboard-selected,
+.custom-datepicker .react-datepicker-day-keyboard-selected:hover {
+  border-radius: 0;
+  border-bottom: 2px solid var(--color-accent-purple);
+  background-color: white;
+  color: #000;
+}
+
+.custom-datepicker .react-datepicker-day-today {
+  background-color: transparent;
+  color: inherit;
+  font-weight: 400;
+}
+
+.custom-datepicker {
+  border: 0.5px solid #EBEBEB;
+  border-radius: 8px;
+  box-shadow: var(--shadow-medium);
+}
+
+
+

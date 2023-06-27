@@ -15,15 +15,6 @@ export const Profile = (): ReactElement => {
   const [userInfo] = useRequest(() => getEmployeeInfo(userId));
   const [testResults] =useRequest(() => getEmployeeTestResults(userId));
 
-
-    /*
-    data.results.forEach((result) => {
-      console.log(`${result.survey.title} ${result.completion_date} ${result.mental_state.name}`)
-    })
-
-     */
-
-
   if(userInfo) {
     return (
       <>
