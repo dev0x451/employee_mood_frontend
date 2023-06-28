@@ -71,12 +71,12 @@ export const Navbar = () => {
         </NavLink>
         <NavLink
           className={({ isActive }) => linkClassName(isActive)}
-          to="/advices"
+          to="/useful"
         >
           <div className={styles.logoContainer}>
             {advicesIcon}
           </div>
-          Советы
+          Полезное
         </NavLink>
         <NavLink
           className={({ isActive }) => linkClassName(isActive)}
@@ -99,7 +99,7 @@ export const Navbar = () => {
           <div className={styles.logoContainer}>
             {bookmarkIcon}
           </div>
-          Закладки
+          Сохранённое
         </NavLink>
 
         {isChief && (
