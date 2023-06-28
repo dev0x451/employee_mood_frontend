@@ -1,8 +1,10 @@
 import styles from "./useful.module.scss";
 import {Navbar} from "@/components/Navbar/Navbar";
+import { useOnlineCheck } from "@/shared/hooks/useOnlineCheck";
 import SearchUseful from "@/components/SearchUseful/SearchUseful.tsx";
 import TagsList from "@/components/TagsList/TagsList.tsx";
 import UsefulCardList from "@/components/UsefulCardList/UsefulCardList.tsx";
+import { BadInternetConnection } from "@/components/BadInternetConnection/BadInternetConnection";
 import {useEffect, useState} from "react";
 import {Card, Category} from "@/types.ts";
 import axios from 'axios';
@@ -15,6 +17,8 @@ export const Useful = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [searchValue, setSearchValue] = useState('');
   // const [isLoading, setIsLoading] = useState(true);
+
+  const isOnline = useOnlineCheck();
 
   useEffect(() => {
     fetchData().then(r => r);
@@ -111,7 +115,7 @@ export const Useful = () => {
 
   function handleCheckedList(tags: string[]) {
     if (tags.length) {
-      let result: Card[] = entries.filter((card) => {
+      const result: Card[] = entries.filter((card) => {
         return card.category.some((category) => tags.includes(category.name))
       });
       setTempCheckedCards(result)
@@ -129,6 +133,7 @@ export const Useful = () => {
   return (
     <div className="page-container">
       <Navbar/>
+      {isOnline ?
       <div className={styles.container}>
         <div className={styles.useful}>
           <h2 className={styles.title}>Полезные статьи и видео</h2>
@@ -142,7 +147,7 @@ export const Useful = () => {
                           allEntries={entries}/>
         </div>
       </div>
-
+    : <BadInternetConnection/>}
     </div>
   );
 };

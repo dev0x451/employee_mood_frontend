@@ -6,8 +6,10 @@ import { Employees } from "../Employees/Employees";
 import { ArticleInterface, EmployeeInterface } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";
 import { AddEmployeePopup } from "@/components/AddEmployeePopup/AddEmployeePopup";
+import { BadInternetConnection } from "../BadInternetConnection/BadInternetConnection";
 import { useAppSelector } from "@/store/hooks";
 import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
+import { useOnlineCheck } from "@/shared/hooks/useOnlineCheck";
 
 interface Props {
   handleSendInviteCode: (email: string) => Promise<void>;
@@ -52,11 +54,13 @@ export const Myteam: React.FC<Props> = ({
     },
   ];
 
+  const isOnline = useOnlineCheck();
+
   const [addPopupVisible, setAddPopupVisible] = useState(false);
   const [textInput, setTextInput] = useState("");
   const [isChief, setIsChief] = useState(false);
   const user = useAppSelector(selectRole);
-  const reg = /[a-zA-Zа-яА-Я0-9-\ ]/;
+  const reg = /[a-zA-Zа-яА-Я0-9- ]/;
 
   const openAddPopup = () => {
     setAddPopupVisible(true);
@@ -90,6 +94,7 @@ export const Myteam: React.FC<Props> = ({
   return (
     <div className="page-container">
       <Navbar />
+      {isOnline ?
       <div className={styles.myteam}>
         <div className={styles.leftScreen}>
           <div className={styles.topContent}>
@@ -123,6 +128,7 @@ export const Myteam: React.FC<Props> = ({
           />
         </div>
       </div>
+      : <BadInternetConnection/>}
       <AddEmployeePopup
         closeAddPopup={closeAddPopup}
         addPopupVisible={addPopupVisible}

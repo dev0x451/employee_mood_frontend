@@ -23,7 +23,7 @@ export function WarningWithLine ({ graph}: WarningWithBall): JSX.Element {
 
   useEffect(() => {
     const wid = parseInt((graph.value / graph.max_value * 100).toString(), 10);
-    if (wid > 1) {
+    if (wid > 10) {
       setWidth(wid)
     } else {
       setWidth(10)

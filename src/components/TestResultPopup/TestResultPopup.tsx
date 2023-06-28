@@ -48,7 +48,7 @@ export const TestResultPopup: React.FC<TestResultPopup> = ({resultOfPsychoTest, 
 
       {(resultOfPsychoTest?.survey.type === 'yn') ?
         <>
-          <h2 className={styles.subtitle}>Рекомендации</h2>
+          {resultOfPsychoTest?.survey.text.length > 0 ? <h2 className={styles.subtitle}>Рекомендации</h2> : null}
           <ReactMarkdown>{resultOfPsychoTest?.survey.text}</ReactMarkdown>
           <div className={styles.buttonContainer}>
             {(resultOfPsychoTest?.mental_state.level !== 1) && <button type='button' onClick={handleCallChief} className={styles.button}>Обсудить с руководителем</button>}
