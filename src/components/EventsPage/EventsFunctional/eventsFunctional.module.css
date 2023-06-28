@@ -1,0 +1,52 @@
+.eventsFunctional__main {
+  width: 100%;
+  height: 52px;
+  display: grid;
+  grid-template-columns: 7fr 2fr;
+  gap: 20px;
+}
+.eventsFunctional__find {
+  /* widt */
+  padding: 8px 12px 8px 36px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 12px;
+  background-image: url('@/assets/search_icon.svg');
+  background-position: 12px center;
+  background-repeat: no-repeat;
+  font: var(--font-search-input);
+  color: var(--color-black);
+}
+.eventsFunctional__add {
+  height: 36px;
+  align-self: center;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--color-accent-purple);
+  font: var(--font-button);
+  color: var(--color-white);
+}
+.eventsFunctional__list {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+/* .eventsFunctional__point {
+
+} */
+.eventsFunctional__typeActivity {
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 16px;
+  background-color: var(--color-white);
+  font: var(--font-body);
+  color: var(--color-accent-purple);
+}
+.active {
+  background-color: var(--color-accent-purple);
+  color: var(--color-white);
+}

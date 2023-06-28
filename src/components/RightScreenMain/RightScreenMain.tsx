@@ -1,7 +1,7 @@
 import styles from "./rightScreenMain.module.css";
 import {PsychologistInfo} from "../PsychologistInfo/PsychologistInfo";
 import {Articles} from "../Articles/Articles";
-import {Events} from "../Events/Events";
+import { EventsMain } from "../EventsMain/EventsMain";
 import {ArticleInterface} from "@/types";
 
 export const RightScreenMain = () => {
@@ -33,7 +33,7 @@ export const RightScreenMain = () => {
         articles={articles}
         title={'Как улучшить ментальное здоровье'}
       />
-      <Events/>
+      <EventsMain/>
     </div>
   );
 };
