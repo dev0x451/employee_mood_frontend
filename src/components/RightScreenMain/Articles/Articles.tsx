@@ -1,8 +1,8 @@
 import {FC} from "react";
 import styles from "./articles.module.css";
-import {Article} from "../Article/Article";
+import {Article} from "./Article/Article";
 import {ArticleInterface} from "@/types";
-import vector from "../../assets/Vector.svg"
+import vector from "@/assets/Vector.svg"
 
 interface ArticlesListProps {
   articles: ArticleInterface[];
