@@ -16,7 +16,7 @@ interface Props {
   closePopup: () => void;
   userId: string | undefined;
   handleAddMeetingInfo: ({userId, formattedDate, comment, level}: MeetingInfo) => void;
-  updateMeetingsList : () => void;
+  updateMeetingsList: () => void;
 }
 
 export const AddMeetingForm = ({closePopup, userId, handleAddMeetingInfo, updateMeetingsList }: Props): ReactElement => {

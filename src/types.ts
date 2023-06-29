@@ -17,7 +17,7 @@ export interface EmployeeInterface {
   last_name: string;
   position: { name: string };
   // colorball: string;
-  mental_state?: UserMentalState;
+  mental_state: UserMentalState;
 }
 
 export interface SelectOption {

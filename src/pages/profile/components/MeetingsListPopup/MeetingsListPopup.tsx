@@ -20,7 +20,7 @@ export const MeetingsListPopup = ({meetingsList, closePopup}: Props): ReactEleme
         {meetingsList.map((meeting, index) => (
           index < countCardPage
             ?
-          <div className={styles.meetingItem}>
+          <div key={index} className={styles.meetingItem}>
             <MeetingDetails date={meeting.date} name={meeting.mental_state.name} level={meeting.mental_state.level} comment={meeting.comment}/>
           </div>
           : null
