@@ -1,7 +1,7 @@
 import styles from "./rightScreenMain.module.css";
 import {PsychologistInfo} from "../PsychologistInfo/PsychologistInfo";
-import {Articles} from "../Articles/Articles";
-import {Events} from "../Events/Events";
+import {Articles} from "./Articles/Articles";
+import {Events} from "./Events/Events";
 import {ArticleInterface} from "@/types";
 
 export const RightScreenMain = () => {
