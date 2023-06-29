@@ -19,7 +19,7 @@ import {
   TestInterface,
   SubmitArguments,
   UserInfo,
-  WebSocketMessage
+  WebSocketMessage, MeetingInfo
 } from "@/types";
 
 import { BASE_URL_WSS } from "@/shared/constants";
@@ -85,7 +85,7 @@ export const App = () => {
           ? navigate("/")
           : navigate(pathname);
       }
-      getUserInfo();
+      await getUserInfo();
     } catch (err: any) {
       if (err.status === 400) {
         console.log("400 - токен не передан или передан не в том формате");
@@ -288,6 +288,14 @@ export const App = () => {
     return <div></div>;
   }
 
+  async function handleAddMeetingInfo ({userId, formattedDate, comment, level}: MeetingInfo) {
+    try {
+      await Api.sendMeetingInfo(userId, formattedDate, comment, level);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
   return (
     <main className={styles.page}>
       <AlertPopup />
@@ -308,6 +316,7 @@ export const App = () => {
         handleResetPassword={handleResetPassword}
         openTestAlertPopup={openTestAlertPopup}
         takeNewEmployeesList={handleEmployees}
+        handleAddMeetingInfo={handleAddMeetingInfo}
       />
     </main>
   );

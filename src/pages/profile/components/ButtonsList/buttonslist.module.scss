@@ -1,0 +1,9 @@
+@import '@/shared/styles/mixins.scss';
+
+.buttons-list {
+  display: flex;
+  justify-content: flex-end;
+  @include list-initial-style;
+  margin: 16px 0 0;
+  gap: 24px;
+}

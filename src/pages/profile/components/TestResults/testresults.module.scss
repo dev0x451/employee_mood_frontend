@@ -7,7 +7,7 @@
 }
 
 .tests-list {
-  margin: 0;
+  margin: 0 0 22px 0;
   @include list-initial-style;
   &-item {
     position: relative;
@@ -44,4 +44,16 @@
       margin-bottom: 0;
     }
   }
+}
+
+.empty-tests {
+  padding: 12px 20px;
+  width: 100%;
+  background-color: var(--color-background-white);
+  border-radius: 15px;
+  font-size: 15px;
+  font-family: Roboto;
+  font-weight: 500;
+  line-height: 18px;
+  color: var(--color-black);
 }

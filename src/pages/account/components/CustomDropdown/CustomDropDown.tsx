@@ -1,5 +1,5 @@
 import { ReactElement, useEffect, useRef, useState } from "react";
-import styles from "./dropdown.module.scss";
+import styles from "./customdropdown.module.scss";
 import { getHobbies } from "@/shared/api/Api";
 import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 import { UserHobby } from "@/types";
@@ -7,14 +7,14 @@ import { useOutsideClick } from "@/shared/hooks/useOutsideClick";
 
 interface Props {
   handleSelectChange: (arg: UserHobby) => void;
-  interests: UserHobby[];
+  options: UserHobby[];
   isDropDownVisible: boolean;
   closeDropDown: () => void;
 }
 
-export const DropDown = ({
+export const CustomDropDown = ({
   handleSelectChange,
-  interests,
+  options,
   isDropDownVisible,
   closeDropDown,
 }: Props): ReactElement => {
@@ -23,10 +23,10 @@ export const DropDown = ({
   const ref = useRef<null>(null);
 
   useEffect(() => {
-    if (interests.length >= 6) {
+    if (options.length >= 6) {
       closeAndReset();
     }
-  }, [interests]);
+  }, [options]);
 
   useEffect(() => {
     onKeyDown();
@@ -80,7 +80,7 @@ export const DropDown = ({
           name={value}
           placeholder="Введите название интереса"
         />
-        <p className={styles.counter}>{interests.length}/6</p>
+        <p className={styles.counter}>{options.length}/6</p>
       </div>
       {results.length > 0 && value && (
         <ul className={styles.resultsList}>

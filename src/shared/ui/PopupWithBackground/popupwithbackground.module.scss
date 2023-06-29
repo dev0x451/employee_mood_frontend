@@ -1,7 +1,6 @@
 @import '@/shared/styles/mixins.scss';
 
-.add-employee-popup {
-  padding-top: 260px;
+.popup-with-background {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -12,6 +11,7 @@
   opacity: 0;
   transition: all .3s ease-in-out;
   visibility: hidden;
+  overflow: auto;
   &-active {
     opacity: 1;
     visibility: visible;

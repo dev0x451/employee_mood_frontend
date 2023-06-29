@@ -7,22 +7,45 @@ import {Info} from "@/pages/profile/components/Info/Info.tsx";
 import {About} from "@/pages/profile/components/About/About.tsx";
 import {Hobbies} from "@/pages/profile/components/Hobbies/Hobbies.tsx";
 import {Meetings} from "@/pages/profile/components/Meetings/Meetings.tsx";
-import TestResults from "@/pages/profile/components/TestResults/TestResults.tsx";
-import {ReactElement} from "react";
+import {TestResults} from "@/pages/profile/components/TestResults/TestResults.tsx";
+import {ReactElement, useEffect, useState} from "react";
+import {PopupWithBackground} from "@/shared/ui/PopupWithBackground/PopupWithBackground";
+import {AddMeetingForm} from "@/pages/profile/components/AddMeetingForm/AddMeetingForm";
+import {MeetingInfo, MeetingInterface} from "@/types";
+import * as Api from "@/shared/api/Api";
 
-export const Profile = (): ReactElement => {
+interface Props {
+  handleAddMeetingInfo: ({userId, formattedDate, comment, level}: MeetingInfo) => void;
+}
+export const Profile = ({handleAddMeetingInfo}: Props): ReactElement => {
   const {userId} = useParams();
   const [userInfo] = useRequest(() => getEmployeeInfo(userId));
   const [testResults] =useRequest(() => getEmployeeTestResults(userId));
+  const [meetingsList, setMeetingsList] = useState<MeetingInterface[]>([]);
+  const [addPopupVisible, setAddPopupVisible] = useState(false);
+  const [triggerUpdate, setTriggerUpdate] = useState(false);
 
+  const openAddPopup = () => {
+    setAddPopupVisible(true);
+  }
 
-    /*
-    data.results.forEach((result) => {
-      console.log(`${result.survey.title} ${result.completion_date} ${result.mental_state.name}`)
-    })
+  useEffect(() => {
+      handleGetMeetings(userId);
+  }, [triggerUpdate]);
 
-     */
+  const updateMeetingsList = () => {
+    setTriggerUpdate(!triggerUpdate);
+  }
 
+  async function handleGetMeetings(userId: string | undefined): Promise<void> {
+    try {
+      const response = await Api.getMeetingsInfo(userId);
+      const meetings: MeetingInterface[] = response.data.results;
+      setMeetingsList(meetings);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   if(userInfo) {
     return (
@@ -34,19 +57,18 @@ export const Profile = (): ReactElement => {
             <div className={styles.innerContainer}>
               <div className={styles.contactsSection}>
                 <Info avatar={userInfo.avatar} firstName={userInfo.first_name} lastName={userInfo.last_name} position={userInfo.position} department={userInfo.department} phone={userInfo.phone} email={userInfo.email}/>
-                {
-                  userInfo.about && <About firstName={userInfo.first_name} about={userInfo.about}/>
-                }
-                {
-                  userInfo.hobbies && <Hobbies hobbies={userInfo.hobbies}/>
-                }
+                <About firstName={userInfo.first_name} about={userInfo.about}/>
+                <Hobbies hobbies={userInfo.hobbies}/>
               </div>
               <div className={styles.analyticsSection}>
-                <Meetings />
+                <Meetings openAddPopup={openAddPopup} meetingsList={meetingsList && meetingsList} />
                 {testResults && <TestResults results={testResults.results}/>}
               </div>
             </div>
           </div>
+          <PopupWithBackground popupVisible={addPopupVisible} closePopup={() => setAddPopupVisible(false)}>
+            <AddMeetingForm userId={userId} closePopup={() => setAddPopupVisible(false)} updateMeetingsList={updateMeetingsList} handleAddMeetingInfo={handleAddMeetingInfo}/>
+          </PopupWithBackground>
         </div>
       </>
     )

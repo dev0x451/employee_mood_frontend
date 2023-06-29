@@ -1,0 +1,96 @@
+.custom-input {
+  position: relative;
+}
+
+.custom-input input {
+  width: 100%;
+  height: 44px;
+  border: 0.5px solid var(--color-button-secondary);
+  border-radius: 12px;
+  background-color: var(--color-background);
+  padding-left: 12px;
+  font-size: 16px;
+  font-family: Roboto;
+  line-height: 20px;
+  letter-spacing: 0.1px;
+  outline: none;
+  font: var(--font-body);
+  color: var(--color-black);
+  &::placeholder {
+    font: var(--font-body);
+    color: var(--color-icon-secondary);
+  }
+}
+
+.custom-input .custom-icon {
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  cursor: pointer;
+  transform: translateY(-50%);
+  background-image: url('@/pages/profile/ui/calendar_24.svg');
+  background-repeat: no-repeat;
+}
+
+.react-datepicker__header {
+  background-color: white;
+}
+
+.react-datepicker__day-name {
+  color: #888;
+}
+
+.prev-month {
+  width: 28px;
+  height: 20px;
+  background-image: url('@/pages/profile/ui/arrow-left.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.next-month {
+  width: 28px;
+  height: 20px;
+  background-image: url('@/pages/profile/ui/arrow-right.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  cursor: pointer;
+}
+
+.custom-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.current-month-year {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.2px;
+  line-height: 20px;
+}
+
+.custom-datepicker .react-datepicker__day--keyboard-selected,
+.custom-datepicker .react-datepicker__day--keyboard-selected:hover {
+  background-color: white;
+}
+
+.custom-datepicker {
+  border: 0.5px solid #EBEBEB;
+  border-radius: 8px;
+  box-shadow: var(--shadow-medium);
+}
+
+.selected-date {
+  border-radius: 0;
+  border-bottom: 2px solid var(--color-accent-purple);
+  background-color: white;
+  color: #000;
+}
