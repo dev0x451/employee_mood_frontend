@@ -77,34 +77,20 @@
   line-height: 20px;
 }
 
-.selected-date {
-  background-color: white;
-}
-
-.custom-datepicker .react-datepicker__day--selected,
-.custom-datepicker .react-datepicker__day--selected:hover {
-  border-radius: 0;
-  border-bottom: 2px solid var(--color-accent-purple);
-  background-color: white;
-  color: #000;
-}
-
 .custom-datepicker .react-datepicker__day--keyboard-selected,
 .custom-datepicker .react-datepicker__day--keyboard-selected:hover {
-  border-radius: 0;
-  border-bottom: 2px solid var(--color-accent-purple);
   background-color: white;
-  color: #000;
-}
-
-.custom-datepicker .react-datepicker__day--today {
-  background-color: transparent;
-  color: inherit;
-  font-weight: 400;
 }
 
 .custom-datepicker {
   border: 0.5px solid #EBEBEB;
   border-radius: 8px;
   box-shadow: var(--shadow-medium);
+}
+
+.selected-date {
+  border-radius: 0;
+  border-bottom: 2px solid var(--color-accent-purple);
+  background-color: white;
+  color: #000;
 }

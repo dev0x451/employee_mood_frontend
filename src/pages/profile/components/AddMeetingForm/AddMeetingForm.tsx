@@ -16,9 +16,10 @@ interface Props {
   closePopup: () => void;
   userId: string | undefined;
   handleAddMeetingInfo: ({userId, formattedDate, comment, level}: MeetingInfo) => void;
+  updateMeetingsList : () => void;
 }
 
-export const AddMeetingForm = ({closePopup, userId, handleAddMeetingInfo}: Props): ReactElement => {
+export const AddMeetingForm = ({closePopup, userId, handleAddMeetingInfo, updateMeetingsList }: Props): ReactElement => {
   const ref = useRef<null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [formattedDate, setFormattedDate] = useState<string>('');
@@ -92,6 +93,7 @@ export const AddMeetingForm = ({closePopup, userId, handleAddMeetingInfo}: Props
     if(userId && comment && formattedDate && level) {
       handleAddMeetingInfo({userId, comment, formattedDate, level});
       closeAndResetForm();
+      updateMeetingsList();
     }
   }
 

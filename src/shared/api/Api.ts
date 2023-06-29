@@ -151,6 +151,14 @@ export const getMentalStates = () => {
   });
 };
 
+export const getMeetingsInfo = (id: string | undefined) => {
+  return axios.get(`${BASE_URL_REQUEST}/meeting_results?employee=${id}`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
 export const sendMeetingInfo = (userId: string, formattedDate: string, comment: string, level: number ) => {
   return axios.post(
     `${BASE_URL_REQUEST}/meeting_results`, {

@@ -9,7 +9,6 @@ interface Props {
 
 
 export const Hobbies = ({hobbies}: Props): ReactElement => {
-  console.log(hobbies);
   return (
     <div className={styles.interests}>
       <h3 className={styles.employeeTitle}>Интересы</h3>
@@ -18,7 +17,7 @@ export const Hobbies = ({hobbies}: Props): ReactElement => {
         <ul className={styles.hobbyList}>
           {
             hobbies.map((hobby) => (
-              <li className={styles.hobbyItem}>{hobby.name}</li>
+              <li key={hobby.name} className={styles.hobbyItem}>{hobby.name}</li>
             ))
           }
         </ul>

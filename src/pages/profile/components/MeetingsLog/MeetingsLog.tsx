@@ -1,53 +1,36 @@
 import styles from './meetingslog.module.scss';
 import {MeetingDetails} from "@/pages/profile/components/MeetingDetails/MeetingDetails.tsx";
 import {Button} from "@/shared/ui/Button/Button";
+import {MeetingInterface} from "@/types";
+import {ReactElement, useState} from "react";
+import {NothingToRender} from "@/pages/profile/components/NothingToRender/NothingToRender";
+import {MeetingsListPopup} from "@/pages/profile/components/MeetingsListPopup/MeetingsListPopup";
+import {PopupWithBackground} from "@/shared/ui/PopupWithBackground/PopupWithBackground";
 
-export const MeetingsLog = () => {
-
-  const meetings = [
-    {
-      id: 1,
-      last_date: '02.05.2023',
-      mental_name: "тревожное",
-      mental_level: 2,
-      comment: "Выказывает усталость, сниженный интерес к работе и снижение продуктивности. Необходимо принять меры для предотвращения полного выгорания, такие как распределение нагрузки, установление границ между работой и личной жизнью, а также психологической поддержки."
-    },
-    {
-      id: 2,
-      last_date: '02.05.2023',
-      mental_name: "тревожное",
-      mental_level: 1,
-      comment: "Выказывает усталость, сниженный интерес к работе и снижение продуктивности. Необходимо принять меры для предотвращения полного выгорания, такие как распределение нагрузки, установление границ между работой и личной жизнью, а также психологической поддержки."
-    },
-    {
-      id: 3,
-      last_date: '02.05.2023',
-      mental_name: "тревожное",
-      mental_level: 2,
-      comment: "Выказывает усталость, сниженный интерес к работе и снижение продуктивности. Необходимо принять меры для предотвращения полного выгорания, такие как распределение нагрузки, установление границ между работой и личной жизнью, а также психологической поддержки."
-    },
-    {
-      id: 4,
-      last_date: '02.05.2023',
-      mental_name: "тревожное",
-      mental_level: 3,
-      comment: "Выказывает усталость, сниженный интерес к работе и снижение продуктивности. Необходимо принять меры для предотвращения полного выгорания, такие как распределение нагрузки, установление границ между работой и личной жизнью, а также психологической поддержки."
-    },
-    {
-      id: 5,
-      last_date: '02.05.2023',
-      mental_name: "тревожное",
-      mental_level: 2,
-      comment: "Выказывает усталость, сниженный интерес к работе и снижение продуктивности. Необходимо принять меры для предотвращения полного выгорания, такие как распределение нагрузки, установление границ между работой и личной жизнью, а также психологической поддержки."
-    }
-  ]
+interface Props {
+  meetingsList: MeetingInterface[];
+}
+export const MeetingsLog = ({meetingsList}: Props): ReactElement => {
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   return (
-    <div className={styles.meetingsLog}>
-      <div className={styles.button}><Button mode="empty" title="Посмотреть все (5)"/></div>
-      <h2 className={styles.title}>История встреч</h2>
-      <MeetingDetails date={meetings[0].last_date} title={meetings[0].mental_name} level={meetings[0].mental_level} comment={meetings[0].comment}/>
-    </div>
+    <>
+      <PopupWithBackground popupVisible={isPopupVisible} closePopup={() => setIsPopupVisible(false)}>
+        <MeetingsListPopup meetingsList={meetingsList} closePopup={() => setIsPopupVisible(false)}/>
+      </PopupWithBackground>
+      <div className={styles.meetingsLog}>
+        <h2 className={styles.title}>История встреч</h2>
+        {meetingsList && meetingsList.length !== 0
+          ?
+            <>
+              <div className={styles.button}><Button handleClick={() => setIsPopupVisible(true)} mode="empty" title={`Посмотреть все (${meetingsList.length})`}/></div>
+              <MeetingDetails date={meetingsList[0].date} name={meetingsList[0].mental_state.name} level={meetingsList[0].mental_state.level} comment={meetingsList[0].comment}/>
+            </>
+          :
+          <NothingToRender text="Встречи еще не проводились" />
+        }
+      </div>
+    </>
   );
 };
 

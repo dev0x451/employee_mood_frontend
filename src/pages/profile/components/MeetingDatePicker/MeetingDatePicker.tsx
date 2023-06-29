@@ -1,5 +1,6 @@
-import {ReactElement, useState} from 'react';
+import {ReactElement, useState, forwardRef, Ref, useEffect} from 'react';
 import DatePicker from 'react-datepicker';
+import { isSameDay } from 'date-fns';
 import 'react-datepicker/dist/react-datepicker.css';
 import './styles.scss';
 import ru from 'date-fns/locale/ru';
@@ -8,24 +9,28 @@ import { registerLocale } from 'react-datepicker';
 registerLocale('ru', ru);
 
 interface Props {
-  selectedDate: any;
+  selectedDate: Date | null;
   handleDateChange: (date: Date | null) => void;
 }
 
-export const MeetingDatePicker = ({selectedDate, handleDateChange}: Props): ReactElement => {
+export const MeetingDatePicker = ({ selectedDate, handleDateChange }: Props): ReactElement => {
   const [isCalendarOpen, setCalendarOpen] = useState<boolean>(false);
 
-  console.log(isCalendarOpen);
+  useEffect(() => {
+    console.log(isCalendarOpen);
+  }, [])
+
   const dayClassName = (date: Date) => {
-    if (selectedDate && date.toDateString() === selectedDate.toDateString()) {
+    if (selectedDate && isSameDay(selectedDate, date)) {
       return 'selected-date';
     }
     return '';
   };
 
-  const CustomInput = ({ selectedDate, onClick }: any) => (
+  const CustomInput = forwardRef(({ selectedDate, onClick }: any, ref: Ref<HTMLInputElement>) => (
     <div className="custom-input">
       <input
+        ref={ref}
         type="text"
         value={selectedDate ? selectedDate.toLocaleDateString('ru') : ''}
         placeholder="__.__.____"
@@ -34,7 +39,7 @@ export const MeetingDatePicker = ({selectedDate, handleDateChange}: Props): Reac
       />
       {!selectedDate && <div className="custom-icon" onClick={onClick}></div>}
     </div>
-  );
+  ));
 
   const CustomHeader = ({ date, decreaseMonth, increaseMonth }: any) => (
     <div className="custom-header">
@@ -58,7 +63,6 @@ export const MeetingDatePicker = ({selectedDate, handleDateChange}: Props): Reac
       dropdownMode="select"
       todayButton={null}
       locale="ru"
-      highlightDates={[new Date()]}
       selected={selectedDate}
       onChange={handleDateChange}
       onFocus={() => setCalendarOpen(true)}
@@ -76,3 +80,4 @@ export const MeetingDatePicker = ({selectedDate, handleDateChange}: Props): Reac
     />
   );
 };
+

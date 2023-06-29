@@ -85,7 +85,7 @@ export const App = () => {
           ? navigate("/")
           : navigate(pathname);
       }
-      getUserInfo();
+      await getUserInfo();
     } catch (err: any) {
       if (err.status === 400) {
         console.log("400 - токен не передан или передан не в том формате");
@@ -290,8 +290,7 @@ export const App = () => {
 
   async function handleAddMeetingInfo ({userId, formattedDate, comment, level}: MeetingInfo) {
     try {
-      const response = await Api.sendMeetingInfo(userId, formattedDate, comment, level);
-      console.log(response);
+      await Api.sendMeetingInfo(userId, formattedDate, comment, level);
     } catch (err: any) {
       console.log(err);
     }

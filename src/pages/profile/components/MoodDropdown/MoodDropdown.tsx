@@ -39,7 +39,7 @@ export const MoodDropdown = ({data, setDropDownValue, value, level}: Props): Rea
       </div>
       <ul className={!isDropDownVisible ? styles.dropdown : `${styles.dropdown} ${styles.dropdownVisible}`}>
         {data !== null && data.length !== 0 && data.map((state) => (
-          <li className={styles.dropdownItem} onClick={() => handleDropDownClick(state)}>
+          <li key={state.level} className={styles.dropdownItem} onClick={() => handleDropDownClick(state)}>
             <WarningBall level={state.level} title={state.name} />
           </li>
         ))}

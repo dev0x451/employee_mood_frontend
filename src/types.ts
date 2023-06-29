@@ -11,12 +11,13 @@ type Department = {
 
 export interface EmployeeInterface {
   id: number;
-  avatar?: string;
+  avatar?: string | null;
+  avatar_full?: string | null;
   first_name: string;
   last_name: string;
   position: { name: string };
   // colorball: string;
-  mental_state: UserMentalState;
+  mental_state?: UserMentalState;
 }
 
 export interface SelectOption {
@@ -233,7 +234,7 @@ export interface Category {
 export interface Meeting {
   id?: number;
   date: string;
-  title: string;
+  name: string;
   level: number;
   comment: string;
 }
@@ -257,4 +258,13 @@ export interface MeetingInfo {
   formattedDate: string,
   comment: string,
   level: number;
+}
+
+export interface MeetingInterface {
+  //id: number | undefined,
+  comment: string,
+  date: string,
+  employee?: EmployeeInterface,
+  organizer?: EmployeeInterface,
+  mental_state: UserMentalState
 }

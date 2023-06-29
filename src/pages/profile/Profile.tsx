@@ -8,10 +8,11 @@ import {About} from "@/pages/profile/components/About/About.tsx";
 import {Hobbies} from "@/pages/profile/components/Hobbies/Hobbies.tsx";
 import {Meetings} from "@/pages/profile/components/Meetings/Meetings.tsx";
 import {TestResults} from "@/pages/profile/components/TestResults/TestResults.tsx";
-import {ReactElement, useState} from "react";
+import {ReactElement, useEffect, useState} from "react";
 import {PopupWithBackground} from "@/shared/ui/PopupWithBackground/PopupWithBackground";
 import {AddMeetingForm} from "@/pages/profile/components/AddMeetingForm/AddMeetingForm";
-import {MeetingInfo} from "@/types";
+import {MeetingInfo, MeetingInterface} from "@/types";
+import * as Api from "@/shared/api/Api";
 
 interface Props {
   handleAddMeetingInfo: ({userId, formattedDate, comment, level}: MeetingInfo) => void;
@@ -20,10 +21,30 @@ export const Profile = ({handleAddMeetingInfo}: Props): ReactElement => {
   const {userId} = useParams();
   const [userInfo] = useRequest(() => getEmployeeInfo(userId));
   const [testResults] =useRequest(() => getEmployeeTestResults(userId));
+  const [meetingsList, setMeetingsList] = useState<MeetingInterface[]>([]);
   const [addPopupVisible, setAddPopupVisible] = useState(false);
+  const [triggerUpdate, setTriggerUpdate] = useState(false);
 
   const openAddPopup = () => {
     setAddPopupVisible(true);
+  }
+
+  useEffect(() => {
+      handleGetMeetings(userId);
+  }, [triggerUpdate]);
+
+  const updateMeetingsList = () => {
+    setTriggerUpdate(!triggerUpdate);
+  }
+
+  async function handleGetMeetings(userId: string | undefined): Promise<void> {
+    try {
+      const response = await Api.getMeetingsInfo(userId);
+      const meetings: MeetingInterface[] = response.data.results;
+      setMeetingsList(meetings);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   if(userInfo) {
@@ -40,13 +61,13 @@ export const Profile = ({handleAddMeetingInfo}: Props): ReactElement => {
                 <Hobbies hobbies={userInfo.hobbies}/>
               </div>
               <div className={styles.analyticsSection}>
-                <Meetings openAddPopup={openAddPopup}/>
+                <Meetings openAddPopup={openAddPopup} meetingsList={meetingsList && meetingsList} />
                 {testResults && <TestResults results={testResults.results}/>}
               </div>
             </div>
           </div>
           <PopupWithBackground popupVisible={addPopupVisible} closePopup={() => setAddPopupVisible(false)}>
-            <AddMeetingForm userId={userId} closePopup={() => setAddPopupVisible(false)} handleAddMeetingInfo={handleAddMeetingInfo}/>
+            <AddMeetingForm userId={userId} closePopup={() => setAddPopupVisible(false)} updateMeetingsList={updateMeetingsList} handleAddMeetingInfo={handleAddMeetingInfo}/>
           </PopupWithBackground>
         </div>
       </>
