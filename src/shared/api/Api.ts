@@ -142,3 +142,13 @@ export const makeEventNotificationUnactive = (id: string) => {
     },
   });
 };
+
+export const getMentalStates = () => {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/mental_states`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+

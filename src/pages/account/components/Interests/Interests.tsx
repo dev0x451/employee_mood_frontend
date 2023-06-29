@@ -2,7 +2,7 @@ import styles from "./interests.module.scss";
 import { ReactElement, useState } from "react";
 import { UserHobby } from "@/types";
 import { Interest } from "@/pages/account/components/Interest/Interest";
-import { DropDown } from "@/pages/account/components/Dropdown/DropDown";
+import { CustomDropDown } from "@/pages/account/components/CustomDropdown/CustomDropDown";
 interface Props {
   interests: UserHobby[];
   removeInterest: (index: number) => void;
@@ -38,9 +38,9 @@ export const Interests = ({
           />
         </ul>
       </div>
-      <DropDown
+      <CustomDropDown
         handleSelectChange={handleSelectChange}
-        interests={interests}
+        options={interests}
         isDropDownVisible={isDropDownVisible}
         closeDropDown={() => setIsDropDownVisible(false)}
       />

@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import {ReactElement, useState} from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import './styles.css';
+import './styles.scss';
 import ru from 'date-fns/locale/ru';
 import { registerLocale } from 'react-datepicker';
 
 registerLocale('ru', ru);
 
-export const MeetingDatePicker: React.FC = () => {
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+interface Props {
+  selectedDate: any;
+  handleDateChange: (date: Date | null) => void;
+}
+
+export const MeetingDatePicker = ({selectedDate, handleDateChange}: Props): ReactElement => {
   const [isCalendarOpen, setCalendarOpen] = useState<boolean>(false);
 
   console.log(isCalendarOpen);
-
-  const handleDateChange = (date: Date | null) => {
-    setSelectedDate(date);
-  };
-
   const dayClassName = (date: Date) => {
     if (selectedDate && date.toDateString() === selectedDate.toDateString()) {
       return 'selected-date';

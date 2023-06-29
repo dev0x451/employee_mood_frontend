@@ -5,9 +5,10 @@ import { Articles } from "../Articles/Articles";
 import { Employees } from "../Employees/Employees";
 import { ArticleInterface, EmployeeInterface } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";
-import { AddEmployeePopup } from "@/components/AddEmployeePopup/AddEmployeePopup";
+import { PopupWithBackground } from "@/shared/ui/PopupWithBackground/PopupWithBackground";
 import { useAppSelector } from "@/store/hooks";
 import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
+import {AddEmployeeForm} from "@/components/AddEmployeeForm/AddEmployeeForm";
 
 interface Props {
   handleSendInviteCode: (email: string) => Promise<void>;
@@ -60,10 +61,6 @@ export const Myteam: React.FC<Props> = ({
 
   const openAddPopup = () => {
     setAddPopupVisible(true);
-  };
-
-  const closeAddPopup = () => {
-    setAddPopupVisible(false);
   };
 
   const refreshEmloyees = () => {
@@ -123,11 +120,16 @@ export const Myteam: React.FC<Props> = ({
           />
         </div>
       </div>
-      <AddEmployeePopup
-        closeAddPopup={closeAddPopup}
-        addPopupVisible={addPopupVisible}
-        handleSendInviteCode={handleSendInviteCode}
-      />
+      <PopupWithBackground
+        closePopup={() => setAddPopupVisible(false)}
+        popupVisible={addPopupVisible}
+      >
+        <AddEmployeeForm
+          closeAddPopup={() => setAddPopupVisible(false)}
+          handleSendInviteCode={handleSendInviteCode}
+          addPopupVisible={addPopupVisible}
+        />
+      </PopupWithBackground>
     </div>
   );
 };

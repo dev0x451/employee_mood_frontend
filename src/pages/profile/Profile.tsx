@@ -8,12 +8,19 @@ import {About} from "@/pages/profile/components/About/About.tsx";
 import {Hobbies} from "@/pages/profile/components/Hobbies/Hobbies.tsx";
 import {Meetings} from "@/pages/profile/components/Meetings/Meetings.tsx";
 import {TestResults} from "@/pages/profile/components/TestResults/TestResults.tsx";
-import {ReactElement} from "react";
+import {ReactElement, useState} from "react";
+import {PopupWithBackground} from "@/shared/ui/PopupWithBackground/PopupWithBackground";
+import {AddMeetingForm} from "@/pages/profile/components/AddMeetingForm/AddMeetingForm";
 
 export const Profile = (): ReactElement => {
   const {userId} = useParams();
   const [userInfo] = useRequest(() => getEmployeeInfo(userId));
   const [testResults] =useRequest(() => getEmployeeTestResults(userId));
+  const [addPopupVisible, setAddPopupVisible] = useState(false);
+
+  const openAddPopup = () => {
+    setAddPopupVisible(true);
+  }
 
   if(userInfo) {
     return (
@@ -29,11 +36,14 @@ export const Profile = (): ReactElement => {
                 <Hobbies hobbies={userInfo.hobbies}/>
               </div>
               <div className={styles.analyticsSection}>
-                <Meetings />
+                <Meetings openAddPopup={openAddPopup}/>
                 {testResults && <TestResults results={testResults.results}/>}
               </div>
             </div>
           </div>
+          <PopupWithBackground popupVisible={addPopupVisible} closePopup={() => setAddPopupVisible(false)}>
+            <AddMeetingForm closePopup={() => setAddPopupVisible(false)}/>
+          </PopupWithBackground>
         </div>
       </>
     )

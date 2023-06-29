@@ -3,44 +3,40 @@
 }
 
 .custom-input input {
-  width: 157px;
+  width: 100%;
   height: 44px;
-  padding-left: 12px;
-  border: 0.5px solid var(--color-button-secondary, #EBEBEB);
+  border: 0.5px solid var(--color-button-secondary);
   border-radius: 12px;
-  background-color: var(--color-background-white);
-  font-family: Roboto, sans-serif;
+  background-color: var(--color-background);
+  padding-left: 12px;
   font-size: 16px;
-  letter-spacing: 0.1px;
+  font-family: Roboto;
   line-height: 20px;
+  letter-spacing: 0.1px;
   outline: none;
+  &::placeholder {
+    font: var(--font-body);
+    color: var(--color-icon-secondary);
+  }
 }
 
-.custom-input input:hover {
-   border: 0.5px solid var(--color-icon-secondary);
- }
-
-.custom-input input:focus {
-   border: 0.5px solid var(--color-accent-purple);
- }
-
 .custom-input .custom-icon {
+  width: 24px;
+  height: 24px;
   position: absolute;
   top: 50%;
   right: 8px;
-  width: 24px;
-  height: 24px;
-  background-image: url('@/pages/profile/ui/calendar_24.svg');
-  background-repeat: no-repeat;
   cursor: pointer;
   transform: translateY(-50%);
+  background-image: url('@/pages/profile/ui/calendar_24.svg');
+  background-repeat: no-repeat;
 }
 
-.react-datepicker-header {
+.react-datepicker__header {
   background-color: white;
 }
 
-.react-datepicker-day-name {
+.react-datepicker__day-name {
   color: #888;
 }
 
@@ -72,7 +68,7 @@
 }
 
 .current-month-year {
-  font-family: Roboto, sans-serif;
+  font-family: Roboto;
   font-size: 15px;
   font-weight: 500;
   letter-spacing: 0.2px;
@@ -83,23 +79,23 @@
   background-color: white;
 }
 
-.custom-datepicker .react-datepicker-day-selected,
-.custom-datepicker .react-datepicker-day-selected:hover {
+.custom-datepicker .react-datepicker__day--selected,
+.custom-datepicker .react-datepicker__day--selected:hover {
   border-radius: 0;
   border-bottom: 2px solid var(--color-accent-purple);
   background-color: white;
   color: #000;
 }
 
-.custom-datepicker .react-datepicker-day-keyboard-selected,
-.custom-datepicker .react-datepicker-day-keyboard-selected:hover {
+.custom-datepicker .react-datepicker__day--keyboard-selected,
+.custom-datepicker .react-datepicker__day--keyboard-selected:hover {
   border-radius: 0;
   border-bottom: 2px solid var(--color-accent-purple);
   background-color: white;
   color: #000;
 }
 
-.custom-datepicker .react-datepicker-day-today {
+.custom-datepicker .react-datepicker__day--today {
   background-color: transparent;
   color: inherit;
   font-weight: 400;
@@ -110,6 +106,3 @@
   border-radius: 8px;
   box-shadow: var(--shadow-medium);
 }
-
-
-
