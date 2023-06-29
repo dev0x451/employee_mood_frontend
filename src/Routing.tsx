@@ -33,6 +33,7 @@ interface Props {
   handleResetPassword: any;
   openTestAlertPopup: any;
   takeNewEmployeesList: any
+  handleAddMeetingInfo: any;
 }
 
 export const Routing: React.FC<Props> = ({
@@ -51,7 +52,7 @@ export const Routing: React.FC<Props> = ({
   handleSendResetCode,
   handleResetPassword,
   openTestAlertPopup,
-  takeNewEmployeesList
+  takeNewEmployeesList, handleAddMeetingInfo
 }) => {
   return (
     <Routes>
@@ -107,7 +108,7 @@ export const Routing: React.FC<Props> = ({
         />
         <Route
           path="myteam/:userId"
-          element={<Profile />}
+          element={<Profile handleAddMeetingInfo={handleAddMeetingInfo}/>}
         />
         <Route
           path="myteam"

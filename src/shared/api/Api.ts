@@ -151,4 +151,20 @@ export const getMentalStates = () => {
   });
 };
 
+export const sendMeetingInfo = (userId: string, formattedDate: string, comment: string, level: number ) => {
+  return axios.post(
+    `${BASE_URL_REQUEST}/meeting_results`, {
+      date: formattedDate,
+      comment: comment,
+      employee: userId,
+      mental_state: level
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
+};
+
 

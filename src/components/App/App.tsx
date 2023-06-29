@@ -19,7 +19,7 @@ import {
   TestInterface,
   SubmitArguments,
   UserInfo,
-  WebSocketMessage
+  WebSocketMessage, MeetingInfo
 } from "@/types";
 
 import { BASE_URL_WSS } from "@/shared/constants";
@@ -288,6 +288,15 @@ export const App = () => {
     return <div></div>;
   }
 
+  async function handleAddMeetingInfo ({userId, formattedDate, comment, level}: MeetingInfo) {
+    try {
+      const response = await Api.sendMeetingInfo(userId, formattedDate, comment, level);
+      console.log(response);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
   return (
     <main className={styles.page}>
       <AlertPopup />
@@ -308,6 +317,7 @@ export const App = () => {
         handleResetPassword={handleResetPassword}
         openTestAlertPopup={openTestAlertPopup}
         takeNewEmployeesList={handleEmployees}
+        handleAddMeetingInfo={handleAddMeetingInfo}
       />
     </main>
   );

@@ -251,3 +251,10 @@ export interface WebSocketNotifications {
 export interface WebSocketMessage {
   message: WebSocketNotifications | null;
 }
+
+export interface MeetingInfo {
+  userId: string,
+  formattedDate: string,
+  comment: string,
+  level: number;
+}

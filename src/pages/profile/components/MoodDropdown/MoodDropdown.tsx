@@ -32,10 +32,10 @@ export const MoodDropdown = ({data, setDropDownValue, value, level}: Props): Rea
   useOutsideClick(() => setIsDropDownVisible(false), ref);
 
   return (
-    <div ref={ref}>
-      <div className={className}>
+    <div className={styles.moodDropdown} ref={ref}>
+      <div onClick={handleOpenDropDown} className={className}>
         {value && level ? <WarningBall level={level} title={value} /> : "Выбрать состояние"}
-        <button className={!isDropDownVisible ? styles.button : `${styles.button} ${styles.buttonOpened}`} onClick={handleOpenDropDown}/>
+        <button className={!isDropDownVisible ? styles.button : `${styles.button} ${styles.buttonOpened}`}/>
       </div>
       <ul className={!isDropDownVisible ? styles.dropdown : `${styles.dropdown} ${styles.dropdownVisible}`}>
         {data !== null && data.length !== 0 && data.map((state) => (

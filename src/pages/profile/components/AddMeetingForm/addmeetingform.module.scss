@@ -20,7 +20,7 @@
     font-weight: 500;
     line-height: 18px;
     color: var(--color-black);
-    margin: 0 0 10px 0;
+    margin: 0 0 12px 0;
   }
 }
 
@@ -28,6 +28,7 @@
   &-area {
     display: flex;
     gap: 20px;
+    margin-bottom: 16px;
   }
   &-item {
     @include flex-column;
@@ -35,8 +36,8 @@
   }
 }
 
-.test {
-  width: 150px;
-  height: 50px;
-  border: 1px solid black;
+.textarea {
+  &-item {
+    @include flex-column;
+  }
 }

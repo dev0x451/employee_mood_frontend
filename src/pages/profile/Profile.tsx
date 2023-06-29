@@ -11,8 +11,12 @@ import {TestResults} from "@/pages/profile/components/TestResults/TestResults.ts
 import {ReactElement, useState} from "react";
 import {PopupWithBackground} from "@/shared/ui/PopupWithBackground/PopupWithBackground";
 import {AddMeetingForm} from "@/pages/profile/components/AddMeetingForm/AddMeetingForm";
+import {MeetingInfo} from "@/types";
 
-export const Profile = (): ReactElement => {
+interface Props {
+  handleAddMeetingInfo: ({userId, formattedDate, comment, level}: MeetingInfo) => void;
+}
+export const Profile = ({handleAddMeetingInfo}: Props): ReactElement => {
   const {userId} = useParams();
   const [userInfo] = useRequest(() => getEmployeeInfo(userId));
   const [testResults] =useRequest(() => getEmployeeTestResults(userId));
@@ -42,7 +46,7 @@ export const Profile = (): ReactElement => {
             </div>
           </div>
           <PopupWithBackground popupVisible={addPopupVisible} closePopup={() => setAddPopupVisible(false)}>
-            <AddMeetingForm closePopup={() => setAddPopupVisible(false)}/>
+            <AddMeetingForm userId={userId} closePopup={() => setAddPopupVisible(false)} handleAddMeetingInfo={handleAddMeetingInfo}/>
           </PopupWithBackground>
         </div>
       </>
