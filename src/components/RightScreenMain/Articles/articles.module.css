@@ -1,9 +1,13 @@
 .articles {
-  display: flex;
+  display: grid;
+
+  /* display: flex; */
+
+  /* flex-wrap: wrap; */
   align-items: center;
   margin: 16px 0 0;
   gap: 12px;
-  flex-wrap: wrap;
+  grid-template-columns: 1fr 1fr;
 }
 
 .title {

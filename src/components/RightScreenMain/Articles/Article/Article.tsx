@@ -2,7 +2,7 @@ import styles from "./article.module.css";
 import {ArticleInterface} from "@/types";
 import React from "react";
 import {useNavigate} from "react-router-dom";
-import play from "../../../public/play.svg";
+import play from "../../../../../public/play.svg";
 
 interface ArticleProps {
   article: ArticleInterface;
@@ -10,7 +10,7 @@ interface ArticleProps {
 
 
 export const Article: React.FC<ArticleProps> = ({article}) => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const routeChange = () => {
     navigate(`/useful`);
   }

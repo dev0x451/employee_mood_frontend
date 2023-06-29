@@ -1,7 +1,7 @@
 import styles from "./myteam.module.css";
 import React, { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar/Navbar";
-import { Articles } from "../Articles/Articles";
+import { Articles } from "../RightScreenMain/Articles/Articles";
 import { Employees } from "../Employees/Employees";
 import { ArticleInterface, EmployeeInterface } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";

@@ -1,8 +1,8 @@
 import styles from "./centerScreenMain.module.css";
 import { BurnoutTestBanner } from "../BurnoutTestBanner/BurnoutTestBanner";
-import { MoodButton } from "../MoodButton/MoodButton";
-import { MoodGraph } from "../MoodGraph/MoodGraph";
-import { BurnoutLevel } from "../BurnoutLevel/BurnoutLevel";
+import { MoodButton } from "./MoodButton/MoodButton";
+import { MoodGraph } from "./MoodGraph/MoodGraph";
+import { BurnoutLevel } from "./BurnoutLevel/BurnoutLevel";
 
 export const CenterScreenMain = () => {
   return (
