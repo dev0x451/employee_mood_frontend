@@ -37,3 +37,22 @@
   flex-direction: column;
   justify-content: space-between;
 }
+
+.month {
+  border: none;
+  background-color: white;
+  color: var(--color-accent-purple);
+  font: var(--font-body);
+  scale: 1;
+  transition: all 0.3 ease;
+  vertical-align: center;
+}
+
+.month:hover {
+  cursor: pointer;
+  scale: 1.03
+}
+
+.month-visible {
+  font: var(--font-h3);
+}

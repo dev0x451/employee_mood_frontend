@@ -11,6 +11,7 @@ import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
 import { setSuccessMessage } from "@/store/reducers/alertSuccess/alertSuccessReducer";
 import {resetAllCurrentUserData, setAllCurrentUserData} from "@/store/reducers/currentUser/currentUserReducer";
 import { addNotifications } from "@/store/reducers/notifications/notificationsReducer";
+import { addConditions } from "@/store/reducers/conditionsBurnout/conditionsBurnoutReducer";
 
 import {
   ExpressDiagnoseResponse,
@@ -199,7 +200,12 @@ export const App = () => {
       setResultOfPsychoTest(response.data);
 
       // отправка GET запроса с ID пройденного теста, чтобы сделать уведомление неактивным
-      Api.makeEventNotificationUnactive(result.survey.toString());
+      try {
+        const res = await Api.checkTestNotificationIsActive(result.survey.toString());
+        if (res.data.results) Api.makeEventNotificationUnactive(res.data.results[0].id);
+      } catch (err: any) {
+        console.log(err);
+      }
 
     } catch (err: any) {
       console.log(err);
@@ -235,32 +241,32 @@ export const App = () => {
     }
   }
 
-  // if (loggedIn) {
-  // const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
-  // }
+  async function getAllUserConditions() {
+    try {
+      const response = await Api.getAllUserConditions();
+      dispatch(addConditions(response.data.results));
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     if (loggedIn) {
       getAllTestsResult();
       getTestsQuestions();
       getTestsBurnoutQuestions();
+      getAllUserConditions()
     }
   }, [loggedIn]);
 
   async function handleEmployees() {
     try {
-      // if (role === "hr" || role === "chief") {
-        const response = await Api.getUsers();
-        setEmployees(response.data.results);
-      // }
+      const response = await Api.getUsers();
+      setEmployees(response.data.results);
     } catch (err: any) {
       console.log(err);
     }
   }
-
-  // useEffect(() => {
-  //   handleEmployees();
-  // }, [role]);
 
   const openTestAlertPopup = () => {
     dispatch(

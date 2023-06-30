@@ -268,3 +268,17 @@ export interface MeetingInterface {
   organizer?: EmployeeInterface,
   mental_state: UserMentalState
 }
+
+export interface UserConditionForSend {
+  mood: number,
+  note?: string | null,
+  date: string,
+}
+
+export interface UserConditionRecieved {
+  id: number,
+  mood: number,
+  note?: string | null,
+  date: string,
+  employee: number
+}

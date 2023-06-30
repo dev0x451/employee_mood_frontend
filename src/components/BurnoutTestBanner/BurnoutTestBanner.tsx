@@ -28,7 +28,7 @@ export const BurnoutTestBanner = ({ id }: BurnoutTestProps): JSX.Element=> {
         </div>
       </div>
       <div className={styles.imageContainer}>
-        <img src={image} alt="burnout image" />
+        <img className={styles.image} src={image} alt="burnout image" />
       </div>
     </div>
   );
