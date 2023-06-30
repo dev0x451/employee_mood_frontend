@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export const BASE_URL_MEDIA = "https://em-dev.usolcev.com/";
 
-export const BASE_URL_REQUEST = "https://em-dev.usolcev.com/api/v1";
+export const BASE_URL_REQUEST = `${BASE_URL_MEDIA}api/v1`;
 
 export const BASE_URL_WSS = "wss://em-dev.usolcev.com/ws";
 

@@ -41,6 +41,7 @@ export const Profile = ({handleAddMeetingInfo}: Props): ReactElement => {
     try {
       const response = await Api.getMeetingsInfo(userId);
       const meetings: MeetingInterface[] = response.data.results;
+      console.log(meetings);
       setMeetingsList(meetings);
     } catch (err) {
       console.log(err);

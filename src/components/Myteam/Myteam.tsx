@@ -10,7 +10,8 @@ import { BadInternetConnection } from "../BadInternetConnection/BadInternetConne
 import { useAppSelector } from "@/store/hooks";
 import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
 import { useOnlineCheck } from "@/shared/hooks/useOnlineCheck";
-import { AddEmployeeForm } from "../AddEmployeeForm/AddEmployeeForm";
+import {AddEmployeeForm} from "@/components/AddEmployeeForm/AddEmployeeForm";
+import {useNavigate} from "react-router-dom";
 
 interface Props {
   handleSendInviteCode: (email: string) => Promise<void>;
@@ -56,6 +57,7 @@ export const Myteam: React.FC<Props> = ({
   ];
 
   const isOnline = useOnlineCheck();
+  const navigate = useNavigate();
 
   const [addPopupVisible, setAddPopupVisible] = useState(false);
   const [textInput, setTextInput] = useState("");
@@ -88,6 +90,12 @@ export const Myteam: React.FC<Props> = ({
     refreshEmloyees();
   }, []);
 
+  const openEmployeeInfo = (id: number) => {
+    if(isChief) {
+      navigate('/myteam/' + id)
+    }
+  }
+
   return (
     <div className="page-container">
       <Navbar />
@@ -116,7 +124,7 @@ export const Myteam: React.FC<Props> = ({
             value={textInput}
             onChange={handleInputSort}
           />
-          <Employees valueInputSort={textInput} employees={employees} />
+          <Employees valueInputSort={textInput} employees={employees} openEmployeeInfo={openEmployeeInfo} isChief={isChief}/>
         </div>
         <div className={styles.rightScreen}>
           <Articles
