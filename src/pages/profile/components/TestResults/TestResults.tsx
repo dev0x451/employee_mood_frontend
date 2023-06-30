@@ -27,7 +27,9 @@ export const TestResults = ({results}: Props): ReactElement => {
                   : null
               ))}
             </ul>
-            <Button mode="empty" title="Загрузить еще" handleClick={addCard}/>
+            {countCardPage <= results.length &&
+              <Button mode="empty" title="Загрузить еще" handleClick={addCard}/>
+            }
           </>
         :
           <div className={styles.emptyTests}>Нет пройденных опросов</div>
