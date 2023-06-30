@@ -73,13 +73,13 @@ export const Useful = () => {
   // ----------------------------------------
   useEffect(() => {
     matchedItems(tempCards, tempCheckedCards)
-    console.log(tempCards)
-    console.log(tempCheckedCards)
+    // console.log(tempCards)
+    // console.log(tempCheckedCards)
   }, [tempCards, tempCheckedCards])
 
 
   useEffect(() => {
-    console.log(entries)
+    // console.log(entries)
     setTempCards(entries)
     setTempCheckedCards(entries)
   }, [entries])

@@ -49,10 +49,12 @@ export const BurnoutLevel = () => {
         padding={0.75}
         valueScale={{ type: "linear" }}
         colors="#8A32E0"
+        borderRadius={5}
         animate={true}
+        enableGridY={false}
         enableLabel={false}
-        axisTop={null}
-        axisRight={null}
+        // axisTop={null}
+        // axisRight={null}
         axisLeft={null}
         axisBottom={null}
       />{" "}
