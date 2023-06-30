@@ -10,6 +10,7 @@ import { BadInternetConnection } from "../BadInternetConnection/BadInternetConne
 import { useAppSelector } from "@/store/hooks";
 import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
 import { useOnlineCheck } from "@/shared/hooks/useOnlineCheck";
+import {AddEmployeeForm} from "@/components/AddEmployeeForm/AddEmployeeForm";
 
 interface Props {
   handleSendInviteCode: (email: string) => Promise<void>;
