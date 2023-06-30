@@ -68,8 +68,10 @@ export const App = () => {
   const refreshToken = async (token: string) => {
     try {
       const response = await ApiAuth.refreshToken(token);
-      localStorage.setItem("jwt", response.data.access);
-      localStorage.setItem("refresh", response.data.refresh);
+      if(response.data.access && response.data.refresh) {
+        localStorage.setItem("jwt", response.data.access);
+        localStorage.setItem("refresh", response.data.refresh);
+      }
     } catch (err: any) {
       console.log(err);
     }

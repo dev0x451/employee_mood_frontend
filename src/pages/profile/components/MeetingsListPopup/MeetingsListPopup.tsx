@@ -25,7 +25,9 @@ export const MeetingsListPopup = ({meetingsList, closePopup}: Props): ReactEleme
           </div>
           : null
         ))}
-      <Button mode="empty" title="Загрузить еще" handleClick={addCard}/>
+      {countCardPage <= meetingsList.length &&
+        <Button mode="empty" title="Загрузить еще" handleClick={addCard}/>
+      }
     </div>
   );
 };

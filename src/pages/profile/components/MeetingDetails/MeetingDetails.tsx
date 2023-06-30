@@ -7,7 +7,7 @@ export const MeetingDetails = ({name, date, level, comment}: Meeting): ReactElem
 
   return (
     <div>
-      <h4 className={styles.subtitle}>Последняя встреча: <span className={styles.meetingDate}>{date}</span></h4>
+      <h4 className={styles.subtitle}>Последняя встреча: <span className={styles.meetingDate}>{date.split("-").reverse().join(".")}</span></h4>
       <div className={styles.mentalState}>
         <h4 className={styles.subtitle}>Оценка состояния сотрудника:</h4>
         <WarningBall level={level} title={name}/>

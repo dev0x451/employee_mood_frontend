@@ -89,13 +89,17 @@ export const AddMeetingForm = ({closePopup, userId, handleAddMeetingInfo, update
     }
   }
 
-  const addNewMeeting = () => {
-    if(userId && comment && formattedDate && level) {
-      handleAddMeetingInfo({userId, comment, formattedDate, level});
-      closeAndResetForm();
-      updateMeetingsList();
+  const addNewMeeting = async () => {
+    if (userId && comment && formattedDate && level) {
+      try {
+        await handleAddMeetingInfo({userId, comment, formattedDate, level});
+        closeAndResetForm();
+        updateMeetingsList();
+      } catch (err) {
+        console.log(err);
+      }
     }
-  }
+  };
 
   return (
     <div className={styles.form} ref={ref}>
