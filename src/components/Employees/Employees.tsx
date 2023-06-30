@@ -1,6 +1,5 @@
 import styles from "./employees.module.css";
 import React, { useState, useEffect } from "react";
-import {useNavigate} from 'react-router-dom';
 import { EmployeeInterface } from "@/types";
 import { sortIcon, greenIcon, orangeIcon, redIcon } from "@/assets";
 
@@ -9,10 +8,12 @@ import { BASE_URL_MEDIA, COUNT_EMPLOYEES_PAGE, usePagination } from "@/shared/co
 interface Props {
   valueInputSort: string;
   employees: EmployeeInterface[];
+  openEmployeeInfo: (id: number) => void;
+  isChief: boolean;
 }
 
 export const Employees: React.FC<Props> = (
-  {valueInputSort, employees}
+  {valueInputSort, employees, openEmployeeInfo, isChief}
   ) => {
   const [employeesSort, setEmployeesSort] = useState<EmployeeInterface[]>(employees);
   const { countCardPage, addCard } = usePagination(COUNT_EMPLOYEES_PAGE);
@@ -36,8 +37,6 @@ export const Employees: React.FC<Props> = (
       employee.position.name.toLowerCase().includes(valueInputSort.toLowerCase())
     ));
   },[valueInputSort]);
-
-  const navigate = useNavigate();
 
   const sortField =
     (
@@ -113,7 +112,7 @@ export const Employees: React.FC<Props> = (
       {employeesSort &&
         employeesSort.map((employee, index) => (
           index < countCardPage ?
-              <div key={employee.id} className={styles.employee} onClick={() => navigate('/myteam/' + employee.id)}>
+              <div key={employee.id} className={!isChief ? styles.employee : `${styles.employee} ${styles.employeeBtn}`} onClick={() => openEmployeeInfo(employee.id)}>
                 <div className={styles.user}>
                   {employee.avatar !== null ?
                     <img
