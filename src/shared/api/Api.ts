@@ -178,7 +178,7 @@ export const sendMeetingInfo = (userId: string, formattedDate: string, comment: 
 };
 
 export const getAllUserConditions = () => {
-  return axios.get(`${BASE_URL_REQUEST}/metrics/conditions/?my_conditions=true`, {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/conditions/?my_conditions=true&limit=365`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },

@@ -21,21 +21,19 @@ interface renderData {
 export const MoodGraph = () => {
   const [data, setData] = useState <renderData[]>([{ x: 0, y: 0 }]);
   const [monthVisible, setMonthVisible] = useState <number>(0);
-  const [currentYear, setCurrentYear] = useState<number>();
+  const [currentYear, setCurrentYear] = useState<number>(2023);
+  const [numberOfDays, setNumberOfDays] = useState<number>(30);
 
   const conditionsRecieved = useSelector(selectConditions);
 
-  // if (conditionsRecieved) {
-  //   const fullData = new Date(conditionsRecieved[0].date);
-  //   // console.log(fullData)
-  //   const month = fullData.getMonth();
-  //   // console.log(month)
-  //   // const
-  // }
 
+  function handleSendMood(e: React.MouseEvent<HTMLElement>) {
+    console.log(e.target)
+  }
 
+  function generateData () {
 
-  const generateData = () => {
+    //conditionsRecieved currentYear monthVisible numberOfDays
     const renderData: renderData[] = [];
 
     const yearFilteredArray = conditionsRecieved?.filter(item => {
@@ -48,19 +46,24 @@ export const MoodGraph = () => {
       return conditionMonth === monthVisible;
     })
 
-    // console.log(monthFilteredArray)
+      for (let i = 1; i <= numberOfDays; i++) {
+        renderData.push({
+          x: i,
+          y: 0,
+        })
+      }
 
+    if (monthFilteredArray) {
+     monthFilteredArray?.forEach((item) => {
+        const day = new Date(item.date).getUTCDate();
 
-     monthFilteredArray?.forEach((item, index) => {
-      renderData.push({
-        x: index,
-        y: item.mood,
-      });
-    })
+        //если на эту дату есть оценка настроения - подменяем её в результирующем массиве
+        if (renderData[day - 1].x === day) renderData[day - 1].y = item.mood;
+      })
+    }
 
-    // const daysAlreadyGoneInThisMonth =
     return renderData;
-  };
+  }
 
   function getMonthName (monthNumber: number) {
     const date = new Date();
@@ -80,16 +83,23 @@ export const MoodGraph = () => {
     } else if (monthVisible + 1 > 11) setMonthVisible(0)
   }
 
+  function getNumberOfVisibleMonth (year: number, month: number): number {
+    return new Date(year, month, 0).getDate()
+  }
+
   useEffect(() => {
+    setNumberOfDays(getNumberOfVisibleMonth(currentYear, monthVisible + 1))
     setData(generateData())
   }, [monthVisible]);
 
   useEffect(() => {
     const date = new Date();
     const month = date.getMonth();
-    const year = date.getFullYear()
+    const year = date.getFullYear();
     setMonthVisible(month);
     setCurrentYear(year);
+    setNumberOfDays(getNumberOfVisibleMonth(year, month + 1))
+    setData(generateData());
   }, []);
 
 
@@ -112,11 +122,11 @@ export const MoodGraph = () => {
       </div>
 
       <div className={styles.stackedSmiles}>
-        <div>{simpleSmileIcon}</div>
-        <div>{slightlySmileIcon}</div>
-        <div>{expressionlessIcon}</div>
-        <div>{confusedIcon}</div>
-        <div>{worriedIcon}</div>
+        <div className={styles.smile} data-value={5} onClick={(e) => handleSendMood(e)}>{simpleSmileIcon}</div>
+        <div className={styles.smile} data-value={4} onClick={(e) => handleSendMood(e)}>{slightlySmileIcon}</div>
+        <div className={styles.smile} data-value={3} onClick={(e) => handleSendMood(e)}>{expressionlessIcon}</div>
+        <div className={styles.smile} data-value={2} onClick={(e) => handleSendMood(e)}>{confusedIcon}</div>
+        <div className={styles.smile} data-value={1} onClick={(e) => handleSendMood(e)}>{worriedIcon}</div>
       </div>
       <div className={styles.xAxis}></div>
 
