@@ -101,7 +101,7 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
             <img  className={styles.formAddEvent__divider} src={dash} />
             <input className={styles.formAddEvent__time} type="time" name="timeEnd"/>
           </fieldset>
-          <label className={styles.formAddEvent__fields}>
+          {/* <label className={styles.formAddEvent__fields}>
             <h3 className={styles.formAddEvent__headingField}>Тип мероприятия</h3>
             <select name="typeActivity" >
               <option disabled selected hidden>Выбрать</option>
@@ -109,7 +109,7 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
               <option>Тренинг</option>
               <option>Воркшоп</option>
             </select>
-          </label>
+          </label> */}
           <label className={styles.formAddEvent__fields}>
             <h3 className={styles.formAddEvent__headingField}>Название</h3>
             <input  name="name" placeholder="Введите название"/>
@@ -120,14 +120,14 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
             </textarea>
             <span className={styles.formAddEvent__countSymbolTextarea}>0/130</span>
           </label>
-          <label className={styles.formAddEvent__fields}>
+          {/* <label className={styles.formAddEvent__fields}>
             <h3 className={styles.formAddEvent__headingField}>Контакты</h3>
             <input  name="contact" placeholder="Введите почту организатора"/>
-          </label>
-          <label className={styles.formAddEvent__fields}>
+          </label> */}
+          {/* <label className={styles.formAddEvent__fields}>
             <h3 className={styles.formAddEvent__headingField}>Регистрация до</h3>
             <input  name="expiration" placeholder="Например, 10 июня"/>
-          </label>
+          </label> */}
           <div className={styles.formAddEvent__buttonsForm}>
             <button className={styles.formAddEvent__buttonExit}  onClick={closePopupAddEvent}>Отмена</button>
             <button className={styles.formAddEvent__buttonSubmit} onSubmit={onSubmit}>Добавить</button>
