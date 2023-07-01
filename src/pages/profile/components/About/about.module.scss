@@ -1,0 +1,21 @@
+@import '@/shared/styles/mixins.scss';
+
+.about {
+  width: 100%;
+  border-radius: 20px;
+  padding: 12px 20px 16px;
+  background-color: var(--color-background-white);
+}
+
+.employee {
+  &-title {
+    margin: 0 0 12px 0;
+    font: var(--font-h3);
+    color: var(--color-black);
+  }
+  &-about {
+    margin: 0;
+    font: var(--font-body);
+    color: var(--color-black);
+  }
+}

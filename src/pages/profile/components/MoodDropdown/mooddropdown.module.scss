@@ -1,0 +1,58 @@
+@import '@/shared/styles/mixins.scss';
+
+.mood-dropdown {
+  position: relative;
+}
+
+.input {
+  @include size (100%, 44px);
+  padding: 10px 12px;
+  border: 0.5px solid var(--color-button-secondary);
+  border-radius: 12px;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font: var(--font-body);
+  outline: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &-with-dropdown {
+    border-radius: 12px 12px 0 0;
+  }
+  &-empty {
+    color: var(--color-icon-secondary);
+    font: var(--font-body);
+  }
+}
+
+.button {
+  @include size (24px, 24px);
+  border: none;
+  background-color: var(--color-background);
+  background-image: url('@/pages/profile/ui/chevron_down_24.svg');
+  cursor: pointer;
+  @include background-no-repeat-center-cover;
+  &-opened {
+    background-image: url('@/pages/profile/ui/chevron_up_24.svg');
+  }
+}
+
+.dropdown {
+  width: 100%;
+  position: absolute;
+  @include list-initial-style;
+  background-color: var(--color-background-white);
+  border: 0.5px solid var(--color-button-secondary);
+  border-radius: 0 0 12px 12px;
+  box-shadow: var(--shadow-medium);
+  margin: 0;
+  display: none;
+  &-item {
+    @include size(252px, 36px);
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  &-visible {
+    display: block;
+  }
+}

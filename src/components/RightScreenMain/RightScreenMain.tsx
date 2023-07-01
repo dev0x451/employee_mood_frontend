@@ -1,6 +1,6 @@
 import styles from "./rightScreenMain.module.css";
 import {PsychologistInfo} from "../PsychologistInfo/PsychologistInfo";
-import {Articles} from "../Articles/Articles";
+import { Articles } from "./Articles/Articles";
 import { EventsMain } from "../EventsMain/EventsMain";
 import {ArticleInterface} from "@/types";
 

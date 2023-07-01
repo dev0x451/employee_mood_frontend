@@ -11,6 +11,7 @@ import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
 import { setSuccessMessage } from "@/store/reducers/alertSuccess/alertSuccessReducer";
 import {resetAllCurrentUserData, setAllCurrentUserData} from "@/store/reducers/currentUser/currentUserReducer";
 import { addNotifications } from "@/store/reducers/notifications/notificationsReducer";
+import { addConditions } from "@/store/reducers/conditionsBurnout/conditionsBurnoutReducer";
 
 import {
   ExpressDiagnoseResponse,
@@ -19,7 +20,7 @@ import {
   TestInterface,
   SubmitArguments,
   UserInfo,
-  WebSocketMessage
+  WebSocketMessage, MeetingInfo
 } from "@/types";
 
 import { BASE_URL_WSS } from "@/shared/constants";
@@ -69,8 +70,10 @@ export const App = () => {
   const refreshToken = async (token: string) => {
     try {
       const response = await ApiAuth.refreshToken(token);
-      localStorage.setItem("jwt", response.data.access);
-      localStorage.setItem("refresh", response.data.refresh);
+      if(response.data.access && response.data.refresh) {
+        localStorage.setItem("jwt", response.data.access);
+        localStorage.setItem("refresh", response.data.refresh);
+      }
     } catch (err: any) {
       console.log(err);
     }
@@ -86,7 +89,7 @@ export const App = () => {
           ? navigate("/")
           : navigate(pathname);
       }
-      getUserInfo();
+      await getUserInfo();
     } catch (err: any) {
       if (err.status === 400) {
         console.log("400 - токен не передан или передан не в том формате");
@@ -198,10 +201,20 @@ export const App = () => {
     try {
       const response = await Api.sendTestResults(result);
       setResultOfPsychoTest(response.data);
+
+      // отправка GET запроса с ID пройденного теста, чтобы сделать уведомление неактивным
+      try {
+        const res = await Api.checkTestNotificationIsActive(result.survey.toString());
+        if (res.data.results) Api.makeEventNotificationUnactive(res.data.results[0].id);
+      } catch (err: any) {
+        console.log(err);
+      }
+
     } catch (err: any) {
       console.log(err);
     }
     getAllTestsResult();
+    handleEmployees();
   }
 
   async function getAllTestsResult() {
@@ -231,25 +244,29 @@ export const App = () => {
     }
   }
 
-  // if (loggedIn) {
-  // const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
-  // }
+  async function getAllUserConditions() {
+    try {
+      const response = await Api.getAllUserConditions();
+      dispatch(addConditions(response.data.results));
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     if (loggedIn) {
       getAllTestsResult();
       getTestsQuestions();
       getTestsBurnoutQuestions();
+      getAllUserConditions()
     }
   }, [loggedIn]);
 
   // запрос пользователей для моей команды
   async function handleEmployees() {
     try {
-      if (role === "hr" || role === "chief") {
-        const response = await Api.getUsers();
-        setEmployees(response.data.results);
-      }
+      const response = await Api.getUsers();
+      setEmployees(response.data.results);
     } catch (err: any) {
       console.log(err);
     }
@@ -313,6 +330,14 @@ export const App = () => {
     return <div></div>;
   }
 
+  async function handleAddMeetingInfo ({userId, formattedDate, comment, level}: MeetingInfo) {
+    try {
+      await Api.sendMeetingInfo(userId, formattedDate, comment, level);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
   return (
     <main className={styles.page}>
       <AlertPopup />
@@ -333,6 +358,8 @@ export const App = () => {
         handleSendResetCode={handleSendResetCode}
         handleResetPassword={handleResetPassword}
         openTestAlertPopup={openTestAlertPopup}
+        takeNewEmployeesList={handleEmployees}
+        handleAddMeetingInfo={handleAddMeetingInfo}
       />
     </main>
   );

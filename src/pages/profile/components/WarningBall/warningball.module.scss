@@ -1,0 +1,30 @@
+@import '@/shared/styles/mixins.scss';
+
+.warning-ball {
+  margin: 5px 8px 0 8px;
+  @include size (10px, 10px);
+  border-radius: 50%;
+  &-container {
+    display: flex;
+  }
+}
+
+.mental-state {
+  &-name {
+    margin: 0;
+    color: var(--color-black);
+    font: var(--font-body);
+  }
+}
+
+.green {
+  background-color: #99CA65;
+}
+
+.yellow {
+  background-color: #FEAB23;
+}
+
+.red {
+  background-color: #FF6941;
+}

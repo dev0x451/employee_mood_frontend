@@ -14,6 +14,7 @@ import { Myteam } from "@/components/Myteam/Myteam.js";
 import { LoginPage } from "@/pages/login/LoginPage.js";
 import { RegisterPage } from "@/pages/register/RegisterPage.js";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage.js";
+import {Profile} from "@/pages/profile/Profile.tsx";
 
 interface Props {
   loggedIn: any;
@@ -32,6 +33,8 @@ interface Props {
   handleSendResetCode: any;
   handleResetPassword: any;
   openTestAlertPopup: any;
+  takeNewEmployeesList: any
+  handleAddMeetingInfo: any;
 }
 
 export const Routing: React.FC<Props> = ({
@@ -51,6 +54,7 @@ export const Routing: React.FC<Props> = ({
   handleSendResetCode,
   handleResetPassword,
   openTestAlertPopup,
+  takeNewEmployeesList, handleAddMeetingInfo
 }) => {
   return (
     <Routes>
@@ -74,6 +78,7 @@ export const Routing: React.FC<Props> = ({
               onSendTestResult={handleSendTestResult}
               resultOfPsychoTest={resultOfPsychoTest}
               openTestAlertPopup={openTestAlertPopup}
+              // takeNewEmployeesList={takeNewEmployeesList}
             />
           }
         />
@@ -86,6 +91,7 @@ export const Routing: React.FC<Props> = ({
               onSendTestResult={handleSendTestResult}
               resultOfPsychoTest={resultOfPsychoTest}
               openTestAlertPopup={openTestAlertPopup}
+              // takeNewEmployeesList={takeNewEmployeesList}
             />
           }
         />
@@ -108,11 +114,16 @@ export const Routing: React.FC<Props> = ({
           element={<Account handleChangeUserInfo={handleChangeUserInfo} />}
         />
         <Route
+          path="myteam/:userId"
+          element={<Profile handleAddMeetingInfo={handleAddMeetingInfo}/>}
+        />
+        <Route
           path="myteam"
           element={
             <Myteam
               handleSendInviteCode={handleSendInviteCode}
               employees={employees}
+              takeNewEmployeesList={takeNewEmployeesList}
             />
           }
         />

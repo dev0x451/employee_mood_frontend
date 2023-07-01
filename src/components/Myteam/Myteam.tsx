@@ -1,21 +1,28 @@
 import styles from "./myteam.module.css";
 import React, { useState, useEffect } from "react";
 import { Navbar } from "@/components/Navbar/Navbar";
-import { Articles } from "../Articles/Articles";
+import { Articles } from "../RightScreenMain/Articles/Articles";
 import { Employees } from "../Employees/Employees";
 import { ArticleInterface, EmployeeInterface } from "@/types";
 import { Button } from "@/shared/ui/Button/Button";
-import { AddEmployeePopup } from "@/components/AddEmployeePopup/AddEmployeePopup";
+import { PopupWithBackground } from "@/shared/ui/PopupWithBackground/PopupWithBackground";
+import { BadInternetConnection } from "../BadInternetConnection/BadInternetConnection";
 import { useAppSelector } from "@/store/hooks";
 import { selectRole } from "@/store/reducers/currentUser/currentUserReducer";
+import { useOnlineCheck } from "@/shared/hooks/useOnlineCheck";
+import {AddEmployeeForm} from "@/components/AddEmployeeForm/AddEmployeeForm";
+import {useNavigate} from "react-router-dom";
+
 
 interface Props {
   handleSendInviteCode: (email: string) => Promise<void>;
   employees: EmployeeInterface[];
+  takeNewEmployeesList: () => Promise<void>;
 }
 export const Myteam: React.FC<Props> = ({
   handleSendInviteCode,
   employees,
+  takeNewEmployeesList
 }) => {
   const articles: ArticleInterface[] = [
     {
@@ -50,18 +57,21 @@ export const Myteam: React.FC<Props> = ({
     },
   ];
 
+  const isOnline = useOnlineCheck();
+  const navigate = useNavigate();
+
   const [addPopupVisible, setAddPopupVisible] = useState(false);
   const [textInput, setTextInput] = useState("");
   const [isChief, setIsChief] = useState(false);
   const user = useAppSelector(selectRole);
-  const reg = /[a-zA-Zа-яА-Я0-9-\ ]/;
+  const reg = /[a-zA-Zа-яА-Я0-9- ]/;
 
   const openAddPopup = () => {
     setAddPopupVisible(true);
   };
 
-  const closeAddPopup = () => {
-    setAddPopupVisible(false);
+  const refreshEmloyees = () => {
+    takeNewEmployeesList();
   };
 
   const handleInputSort = (e: {target: { value: string }}) => {
@@ -77,9 +87,20 @@ export const Myteam: React.FC<Props> = ({
     setIsChief(user === "hr");
   }, [user]);
 
+  useEffect(() => {
+    refreshEmloyees();
+  }, []);
+
+  const openEmployeeInfo = (id: number) => {
+    if(isChief) {
+      navigate('/myteam/' + id)
+    }
+  }
+
   return (
     <div className="page-container">
       <Navbar />
+      {isOnline ?
       <div className={styles.myteam}>
         <div className={styles.leftScreen}>
           <div className={styles.topContent}>
@@ -104,7 +125,7 @@ export const Myteam: React.FC<Props> = ({
             value={textInput}
             onChange={handleInputSort}
           />
-          <Employees valueInputSort={textInput} employees={employees} />
+          <Employees valueInputSort={textInput} employees={employees} openEmployeeInfo={openEmployeeInfo} isChief={isChief}/>
         </div>
         <div className={styles.rightScreen}>
           <Articles
@@ -113,11 +134,17 @@ export const Myteam: React.FC<Props> = ({
           />
         </div>
       </div>
-      <AddEmployeePopup
-        closeAddPopup={closeAddPopup}
-        addPopupVisible={addPopupVisible}
-        handleSendInviteCode={handleSendInviteCode}
-      />
+      : <BadInternetConnection/>}
+      <PopupWithBackground
+        closePopup={() => setAddPopupVisible(false)}
+        popupVisible={addPopupVisible}
+      >
+        <AddEmployeeForm
+          closeAddPopup={() => setAddPopupVisible(false)}
+          handleSendInviteCode={handleSendInviteCode}
+          addPopupVisible={addPopupVisible}
+        />
+      </PopupWithBackground>
     </div>
   );
 };

@@ -11,7 +11,8 @@ type Department = {
 
 export interface EmployeeInterface {
   id: number;
-  avatar?: string;
+  avatar?: string | null;
+  avatar_full?: string | null;
   first_name: string;
   last_name: string;
   position: { name: string };
@@ -240,6 +241,14 @@ export interface Category {
   description: string;
 }
 
+export interface Meeting {
+  id?: number;
+  date: string;
+  name: string;
+  level: number;
+  comment: string;
+}
+
 export interface WebSocketActiveEvent {
   id: number,
   incident_type: string,
@@ -252,4 +261,34 @@ export interface WebSocketNotifications {
 
 export interface WebSocketMessage {
   message: WebSocketNotifications | null;
+}
+
+export interface MeetingInfo {
+  userId: string,
+  formattedDate: string,
+  comment: string,
+  level: number;
+}
+
+export interface MeetingInterface {
+  //id: number | undefined,
+  comment: string,
+  date: string,
+  employee?: EmployeeInterface,
+  organizer?: EmployeeInterface,
+  mental_state: UserMentalState
+}
+
+export interface UserConditionForSend {
+  mood: number,
+  note?: string | null,
+  date: string,
+}
+
+export interface UserConditionRecieved {
+  id: number,
+  mood: number,
+  note?: string | null,
+  date: string,
+  employee: number
 }

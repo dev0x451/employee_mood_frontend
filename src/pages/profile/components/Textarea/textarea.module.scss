@@ -1,0 +1,22 @@
+@import '@/shared/styles/mixins.scss';
+
+.textarea {
+  width: 100%;
+  height: 96px;
+  padding: 12px;
+  border: 0.5px solid var(--color-background);
+  border-radius: 12px;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font: var(--font-body);
+  outline: none;
+  resize: none;
+  text-align: start;
+  &::placeholder {
+    color: var(--color-icon-secondary);
+    font: var(--font-body);
+  }
+  &:hover {
+    border: 0.5px solid rgb(0 0 0 /12%);
+  }
+}

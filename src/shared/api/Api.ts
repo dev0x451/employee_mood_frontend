@@ -1,11 +1,19 @@
 import axios from "axios";
-import {  UserInfo, SubmitArguments, EventInterface } from "@/types";
+import {  UserInfo, SubmitArguments, EventInterface, UserConditionForSend } from "@/types";
 import { BASE_URL_REQUEST, BASE_URL_WSS } from "../constants";
 
 // const BASE_URL = "https://em-dev.usolcev.com/api/v1";
 
 export const getUser = () => {
   return axios.get(`${BASE_URL_REQUEST}/users/current_user`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const getEmployeeInfo = (userId: string | undefined) => {
+  return axios.get(`${BASE_URL_REQUEST}/users/${userId}`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
@@ -52,6 +60,17 @@ export const getHobbies = (word: string) => {
   return axios.get(`${BASE_URL_REQUEST}/hobbies?search=${word}`);
 };
 
+export const getEmployeeTestResults = (userId: string | undefined) => {
+  return axios.get(
+    `${BASE_URL_REQUEST}/metrics/surveys/results?employee=${userId}`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
+};
+
 export const getAllTestsResults = () => {
   return axios.get(
     `${BASE_URL_REQUEST}/metrics/surveys/results/?my_results=true`,
@@ -63,17 +82,10 @@ export const getAllTestsResults = () => {
   );
 };
 
-// interface SubmitArguments {
-//   results: AnswerResult[],
-//   survey: number
-// }
 export const sendTestResults = (results: SubmitArguments) => {
   return axios.post(
     `${BASE_URL_REQUEST}/metrics/surveys/results`,
     {
-      // positive_value: results.positive_value,
-      // negative_value: results.negative_value,
-      // survey: results.survey,
       survey: results.survey,
       results: results.results,
     },
@@ -122,6 +134,15 @@ export const getEvents = () => {
     },
   });
 };
+
+export const checkTestNotificationIsActive = (id: string) => {
+  return axios.get(`${BASE_URL_REQUEST}/notifications?incident_id=${id}&incident_type=Опрос`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
 export const postEvent = (event: EventInterface) => {
   return axios.post(`${BASE_URL_REQUEST}/events/`,
     {
@@ -143,4 +164,76 @@ export const postEvent = (event: EventInterface) => {
       }
     }
   );
+};
+
+export const makeEventNotificationUnactive = (id: string) => {
+  return axios.get(`${BASE_URL_REQUEST}/notifications/${id}/viewed`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const getMentalStates = () => {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/mental_states`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const getMeetingsInfo = (id: string | undefined) => {
+  return axios.get(`${BASE_URL_REQUEST}/meeting_results?employee=${id}`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const sendMeetingInfo = (userId: string, formattedDate: string, comment: string, level: number ) => {
+  return axios.post(
+    `${BASE_URL_REQUEST}/meeting_results`, {
+      date: formattedDate,
+      comment: comment,
+      employee: userId,
+      mental_state: level
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      },
+    }
+  );
+};
+
+export const getAllUserConditions = () => {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/conditions/?my_conditions=true`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const sendUserCondition = (conditions: UserConditionForSend) => {
+  return axios.post(`${BASE_URL_REQUEST}/metrics/conditions/?infinity_freq=true`,
+    {
+      mood: conditions.mood,
+      note: conditions.note,
+      date: conditions.date,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};
+
+//id пользователя currentUser
+export const getAllUserBurnouts = (id: string) => {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/burnouts/?employee=${id}`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
 };

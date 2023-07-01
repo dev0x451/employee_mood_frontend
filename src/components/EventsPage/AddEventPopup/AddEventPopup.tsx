@@ -6,7 +6,7 @@ import { EventInterface } from "@/types";
 
 
 import styles from "./addEventPopup.module.css";
-import React, {useState} from "react";
+import React from "react";
 import {ClosePopup} from "../img/closePopup";
 import dash from "../img/dash.svg"
 import { useEscapeKeyEvent } from "@/shared/hooks/useEscapeKey";

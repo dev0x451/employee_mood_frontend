@@ -14,6 +14,7 @@ export const Events: React.FC<Props> = ({events}) => {
     <div className="page-container">
       <Navbar />
       {/* <div className={styles.events}>
+
         <img src={events} alt="Заглушка" className={styles.image} />
         <div className={styles.container}>
           <p className={styles.text}>
@@ -22,6 +23,7 @@ export const Events: React.FC<Props> = ({events}) => {
         </div>
       </div> */}
       <EventsPage events={events}/>
+
     </div>
   );
 };

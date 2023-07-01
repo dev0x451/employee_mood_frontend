@@ -1,0 +1,40 @@
+.container {
+  position: relative;
+  max-width: 676px;
+  height: 196px;
+  padding: 16px 20px;
+  border-radius: 20px;
+  margin-top: 35px;
+  background-color: white;
+
+  /* background-image: url("./burnoutLevel-TO_BE_DELETED.png");
+  background-size: cover; */
+}
+
+.top-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.y-axis {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  width: 34px;
+  height: 112px;
+  background-image: url("/burnout_axisY.svg");
+}
+
+.x-axis {
+  position: absolute;
+  bottom: 16px;
+  left: 54px;
+  width: 536px;
+  height: 18px;
+  background-image: url("/burnout_axisX.svg");
+}
+
+.heading {
+  margin: 0;
+  font: var(--font-h3);
+}
