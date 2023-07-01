@@ -25,6 +25,7 @@ interface Props {
   resultOfPsychoTest: any;
   handleChangeUserInfo: any;
   employees: any;
+  events: any;
   handleSendInviteCode: any;
   handleLogin: any;
   handleRegister: any;
@@ -43,6 +44,7 @@ export const Routing: React.FC<Props> = ({
   resultOfPsychoTest,
   handleChangeUserInfo,
   employees,
+  events,
   handleSendInviteCode,
   handleLogin,
   handleRegister,
@@ -90,7 +92,12 @@ export const Routing: React.FC<Props> = ({
 
         <Route path="advices" element={<Advices />} />
 
-        <Route path="events" element={<Events/>}/>
+        <Route
+          path="events"
+          element={
+            <Events events={events}/>
+          }
+        />
 
         <Route path="bookmarks" element={<Bookmarks/>}/>
 

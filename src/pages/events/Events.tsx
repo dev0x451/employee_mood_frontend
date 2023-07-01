@@ -1,9 +1,15 @@
 // import styles from "./events.module.css";
 // import events from "/events.png";
+import { EventInterface } from "@/types";
 import { Navbar } from "@/components/Navbar/Navbar";
 import { EventsPage } from "@/components/EventsPage/EventsPage";
 
-export const Events = () => {
+interface Props {
+  // valueInputSort: string;
+  events: EventInterface[];
+}
+
+export const Events: React.FC<Props> = ({events}) => {
   return (
     <div className="page-container">
       <Navbar />
@@ -15,7 +21,7 @@ export const Events = () => {
           </p>
         </div>
       </div> */}
-      <EventsPage />
+      <EventsPage events={events}/>
     </div>
   );
 };

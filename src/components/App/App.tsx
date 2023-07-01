@@ -36,6 +36,7 @@ export const App = () => {
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
+  const [events, setEvents] = useState([]);
 
   const role = useAppSelector(
     (state) => state.currentUserSlice.currentUser.role
@@ -242,6 +243,7 @@ export const App = () => {
     }
   }, [loggedIn]);
 
+  // запрос пользователей для моей команды
   async function handleEmployees() {
     try {
       if (role === "hr" || role === "chief") {
@@ -252,13 +254,39 @@ export const App = () => {
       console.log(err);
     }
   }
-  // console.log(role);
-  // useEffect(()=>{handleEmployees()},[]);
-  // useEffect(()=>{handleEmployees()},[loggedIn]);
   useEffect(() => {
     handleEmployees();
   }, [role]);
+  //
 
+  //запрос мероприятий для вкладки мероприятия
+  async function fetchEvents() {
+    try {
+      // if (role === "hr" || role === "chief") {
+        const response = await Api.getEvents();
+        // console.log(response)
+        setEvents(response.data.results);
+      // }
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    fetchEvents();
+  }, [role]);
+  //
+  // отпрвка мероприятия
+  // async function postEvent() {
+  //   try {
+  //     // if (role === "hr" || role === "chief") {
+  //       const response = await Api.postEvent();
+  //       // console.log(response)
+  //       setEvents(response.data.results);
+  //     // }
+  //   } catch (err: any) {
+  //     console.log(err);
+  //   }
+  // }
   const openTestAlertPopup = () => {
     dispatch(
       setErrorMessage(
@@ -298,6 +326,7 @@ export const App = () => {
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}
         employees={employees}
+        events={events}
         handleSendInviteCode={handleSendInviteCode}
         handleLogin={handleLogin}
         handleRegister={handleRegister}

@@ -18,12 +18,7 @@ export const Employees: React.FC<Props> = (
   const [isSortName, setIsSortName] = useState(true);
   const [isSortPosition, setIsSortPosition] = useState(true);
   const [isSortState, setIsSortState] = useState(true);
-  // const { arrSort, isClick } = useSort(employeesSort)
 
-  // useEffect(()=>{
-  //   arrSort?.length > 0 && setEmployeesSort(arrSort)
-  // },[isClick])
-  // console.log(employees)
   useEffect(()=>{
     setEmployeesSort(employees)
   },[employees.length])

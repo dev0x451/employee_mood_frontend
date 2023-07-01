@@ -20,6 +20,14 @@
   padding: 4px;
   border: none;
   object-fit: cover;
+  cursor: pointer;
+  transition: opacity 0.5s linear;
+}
+.eventsHeader__button:hover {
+  opacity: 0.7;
+}
+.eventsHeader__button:disabled {
+  cursor: auto;
 }
 .eventsHeader__month  {
   margin: 0;

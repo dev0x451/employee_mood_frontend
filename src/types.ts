@@ -18,6 +18,16 @@ export interface EmployeeInterface {
   // colorball: string;
   mental_state: UserMentalState;
 }
+export interface EventInterface {
+  author?: {id: number, first_name: string, last_name: string };
+  created?: string;
+  end_time: Date;
+  start_time: Date;
+  id?: number;
+  name: string;
+  text: string;
+  liked?: boolean
+}
 
 export interface SelectOption {
   label: string;
