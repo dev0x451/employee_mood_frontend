@@ -6,7 +6,7 @@ import styles from "./app.module.css";
 
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
 import { setSuccessMessage } from "@/store/reducers/alertSuccess/alertSuccessReducer";
 import {resetAllCurrentUserData, setAllCurrentUserData} from "@/store/reducers/currentUser/currentUserReducer";
@@ -37,10 +37,11 @@ export const App = () => {
     useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
+  const [events, setEvents] = useState([]);
 
-  // const role = useAppSelector(
-  //   (state) => state.currentUserSlice.currentUser.role
-  // );
+  const role = useAppSelector(
+    (state) => state.currentUserSlice.currentUser.role
+  );
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -261,6 +262,7 @@ export const App = () => {
     }
   }, [loggedIn]);
 
+  // запрос пользователей для моей команды
   async function handleEmployees() {
     try {
       const response = await Api.getUsers();
@@ -269,7 +271,39 @@ export const App = () => {
       console.log(err);
     }
   }
+  useEffect(() => {
+    handleEmployees();
+  }, [role]);
+  //
 
+  //запрос мероприятий для вкладки мероприятия
+  async function fetchEvents() {
+    try {
+      // if (role === "hr" || role === "chief") {
+        const response = await Api.getEvents();
+        // console.log(response)
+        setEvents(response.data.results);
+      // }
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    fetchEvents();
+  }, [role]);
+  //
+  // отпрвка мероприятия
+  // async function postEvent() {
+  //   try {
+  //     // if (role === "hr" || role === "chief") {
+  //       const response = await Api.postEvent();
+  //       // console.log(response)
+  //       setEvents(response.data.results);
+  //     // }
+  //   } catch (err: any) {
+  //     console.log(err);
+  //   }
+  // }
   const openTestAlertPopup = () => {
     dispatch(
       setErrorMessage(
@@ -317,6 +351,7 @@ export const App = () => {
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}
         employees={employees}
+        events={events}
         handleSendInviteCode={handleSendInviteCode}
         handleLogin={handleLogin}
         handleRegister={handleRegister}

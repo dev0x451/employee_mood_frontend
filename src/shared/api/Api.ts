@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  UserInfo, SubmitArguments, UserConditionForSend } from "@/types";
+import {  UserInfo, SubmitArguments, EventInterface, UserConditionForSend } from "@/types";
 import { BASE_URL_REQUEST, BASE_URL_WSS } from "../constants";
 
 // const BASE_URL = "https://em-dev.usolcev.com/api/v1";
@@ -119,7 +119,6 @@ export const getUsers = () => {
   });
 };
 
-
 export const connectToWebSocketNotifications = () => {
   return axios.get(`${BASE_URL_WSS}/notifications?2`, {
     headers: {
@@ -128,6 +127,13 @@ export const connectToWebSocketNotifications = () => {
   });
 };
 
+export const getEvents = () => {
+  return axios.get(`${BASE_URL_REQUEST}/events/`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
 
 export const checkTestNotificationIsActive = (id: string) => {
   return axios.get(`${BASE_URL_REQUEST}/notifications?incident_id=${id}&incident_type=Опрос`, {
@@ -135,6 +141,29 @@ export const checkTestNotificationIsActive = (id: string) => {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   });
+};
+
+export const postEvent = (event: EventInterface) => {
+  return axios.post(`${BASE_URL_REQUEST}/events/`,
+    {
+      name: event.name,
+      for_all: true,
+      text: event.text,
+      start_time: event.start_time,
+      end_time: event.end_time,
+      // "departments": [
+      //   0
+      // ],
+      // "employees": [
+      //   0
+      // ]
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
 };
 
 export const makeEventNotificationUnactive = (id: string) => {
@@ -195,7 +224,7 @@ export const sendUserCondition = (conditions: UserConditionForSend) => {
     {
       headers: {
         authorization: `Bearer ${localStorage.getItem("jwt")}`,
-      },
+      }
     }
   );
 };
@@ -208,4 +237,3 @@ export const getAllUserBurnouts = (id: string) => {
     },
   });
 };
-
