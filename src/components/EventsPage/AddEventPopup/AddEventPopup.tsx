@@ -99,9 +99,6 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
     setTimeout(closePopupRequest, 5000)
   },[isPopupRequest])
 
-  const setCountSymbol = (e: any) => {
-    console.log(e)
-  }
   return (
     <div className={isPopupAddEvent ? styles.formAddEvent__overlay : styles.formAddEvent__closed} onClick={(e) => handleCloseOutside(e)}>
       {isPopupRequest && <PopupRequest isRequest={isRequest} closePopupRequest={closePopupRequest}/>}
