@@ -49,7 +49,8 @@ export const EventsPage: React.FC<Props> = ({events}) => {
   // }
   useEffect(()=>{
     setEventsSortMonth(events.filter(item => new Date(item.start_time).getMonth() === month));
-  }, [month]);
+  }, [month, events.length]);
+
 
   useEffect(()=>{
     setEventsSortFind(eventsSortMonth);
@@ -71,6 +72,9 @@ export const EventsPage: React.FC<Props> = ({events}) => {
     ));
   },[textInput]);
 
+  // console.log(events);
+  // console.log(eventsSortMonth);
+  // console.log(eventsSortFind);
   return (
     <section className={styles.eventsPage}>
       <EventsHeader

@@ -265,8 +265,10 @@ export const App = () => {
   // запрос пользователей для моей команды
   async function handleEmployees() {
     try {
-      const response = await Api.getUsers();
-      setEmployees(response.data.results);
+      if (role === "hr" || role === "chief") {
+        const response = await Api.getUsers();
+        setEmployees(response.data.results);
+      }
     } catch (err: any) {
       console.log(err);
     }
@@ -279,11 +281,11 @@ export const App = () => {
   //запрос мероприятий для вкладки мероприятия
   async function fetchEvents() {
     try {
-      // if (role === "hr" || role === "chief") {
+      if (role === "hr" || role === "chief" || role === "employee") {
         const response = await Api.getEvents();
         // console.log(response)
         setEvents(response.data.results);
-      // }
+      }
     } catch (err: any) {
       console.log(err);
     }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAppSelector } from "@/store/hooks";
 import styles from "./eventsFunctional.module.css";
 import cn from "classnames";
 import { AddEventPopup } from "../AddEventPopup/AddEventPopup";
@@ -9,6 +10,10 @@ interface Props {
 }
 
 export const EventsFunctional: React.FC<Props> = ({textInput, handleInputSort}) => {
+
+  const role = useAppSelector(
+    (state) => state.currentUserSlice.currentUser.role
+  );
 
   // переключение класса кнопок на активные и обратно
   const [isActiveButtonAll, setIsActiveButtonAll] = useState(true);
@@ -63,12 +68,14 @@ export const EventsFunctional: React.FC<Props> = ({textInput, handleInputSort}) 
     e.preventDefault();
     setIsPopupAddEvent(false);
   }
-
+  console.log(role)
   return (
     <>
       <div  className={styles.eventsFunctional__main}>
         <input className={styles.eventsFunctional__find} placeholder="Поиск" value={textInput} onChange={handleInputSort}/>
-        <button  className={styles.eventsFunctional__add} onClick={openPopupAddEvent}>+ Добавить мероприятие</button>
+        {(role === "hr" || role === "chief") &&
+          <button  className={styles.eventsFunctional__add} onClick={openPopupAddEvent}>+ Добавить мероприятие</button>
+        }
       </div>
 
       <ul className={styles.eventsFunctional__list}>
