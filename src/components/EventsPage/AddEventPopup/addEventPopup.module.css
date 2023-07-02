@@ -86,12 +86,22 @@ option {
   color: var(--color-black);
 }
 .formAddEvent__date {
-  width: 48.75%;
-  margin-right: 12px;
+  /* width: 48.75%; */
+  width: 35%;
+  margin-right: 4px;
+}
+.formAddEvent__separator {
+  align-self: center;
+  margin: 0 4px;
 }
 .formAddEvent__time {
-  width: 21.75%;
-  /* margin-right: 12px; */
+  /* width: 21.75%; */
+  width: 25%;
+}
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.4;
+  /* background: none; */
 }
 .formAddEvent__divider {
   margin: auto 4px;
@@ -122,7 +132,7 @@ option {
   width: 100%;
   position: relative;
   top: -25px;
-  left: 88%;
+  left: 85%;
   /* margin-left: auto; */
   /* text-align: end; */
   /* right: -100%; */
@@ -130,6 +140,14 @@ option {
   padding: 0; */
   font: var(--font-caption);
   color: var(--color-icon-secondary);
+}
+.formAddEvent__countSymbolTextareaRed {
+  width: 100%;
+  position: relative;
+  top: -25px;
+  left: 85%;
+  font: var(--font-caption);
+  color: var(--color-error);
 }
 .formAddEvent__buttonsForm {
   margin-top: 16px;
