@@ -1,9 +1,10 @@
-import React, {useState} from "react";
-import heart from "../../../public/Vector.svg";
-import heartWhite from "../../../public/VectorWhite.svg";
+import * as React from "react";
+import {useState} from "react";
+import bookmark from "../../../public/bookmark.svg";
+import bookmarkSaved from "../../../public/bookmark_saved.svg";
 import play from "../../../public/play.svg";
 import styles from "./usefulCard.module.scss";
-import {Card} from "@/types.ts";
+import {Card} from "@/types";
 
 export interface Category {
   id: number,
@@ -19,7 +20,7 @@ const UsefulCard: React.FC<Card> = ({
                                       title,
                                       preview_image,
                                       text,
-                                      created,
+                                      // created,
                                       isLiked
                                     }) => {
 
@@ -42,7 +43,8 @@ const UsefulCard: React.FC<Card> = ({
             ""}
         </a>
 
-        <div className={styles.like}><img onClick={handleLike} src={isLikedTemp ? heart : heartWhite} alt="heart"/>
+        <div className={styles.like}><img onClick={handleLike} src={isLikedTemp ? bookmarkSaved : bookmark}
+                                          alt="heart"/>
         </div>
         <div className="">
           <h2 className={styles.title}>{title}</h2>
@@ -57,7 +59,7 @@ const UsefulCard: React.FC<Card> = ({
             }
 
           </div>
-          <p className={styles.duration}>{created}</p>
+          {/*<p className={styles.duration}>{created}</p>*/}
         </div>
       </div>
 

@@ -29,9 +29,11 @@
   position: absolute;
   bottom: 16px;
   left: 54px;
-  width: 536px;
+  width: 84%;
   height: 18px;
   background-image: url("/burnout_axisX.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .heading {

@@ -1,8 +1,8 @@
-import React from "react";
-import UsefulCard from "@/components/UsefulCard/UsefulCard.tsx";
+import * as React from "react";
+import UsefulCard from "@/components/UsefulCard/UsefulCard";
 import styles from "./usefulCardList.module.scss";
-import {Card} from "@/types.ts";
-import NoSearchResult from "@/components/NoSearchResult/NoSearchResult.tsx";
+import {Card} from "@/types";
+import NoSearchResult from "@/components/NoSearchResult/NoSearchResult";
 
 export interface Props {
   cards: Card[];
@@ -18,6 +18,7 @@ const UsefulCardsList: React.FC<Props> = ({cards, searchValue, allEntries}) => {
 
       {cards
         .map((card) => (
+          // <Link key={card.id} to={`/useful/${card.id}`}>
           <UsefulCard
             key={card.id}
             category={card.category}
@@ -26,6 +27,7 @@ const UsefulCardsList: React.FC<Props> = ({cards, searchValue, allEntries}) => {
             text={card.text}
             created={card.created}
           />
+          // </Link>
         ))
       }
       {cards.length === 0 ? <NoSearchResult searchValue={searchValue}/> : ""}

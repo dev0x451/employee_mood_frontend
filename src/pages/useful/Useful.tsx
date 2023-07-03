@@ -1,12 +1,12 @@
 import styles from "./useful.module.scss";
 import {Navbar} from "@/components/Navbar/Navbar";
-import { useOnlineCheck } from "@/shared/hooks/useOnlineCheck";
-import SearchUseful from "@/components/SearchUseful/SearchUseful.tsx";
-import TagsList from "@/components/TagsList/TagsList.tsx";
-import UsefulCardList from "@/components/UsefulCardList/UsefulCardList.tsx";
-import { BadInternetConnection } from "@/components/BadInternetConnection/BadInternetConnection";
+import {useOnlineCheck} from "@/shared/hooks/useOnlineCheck";
+import SearchUseful from "@/components/SearchUseful/SearchUseful";
+import TagsList from "@/components/TagsList/TagsList";
+import UsefulCardList from "@/components/UsefulCardList/UsefulCardList";
+import {BadInternetConnection} from "@/components/BadInternetConnection/BadInternetConnection";
 import {useEffect, useState} from "react";
-import {Card, Category} from "@/types.ts";
+import {Card, Category} from "@/types";
 import axios from 'axios';
 
 export const Useful = () => {
@@ -36,7 +36,7 @@ export const Useful = () => {
       const response = await axios.get('https://em-dev.usolcev.com/api/v1/entries/', {headers});
       setEntries(response.data.results);
       // setIsLoading(true);
-      // console.log(entries)
+      console.log(entries)
       // console.log(chosenCardList)
 
     } catch (error) {
@@ -134,20 +134,20 @@ export const Useful = () => {
     <div className="page-container">
       <Navbar/>
       {isOnline ?
-      <div className={styles.container}>
-        <div className={styles.useful}>
-          <h2 className={styles.title}>Полезные статьи и видео</h2>
-          <SearchUseful onSearch={handleSearchCards}/>
-          <TagsList tags={categories}
-                    onChecked={handleCheckedList}
-          />
-          {/*{(isLoading) ? `Loading!!!!!` :*/}
-          <UsefulCardList cards={chosenCardList}
-                          searchValue={searchValue}
-                          allEntries={entries}/>
+        <div className={styles.container}>
+          <div className={styles.useful}>
+            <h2 className={styles.title}>Полезные статьи и видео</h2>
+            <SearchUseful onSearch={handleSearchCards}/>
+            <TagsList tags={categories}
+                      onChecked={handleCheckedList}
+            />
+            {/*{(isLoading) ? `Loading!!!!!` :*/}
+            <UsefulCardList cards={chosenCardList}
+                            searchValue={searchValue}
+                            allEntries={entries}/>
+          </div>
         </div>
-      </div>
-    : <BadInternetConnection/>}
+        : <BadInternetConnection/>}
     </div>
   );
 };
