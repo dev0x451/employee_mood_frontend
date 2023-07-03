@@ -35,12 +35,11 @@ export const App = () => {
   const [allTestsResults, setallTestsResults] = useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
+  const [events, setEvents] = useState([]);
 
-  // const role = useAppSelector(
-  //   (state) => state.currentUserSlice.currentUser.role
-  // );
   const currentUserInfo = useAppSelector(selectUserInfo);
   const buttonCondition = useAppSelector(selectButtonConditions);
+  const role = useAppSelector((state) => state.currentUserSlice.currentUser.role);
 
   const dispatch = useAppDispatch();
 
@@ -253,14 +252,29 @@ export const App = () => {
     }
   }
 
+  useEffect(() => {
+    if (loggedIn) {
+      getAllTestsResult();
+      getTestsQuestions();
+      getTestsBurnoutQuestions();
+      getAllUserConditions()
+    }
+  }, [loggedIn]);
+    
   async function handleEmployees() {
     try {
-      const response = await Api.getUsers();
-      setEmployees(response.data.results);
+      if (role === "hr" || role === "chief") {
+        const response = await Api.getUsers();
+        setEmployees(response.data.results);
+      }
     } catch (err: any) {
       console.log(err);
     }
   }
+  useEffect(() => {
+    handleEmployees();
+  }, [role]);
+  //
 
   function openTestAlertPopup () {
     dispatch(
@@ -269,6 +283,35 @@ export const App = () => {
       )
     );
   }
+  
+  //запрос мероприятий для вкладки мероприятия
+  async function fetchEvents() {
+    try {
+      if (role === "hr" || role === "chief" || role === "employee") {
+        const response = await Api.getEvents();
+        // console.log(response)
+        setEvents(response.data.results);
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    fetchEvents();
+  }, [role]);
+  //
+  // отпрвка мероприятия
+  // async function postEvent() {
+  //   try {
+  //     // if (role === "hr" || role === "chief") {
+  //       const response = await Api.postEvent();
+  //       // console.log(response)
+  //       setEvents(response.data.results);
+  //     // }
+  //   } catch (err: any) {
+  //     console.log(err);
+  //   }
+  // }
 
   async function handleAddMeetingInfo ({userId, formattedDate, comment, level}: MeetingInfo) {
     try {
@@ -354,6 +397,7 @@ export const App = () => {
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}
         employees={employees}
+        events={events}
         handleSendInviteCode={handleSendInviteCode}
         handleLogin={handleLogin}
         handleRegister={handleRegister}

@@ -1,0 +1,89 @@
+.eventsCard {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  width: 324px;
+  border-radius: 20px;
+  background-color: var(--color-white);
+  padding: 20px;
+}
+.eventsCard__header {
+  display: grid;
+  grid-template-columns: 110px 88px 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0 8px;
+}
+.eventsCard__day {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  margin: 0;
+  font-size: 87px;
+  font-family: Montserrat;
+  font-weight: 500;
+  line-height: 88px;
+  color: var(--color-black);
+}
+.eventsCard__month {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  align-self: self-end;
+  margin: 0;
+  font: var(--font-h4-alert);
+  color: var(--color-black);
+}
+.eventsCard__time {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  align-self: center;
+  margin: 0;
+  font: var(--font-h4-alert);
+  color: var(--color-black);
+}
+.eventsCard__like {
+  grid-column: 3 / 4;
+  grid-row: 1 / 3;
+  justify-self: end;
+  align-self: flex-start;
+}
+.eventsCard__typeActivity {
+  width: fit-content;
+  margin: 0;
+  margin-top: 69px;
+  border-radius: 20px;
+  padding: 8px 12px;
+  background-color: rgba(138, 50, 224, 0.10);
+  font: var(--font-caption);
+  color: var(--color-accent-purple);
+}
+.eventsCard__heading {
+  margin: 0;
+  margin-top: 12px;
+  font: var(--font-h3);
+  color: var(--color-black);
+}
+.eventsCard__content {
+  margin: 8px 0 16px 0;
+  font: var(--font-body);
+  color: var(--color-black);
+  overflow: hidden;
+}
+.eventsCard__footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+  margin-top: auto;
+}
+.eventsCard__nameAuthor {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0;
+  font: var(--font-caption);
+  color: var(--color-black);
+}
+.eventsCard__expiration {
+  margin: 0;
+  font: var(--font-caption);
+  color: var(--color-icon-secondary);
+}

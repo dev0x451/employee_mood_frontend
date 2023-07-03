@@ -1,0 +1,15 @@
+.eventsPage {
+  width: 100%;
+  padding: 40px 132px 162px 50px;
+  background-color: var(--color-main-background);
+}
+
+.eventsContent {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(300px,1fr));
+  gap: 28px;
+  padding: 0;
+  margin-top: 28px;
+  list-style: none;
+}
+
