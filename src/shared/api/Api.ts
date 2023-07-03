@@ -165,7 +165,27 @@ export const postEvent = (event: EventInterface) => {
     }
   );
 };
-
+export const postEventLike = (event: number) => {
+  return axios.post(`${BASE_URL_REQUEST}/socials/likes/`,
+    {
+      "event": event
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};
+export const deleteEventLike = (id: number) => {
+  return axios.delete(`${BASE_URL_REQUEST}/socials/likes/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};
 export const makeEventNotificationUnactive = (id: string) => {
   return axios.get(`${BASE_URL_REQUEST}/notifications/${id}/viewed`, {
     headers: {

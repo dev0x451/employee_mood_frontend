@@ -35,27 +35,28 @@ interface Props {
   openTestAlertPopup: any;
   takeNewEmployeesList: any
   handleAddMeetingInfo: any;
+  fetchEvents: any;
 }
 
 export const Routing: React.FC<Props> = ({
-                                           loggedIn,
-                                           handleSignOut,
-                                           allTestsResults,
-                                           expressTest,
-                                           burnoutTest,
-                                           handleSendTestResult,
-                                           resultOfPsychoTest,
-                                           handleChangeUserInfo,
-                                           employees,
-                                           events,
-                                           handleSendInviteCode,
-                                           handleLogin,
-                                           handleRegister,
-                                           handleSendResetCode,
-                                           handleResetPassword,
-                                           openTestAlertPopup,
-                                           takeNewEmployeesList, handleAddMeetingInfo
-                                         }) => {
+  loggedIn,
+  handleSignOut,
+  allTestsResults,
+  expressTest,
+  burnoutTest,
+  handleSendTestResult,
+  resultOfPsychoTest,
+  handleChangeUserInfo,
+  employees,
+  events, fetchEvents,
+  handleSendInviteCode,
+  handleLogin,
+  handleRegister,
+  handleSendResetCode,
+  handleResetPassword,
+  openTestAlertPopup,
+  takeNewEmployeesList, handleAddMeetingInfo
+}) => {
   return (
     <Routes>
       <Route
@@ -101,7 +102,7 @@ export const Routing: React.FC<Props> = ({
         <Route
           path="events"
           element={
-            <Events events={events}/>
+            <Events events={events} fetchEvents={fetchEvents}/>
           }
         />
 

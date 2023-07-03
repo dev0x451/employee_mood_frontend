@@ -7,9 +7,10 @@ import { AddEventPopup } from "../AddEventPopup/AddEventPopup";
 interface Props {
   textInput: string;
   handleInputSort: (e: any) => void;
+  fetchEvents: ()=>void;
 }
 
-export const EventsFunctional: React.FC<Props> = ({textInput, handleInputSort}) => {
+export const EventsFunctional: React.FC<Props> = ({textInput, handleInputSort, fetchEvents}) => {
 
   const role = useAppSelector(
     (state) => state.currentUserSlice.currentUser.role
@@ -68,7 +69,7 @@ export const EventsFunctional: React.FC<Props> = ({textInput, handleInputSort}) 
     e.preventDefault();
     setIsPopupAddEvent(false);
   }
-  console.log(role)
+
   return (
     <>
       <div  className={styles.eventsFunctional__main}>
@@ -95,6 +96,7 @@ export const EventsFunctional: React.FC<Props> = ({textInput, handleInputSort}) 
       <AddEventPopup
         closePopupAddEvent={(e)=>{closePopupAddEvent(e)}}
         isPopupAddEvent={isPopupAddEvent}
+        fetchEvents={fetchEvents}
       />
     </>
   );
