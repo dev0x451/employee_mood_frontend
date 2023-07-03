@@ -36,7 +36,6 @@ interface Props {
   takeNewEmployeesList: any
   handleAddMeetingInfo: any;
   fetchEvents: any;
-  setEvents: any;
 }
 
 export const Routing: React.FC<Props> = ({
@@ -49,7 +48,7 @@ export const Routing: React.FC<Props> = ({
   resultOfPsychoTest,
   handleChangeUserInfo,
   employees,
-  events, fetchEvents, setEvents,
+  events, fetchEvents,
   handleSendInviteCode,
   handleLogin,
   handleRegister,
@@ -103,7 +102,7 @@ export const Routing: React.FC<Props> = ({
         <Route
           path="events"
           element={
-            <Events events={events} fetchEvents={fetchEvents} setEvents={setEvents}/>
+            <Events events={events} fetchEvents={fetchEvents}/>
           }
         />
 

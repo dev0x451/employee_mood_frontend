@@ -363,7 +363,6 @@ export const App = () => {
         takeNewEmployeesList={handleEmployees}
         handleAddMeetingInfo={handleAddMeetingInfo}
         fetchEvents={fetchEvents}
-        setEvents={setEvents}
       />
     </main>
   );

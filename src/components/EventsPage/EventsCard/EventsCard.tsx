@@ -14,9 +14,8 @@ interface Props {
   fetchEvents: ()=>void;
   // isRenderEventPage: boolean;
   // setIsRenderEventPage: any;
-  setEvents: any;
 }
-export const EventsCard: React.FC<Props> = ({item, fetchEvents, setEvents}) => {
+export const EventsCard: React.FC<Props> = ({item, fetchEvents}) => {
   const monthNames = ["Января", "Февраля", "Марта", "Апреля", "Мая", "Июня", "Июля", "Августа", "Сентября", "Октября", "Ноября", "Декабря"];
   // const dataCreated = new Date(item.created);
   const dataStart = new Date(item.start_time);

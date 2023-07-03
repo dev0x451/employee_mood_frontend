@@ -9,10 +9,9 @@ interface Props {
   // valueInputSort: string;
   events: EventInterface[];
   fetchEvents: ()=> void;
-  setEvents: any;
 }
 
-export const EventsPage: React.FC<Props> = ({events, fetchEvents, setEvents}) => {
+export const EventsPage: React.FC<Props> = ({events, fetchEvents}) => {
   const date = new Date();
   const monthToday = date.getMonth();
   const yearToday = date.getFullYear();
@@ -107,7 +106,6 @@ export const EventsPage: React.FC<Props> = ({events, fetchEvents, setEvents}) =>
             fetchEvents={fetchEvents}
             // isRenderEventPage={isRenderEventPage}
             // setIsRenderEventPage={setIsRenderEventPage}
-            setEvents={setEvents}
           />
 
         )}
