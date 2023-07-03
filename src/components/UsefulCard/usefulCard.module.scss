@@ -1,6 +1,6 @@
 .card {
   width: 324px;
-  height: 358px;
+  height: 362px;
   background-color: var(--color-background-white);
   border-radius: 20px;
   padding: 16px;
@@ -22,13 +22,15 @@
   text-overflow: ellipsis;
   height: 58px;
   margin: 0;
-  margin-top: 26px;
 }
 
 .title {
   font: var(--font-more);
   color: var(--color-black);
+  height: 36px;
   margin: 12px 0 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .duration {
