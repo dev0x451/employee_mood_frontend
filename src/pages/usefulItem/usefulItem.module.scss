@@ -1,0 +1,26 @@
+.container {
+  background-color: var(--color-main-background);
+}
+
+.content {
+  width: 1028px;
+  height: 850px;
+  padding: 20px 20px 40px;
+}
+
+.image {
+  width: 988px;
+  height: 320px;
+}
+
+.category {
+  margin: 16px 0;
+}
+
+.title {
+  font: var(--font-h2);
+}
+
+.text {
+  font: var(--font-body);
+}

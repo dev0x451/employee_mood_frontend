@@ -19,8 +19,9 @@ export interface EmployeeInterface {
   // colorball: string;
   mental_state: UserMentalState;
 }
+
 export interface EventInterface {
-  author?: {id: number, first_name: string, last_name: string };
+  author?: { id: number, first_name: string, last_name: string };
   created?: string;
   end_time: Date;
   start_time: Date;
@@ -132,6 +133,7 @@ export interface Graph {
   min_value: number,
   max_value: number
 }
+
 export interface ExpressDiagnoseSummaryGraphs {
   graphs: Graph[]
 }
@@ -224,7 +226,7 @@ export interface jwtTypes {
 
 
 export interface Card {
-  id?: number;
+  id?: string;
   category: Category[];
   author?: string;
   title: string;

@@ -36,7 +36,7 @@ export const Useful = () => {
       const response = await axios.get('https://em-dev.usolcev.com/api/v1/entries/', {headers});
       setEntries(response.data.results);
       // setIsLoading(true);
-      // console.log(entries)
+      console.log(entries)
       // console.log(chosenCardList)
 
     } catch (error) {

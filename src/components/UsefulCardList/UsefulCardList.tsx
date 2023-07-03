@@ -1,8 +1,9 @@
-import React from "react";
-import UsefulCard from "@/components/UsefulCard/UsefulCard.tsx";
+import * as React from "react";
+import UsefulCard from "@/components/UsefulCard/UsefulCard";
 import styles from "./usefulCardList.module.scss";
-import {Card} from "@/types.ts";
-import NoSearchResult from "@/components/NoSearchResult/NoSearchResult.tsx";
+import {Card} from "@/types";
+import NoSearchResult from "@/components/NoSearchResult/NoSearchResult";
+import {Link} from "react-router-dom";
 
 export interface Props {
   cards: Card[];
@@ -18,14 +19,16 @@ const UsefulCardsList: React.FC<Props> = ({cards, searchValue, allEntries}) => {
 
       {cards
         .map((card) => (
-          <UsefulCard
-            key={card.id}
-            category={card.category}
-            title={card.title}
-            preview_image={card.preview_image}
-            text={card.text}
-            created={card.created}
-          />
+          <Link key={card.id} to={`/useful/${card.id}`}>
+            <UsefulCard
+              key={card.id}
+              category={card.category}
+              title={card.title}
+              preview_image={card.preview_image}
+              text={card.text}
+              created={card.created}
+            />
+          </Link>
         ))
       }
       {cards.length === 0 ? <NoSearchResult searchValue={searchValue}/> : ""}
