@@ -282,3 +282,14 @@ export interface UserConditionRecieved {
   date: string,
   employee: number
 }
+
+export interface UserConditionButtonSent {
+  mood: number,
+  note: string,
+  date: string
+}
+
+export interface UserBurnoutLevel {
+  month: string,
+  percentage: number,
+}

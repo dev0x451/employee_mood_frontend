@@ -77,3 +77,19 @@
 .record-button:hover {
   cursor: pointer;
 }
+
+.add-button {
+  display: flex;
+  border: 0;
+  margin-top: 15px;
+  background-color: var(--color-main-background);
+  color: var(--color-accent-purple);
+  cursor: pointer;
+  font: var(--font-button);
+  outline: none;
+  transition: opacity 0.5s linear;
+}
+
+.add-button:hover {
+  opacity: 0.6;
+}
