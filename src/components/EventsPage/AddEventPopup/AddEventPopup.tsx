@@ -18,6 +18,8 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
   const [isPopupRequest, setIsPopupRequest] = useState(false);
   const [isRequest, setIsRequest] = useState(false);
   const [reviewPost, setReviewPost] = useState('');
+  const [valueTimeStart, setValueTimeStart] = useState('00:00');
+  const [valueTimeEnd, setValueTimeEnd] = useState('00:00');
 
   useEscapeKeyEvent(closePopupAddEvent);
   const handleCloseOutside = (
@@ -102,6 +104,15 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
     setTimeout(closePopupRequest, 5000)
   },[isPopupRequest])
 
+  const handleValueTimeStart = (e: any) => {
+    // console.log(e);
+    setValueTimeStart(e.target.value);
+  }
+  const handleValueTimeEnd = (e: any) => {
+    // console.log(e);
+    setValueTimeEnd(e.target.value);
+  }
+
   return (
     <div className={isPopupAddEvent ? styles.formAddEvent__overlay : styles.formAddEvent__closed} onClick={(e) => handleCloseOutside(e)}>
       {isPopupRequest && <PopupRequest isRequest={isRequest} closePopupRequest={closePopupRequest}/>}
@@ -114,11 +125,26 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
             <legend className={styles.formAddEvent__headingField}>Дата и время</legend>
             <input className={styles.formAddEvent__date} type="date" name="date" placeholder="data" required/>
             {/* <span className={styles.formAddEvent__separator}>с</span> */}
-            <input className={styles.formAddEvent__time} type="time" name="timeStart" required/>
+            <input
+              className={styles.formAddEvent__time}
+              type="time"
+              name="timeStart"
+              // placeholder="00:00"
+              value={valueTimeStart}
+              onChange={handleValueTimeStart}
+              required
+            />
             {/* <span className={styles.formAddEvent__separator}>до</span> */}
 
             <img  className={styles.formAddEvent__divider} src={dash} />
-            <input className={styles.formAddEvent__time} type="time" name="timeEnd" required/>
+            <input
+              className={styles.formAddEvent__time}
+              type="time"
+              name="timeEnd"
+              value={valueTimeEnd}
+              onChange={handleValueTimeEnd}
+              required
+            />
           </fieldset>
           {/* <label className={styles.formAddEvent__fields}>
             <h3 className={styles.formAddEvent__headingField}>Тип мероприятия</h3>

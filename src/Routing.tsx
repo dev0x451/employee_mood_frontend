@@ -64,7 +64,7 @@ export const Routing: React.FC<Props> = ({
           <ProtectedRoutes loggedIn={loggedIn} handleSignOut={handleSignOut}/>
         }
       >
-        <Route path="/" element={<Main/>}/>
+        <Route path="/" element={<Main events={events}/>}/>
 
         <Route
           path="tests"

@@ -1,10 +1,14 @@
 import styles from "./rightScreenMain.module.css";
+import { EventInterface } from "@/types";
 import {PsychologistInfo} from "../PsychologistInfo/PsychologistInfo";
 import { Articles } from "./Articles/Articles";
 import { EventsMain } from "../EventsMain/EventsMain";
 import {ArticleInterface} from "@/types";
 
-export const RightScreenMain = () => {
+interface Props {
+  events: EventInterface[];
+}
+export const RightScreenMain: React.FC<Props> = ({events}) => {
   const articles: ArticleInterface[] = [
     {
       type: "видео",
@@ -33,7 +37,7 @@ export const RightScreenMain = () => {
         articles={articles}
         title={'Как улучшить ментальное здоровье'}
       />
-      <EventsMain/>
+      <EventsMain  events={events}/>
     </div>
   );
 };

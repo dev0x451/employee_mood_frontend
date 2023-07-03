@@ -129,7 +129,8 @@ export const Employees: React.FC<Props> = (
         ))
       }
       {countCardPage <= employeesSort.length &&
-      <button className={styles.addButton} onClick={addCard}>Здесь должна быть кнопочка от дизайнеров</button>}
+      <button className={styles.addButton} onClick={addCard}>Загрузить ещё ...</button>}
+
     </div>
   );
 };
