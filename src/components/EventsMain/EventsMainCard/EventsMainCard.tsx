@@ -1,7 +1,6 @@
 import styles from "./eventsMainCard.module.css";
 import { EventInterface } from "@/types";
-
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 interface Props {
   item: EventInterface;
@@ -22,7 +21,7 @@ export const EventsMainCard: React.FC<Props> = ({item}) => {
         <p className={styles.month}>{monthNames[dataStart.getMonth()]}</p>
       </div>
       <div className={styles.rightBlock}>
-        <p className={styles.typeActivity}>категория мероприятия</p>
+        <p className={styles.typeActivity}>Тимбилдинг</p>
         <p className={styles.time}>
           <span>{`${hoursStart}:${minutesStart}`}&mdash;</span>
           <span>{`${hoursEnd}:${minutesEnd}`}</span>

@@ -16,10 +16,12 @@ export const EventsMain: React.FC<Props> = ({events}) => {
       //   console.log(new Date().getMonth());
       //   console.log('------')
       // })
-      setEventsSort(events.filter(item =>
-        new Date(item.start_time).getMonth() === new Date().getMonth() &&
-        (new Date(item.start_time).getDate() - new Date().getDate()) <= 7
-      ));
+      // сортировка на 7 последних мероприятий
+      // setEventsSort(events.filter(item =>
+      //   new Date(item.start_time).getMonth() === new Date().getMonth() &&
+      //   (new Date(item.start_time).getDate() - new Date().getDate()) <= 7
+      // ));
+      setEventsSort([events[0], events[1]])
     },[events]);
 
   useEffect(()=>{
