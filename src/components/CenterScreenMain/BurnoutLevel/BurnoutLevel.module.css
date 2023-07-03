@@ -1,10 +1,10 @@
 .container {
   position: relative;
   max-width: 676px;
-  height: 196px;
+  height: 188px;
   padding: 16px 20px;
   border-radius: 20px;
-  margin-top: 35px;
+  margin-top: 32px;
   background-color: white;
 
   /* background-image: url("./burnoutLevel-TO_BE_DELETED.png");

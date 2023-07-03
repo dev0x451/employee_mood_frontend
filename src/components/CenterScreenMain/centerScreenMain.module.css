@@ -3,7 +3,7 @@
 }
 
 .mood-tracker {
-  margin: 45px 0 0;
+  margin: 32px 0 0;
 }
 
 .mood-tracker-heading {
@@ -15,5 +15,5 @@
 .mood-buttons {
   display: flex;
   justify-content: space-between;
-  margin: 14px 0 0;
+  margin: 24px 0 0;
 }
