@@ -207,7 +207,7 @@ export const sendMeetingInfo = (userId: string, formattedDate: string, comment: 
 };
 
 export const getAllUserConditions = () => {
-  return axios.get(`${BASE_URL_REQUEST}/metrics/conditions/?my_conditions=true`, {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/conditions/?my_conditions=true&limit=365`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
@@ -215,8 +215,9 @@ export const getAllUserConditions = () => {
 };
 
 export const sendUserCondition = (conditions: UserConditionForSend) => {
-  return axios.post(`${BASE_URL_REQUEST}/metrics/conditions/?infinity_freq=true`,
-    {
+  return axios.post(`${BASE_URL_REQUEST}/metrics/conditions/`,
+  // return axios.post(`${BASE_URL_REQUEST}/metrics/conditions/?infinity_freq=true`,
+  {
       mood: conditions.mood,
       note: conditions.note,
       date: conditions.date,
@@ -230,8 +231,8 @@ export const sendUserCondition = (conditions: UserConditionForSend) => {
 };
 
 //id пользователя currentUser
-export const getAllUserBurnouts = (id: string) => {
-  return axios.get(`${BASE_URL_REQUEST}/metrics/burnouts/?employee=${id}`, {
+export const getUserBurnoutsGraph = (id: number) => {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/burnouts/graph_data/?employee=${id}`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },

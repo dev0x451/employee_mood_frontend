@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react";
 import { sortIcon } from "@/assets";
 import { TestResultPopup } from "../TestResultPopup/TestResultPopup";
 import { WarningWithBall } from "../WarningWithBall/WarningWithBall";
+import { COUNT_EMPLOYEES_PAGE, usePagination } from "@/shared/constants";
 import { ExpressDiagnoseResponse } from "@/types";
 
 interface Records {
@@ -14,10 +15,12 @@ interface Records {
 export const Records: React.FC<Records> = ({allTestsResults}) => {
 
   // eсли survey код вида тестирования, то в этот массив нужно записать названия видов тестирования в зависимости от кода
-  const arrSurvey = ['Проверка', "Экспресс-оценка выгорания", "Опросник профессионального выгорания Маслач, MBI/ПВ", 'Диагностика эмоционального выгорания', 'Что-то', 'Задача', "Тестирование", 'Психолог', 'Врач', 'Психолог', 'Разговор', 'Финал'];
+  const arrSurvey = ['Проверка', "Экспресс-оценка выгорания", "Опросник профессионального выгорания Маслач", 'Диагностика эмоционального выгорания', 'Что-то', 'Задача', "Тестирование", 'Психолог', 'Врач', 'Психолог', 'Разговор', 'Финал'];
 
   const [isOpen, setOpen] = useState<boolean>(false);
   const [result, setResult] = useState<ExpressDiagnoseResponse>();
+  const { countCardPage, addCard } = usePagination(COUNT_EMPLOYEES_PAGE);
+
 
   const [testResultsSort, setTestResultsSort] = useState(allTestsResults);
 
@@ -106,14 +109,17 @@ export const Records: React.FC<Records> = ({allTestsResults}) => {
         <div className={styles.plug}></div>
       </section>
       {testResultsSort && testResultsSort.map((record, index) => (
-        <section key={index} className={styles.record}>
-          <p className={styles.text}>{arrSurvey[record.survey.id]}</p>
-          {record.completion_date && resultDate(record.completion_date)}
-          <WarningWithBall resultOfPsychoTest={record}/>
-          <button type="button" onClick={() => handleOpenPopup(record)} disabled={isOpen} className={styles.recordButton}>Подробнее</button>
-        </section>
-    ))}
-
+        index < countCardPage ?
+          <section key={index} className={styles.record}>
+            <p className={styles.text}>{arrSurvey[record.survey.id]}</p>
+            {record.completion_date && resultDate(record.completion_date)}
+            <WarningWithBall resultOfPsychoTest={record}/>
+            <button type="button" onClick={() => handleOpenPopup(record)} disabled={isOpen} className={styles.recordButton}>Подробнее</button>
+          </section> :
+        null
+      ))}
+      {testResultsSort && countCardPage <= testResultsSort.length &&
+      <button className={styles.addButton} onClick={addCard}>Загрузить ещё</button>}
       <TestResultPopup isTestsReulstLocated={true} isVisible={isOpen} resultOfPsychoTest={result} onClose={handleClosePopup}/>
     </div>
   );

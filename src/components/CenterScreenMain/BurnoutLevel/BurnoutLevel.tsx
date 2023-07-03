@@ -1,43 +1,41 @@
 import styles from "./BurnoutLevel.module.css";
 import { ResponsiveBar } from "@nivo/bar";
 import { useState, useEffect } from "react";
+import { useAppSelector } from "@/store/hooks";
+import { selectBurnoutLevel } from "@/store/reducers/conditionsBurnout/conditionsBurnoutReducer";
 
+interface DataInreface {
+  [day: string]: number,
+  degress: number,
+}
 export const BurnoutLevel = () => {
-  // const data = [
-  //   {
-  //     day: "янв",
-  //     degress: 50,
-  //   },
-  // ];
 
-  const [data, setData] = useState([{ day: 0, degress: 20 }]);
+  const [data, setData] = useState<DataInreface[]>([]);
+  const burnoutLevel = useAppSelector(selectBurnoutLevel);
 
   const generateData = () => {
-    const data2 = [];
-    for (let i = 0; i < 12; i++) {
-      data2.push({
-        day: i + 1,
-        degress: Math.abs(Math.random()),
-      });
-    }
-    return data2;
+    setData([]);
+    burnoutLevel?.map((item, index) => {
+      const burnout: DataInreface = {
+        day: index + 1,
+        degress: item.percentage
+      }
+      setData(prevState => [...prevState, burnout])
+    })
   };
 
   useEffect(() => {
-    setData(generateData());
+    generateData();
   }, []);
+
+  useEffect(() => {
+    generateData();
+  }, [burnoutLevel]);
 
   return (
     <div className={styles.container}>
       <div className={styles.topContainer}>
         <h3 className={styles.heading}>Уровень выгорания</h3>
-        <button
-          onClick={() => {
-            setData(generateData());
-          }}
-        >
-          месяц <strong>год</strong>
-        </button>
       </div>
       <div className={styles.yAxis}></div>
       <div className={styles.xAxis}></div>
@@ -45,7 +43,7 @@ export const BurnoutLevel = () => {
         data={data}
         keys={["degress"]}
         indexBy="day"
-        margin={{ top: 20, right: 50, bottom: 45, left: 20 }}
+        margin={{ top: 20, right: 20, bottom: 45, left: 20 }}
         padding={0.75}
         valueScale={{ type: "linear" }}
         colors="#8A32E0"
