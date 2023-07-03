@@ -27,7 +27,7 @@ export interface EventInterface {
   id?: number;
   name: string;
   text: string;
-  liked?: boolean
+  liked?: {id?: number }
 }
 
 export interface SelectOption {

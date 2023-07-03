@@ -8,9 +8,11 @@ import { EventsCard } from "./EventsCard/EventsCard";
 interface Props {
   // valueInputSort: string;
   events: EventInterface[];
+  fetchEvents: ()=> void;
+  setEvents: any;
 }
 
-export const EventsPage: React.FC<Props> = ({events}) => {
+export const EventsPage: React.FC<Props> = ({events, fetchEvents, setEvents}) => {
   const date = new Date();
   const monthToday = date.getMonth();
   const yearToday = date.getFullYear();
@@ -20,6 +22,8 @@ export const EventsPage: React.FC<Props> = ({events}) => {
   const [eventsSortMonth, setEventsSortMonth] = useState<EventInterface[]>([]);
   const [eventsSortFind, setEventsSortFind] = useState<EventInterface[]>([]);
   const [textInput, setTextInput] = useState<string>(""); // поисковая строка
+  // const [isRenderEventPage, setIsRenderEventPage] = useState(false);
+
   // const reg = /[a-zA-Zа-яА-Я0-9-\ ]/;
 
   // переключение месяца в хедере страницы
@@ -48,11 +52,15 @@ export const EventsPage: React.FC<Props> = ({events}) => {
   //   setEventsSortMonth(events.filter(item => new Date(item.start_time).getMonth() === month));
   // }
   useEffect(()=>{
+    // console.log('сортировка мероприятий по месяцу');
+    // console.log(events);
     setEventsSortMonth(events.filter(item => new Date(item.start_time).getMonth() === month));
-  }, [month, events.length]);
-
+  }, [month, events]);
+  // }, [month, events, isRenderEventPage]);
 
   useEffect(()=>{
+    // console.log('сортировка по поисковой строке');
+    // console.log(eventsSortMonth);
     setEventsSortFind(eventsSortMonth);
   }, [eventsSortMonth]);
 
@@ -89,12 +97,17 @@ export const EventsPage: React.FC<Props> = ({events}) => {
       <EventsFunctional
         textInput={textInput}
         handleInputSort={(e)=>{handleInputSort(e)}}
+        fetchEvents={fetchEvents}
       />
       <ul className={styles.eventsContent}>
         {eventsSortFind.length > 0 && eventsSortFind.map((item)=>
           <EventsCard
             key={item.id}
             item={item}
+            fetchEvents={fetchEvents}
+            // isRenderEventPage={isRenderEventPage}
+            // setIsRenderEventPage={setIsRenderEventPage}
+            setEvents={setEvents}
           />
 
         )}

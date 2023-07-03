@@ -7,9 +7,11 @@ import { EventsPage } from "@/components/EventsPage/EventsPage";
 interface Props {
   // valueInputSort: string;
   events: EventInterface[];
+  fetchEvents: ()=>void;
+  setEvents: any;
 }
 
-export const Events: React.FC<Props> = ({events}) => {
+export const Events: React.FC<Props> = ({events, fetchEvents, setEvents}) => {
   return (
     <div className="page-container">
       <Navbar />
@@ -22,7 +24,7 @@ export const Events: React.FC<Props> = ({events}) => {
           </p>
         </div>
       </div> */}
-      <EventsPage events={events}/>
+      <EventsPage events={events} fetchEvents={fetchEvents} setEvents={setEvents}/>
 
     </div>
   );

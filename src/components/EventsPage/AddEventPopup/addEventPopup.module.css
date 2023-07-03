@@ -5,15 +5,24 @@ input,select,textarea {
   border-radius: 12px;
   border: 0.5px solid var(--color-button-secondary);
   background: var(--color-background);
+  caret-color: var(--color-accent-purple);
   font: var(--font-body);
   color: var(--color-icon-secondary);
   margin-bottom: 16px;
   cursor: pointer;
   opacity: 1;
-  transition: opacity 0.5s linear;
+  /* transition: opacity 0.5s linear; */
+  transition: border 0.5s linear;
 }
 input:hover,select:hover,textarea:hover {
-  opacity: 0.7;
+  border: 0.5px solid var(--color-icon-secondary);
+  /* opacity: 0.7; */
+}
+input:focus,select:focus,textarea:focus {
+  border: none;
+  outline: 0.5px solid var(--color-accent-purple);
+  color: var(--color-black);
+  /* opacity: 0.7; */
 }
 label input, select {
   width: 100%;
@@ -86,22 +95,30 @@ option {
   color: var(--color-black);
 }
 .formAddEvent__date {
-  /* width: 48.75%; */
-  width: 35%;
-  margin-right: 4px;
+  width: 48.75%;
+  /* width: 35%; */
+  /* margin-right: 4px; */
+  margin-right: 12px;
 }
 .formAddEvent__separator {
   align-self: center;
   margin: 0 4px;
 }
 .formAddEvent__time {
-  /* width: 21.75%; */
-  width: 25%;
+  width: 21.75%;
+  display: flex;
+  justify-content: center;
+  /* width: 25%; */
 }
 input[type="time"]::-webkit-calendar-picker-indicator,
 input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0.4;
   /* background: none; */
+}
+input[type="time"]::-webkit-calendar-picker-indicator {
+  /* opacity: 0.4; */
+  background: none;
+  display: none;
 }
 .formAddEvent__divider {
   margin: auto 4px;
@@ -168,7 +185,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   transition: opacity 0.5s linear;
 }
 .formAddEvent__buttonExit:hover {
-  opacity: 0.7;
+  opacity: 0.8;
 }
 .formAddEvent__buttonSubmit {
   border: none;
@@ -178,6 +195,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
   background-color: var(--color-accent-purple);
   font: var(--font-button);
   color: var(--color-white);
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+}
+.formAddEvent__buttonSubmit:hover {
+  opacity: 0.8;
 }
 
 @media(max-width: 500px) {

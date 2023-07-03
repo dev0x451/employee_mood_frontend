@@ -3,16 +3,17 @@ import { EventInterface } from "@/types";
 import styles from "./addEventPopup.module.css";
 import React, {useState, useEffect} from "react";
 import {ClosePopup} from "../img/closePopup";
-// import dash from "../img/dash.svg"
+import dash from "../img/dash.svg"
 import { useEscapeKeyEvent } from "@/shared/hooks/useEscapeKey";
 import { PopupRequest } from "../PopupRequest/PopupRequest";
 
 interface Props {
   closePopupAddEvent: (e: any) => void;
   isPopupAddEvent: boolean;
+  fetchEvents: ()=>void;
 }
 
-export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEvent}) => {
+export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEvent, fetchEvents}) => {
 
   const [isPopupRequest, setIsPopupRequest] = useState(false);
   const [isRequest, setIsRequest] = useState(false);
@@ -72,6 +73,7 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
     //   for_all: true,
     // });
     e.target.reset();
+    setReviewPost('');
     submitEvent(event);
   }
 
@@ -82,6 +84,7 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
           .then(()=>{
             setIsRequest(true);
             setIsPopupRequest(true);
+            fetchEvents();
           })
         setIsRequest(true);
         // setEvents(response.data.results);
@@ -110,11 +113,11 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
           <fieldset className={styles.formAddEvent__fieldsDate}>
             <legend className={styles.formAddEvent__headingField}>Дата и время</legend>
             <input className={styles.formAddEvent__date} type="date" name="date" placeholder="data" required/>
-            <span className={styles.formAddEvent__separator}>с</span>
+            {/* <span className={styles.formAddEvent__separator}>с</span> */}
             <input className={styles.formAddEvent__time} type="time" name="timeStart" required/>
-            <span className={styles.formAddEvent__separator}>до</span>
+            {/* <span className={styles.formAddEvent__separator}>до</span> */}
 
-            {/* <img  className={styles.formAddEvent__divider} src={dash} /> */}
+            <img  className={styles.formAddEvent__divider} src={dash} />
             <input className={styles.formAddEvent__time} type="time" name="timeEnd" required/>
           </fieldset>
           {/* <label className={styles.formAddEvent__fields}>

@@ -362,6 +362,8 @@ export const App = () => {
         openTestAlertPopup={openTestAlertPopup}
         takeNewEmployeesList={handleEmployees}
         handleAddMeetingInfo={handleAddMeetingInfo}
+        fetchEvents={fetchEvents}
+        setEvents={setEvents}
       />
     </main>
   );
