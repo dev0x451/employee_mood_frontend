@@ -34,29 +34,5 @@ export const EventsMainCard: React.FC<Props> = ({item}) => {
         <time className={styles.time}>18 мая 2023</time>
       </div> */}
     </li>
-    // <li className={styles.eventsCard}>
-    //   <div className={styles.eventsCard__header}>
-    //     <p className={styles.eventsCard__day}>{dataStart.getDate()}</p>
-    //     <p className={styles.eventsCard__month}>{monthNames[dataStart.getMonth()]}</p>
-    //     <p className={styles.eventsCard__time}>
-    //       <span className={styles.eventsCard__timeStart}>{`${hoursStart}:${minutesStart}`}&mdash;</span>
-    //       <span className={styles.eventsCard__timeEnd}>{`${hoursEnd}:${minutesEnd}`}</span>
-    //     </p>
-    //     <button
-    //       className={styles.eventsCard__likeButton}
-    //       onClick={()=>{isLike ? removeLike(item.liked?.id) : setLike(item.id)}}
-    //       disabled = {isDisabledLike}
-    //     >
-    //       <Like isLike={isLike}/>
-    //     </button>
-    //   </div>
-    //   <p className={styles.eventsCard__typeActivity}>категория мероприятия</p>
-    //   <h3 className={styles.eventsCard__heading}>{item.name}</h3>
-    //   <p className={styles.eventsCard__content}>{item.text}</p>
-    //   <div className={styles.eventsCard__footer}>
-    //     <p className={styles.eventsCard__nameAuthor}><EmailIcon /> {item.author?.first_name} {item.author?.last_name}</p>
-    //     {/* <p className={styles.eventsCard__expiration}>Регистрация до -------</p> */}
-    //   </div>
-    // </li>
   );
 }
