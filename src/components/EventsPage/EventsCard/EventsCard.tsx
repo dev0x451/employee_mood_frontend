@@ -78,6 +78,7 @@ export const EventsCard: React.FC<Props> = ({item, fetchEvents}) => {
       console.log(err);
     }
   }
+
   return (
     <li className={styles.eventsCard}>
       <div className={styles.eventsCard__header}>
