@@ -4,11 +4,12 @@ import { ProgressBar } from "@/pages/balancewheel/components/ProgressBar/Progres
 import { Button } from "@/shared/ui/Button/Button";
 import {ReactElement, useEffect, useState} from "react";
 import {Data, WheelResultItem, WheelResultsInfo} from "@/types";
+import {useLocation} from "react-router";
 
 
 interface BalanceWheelResultProps {
   step: number;
-  goToFirstQuestion: () => void;
+  goToFirstQuestion?: () => void;
   data: Data[];
 }
 
@@ -16,6 +17,7 @@ export const BalanceWheelResult = ({ step, goToFirstQuestion, data }: BalanceWhe
   const [priorityResults, setPriorityResults] = useState<WheelResultsInfo | undefined>(undefined);
   const [currentResults, setCurrentResults] = useState<WheelResultsInfo | undefined>(undefined);
   const [chartData, setChartData] = useState<WheelResultItem[]>([]);
+  const {pathname} = useLocation();
 
   useEffect(() => {
     if (data) {
@@ -76,10 +78,26 @@ export const BalanceWheelResult = ({ step, goToFirstQuestion, data }: BalanceWhe
   }, [priorityResults, currentResults]);
 
   return (
-    <div>
+    <div className={pathname !== "balance-wheel" ? styles.container : ""}>
       <div className={styles.resultArea}>
-        <div className={styles.resultInfo}>
-          <h4 className={styles.title}>Ваше колесо жизненного баланса готово</h4>
+        {pathname === "balance-wheel"
+          ?
+          <div className={styles.resultInfo}>
+            <h4 className={styles.title}>Ваше колесо жизненного баланса готово</h4>
+            <ul className={styles.legend}>
+              <li className={styles.legendItem}>
+                <div className={`${styles.legendColor} ${styles.legendColorPriority}`}></div>
+                <p className={styles.text}>Приоритет жизненных сфер</p>
+              </li>
+              <li className={styles.legendItem}>
+                <div className={`${styles.legendColor} ${styles.legendColorCurrent}`}></div>
+                <p className={styles.text}>Оценка текущего состояния</p>
+              </li>
+            </ul>
+            <p className={styles.text}>Все сферы нашего бытия тесно взаимосвязаны. Работая над одной, подтягиваешь и другие. Не нужно пытаться достичь самого высокого показателя по каждой сфере, но важно найти их наиболее гармоничное сочетание, при котором вы чувствуете себя счастливым.</p>
+            <p className={`${styles.text} ${styles.textLast}`}>Точки роста — там, где приоритет высокий, а удовлетворённость низкая. Но стоит помнить, что ваша цель — не стать отличником и получить десятку по всем критериям, а объективно взглянуть на свою жизнь.</p>
+          </div>
+          :
           <ul className={styles.legend}>
             <li className={styles.legendItem}>
               <div className={`${styles.legendColor} ${styles.legendColorPriority}`}></div>
@@ -90,19 +108,20 @@ export const BalanceWheelResult = ({ step, goToFirstQuestion, data }: BalanceWhe
               <p className={styles.text}>Оценка текущего состояния</p>
             </li>
           </ul>
-          <p className={styles.text}>Все сферы нашего бытия тесно взаимосвязаны. Работая над одной, подтягиваешь и другие. Не нужно пытаться достичь самого высокого показателя по каждой сфере, но важно найти их наиболее гармоничное сочетание, при котором вы чувствуете себя счастливым.</p>
-          <p className={`${styles.text} ${styles.textLast}`}>Точки роста — там, где приоритет высокий, а удовлетворённость низкая. Но стоит помнить, что ваша цель — не стать отличником и получить десятку по всем критериям, а объективно взглянуть на свою жизнь.</p>
-        </div>
-        <div className={styles.chartArea}>
+        }
+        <div className={pathname === "balance-wheel" ? styles.chartArea : `${styles.chartArea} ${styles.chartAreaSmall}`}>
           {chartData.length !== 0 && priorityResults && currentResults && (
             <Radar step={step} chartData={chartData} />
           )}
         </div>
       </div>
+      {pathname === "balance-wheel"
+        &&
       <div className={styles.bottomArea}>
         <Button handleClick={goToFirstQuestion} mode="primary" title="Обновить" width="200px" />
         <ProgressBar step={step} />
       </div>
+      }
     </div>
   );
 };
