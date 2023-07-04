@@ -123,10 +123,10 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
           </h2>
           <fieldset className={styles.formAddEvent__fieldsDate}>
             <legend className={styles.formAddEvent__headingField}>Дата и время</legend>
-            <input className={styles.formAddEvent__date} type="date" name="date" placeholder="data" required/>
+            <input className={`${styles.formAddEvent__date} ${styles.input}`} type="date" name="date" placeholder="data" required/>
             {/* <span className={styles.formAddEvent__separator}>с</span> */}
             <input
-              className={styles.formAddEvent__time}
+              className={`${styles.formAddEvent__time} ${styles.input}`}
               type="time"
               name="timeStart"
               // placeholder="00:00"
@@ -138,7 +138,7 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
 
             <img  className={styles.formAddEvent__divider} src={dash} />
             <input
-              className={styles.formAddEvent__time}
+              className={`${styles.formAddEvent__time} ${styles.input}`}
               type="time"
               name="timeEnd"
               value={valueTimeEnd}
@@ -157,12 +157,12 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
           </label> */}
           <label className={styles.formAddEvent__fields}>
             <h3 className={styles.formAddEvent__headingField}>Название</h3>
-            <input  name="name" placeholder="Введите название" required/>
+            <input  className={styles.input} name="name" placeholder="Введите название" required/>
           </label>
           <label className={styles.formAddEvent__fieldTextarea}>
             <h3 className={styles.formAddEvent__headingField}>Описание</h3>
             <textarea
-              className={styles.formAddEvent__description}
+              className={`${styles.formAddEvent__description} ${styles.textarea}`}
               name="text"
               placeholder="Введите описание"
               minLength={8}

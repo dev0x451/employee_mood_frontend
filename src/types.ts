@@ -316,6 +316,7 @@ export interface WheelResultsInfo {
     num: number;
     result: number;
   }[];
+}
 
 export interface UserConditionForSend {
   mood: number,

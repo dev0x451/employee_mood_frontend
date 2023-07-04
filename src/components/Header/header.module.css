@@ -6,7 +6,7 @@
   height: 68px;
   align-items: center;
   justify-content: flex-start;
-  padding-right: 132px;
+  padding: 0 132px 0 20px;
   background-color: var(--color-white);
 }
 

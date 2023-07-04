@@ -14,11 +14,11 @@ input,select,textarea {
   /* transition: opacity 0.5s linear; */
   transition: border 0.5s linear;
 }
-input:hover,select:hover,textarea:hover {
+.input:hover,select:hover,textarea:hover {
   border: 0.5px solid var(--color-icon-secondary);
   /* opacity: 0.7; */
 }
-input:focus,select:focus,textarea:focus {
+.input:focus,select:focus,textarea:focus {
   border: none;
   outline: 0.5px solid var(--color-accent-purple);
   color: var(--color-black);

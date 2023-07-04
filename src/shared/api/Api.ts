@@ -233,6 +233,7 @@ export const getLifeDirections = () => {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   });
+}
 
 export const getAllUserConditions = () => {
   return axios.get(`${BASE_URL_REQUEST}/metrics/conditions/?my_conditions=true&limit=365`, {

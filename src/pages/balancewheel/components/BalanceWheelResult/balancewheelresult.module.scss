@@ -1,5 +1,12 @@
 @import '@/shared/styles/mixins.scss';
 
+.container {
+  background-color: var(--color-background-white);
+  border-radius: 20px;
+  margin: 16px 0 44px;
+  padding-left: 20px;
+}
+
 .result-area {
   display: flex;
   justify-content: space-between;
@@ -56,6 +63,10 @@
   width: 540px;
   height: 540px;
   margin-top: -40px;
+  &-small {
+    width: 440px;
+    height: 440px;
+  }
 }
 
 .bottom-area {
