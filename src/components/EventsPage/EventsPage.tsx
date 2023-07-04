@@ -52,7 +52,7 @@ export const EventsPage: React.FC<Props> = ({events, fetchEvents}) => {
   // }
   useEffect(()=>{
     // console.log('сортировка мероприятий по месяцу');
-    console.log(events);
+    // console.log(events);
     setEventsSortMonth(events.filter(item => new Date(item.start_time).getMonth() === month));
   }, [month, events]);
   // }, [month, events, isRenderEventPage]);
