@@ -83,7 +83,7 @@ export const BalanceWheelResult = ({ step, goToFirstQuestion, data }: BalanceWhe
         {pathname === "/balance-wheel"
           ?
           <div className={styles.resultInfo}>
-            <h4 className={styles.title}>Ваше колесо жизненного баланса готово</h4>
+            <h4 className={styles.title}>Ваше колесо жизненного баланса готово!</h4>
             <ul className={styles.legend}>
               <li className={styles.legendItem}>
                 <div className={`${styles.legendColor} ${styles.legendColorPriority}`}></div>
