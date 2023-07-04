@@ -1,6 +1,6 @@
 import axios from "axios";
-import {UserInfo, SubmitArguments, WheelResults} from "@/types";
-import { BASE_URL_REQUEST, BASE_URL_WSS } from "../constants";
+import {EventInterface, SubmitArguments, UserConditionForSend, UserInfo, WheelResults} from "@/types";
+import {BASE_URL_REQUEST, BASE_URL_WSS} from "../constants";
 
 // const BASE_URL = "https://em-dev.usolcev.com/api/v1";
 
@@ -82,17 +82,10 @@ export const getAllTestsResults = () => {
   );
 };
 
-// interface SubmitArguments {
-//   results: AnswerResult[],
-//   survey: number
-// }
 export const sendTestResults = (results: SubmitArguments) => {
   return axios.post(
     `${BASE_URL_REQUEST}/metrics/surveys/results`,
     {
-      // positive_value: results.positive_value,
-      // negative_value: results.negative_value,
-      // survey: results.survey,
       survey: results.survey,
       results: results.results,
     },
@@ -126,7 +119,6 @@ export const getUsers = () => {
   });
 };
 
-
 export const connectToWebSocketNotifications = () => {
   return axios.get(`${BASE_URL_WSS}/notifications?2`, {
     headers: {
@@ -135,6 +127,65 @@ export const connectToWebSocketNotifications = () => {
   });
 };
 
+export const getEvents = () => {
+  return axios.get(`${BASE_URL_REQUEST}/events/?limit=100`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const checkTestNotificationIsActive = (id: string) => {
+  return axios.get(`${BASE_URL_REQUEST}/notifications?incident_id=${id}&incident_type=Опрос`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const postEvent = (event: EventInterface) => {
+  return axios.post(`${BASE_URL_REQUEST}/events/`,
+    {
+      name: event.name,
+      for_all: true,
+      text: event.text,
+      start_time: event.start_time,
+      end_time: event.end_time,
+      // "departments": [
+      //   0
+      // ],
+      // "employees": [
+      //   0
+      // ]
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};
+export const postEventLike = (event: number) => {
+  return axios.post(`${BASE_URL_REQUEST}/socials/likes/`,
+    {
+      "event": event
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};
+export const deleteEventLike = (id: number) => {
+  return axios.delete(`${BASE_URL_REQUEST}/socials/likes/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};
 export const makeEventNotificationUnactive = (id: string) => {
   return axios.get(`${BASE_URL_REQUEST}/notifications/${id}/viewed`, {
     headers: {
@@ -159,7 +210,7 @@ export const getMeetingsInfo = (id: string | undefined) => {
   });
 };
 
-export const sendMeetingInfo = (userId: string, formattedDate: string, comment: string, level: number ) => {
+export const sendMeetingInfo = (userId: string, formattedDate: string, comment: string, level: number) => {
   return axios.post(
     `${BASE_URL_REQUEST}/meeting_results`, {
       date: formattedDate,
@@ -175,8 +226,16 @@ export const sendMeetingInfo = (userId: string, formattedDate: string, comment: 
   );
 };
 
+
 export const getLifeDirections = () => {
   return axios.get(`${BASE_URL_REQUEST}/metrics/life_directions`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+
+export const getAllUserConditions = () => {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/conditions/?my_conditions=true&limit=365`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
@@ -199,4 +258,49 @@ export const sendBalanceWheelResults = (results: WheelResults[], isPriority: boo
   });
 };
 
+export const sendUserCondition = (conditions: UserConditionForSend) => {
+  return axios.post(`${BASE_URL_REQUEST}/metrics/conditions/`,
+    // return axios.post(`${BASE_URL_REQUEST}/metrics/conditions/?infinity_freq=true`,
+    {
+      mood: conditions.mood,
+      note: conditions.note,
+      date: conditions.date,
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};
 
+//id пользователя currentUser
+export const getUserBurnoutsGraph = (id: number) => {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/burnouts/graph_data/?employee=${id}`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const postUsefulLike = (event: number) => {
+  return axios.post(`${BASE_URL_REQUEST}/socials/likes/`,
+    {
+      "event": event
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};
+export const deleteUsefulLike = (id: number) => {
+  return axios.delete(`${BASE_URL_REQUEST}/socials/likes/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};

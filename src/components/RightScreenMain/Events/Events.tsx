@@ -1,6 +1,6 @@
-import styles from "./events.module.css";
+import styles from "./eventsMain.module.css";
 import image from "/image.png";
-export const Events = () => {
+export const EventsMain = () => {
   return (
     <div className={styles.events}>
       <h3 className={styles.title}>Предстоящие мероприятия</h3>

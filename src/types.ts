@@ -20,6 +20,17 @@ export interface EmployeeInterface {
   mental_state: UserMentalState;
 }
 
+export interface EventInterface {
+  author?: { id: number, first_name: string, last_name: string };
+  created?: string;
+  end_time: Date;
+  start_time: Date;
+  id?: number;
+  name: string;
+  text: string;
+  liked?: { id?: number }
+}
+
 export interface SelectOption {
   label: string;
   value: string;
@@ -122,6 +133,7 @@ export interface Graph {
   min_value: number,
   max_value: number
 }
+
 export interface ExpressDiagnoseSummaryGraphs {
   graphs: Graph[]
 }
@@ -214,14 +226,16 @@ export interface jwtTypes {
 
 
 export interface Card {
-  id?: number;
+  id: number;
   category: Category[];
-  author?: string;
+  author?: {}
   title: string;
   preview_image: string;
+  description: string;
   text: string;
+  url: string | null;
   created: string;
-  isLiked?: boolean;
+  liked: {} | null;
 }
 
 export interface Category {
@@ -302,4 +316,28 @@ export interface WheelResultsInfo {
     num: number;
     result: number;
   }[];
+
+export interface UserConditionForSend {
+  mood: number,
+  note?: string | null,
+  date: string,
+}
+
+export interface UserConditionRecieved {
+  id: number,
+  mood: number,
+  note?: string | null,
+  date: string,
+  employee: number
+}
+
+export interface UserConditionButtonSent {
+  mood: number,
+  note: string,
+  date: string
+}
+
+export interface UserBurnoutLevel {
+  month: string,
+  percentage: number,
 }

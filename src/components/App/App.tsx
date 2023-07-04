@@ -6,11 +6,12 @@ import styles from "./app.module.css";
 
 import * as ApiAuth from "@/shared/api/ApiAuth";
 import * as Api from "@/shared/api/Api";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setErrorMessage } from "@/store/reducers/alertError/alertErrorReducer";
 import { setSuccessMessage } from "@/store/reducers/alertSuccess/alertSuccessReducer";
-import {resetAllCurrentUserData, setAllCurrentUserData} from "@/store/reducers/currentUser/currentUserReducer";
+import {resetAllCurrentUserData, setAllCurrentUserData, selectUserInfo} from "@/store/reducers/currentUser/currentUserReducer";
 import { addNotifications } from "@/store/reducers/notifications/notificationsReducer";
+import { addConditions, selectButtonConditions, addButtonCondition, addBurnoutLevet } from "@/store/reducers/conditionsBurnout/conditionsBurnoutReducer";
 
 import {
   ExpressDiagnoseResponse,
@@ -28,18 +29,18 @@ import { AlertPopup } from "@/shared/ui/AlertPopup/AlertPopup";
 
 export const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [resultOfPsychoTest, setResultOfPsychoTest] =
-    useState<ExpressDiagnoseResponse>();
+  const [resultOfPsychoTest, setResultOfPsychoTest] = useState<ExpressDiagnoseResponse>();
   const [expressTest, setExpressTest] = useState<TestInterface | null>(null);
   const [burnoutTest, setBurnoutTest] = useState<TestInterface | null>(null);
-  const [allTestsResults, setallTestsResults] =
-    useState<ExpressDiagnoseResponse[]>();
+  const [allTestsResults, setallTestsResults] = useState<ExpressDiagnoseResponse[]>();
   const [isLoading, setIsLoading] = useState(false);
   const [employees, setEmployees] = useState([]);
+  const [events, setEvents] = useState([]);
 
-  // const role = useAppSelector(
-  //   (state) => state.currentUserSlice.currentUser.role
-  // );
+  const currentUserInfo = useAppSelector(selectUserInfo);
+  const buttonCondition = useAppSelector(selectButtonConditions);
+  const role = useAppSelector((state) => state.currentUserSlice.currentUser.role);
+
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -65,7 +66,7 @@ export const App = () => {
     }
   }, [loggedIn]);
 
-  const refreshToken = async (token: string) => {
+  async function refreshToken (token: string) {
     try {
       const response = await ApiAuth.refreshToken(token);
       if(response.data.access && response.data.refresh) {
@@ -75,9 +76,9 @@ export const App = () => {
     } catch (err: any) {
       console.log(err);
     }
-  };
+  }
 
-  const auth = async (jwt: string) => {
+  async function auth (jwt: string) {
     setIsLoading(true);
     try {
       const response = await ApiAuth.checkToken(jwt);
@@ -96,7 +97,7 @@ export const App = () => {
         console.log("401 - переданный токен некорректен");
       }
     }
-  };
+  }
 
   async function getUserInfo() {
     if (loggedIn) {
@@ -140,13 +141,13 @@ export const App = () => {
     }
   }
 
-  const handleSignOut = () => {
+  function handleSignOut () {
     setLoggedIn(false);
     dispatch(resetAllCurrentUserData());
     navigate("/login");
     localStorage.removeItem("jwt");
     localStorage.removeItem("refresh");
-  };
+  }
 
   async function handleRegister(values: FormikValues, invite_code: string) {
     try {
@@ -201,7 +202,12 @@ export const App = () => {
       setResultOfPsychoTest(response.data);
 
       // отправка GET запроса с ID пройденного теста, чтобы сделать уведомление неактивным
-      Api.makeEventNotificationUnactive(result.survey.toString());
+      try {
+        const res = await Api.checkTestNotificationIsActive(result.survey.toString());
+        if (res.data.results) Api.makeEventNotificationUnactive(res.data.results[0].id);
+      } catch (err: any) {
+        console.log(err);
+      }
 
     } catch (err: any) {
       console.log(err);
@@ -237,40 +243,113 @@ export const App = () => {
     }
   }
 
-  // if (loggedIn) {
-  // const [expressTest] = useRequest(() => Api.getTestQuestions("1"));
-  // }
+  async function getAllUserConditions() {
+    try {
+      const response = await Api.getAllUserConditions();
+      dispatch(addConditions(response.data.results));
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
 
   useEffect(() => {
     if (loggedIn) {
       getAllTestsResult();
       getTestsQuestions();
       getTestsBurnoutQuestions();
+      getAllUserConditions()
     }
   }, [loggedIn]);
-
+    
   async function handleEmployees() {
     try {
-      // if (role === "hr" || role === "chief") {
+      if (role === "hr" || role === "chief") {
         const response = await Api.getUsers();
         setEmployees(response.data.results);
-      // }
+      }
     } catch (err: any) {
       console.log(err);
     }
   }
+  useEffect(() => {
+    handleEmployees();
+  }, [role]);
+  //
 
-  // useEffect(() => {
-  //   handleEmployees();
-  // }, [role]);
-
-  const openTestAlertPopup = () => {
+  function openTestAlertPopup () {
     dispatch(
       setErrorMessage(
         `Для перехода на следующий шаг нужно ответить на все вопросы`
       )
     );
-  };
+  }
+  
+  //запрос мероприятий для вкладки мероприятия
+  async function fetchEvents() {
+    try {
+      if (role === "hr" || role === "chief" || role === "employee") {
+        const response = await Api.getEvents();
+        // console.log(response)
+        setEvents(response.data.results);
+      }
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+  useEffect(() => {
+    fetchEvents();
+  }, [role]);
+  //
+  // отпрвка мероприятия
+  // async function postEvent() {
+  //   try {
+  //     // if (role === "hr" || role === "chief") {
+  //       const response = await Api.postEvent();
+  //       // console.log(response)
+  //       setEvents(response.data.results);
+  //     // }
+  //   } catch (err: any) {
+  //     console.log(err);
+  //   }
+  // }
+
+  async function handleAddMeetingInfo ({userId, formattedDate, comment, level}: MeetingInfo) {
+    try {
+      await Api.sendMeetingInfo(userId, formattedDate, comment, level);
+    } catch (err: any) {
+      console.log(err);
+    }
+  }
+
+  async function handleSetUserBurnout() {
+    if (currentUserInfo) {
+      try {
+        const response = await Api.getUserBurnoutsGraph(currentUserInfo.id);
+        if (response) {
+          dispatch(addBurnoutLevet(response.data))
+        }
+      } catch (err: any) {
+        console.log(err);
+      }
+    }
+  }
+
+  async function handleButtonConditionClick() {
+    if (buttonCondition) {
+      try {
+        const response = await Api.sendUserCondition(buttonCondition);
+        if (response) {
+          dispatch(addButtonCondition(buttonCondition))
+        }
+      } catch (err: any) {
+        console.log(err);
+      }
+    }
+  }
+
+  useEffect(() => {
+    handleButtonConditionClick()
+  }, [buttonCondition])
 
    // получение уведомлений о тестах и мероприятиях с помощью WebSocket
    useEffect(() => {
@@ -286,16 +365,23 @@ export const App = () => {
       }};
   }, []);
 
+  useEffect(() => {
+    if (currentUserInfo.id !== 0) {
+      handleSetUserBurnout()
+    }
+  }, [currentUserInfo])
+
+  useEffect(() => {
+    if (loggedIn) {
+      getAllTestsResult();
+      getTestsQuestions();
+      getTestsBurnoutQuestions();
+      getAllUserConditions()
+    }
+  }, [loggedIn]);
+
   if (isLoading) {
     return <div></div>;
-  }
-
-  async function handleAddMeetingInfo ({userId, formattedDate, comment, level}: MeetingInfo) {
-    try {
-      await Api.sendMeetingInfo(userId, formattedDate, comment, level);
-    } catch (err: any) {
-      console.log(err);
-    }
   }
 
   return (
@@ -311,6 +397,7 @@ export const App = () => {
         resultOfPsychoTest={resultOfPsychoTest}
         handleChangeUserInfo={handleChangeUserInfo}
         employees={employees}
+        events={events}
         handleSendInviteCode={handleSendInviteCode}
         handleLogin={handleLogin}
         handleRegister={handleRegister}
@@ -319,6 +406,7 @@ export const App = () => {
         openTestAlertPopup={openTestAlertPopup}
         takeNewEmployeesList={handleEmployees}
         handleAddMeetingInfo={handleAddMeetingInfo}
+        fetchEvents={fetchEvents}
       />
     </main>
   );

@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from 'react';
+import * as React from 'react';
+import {useEffect, useState} from 'react';
 import styles from "./tagsList.module.scss";
-import {Category} from "@/types.ts";
+import {Category} from "@/types";
 
 
 interface TagsListProps {

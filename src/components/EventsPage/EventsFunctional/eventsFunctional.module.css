@@ -1,0 +1,74 @@
+.eventsFunctional__main {
+  width: 100%;
+  min-height: 52px;
+  display: grid;
+  grid-template-columns: 1fr 231px;
+  gap: 20px;
+}
+.eventsFunctional__find {
+  height: 36px;
+  padding: 8px 12px 8px 36px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--color-white);
+  background-image: url('@/assets/search_icon.svg');
+  background-position: 12px center;
+  background-repeat: no-repeat;
+  font: var(--font-search-input);
+  color: var(--color-black);
+}
+.eventsFunctional__add {
+  height: 36px;
+  align-self: center;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--color-accent-purple);
+  font: var(--font-button);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: opacity 0.5s linear;
+}
+.eventsFunctional__add:hover {
+  opacity: 0.7;
+}
+.eventsFunctional__list {
+  display: flex;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+/* .eventsFunctional__point {
+
+} */
+.eventsFunctional__typeActivity {
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-radius: 12px;
+  padding: 6px 16px;
+  background-color: var(--color-white);
+  font: var(--font-body);
+  color: var(--color-accent-purple);
+  cursor: pointer;
+  transition: opacity 0.5s linear;
+}
+.eventsFunctional__typeActivity:hover {
+  opacity: 0.7;
+}
+.active {
+  background-color: var(--color-accent-purple);
+  color: var(--color-white);
+}
+
+@media(max-width: 800px) {
+  .eventsFunctional__main {
+    grid-template-columns: 1fr;
+    grid-template-rows: min-content min-content;
+    gap: 2px;
+  }
+  .eventsFunctional__list {
+    justify-content: space-between;
+  }
+}

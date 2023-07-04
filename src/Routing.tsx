@@ -16,6 +16,7 @@ import { RegisterPage } from "@/pages/register/RegisterPage.js";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage.js";
 import {Profile} from "@/pages/profile/Profile.tsx";
 import BalanceWheel from "@/pages/balancewheel/BalanceWheel";
+import {UsefulItem} from "@/pages/usefulItem/UsefulItem";
 
 interface Props {
   loggedIn: any;
@@ -27,6 +28,7 @@ interface Props {
   resultOfPsychoTest: any;
   handleChangeUserInfo: any;
   employees: any;
+  events: any;
   handleSendInviteCode: any;
   handleLogin: any;
   handleRegister: any;
@@ -35,26 +37,28 @@ interface Props {
   openTestAlertPopup: any;
   takeNewEmployeesList: any
   handleAddMeetingInfo: any;
+  fetchEvents: any;
 }
 
 export const Routing: React.FC<Props> = ({
-  loggedIn,
-  handleSignOut,
-  allTestsResults,
-  expressTest,
-  burnoutTest,
-  handleSendTestResult,
-  resultOfPsychoTest,
-  handleChangeUserInfo,
-  employees,
-  handleSendInviteCode,
-  handleLogin,
-  handleRegister,
-  handleSendResetCode,
-  handleResetPassword,
-  openTestAlertPopup,
-  takeNewEmployeesList, handleAddMeetingInfo
-}) => {
+                                           loggedIn,
+                                           handleSignOut,
+                                           allTestsResults,
+                                           expressTest,
+                                           burnoutTest,
+                                           handleSendTestResult,
+                                           resultOfPsychoTest,
+                                           handleChangeUserInfo,
+                                           employees,
+                                           events, fetchEvents,
+                                           handleSendInviteCode,
+                                           handleLogin,
+                                           handleRegister,
+                                           handleSendResetCode,
+                                           handleResetPassword,
+                                           openTestAlertPopup,
+                                           takeNewEmployeesList, handleAddMeetingInfo
+                                         }) => {
   return (
     <Routes>
       <Route
@@ -62,7 +66,7 @@ export const Routing: React.FC<Props> = ({
           <ProtectedRoutes loggedIn={loggedIn} handleSignOut={handleSignOut}/>
         }
       >
-        <Route path="/" element={<Main/>}/>
+        <Route path="/" element={<Main events={events}/>}/>
 
         <Route
           path="tests"
@@ -105,15 +109,21 @@ export const Routing: React.FC<Props> = ({
 
         <Route path="advices" element={<Advices />} />
 
-        <Route path="events" element={<Events/>}/>
+        <Route
+          path="events"
+          element={
+            <Events events={events} fetchEvents={fetchEvents}/>
+          }
+        />
 
         <Route path="bookmarks" element={<Bookmarks/>}/>
 
         <Route path="useful" element={<Useful/>}/>
+        <Route path="useful/:id" element={<UsefulItem/>}/>
 
         <Route
           path="account"
-          element={<Account handleChangeUserInfo={handleChangeUserInfo} />}
+          element={<Account handleChangeUserInfo={handleChangeUserInfo}/>}
         />
         <Route
           path="myteam/:userId"

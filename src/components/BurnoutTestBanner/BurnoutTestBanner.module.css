@@ -49,6 +49,10 @@
   border-radius: 12px;
 }
 
+.image {
+  width: 100%;
+}
+
 .button {
   display: flex;
   width: 161px;

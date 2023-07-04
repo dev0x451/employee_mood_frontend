@@ -13,6 +13,7 @@ import { useOnlineCheck } from "@/shared/hooks/useOnlineCheck";
 import {AddEmployeeForm} from "@/components/AddEmployeeForm/AddEmployeeForm";
 import {useNavigate} from "react-router-dom";
 
+
 interface Props {
   handleSendInviteCode: (email: string) => Promise<void>;
   employees: EmployeeInterface[];
@@ -75,8 +76,8 @@ export const Myteam: React.FC<Props> = ({
 
   const handleInputSort = (e: {target: { value: string }}) => {
     const value = e.target.value;
-    console.log(value);
-    console.log(value.match(reg));
+    // console.log(value);
+    // console.log(value.match(reg));
     !(value.substring(value.length-2, value.length-1) === '-' && value.substring(value.length-1) === '-') &&
     (value === '' || value.substring(value.length-1).match(reg) !== null) &&
     setTextInput(value);
