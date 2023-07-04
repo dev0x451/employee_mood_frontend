@@ -1,4 +1,6 @@
-export const allEntries: object[] = [
+import {Card} from "@/types";
+
+export const allEntries: Card[] = [
   {
     "id": 10,
     "liked": null,

@@ -11,6 +11,7 @@
 .image {
   width: 988px;
   height: 320px;
+  object-fit: cover;
 }
 
 .category {
@@ -19,8 +20,10 @@
 
 .title {
   font: var(--font-h2);
+  margin: 10px 0;
 }
 
 .text {
+  margin: 8px 0;
   font: var(--font-body);
 }
