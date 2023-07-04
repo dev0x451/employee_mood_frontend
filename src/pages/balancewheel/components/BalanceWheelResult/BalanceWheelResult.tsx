@@ -78,9 +78,9 @@ export const BalanceWheelResult = ({ step, goToFirstQuestion, data }: BalanceWhe
   }, [priorityResults, currentResults]);
 
   return (
-    <div className={pathname !== "balance-wheel" ? styles.container : ""}>
+    <div className={pathname !== "/balance-wheel" ? styles.container : ""}>
       <div className={styles.resultArea}>
-        {pathname === "balance-wheel"
+        {pathname === "/balance-wheel"
           ?
           <div className={styles.resultInfo}>
             <h4 className={styles.title}>Ваше колесо жизненного баланса готово</h4>
@@ -109,13 +109,13 @@ export const BalanceWheelResult = ({ step, goToFirstQuestion, data }: BalanceWhe
             </li>
           </ul>
         }
-        <div className={pathname === "balance-wheel" ? styles.chartArea : `${styles.chartArea} ${styles.chartAreaSmall}`}>
+        <div className={pathname === "/balance-wheel" ? styles.chartArea : `${styles.chartArea} ${styles.chartAreaSmall}`}>
           {chartData.length !== 0 && priorityResults && currentResults && (
             <Radar step={step} chartData={chartData} />
           )}
         </div>
       </div>
-      {pathname === "balance-wheel"
+      {pathname === "/balance-wheel"
         &&
       <div className={styles.bottomArea}>
         <Button handleClick={goToFirstQuestion} mode="primary" title="Обновить" width="200px" />
