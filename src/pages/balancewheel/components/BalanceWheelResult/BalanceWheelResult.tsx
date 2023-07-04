@@ -77,6 +77,7 @@ export const BalanceWheelResult = ({ step, goToFirstQuestion, data }: BalanceWhe
     }
   }, [priorityResults, currentResults]);
 
+
   return (
     <div className={pathname !== "/balance-wheel" ? styles.container : ""}>
       <div className={styles.resultArea}>
