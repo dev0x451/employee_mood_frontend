@@ -1,0 +1,27 @@
+@import '@/shared/styles/mixins.scss';
+
+.balance-wheel {
+  position: relative;
+  padding: 40px 0 106px 52px;
+  background-color: var(--color-background);
+  &-container {
+    position: relative;
+    @include size(1028px, 810px);
+    padding: 40px;
+    background-color: var(--color-background-white);
+    border-radius: 20px;
+  }
+}
+
+.title {
+  color: var(--color-black);
+  font: var(--font-h1);
+  margin: 0 0 40px 0;
+}
+
+.description {
+  color: var(--color-black);
+  font: var(--font-body);
+  margin: 0 0 40px 0;
+  max-width: 550px;
+}

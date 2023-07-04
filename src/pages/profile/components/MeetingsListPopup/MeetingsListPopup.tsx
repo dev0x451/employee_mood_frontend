@@ -21,7 +21,7 @@ export const MeetingsListPopup = ({meetingsList, closePopup}: Props): ReactEleme
           index < countCardPage
             ?
           <div key={index} className={styles.meetingItem}>
-            <MeetingDetails date={meeting.date} name={meeting.mental_state.name} level={meeting.mental_state.level} comment={meeting.comment}/>
+            <MeetingDetails subtitle="Встреча: " date={meeting.date} name={meeting.mental_state.name} level={meeting.mental_state.level} comment={meeting.comment}/>
           </div>
           : null
         ))}

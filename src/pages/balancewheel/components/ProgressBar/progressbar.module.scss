@@ -1,0 +1,31 @@
+@import '@/shared/styles/mixins.scss';
+
+.progress-bar {
+  &-text {
+    font: var(--font-body);
+    color: var(--color-black);
+    text-align: right;
+    margin: 0 0 4px 0;
+  }
+  &-background {
+    position: relative;
+    opacity: 0.8;
+    border-radius: 16px;
+    @include size (220px, 16px);
+    width: 220px;
+    background-color: var(--color-background);
+  }
+  &-scale {
+    position: absolute;
+    background-color: var(--color-accent-purple);
+    border-radius: 16px;
+    height: 16px;
+    width: 33%;
+    &-second {
+      width: 66%;
+    }
+    &-third {
+      width: 100%;
+    }
+  }
+}

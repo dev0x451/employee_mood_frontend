@@ -24,7 +24,7 @@ export const MeetingsLog = ({meetingsList}: Props): ReactElement => {
           ?
             <>
               <div className={styles.button}><Button handleClick={() => setIsPopupVisible(true)} mode="empty" title={`Посмотреть все (${meetingsList.length})`}/></div>
-              <MeetingDetails date={meetingsList[0].date} name={meetingsList[0].mental_state.name} level={meetingsList[0].mental_state.level} comment={meetingsList[0].comment}/>
+              <MeetingDetails subtitle="Последняя встреча: " date={meetingsList[0].date} name={meetingsList[0].mental_state.name} level={meetingsList[0].mental_state.level} comment={meetingsList[0].comment}/>
             </>
           :
           <NothingToRender text="Встречи еще не проводились" />

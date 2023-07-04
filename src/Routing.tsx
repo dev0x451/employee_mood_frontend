@@ -1,20 +1,21 @@
-import {Route, Routes} from "react-router-dom";
-import {ProtectedRoutes} from "@/components/ProtectedRoutes.js";
-import {Main} from "@/pages/main/Main.js";
-import {Tests} from "@/pages/tests/Tests.js";
-import {Useful} from "@/pages/useful/Useful.js";
-import {Test} from "@/components/Test/Test.js";
-import {BurnoutTest} from "./components/BurnoutTest/BurnoutTest";
-import {Advices} from "@/pages/advices/Advices.js";
-import {Events} from "@/pages/events/Events.js";
-import {Bookmarks} from "@/pages/bookmarks/Bookmarks.js";
-import {Pagenotfound} from "./pages/pagenotfound/Pagenotfound";
-import {Account} from "@/pages/account/Account.js";
-import {Myteam} from "@/components/Myteam/Myteam.js";
-import {LoginPage} from "@/pages/login/LoginPage.js";
-import {RegisterPage} from "@/pages/register/RegisterPage.js";
-import {RefreshPasswordPage} from "@/pages/refreshpassword/RefreshPasswordPage.js";
-import {Profile} from "@/pages/profile/Profile";
+import { Route, Routes } from "react-router-dom";
+import { ProtectedRoutes } from "@/components/ProtectedRoutes.js";
+import { Main } from "@/pages/main/Main.js";
+import { Tests } from "@/pages/tests/Tests.js";
+import { Useful } from "@/pages/useful/Useful.js";
+import { Test } from "@/components/Test/Test.js";
+import { BurnoutTest } from "./components/BurnoutTest/BurnoutTest";
+import { Advices } from "@/pages/advices/Advices.js";
+import { Events } from "@/pages/events/Events.js";
+import { Bookmarks } from "@/pages/bookmarks/Bookmarks.js";
+import { Pagenotfound } from "./pages/pagenotfound/Pagenotfound";
+import { Account } from "@/pages/account/Account.js";
+import { Myteam } from "@/components/Myteam/Myteam.js";
+import { LoginPage } from "@/pages/login/LoginPage.js";
+import { RegisterPage } from "@/pages/register/RegisterPage.js";
+import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage.js";
+import {Profile} from "@/pages/profile/Profile.tsx";
+import BalanceWheel from "@/pages/balancewheel/BalanceWheel";
 import {UsefulItem} from "@/pages/usefulItem/UsefulItem";
 
 interface Props {
@@ -98,7 +99,15 @@ export const Routing: React.FC<Props> = ({
           }
         />
 
-        <Route path="advices" element={<Advices/>}/>
+        <Route
+          path="balance-wheel"
+          element={
+            <BalanceWheel />
+          }
+        >
+        </Route>
+
+        <Route path="advices" element={<Advices />} />
 
         <Route
           path="events"

@@ -1,0 +1,61 @@
+@import '@/shared/styles/mixins.scss';
+
+.control {
+  &-area {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 18px;
+  }
+  &-list {
+    display: flex;
+    @include list-initial-style;
+    margin: 32px 0 0;
+    width: 300px;
+    justify-content: space-between;
+  }
+}
+
+.directions {
+  &-list {
+    @include list-initial-style;
+    &-item {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.inputs {
+  &-list {
+    @include list-initial-style;
+    &-item {
+      margin-bottom: 20px;
+    }
+  }
+}
+
+.test {
+  width: 540px;
+  height: 540px;
+  margin-top: -90px;
+}
+
+.title {
+  font-size: 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  max-width: 312px;
+}
+
+.bottom-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buttonsList {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
