@@ -237,6 +237,7 @@ export interface Meeting {
   name: string;
   level: number;
   comment: string;
+  subtitle: string;
 }
 
 export interface WebSocketActiveEvent {
@@ -267,4 +268,38 @@ export interface MeetingInterface {
   employee?: EmployeeInterface,
   organizer?: EmployeeInterface,
   mental_state: UserMentalState
+}
+
+export interface Data {
+  date: string;
+  employee: number;
+  id: number;
+  set_priority: boolean;
+  results: {
+    num: number;
+    result: number;
+  }[];
+}
+
+export interface WheelResultItem {
+  "life-direction": string;
+  "Приоритет"?: number;
+  "Текущее состояние"?: number;
+  "Результат"?: number;
+}
+
+export interface WheelResults {
+  num: number,
+  result: number;
+}
+
+export interface WheelResultsInfo {
+  date: string;
+  employee: number;
+  id: number;
+  set_priority: boolean;
+  results: {
+    num: number;
+    result: number;
+  }[];
 }

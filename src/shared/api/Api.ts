@@ -1,5 +1,5 @@
 import axios from "axios";
-import {  UserInfo, SubmitArguments } from "@/types";
+import {UserInfo, SubmitArguments, WheelResults} from "@/types";
 import { BASE_URL_REQUEST, BASE_URL_WSS } from "../constants";
 
 // const BASE_URL = "https://em-dev.usolcev.com/api/v1";
@@ -173,6 +173,30 @@ export const sendMeetingInfo = (userId: string, formattedDate: string, comment: 
       },
     }
   );
+};
+
+export const getLifeDirections = () => {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/life_directions`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const getBalanceWheelValues = () => {
+  return axios.get(`${BASE_URL_REQUEST}/metrics/life_balance`, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    },
+  });
+};
+
+export const sendBalanceWheelResults = (results: WheelResults[], isPriority: boolean) => {
+  return axios.post(`${BASE_URL_REQUEST}/metrics/life_balance`, {results: results, set_priority: isPriority}, {
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+    }
+  });
 };
 
 

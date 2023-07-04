@@ -15,6 +15,7 @@ import { LoginPage } from "@/pages/login/LoginPage.js";
 import { RegisterPage } from "@/pages/register/RegisterPage.js";
 import { RefreshPasswordPage } from "@/pages/refreshpassword/RefreshPasswordPage.js";
 import {Profile} from "@/pages/profile/Profile.tsx";
+import BalanceWheel from "@/pages/balancewheel/BalanceWheel";
 
 interface Props {
   loggedIn: any;
@@ -93,6 +94,14 @@ export const Routing: React.FC<Props> = ({
             />
           }
         />
+
+        <Route
+          path="balance-wheel"
+          element={
+            <BalanceWheel />
+          }
+        >
+        </Route>
 
         <Route path="advices" element={<Advices />} />
 

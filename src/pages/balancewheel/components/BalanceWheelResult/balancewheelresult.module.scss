@@ -1,0 +1,65 @@
+@import '@/shared/styles/mixins.scss';
+
+.result-area {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.result-info {
+  max-width: 360px;
+}
+
+.title {
+  font-size: 15px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+  max-width: 312px;
+  margin: 0;
+}
+
+.legend {
+  @include list-initial-style;
+  margin: 24px 0;
+  &-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  &-color {
+    @include size (24px, 24px);
+    border-radius: 50%;
+    &-priority {
+      border: 1px solid var(--color-accent-purple);
+      background: linear-gradient(0deg, #8A32E0 0%, rgba(138, 50, 224, 0.00) 100%);
+    }
+    &-current {
+      border: 1px solid #325EE0;
+      background: linear-gradient(360deg, #325EE0 0%, rgba(50, 94, 224, 0.00) 100%);
+    }
+  }
+}
+
+.text {
+  font: var(--font-body);
+  color: var(--color-black);
+  margin: 0;
+  &-last {
+    margin: 10px 0 0;
+  }
+}
+
+.chartArea {
+  width: 540px;
+  height: 540px;
+  margin-top: -40px;
+}
+
+.bottom-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
