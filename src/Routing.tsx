@@ -15,6 +15,7 @@ import {LoginPage} from "@/pages/login/LoginPage.js";
 import {RegisterPage} from "@/pages/register/RegisterPage.js";
 import {RefreshPasswordPage} from "@/pages/refreshpassword/RefreshPasswordPage.js";
 import {Profile} from "@/pages/profile/Profile";
+import {UsefulItem} from "@/pages/usefulItem/UsefulItem";
 
 interface Props {
   loggedIn: any;
@@ -39,24 +40,24 @@ interface Props {
 }
 
 export const Routing: React.FC<Props> = ({
-  loggedIn,
-  handleSignOut,
-  allTestsResults,
-  expressTest,
-  burnoutTest,
-  handleSendTestResult,
-  resultOfPsychoTest,
-  handleChangeUserInfo,
-  employees,
-  events, fetchEvents,
-  handleSendInviteCode,
-  handleLogin,
-  handleRegister,
-  handleSendResetCode,
-  handleResetPassword,
-  openTestAlertPopup,
-  takeNewEmployeesList, handleAddMeetingInfo
-}) => {
+                                           loggedIn,
+                                           handleSignOut,
+                                           allTestsResults,
+                                           expressTest,
+                                           burnoutTest,
+                                           handleSendTestResult,
+                                           resultOfPsychoTest,
+                                           handleChangeUserInfo,
+                                           employees,
+                                           events, fetchEvents,
+                                           handleSendInviteCode,
+                                           handleLogin,
+                                           handleRegister,
+                                           handleSendResetCode,
+                                           handleResetPassword,
+                                           openTestAlertPopup,
+                                           takeNewEmployeesList, handleAddMeetingInfo
+                                         }) => {
   return (
     <Routes>
       <Route
@@ -109,7 +110,7 @@ export const Routing: React.FC<Props> = ({
         <Route path="bookmarks" element={<Bookmarks/>}/>
 
         <Route path="useful" element={<Useful/>}/>
-        {/*<Route path="useful/:id" element={<UsefulItem props={}/>}/>*/}
+        <Route path="useful/:id" element={<UsefulItem/>}/>
 
         <Route
           path="account"

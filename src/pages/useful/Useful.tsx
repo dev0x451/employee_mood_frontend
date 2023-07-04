@@ -28,15 +28,16 @@ export const Useful = () => {
     fetchCategories().then(r => r);
   }, []);
 
+
   const fetchData = async () => {
 
     try {
-      const token = localStorage.getItem("jwt"); // Замените на свой JWT Bearer Token
+      const token = localStorage.getItem("jwt");
       const headers = {Authorization: `Bearer ${token}`};
       const response = await axios.get('https://em-dev.usolcev.com/api/v1/entries/', {headers});
       setEntries(response.data.results);
       // setIsLoading(true);
-      console.log(entries)
+      // console.log(response.data.results)
       // console.log(chosenCardList)
 
     } catch (error) {

@@ -1,6 +1,6 @@
 import axios from "axios";
-import {  UserInfo, SubmitArguments, EventInterface, UserConditionForSend } from "@/types";
-import { BASE_URL_REQUEST, BASE_URL_WSS } from "../constants";
+import {EventInterface, SubmitArguments, UserConditionForSend, UserInfo} from "@/types";
+import {BASE_URL_REQUEST, BASE_URL_WSS} from "../constants";
 
 // const BASE_URL = "https://em-dev.usolcev.com/api/v1";
 
@@ -210,7 +210,7 @@ export const getMeetingsInfo = (id: string | undefined) => {
   });
 };
 
-export const sendMeetingInfo = (userId: string, formattedDate: string, comment: string, level: number ) => {
+export const sendMeetingInfo = (userId: string, formattedDate: string, comment: string, level: number) => {
   return axios.post(
     `${BASE_URL_REQUEST}/meeting_results`, {
       date: formattedDate,
@@ -236,8 +236,8 @@ export const getAllUserConditions = () => {
 
 export const sendUserCondition = (conditions: UserConditionForSend) => {
   return axios.post(`${BASE_URL_REQUEST}/metrics/conditions/`,
-  // return axios.post(`${BASE_URL_REQUEST}/metrics/conditions/?infinity_freq=true`,
-  {
+    // return axios.post(`${BASE_URL_REQUEST}/metrics/conditions/?infinity_freq=true`,
+    {
       mood: conditions.mood,
       note: conditions.note,
       date: conditions.date,
@@ -257,4 +257,26 @@ export const getUserBurnoutsGraph = (id: number) => {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
   });
+};
+
+export const postUsefulLike = (event: number) => {
+  return axios.post(`${BASE_URL_REQUEST}/socials/likes/`,
+    {
+      "event": event
+    },
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
+};
+export const deleteUsefulLike = (id: number) => {
+  return axios.delete(`${BASE_URL_REQUEST}/socials/likes/${id}`,
+    {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      }
+    }
+  );
 };

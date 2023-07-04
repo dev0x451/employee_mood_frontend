@@ -28,7 +28,7 @@ export interface EventInterface {
   id?: number;
   name: string;
   text: string;
-  liked?: {id?: number }
+  liked?: { id?: number }
 }
 
 export interface SelectOption {
@@ -226,14 +226,16 @@ export interface jwtTypes {
 
 
 export interface Card {
-  id?: string;
+  id: number;
   category: Category[];
-  author?: string;
+  author?: {}
   title: string;
   preview_image: string;
+  description: string;
   text: string;
+  url: string | null;
   created: string;
-  isLiked?: boolean;
+  liked: {} | null;
 }
 
 export interface Category {

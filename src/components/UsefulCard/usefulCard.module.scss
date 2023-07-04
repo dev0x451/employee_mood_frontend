@@ -9,6 +9,11 @@
   box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.03), 0 0 2px 0 rgba(0, 0, 0, 0.06);
 }
 
+.link {
+  text-decoration: none;
+  color: var(--color-black);
+}
+
 .image {
   width: 292px;
   height: 175px;
@@ -92,7 +97,7 @@
   height: 34px;
   left: 266px;
   top: 24px;
-
+  z-index: 3;
   background: rgba(177, 179, 181, 0.35);
   border-radius: 60px;
 }
