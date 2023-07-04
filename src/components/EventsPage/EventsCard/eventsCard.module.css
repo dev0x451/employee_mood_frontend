@@ -82,12 +82,13 @@
   margin-top: 12px;
   font: var(--font-h3);
   color: var(--color-black);
+  word-wrap: break-word;
 }
 .eventsCard__content {
   margin: 8px 0 16px 0;
   font: var(--font-body);
   color: var(--color-black);
-  overflow: hidden;
+  word-wrap: break-word;
 }
 .eventsCard__footer {
   display: flex;

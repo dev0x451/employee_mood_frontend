@@ -128,7 +128,7 @@ export const connectToWebSocketNotifications = () => {
 };
 
 export const getEvents = () => {
-  return axios.get(`${BASE_URL_REQUEST}/events/`, {
+  return axios.get(`${BASE_URL_REQUEST}/events/?limit=100`, {
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
     },
