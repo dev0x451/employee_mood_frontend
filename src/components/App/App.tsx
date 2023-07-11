@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Cookies from 'js-cookie';
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router";
 import { FormikValues } from "formik";
@@ -48,40 +49,15 @@ export const App = () => {
 
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
-    const refresh = localStorage.getItem("refresh");
-    if (jwt && refresh) {
-      const { exp }: jwtTypes = JSON.parse(
-        window.atob(jwt.split(".")[1])
-      ) as jwtTypes;
-      const date = Date.now() / 1000;
-      if (exp > date) {
-        auth(jwt);
-      } else {
-        refreshToken(refresh);
-        const newJwt = localStorage.getItem("jwt");
-        if (newJwt) {
-          auth(newJwt);
-        }
-      }
+    if (jwt) {
+        auth();
     }
   }, [loggedIn]);
 
-  async function refreshToken (token: string) {
-    try {
-      const response = await ApiAuth.refreshToken(token);
-      if(response.data.access && response.data.refresh) {
-        localStorage.setItem("jwt", response.data.access);
-        localStorage.setItem("refresh", response.data.refresh);
-      }
-    } catch (err: any) {
-      console.log(err);
-    }
-  }
-
-  async function auth (jwt: string) {
+  async function auth () {
     setIsLoading(true);
     try {
-      const response = await ApiAuth.checkToken(jwt);
+      const response = await ApiAuth.checkToken();
       if (response.status === 200) {
         setLoggedIn(true);
         ["/login", "/register"].includes(pathname)
@@ -131,10 +107,9 @@ export const App = () => {
   async function handleLogin(values: MyFormValues) {
     try {
       const response = await ApiAuth.loginUser(values);
-      if (response.data.access && response.data.refresh) {
+      if (response.data.access) {
         localStorage.setItem("jwt", response.data.access);
-        localStorage.setItem("refresh", response.data.refresh);
-        setLoggedIn(true);
+        //setLoggedIn(true);
       }
     } catch {
       dispatch(setErrorMessage("Неверный логин или пароль"));
@@ -260,7 +235,7 @@ export const App = () => {
       getAllUserConditions()
     }
   }, [loggedIn]);
-    
+
   async function handleEmployees() {
     try {
       if (role === "hr" || role === "chief") {
@@ -283,7 +258,7 @@ export const App = () => {
       )
     );
   }
-  
+
   //запрос мероприятий для вкладки мероприятия
   async function fetchEvents() {
     try {

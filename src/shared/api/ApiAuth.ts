@@ -5,7 +5,7 @@ import { FormikValues } from "formik";
 const BASE_URL = "https://em-dev.usolcev.com/api/v1";
 
 export const loginUser = (values: MyFormValues) => {
-  return axios.post(`${BASE_URL}/auth/jwt/create`, values);
+  return axios.post(`${BASE_URL}/auth/jwt/create`, values, { withCredentials: true });
 };
 
 export const registerUser = (values: FormikValues, invite_code: string) => {
@@ -34,8 +34,8 @@ export const resetPassword = (values: FormikValues, resetCode: string) => {
   });
 };
 
-export const checkToken = (token: any) => {
-  return axios.post(`${BASE_URL}/auth/jwt/verify`, { token });
+export const checkToken = () => {
+  return axios.post(`${BASE_URL}/auth/jwt/verify`, { withCredentials: true });
 };
 
 export const refreshToken = (token: string) => {
