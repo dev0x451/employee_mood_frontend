@@ -1,0 +1,59 @@
+.photo-settings-list {
+  position: absolute;
+  z-index: 10;
+  top: 280px;
+  left: 15px;
+  display: none;
+  width: 227px;
+  height: 80px;
+  padding: 8px 0;
+  border: 0.5px solid var(--color-button-secondary);
+  border-radius: 12px;
+  margin: 0;
+  background-color: var(--color-background-white);
+  box-shadow: var(--shadow-medium);
+  list-style-type: none;
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+.photo-settings-list-opened {
+  display: block;
+  opacity: 1;
+}
+
+.photo-settings-list-item {
+  display: flex;
+  width: 100%;
+  height: 50%;
+  align-items: center;
+  padding-left: 8px;
+  margin: 0;
+  cursor: pointer;
+  gap: 8px;
+}
+
+.photo-settings-list-item-delete {
+  color: var(--color-error);
+}
+
+.photo-settings-list-item:hover {
+  background-color: var(--color-background);
+}
+
+.photo-settings-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.photo-settings-text {
+  width: 100%;
+  margin: 0;
+  cursor: pointer;
+  font: var(--font-search-input);
+}
+
+.hidden {
+  width: 0;
+  visibility: hidden;
+}

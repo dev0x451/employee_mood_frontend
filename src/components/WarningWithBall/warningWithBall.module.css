@@ -1,0 +1,28 @@
+.condition-container {
+  display: flex;
+  align-items: center;
+}
+
+.condition-text {
+  margin: 0 12px 0 0;
+  font: var(--font-h3);
+}
+
+.warning-ball {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.green {
+  background-color: #99CA65;
+}
+
+.yellow {
+  background-color: #FEAB23;
+}
+
+.red {
+  background-color: #FF6941;
+}

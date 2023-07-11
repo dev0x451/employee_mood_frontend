@@ -1,0 +1,120 @@
+.card {
+  width: 324px;
+  height: 362px;
+  background-color: var(--color-background-white);
+  border-radius: 20px;
+  padding: 16px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 4px 2px 0 rgba(0, 0, 0, 0.03), 0 0 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.link {
+  text-decoration: none;
+  color: var(--color-black);
+}
+
+.image {
+  width: 292px;
+  height: 175px;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.text {
+  font: var(--font-caption);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 58px;
+  margin: 0;
+}
+
+.title {
+  font: var(--font-more);
+  color: var(--color-black);
+  height: 36px;
+  margin: 12px 0 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.duration {
+  display: block;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 120%;
+  text-align: right;
+  color: var(--color-accent-gray);
+  margin: 0;
+  align-self: flex-end;
+  //--------------------//
+  height: 15px; // временно
+  width: 30px; // временно
+  overflow: hidden; // временно
+}
+
+
+.tags_container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.tags {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+
+}
+
+.tag {
+  display: block;
+  background: rgba(138, 50, 224, 0.10);
+  height: 23px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--color-accent-purple);
+  border-style: none;
+  padding: 4px 6px;
+  border-radius: 20px;
+}
+
+.like {
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 6px 6px 4px;
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  left: 266px;
+  top: 24px;
+  z-index: 3;
+  background: rgba(177, 179, 181, 0.35);
+  border-radius: 60px;
+}
+
+.play {
+  position: absolute;
+  margin: 0 auto;
+  color: #0c4128;
+
+  width: 24px;
+  height: 24px;
+  left: 150px;
+  top: 92px;
+  opacity: 0.8;
+}
+
+.liked {
+  background: red;
+  color: red;
+}

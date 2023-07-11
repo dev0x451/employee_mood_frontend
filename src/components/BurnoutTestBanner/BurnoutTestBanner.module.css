@@ -1,10 +1,10 @@
 .container {
   display: flex;
-  min-width: 676px;
+  max-width: 676px;
   height: 148px;
   padding: 16px 16px 16px 20px;
   border-radius: 20px;
-  background-color: var(--color-burnout-banner-background);
+  background-color: var(--color-white);
   gap: 20px;
 }
 
@@ -47,6 +47,10 @@
   width: 116px;
   height: 116px;
   border-radius: 12px;
+}
+
+.image {
+  width: 100%;
 }
 
 .button {

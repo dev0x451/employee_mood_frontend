@@ -1,13 +1,16 @@
 .results-popup {
-  position: absolute;
-  top: 100px;
-  left: 280px;
-  width: 75%;
-  height: 90%;
+  position: relative;
   padding: 40px;
   border-radius: 20px;
   background-color: white;
   box-shadow: 0 20px 50px rgb(88 81 94 / 10%);
+}
+
+.tests-located {
+  position: absolute;
+  top: 0;
+  left: -10px;
+  width: calc(100% + 20px);
 }
 
 .title {
@@ -33,6 +36,14 @@
 .condition-text {
   margin: 0 12px 0 0;
   font: var(--font-h3);
+}
+
+.condition-subtitle {
+  font: var(--font-h4-alert);
+}
+
+.condition-small-subtitle {
+  font: var(--font-body);
 }
 
 .warning-ball {
@@ -78,7 +89,7 @@
 .button-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   margin-top: 52px;
   gap: 28px;
 }
@@ -116,4 +127,10 @@
 
 .button:hover {
   cursor: pointer;
+}
+
+.summary-graph {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 30% 70%;
 }

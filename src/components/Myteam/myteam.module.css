@@ -1,34 +1,27 @@
 .myteam {
-  position: relative;
   display: flex;
   width: 100%;
   flex-direction: row;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: flex-start;
-  padding: 28px 52px 40px 43px;
+  padding: 44px 132px 42px 52px;
   background-color: var(--color-main-background);
 }
 
 .left-screen {
   position: relative;
-  width: 62%;
+  width: 68.8%;
   height: 100%;
-  padding: 10px;
-  margin-right: 13px;
-
-  /* border: 1px black solid; */
-
-  /* border-radius: 20px; */
+  /* padding: 10px; */
+  margin-right: 28px;
 }
 
 .right-screen {
-  width: 30%;
+  width: 33%;
   height: 100%;
-  padding: 10px;
-
-  /* border: 1px black solid; */
-
-  /* border-radius: 20px; */
+  /* padding: 10px; */
+  padding-top: 64px;
 }
 
 .input {
@@ -43,7 +36,7 @@
   background-image: url('@/assets/search_icon.svg');
   background-position: 10px 10px;
   background-repeat: no-repeat;
-  color: var(--color-icon-secondary);
+  color: var(--color-black);
   font: var(--font-search-input);
   outline: 0;
 }
@@ -73,4 +66,16 @@
 .text {
   display: inline-block;
   font-size: 50px;
+}
+
+@media(max-width: 1120px) {
+  .myteam {
+    padding: 42px;
+  }
+}
+
+@media(max-width: 700px) {
+  .myteam {
+    flex-wrap: wrap;
+  }
 }

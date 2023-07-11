@@ -1,0 +1,194 @@
+.burnout-container {
+  position: relative;
+  padding: 40px 132px 46px 52px;
+  background-color: var(--color-main-background);
+}
+
+.test {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+  border-radius: 20px;
+  background-color: white;
+  box-shadow: 0 20px 50px rgb(88 81 94 / 10%);
+  gap: 16px;
+}
+
+.burnout-title {
+  margin: 0;
+  font: var(--font-h1);
+}
+
+.burnout-subtitle {
+  max-width: 70%;
+  height: 40px;
+  margin: 20px 0 0;
+  font: var(--font-h4-alert);
+}
+
+.burnout-text {
+  max-width: 70%;
+  margin: 0;
+}
+
+.subtitle:nth-child(2) {
+  margin: 40px 0 0;
+}
+
+.burnout-question {
+  display: flex;
+  width: 40%;
+  flex-direction: column;
+  padding: 10px 0;
+  border: none;
+  border-radius: 12px;
+  margin: 10px 0;
+  box-shadow: 0 0 2px rgb(0 0 0 / 6%), 0 4px 2px rgb(0 0 0 / 3%);
+  transition: all 400ms ease-out;
+
+}
+
+.burnout-label {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  border: none;
+  clip-path: inset(0 0 0 0);
+  visibility: hidden;
+}
+
+.burnout-visible-checkbox:hover {
+  cursor: pointer;
+}
+
+.burnout-question:active {
+  background-color: var(--color-accent-purple);
+  opacity: 0.2;
+}
+
+.burnout-question:hover {
+  scale: 0.98
+}
+
+.checkbox + .burnout-visible-checkbox::after {
+  position: absolute;
+  top: -30px;
+  width: 100%;
+  height: 42px;
+  box-sizing: border-box;
+  border-radius: 12px;
+  margin: 18px 0;
+  content: "";
+  opacity: 0;
+  transition: all 107ms ease-out;
+}
+
+.checkbox:checked + .burnout-visible-checkbox {
+  opacity: 0.3;
+}
+
+.checkbox:checked + .burnout-visible-checkbox::after {
+  background: var(--color-accent-purple);
+  opacity: 1;
+}
+
+.burnout-indicator-container {
+  position: relative;
+  display: flex;
+  height: 44px;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: space-between;
+  margin: 40px;
+}
+
+.burnout-paginate {
+  position: absolute;
+  top: -30px;
+  right: 20px;
+}
+
+.burnout-progress-indicator {
+  display: flex;
+  width: 35%;
+  height: 18px;
+  border-radius: 20px;
+  background: var(--color-background);
+
+}
+
+.burnout-progress-indicator-blue {
+  border-radius: 20px;
+  background: var(--color-accent-purple);
+}
+
+.burnout-button-container {
+  display: flex;
+  align-items: center;
+  align-self: center;
+  justify-content: flex-start;
+}
+
+.disabled {
+  opacity: 0.64;
+}
+
+.burnout-button {
+  min-width: 200px;
+  height: 44px;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 16px;
+  background-color: var(--color-accent-purple);
+  color: var(--color-background-white);
+  cursor: pointer;
+  font-size: var(--font-size-m);
+  font-weight: 500;
+  line-height: var(--font-line-m);
+}
+
+.burnout-button:hover {
+  cursor: pointer;
+}
+
+.button-back {
+  border: none;
+  margin-right: 10px;
+  background: none;
+  color: var(--color-accent-purple);
+  font: var(--font-button);
+}
+
+.button-back:hover {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.close-btn {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background-color: var(--color-background-white);
+  background-image: url('@/assets/closeBtn.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  scale: 1.5;
+}
+

@@ -1,0 +1,29 @@
+.container {
+  background-color: var(--color-main-background);
+}
+
+.content {
+  width: 1028px;
+  height: 850px;
+  padding: 20px 20px 40px;
+}
+
+.image {
+  width: 988px;
+  height: 320px;
+  object-fit: cover;
+}
+
+.category {
+  margin: 16px 0;
+}
+
+.title {
+  font: var(--font-h2);
+  margin: 10px 0;
+}
+
+.text {
+  margin: 8px 0;
+  font: var(--font-body);
+}

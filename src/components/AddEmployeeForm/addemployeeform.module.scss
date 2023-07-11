@@ -1,0 +1,19 @@
+.form {
+  position: relative;
+  width: 472px;
+  padding: 40px 56px 32px;
+  border-radius: 16px;
+  margin: 260px auto 0;
+  background-color: var(--color-background-white);
+  box-shadow: var(--shadow-medium);
+}
+
+.title {
+  margin: 0 0 30px;
+  color: var(--color-black);
+  font: var(--font-h2);
+}
+
+.input-container {
+  margin-bottom: 25px;
+}

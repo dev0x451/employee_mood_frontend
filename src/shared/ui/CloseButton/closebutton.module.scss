@@ -1,0 +1,14 @@
+@import '@/shared/styles/mixins.scss';
+
+.close-btn {
+  @include size(22px, 22px);
+  position: absolute;
+  z-index: 130;
+  top: 12px;
+  right: 12px;
+  border: none;
+  background-color: var(--color-background-white);
+  background-image: url('@/assets/closeBtn.svg');
+  @include background-no-repeat-center-cover;
+  cursor: pointer;
+}

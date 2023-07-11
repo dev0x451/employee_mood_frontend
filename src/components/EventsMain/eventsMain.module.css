@@ -1,0 +1,14 @@
+.events {
+  max-width: 324px;
+}
+
+.title {
+  margin: 0;
+  color: var(--color-black);
+  font: var(--font-h3);
+}
+
+.list {
+  padding: 0;
+  list-style: none;
+}

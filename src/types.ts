@@ -11,12 +11,24 @@ type Department = {
 
 export interface EmployeeInterface {
   id: number;
-  avatar?: string;
+  avatar?: string | null;
+  avatar_full?: string | null;
   first_name: string;
   last_name: string;
-  position: {name:string};
+  position: { name: string };
   // colorball: string;
-  mental_state: string;
+  mental_state: UserMentalState;
+}
+
+export interface EventInterface {
+  author?: { id: number, first_name: string, last_name: string };
+  created?: string;
+  end_time: Date;
+  start_time: Date;
+  id?: number;
+  name: string;
+  text: string;
+  liked?: { id?: number }
 }
 
 export interface SelectOption {
@@ -31,15 +43,6 @@ export interface MyFormValues {
   email: string;
 }
 
-export interface RegisterFormValues {
-  password: string;
-  confirmPassword: string;
-  lastName: string;
-  firstName: string;
-  department: string;
-  position: string;
-}
-
 export type CallbackFunction = () => void;
 
 export interface Image {
@@ -49,76 +52,293 @@ export interface Image {
 }
 
 export interface Question {
-  text: string
+  id: string;
+  text: string;
+  number: number;
+}
+
+export interface TestAuthor {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
+
+export interface TestVariantAswer {
+  text: string;
+  value: number;
 }
 
 export interface TestInterface {
-  author: number;
   creation_date: string;
+  type: string;
   department: number;
   description: string;
+  questions_quantity: number;
   frequency: number;
   id: number;
   is_active: boolean;
   questions: Question[];
   title: string;
+  text: string;
+  author: TestAuthor | null;
+  variants: TestVariantAswer[];
 }
 
-export interface TestResult {
-  positive_value: number,
-  negative_value: number,
-  survey: number,
+export interface AnswerResult {
+  question_id: number;
+  variant_value: number;
 }
 
-export interface ExpressDiagnoseResponse {
-  completion_date: string,
-  employee: number,
-  id: number,
-  next_attempt_date: string,
-  result: string,
+export interface TestResults {
+  results: AnswerResult[]
   survey: number
 }
 
+export interface SubmitArguments {
+  results: AnswerResult[];
+  survey: number;
+}
+
+export interface ExpressDiagnoseEmployee {
+  id: number;
+  first_name: string;
+  last_name: string;
+}
+
+export interface ExpressDiagnoseSurvey {
+  id: number;
+  title: string;
+  type: string;
+  frequency: number;
+  creation_date: string;
+  questions_quantity: number;
+  description: string;
+  text: string;
+  author: TestAuthor | number;
+}
+
+export interface ExpressDiagnoseMentalState {
+  name: string;
+  description: string;
+  message: string;
+  level: number;
+}
+
+export interface Graph {
+  title: string,
+  text: string,
+  size: string,
+  color: string,
+  value: number,
+  min_value: number,
+  max_value: number
+}
+
+export interface ExpressDiagnoseSummaryGraphs {
+  graphs: Graph[]
+}
+
+export interface ExpressDiagnoseResponse {
+  id: number;
+  employee: ExpressDiagnoseEmployee;
+  survey: ExpressDiagnoseSurvey;
+  mental_state: ExpressDiagnoseMentalState,
+  summary: null | ExpressDiagnoseSummaryGraphs,
+  results: AnswerResult[]
+  completion_date: string;
+  next_attempt_date: string;
+}
+
 export interface UserDepartment {
-  id: number,
-  name: string,
-  description: string,
+  id: number;
+  name: string;
+  description: string;
 }
 
 export interface UserPosition {
-  id: number,
-  name: string,
-  chief_position: boolean,
-  departments: number[]
+  id: number;
+  name: string;
+  chief_position: boolean;
+  departments: number[];
 }
 
 export interface UserHobby {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 
 export interface UserLatestCondition {
+  id: number;
+  mood: number;
+  note: string | null;
+  date: string;
+  employee: number;
+}
+
+export interface UserMentalState {
+  id: number | string;
+  name: string;
+  description: string;
+  level: number;
+}
+
+export interface UserPosition {
+  id: number;
+  name: string;
+  chief_position: boolean;
+}
+
+export interface User {
+  about: string | null;
+  avatar: string | null;
+  date_joined: string;
+  department: null | UserDepartment;
+  email: string;
+  first_name: string;
+  hobbies: null | UserHobby[];
+  id: number;
+  last_name: string;
+  latest_condition: null | UserLatestCondition;
+  mental_state: null | UserMentalState;
+  patronymic: string | null;
+  phone: number;
+  position: UserPosition | null;
+  role: string;
+}
+
+export interface Hobby {
+  hobby: number;
+}
+
+export interface UserInfo {
+  avatar?: string | null;
+  hobbies?: Hobby[];
+  about: string;
+}
+
+export interface jwtTypes {
+  token_type: string;
+  exp: number;
+  iat: number;
+  jti: string;
+  user_id: number;
+}
+
+
+export interface Card {
+  id: number;
+  category: Category[];
+  author?: {}
+  title: string;
+  preview_image: string;
+  description: string;
+  text: string;
+  url: string | null;
+  created: string;
+  liked: {} | null;
+}
+
+export interface Category {
+  id: number,
+  name: string,
+  slug: string,
+  description: string;
+}
+
+export interface Meeting {
+  id?: number;
+  date: string;
+  name: string;
+  level: number;
+  comment: string;
+  subtitle: string;
+}
+
+export interface WebSocketActiveEvent {
+  id: number,
+  incident_type: string,
+  incident_id: number
+}
+
+export interface WebSocketNotifications {
+  notifications: WebSocketActiveEvent[]
+}
+
+export interface WebSocketMessage {
+  message: WebSocketNotifications | null;
+}
+
+export interface MeetingInfo {
+  userId: string,
+  formattedDate: string,
+  comment: string,
+  level: number;
+}
+
+export interface MeetingInterface {
+  //id: number | undefined,
+  comment: string,
+  date: string,
+  employee?: EmployeeInterface,
+  organizer?: EmployeeInterface,
+  mental_state: UserMentalState
+}
+
+export interface Data {
+  date: string;
+  employee: number;
+  id: number;
+  set_priority: boolean;
+  results: {
+    num: number;
+    result: number;
+  }[];
+}
+
+export interface WheelResultItem {
+  "life-direction": string;
+  "Приоритет"?: number;
+  "Текущее состояние"?: number;
+  "Результат"?: number;
+}
+
+export interface WheelResults {
+  num: number,
+  result: number;
+}
+
+export interface WheelResultsInfo {
+  date: string;
+  employee: number;
+  id: number;
+  set_priority: boolean;
+  results: {
+    num: number;
+    result: number;
+  }[];
+}
+
+export interface UserConditionForSend {
+  mood: number,
+  note?: string | null,
+  date: string,
+}
+
+export interface UserConditionRecieved {
   id: number,
   mood: number,
-  note: string| null,
+  note?: string | null,
   date: string,
   employee: number
 }
 
-export interface User {
-  about: string | null,
-  avatar: string| null,
-  date_joined: string,
-  department: null | UserDepartment,
-  email: string,
-  first_name: string,
-  hobbies: null | UserHobby[],
-  id: number,
-  last_name: string,
-  latest_condition: null | UserLatestCondition,
-  mental_state: string,
-  patronymic: string | null,
-  phone: number,
-  position: null | UserPosition,
-  role: string
+export interface UserConditionButtonSent {
+  mood: number,
+  note: string,
+  date: string
+}
+
+export interface UserBurnoutLevel {
+  month: string,
+  percentage: number,
 }

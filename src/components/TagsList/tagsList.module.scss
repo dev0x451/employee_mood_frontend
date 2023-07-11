@@ -1,0 +1,39 @@
+.tagslist {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.tag {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.06), 0 4px 2px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.checkbox {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+
+//.tag:checked {
+//  background-color: #0c4128;
+//  color: #0c4128;
+//}
+.spanmark {
+  display: block;
+  background-color: var(--color-background-white);
+  font: var(--font-body);
+  color: var(--color-accent-secondary);
+  padding: 8px 16px;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.06), 0 4px 2px rgba(0, 0, 0, 0.03);
+  border-radius: 20px;
+}
+
+.checkbox:checked + .spanmark {
+  background-color: var(--color-accent-secondary);
+  color: var(--color-background-white);
+}

@@ -1,0 +1,29 @@
+@import '@/shared/styles/mixins.scss';
+
+.account {
+  position: relative;
+  padding: 40px 0 0 52px;
+  background-color: var(--color-background);
+  &-container {
+    background-color: var(--color-background-white);
+    border-radius: 20px;
+    min-height: 568px;
+    width: 1028px;
+    padding: 40px;
+  }
+}
+
+.title {
+  margin: 0 0 24px;
+  font: var(--font-h1);
+}
+
+.content {
+  display: flex;
+  gap: 24px;
+
+  &-photo {
+    position: relative;
+  }
+}
+

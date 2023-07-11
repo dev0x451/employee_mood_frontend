@@ -1,0 +1,19 @@
+@import '@/shared/styles/mixins.scss';
+
+.button {
+  @include size(30px, 30px);
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background-color: rgb(250 250 250 / 0%);
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+  &-opened {
+    background-image: url('./ui/passwordOpened.svg');
+  }
+  &-closed {
+    background-image: url('./ui/passwordClosed.svg');
+  }
+}

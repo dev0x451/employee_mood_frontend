@@ -1,0 +1,42 @@
+@import '@/shared/styles/mixins.scss';
+
+.label {
+  margin-bottom: 8px;
+  color: var(--color-text-primary);
+  font: var(--font-body);
+}
+
+.input {
+  @include size (100%, 44px);
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  font: var(--font-body);
+  outline: none;
+  &-area {
+    @include flex-column;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  &-container {
+    position: relative;
+  }
+  &:hover {
+    border: 0.5px solid var(--color-icon-secondary);
+  }
+  &:focus {
+    border: 0.5px solid var(--color-accent-purple);
+  }
+  &-error {
+    border: 0.5px solid var(--color-error);
+    background-color: rgb(230 70 70 / 8%);
+    &:hover {
+      border: 0.5px solid var(--color-error);
+    }
+    &:focus {
+      border: 0.5px solid var(--color-error);
+    }
+  }
+}

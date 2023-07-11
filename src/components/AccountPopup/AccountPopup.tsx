@@ -1,8 +1,10 @@
 import styles from "./accountpopup.module.css";
-import React from "react";
+import React, { useRef } from "react";
 import SettingsIcon from "./settings_20.svg";
 import SignOutIcon from "./door_20.svg";
 import { useNavigate } from "react-router-dom";
+import { useOutsideClick } from "@/shared/hooks/useOutsideClick";
+import { useEscapeKey } from "@/shared/hooks/useEscapeKey";
 
 interface Props {
   isAccountPopupOpened: boolean;
@@ -15,11 +17,16 @@ export const AccountPopup: React.FC<Props> = ({
   handleSignOut,
 }) => {
   const navigate = useNavigate();
+  const ref = useRef(null);
 
   const navigateToAccountPage = () => {
     navigate("/account");
     closeAccountPopup();
   };
+
+  useEscapeKey(closeAccountPopup);
+  useOutsideClick(closeAccountPopup, ref);
+
   return (
     <ul
       className={
@@ -27,6 +34,7 @@ export const AccountPopup: React.FC<Props> = ({
           ? styles.accountSettingsList
           : `${styles.accountSettingsList} ${styles.accountSettingsListOpened}`
       }
+      ref={ref}
     >
       <li
         onClick={() => navigateToAccountPage()}

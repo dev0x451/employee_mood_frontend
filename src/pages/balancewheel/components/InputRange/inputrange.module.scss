@@ -1,0 +1,55 @@
+@import '@/shared/styles/mixins.scss';
+
+.input {
+  position: relative;
+  display: inline-block;
+  width: 120px;
+}
+
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 120px;
+  height: 8px;
+  padding: 0;
+  border-radius: 20px;
+  background: var(--color-button-secondary);
+  outline: none;
+  opacity: 1;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 5px;
+  width: 15px;
+  height: 8px;
+  background: var(--color-accent-purple);
+  cursor: pointer;
+}
+
+.slider-blue::-webkit-slider-thumb {
+  background: #325EE0;
+}
+
+.slider::-moz-range-thumb {
+  border-radius: 5px;
+  width: 15px;
+  height: 8px;
+  background: var(--color-accent-purple);
+  cursor: pointer;
+}
+
+.slider-blue::-moz-range-thumb {
+  background: #325EE0;
+}

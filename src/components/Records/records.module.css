@@ -1,0 +1,95 @@
+.records {
+  position: relative;
+
+}
+
+.table-records {
+  /* display: flex; */
+
+  /* margin: 0 0 18px 14px; */
+
+  /* gap: 132px; */
+
+  display: grid;
+  align-items: center;
+  justify-content: space-around;
+
+  /* padding: 9px 20px; */
+
+  /* border-radius: 20px; */
+  margin: 20px;
+
+  /* background-color: #FFF; */
+  grid-template-columns: 30% 21% 16% 16%;
+}
+
+.plug {
+  visibility: hidden;
+}
+
+.sort-button {
+  /* padding-left: 50px; */
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  justify-self: flex-start;
+  line-height: 18px;
+  transition: opacity 0.5s linear;
+}
+
+.sort-button:hover {
+  opacity: 0.6;
+}
+
+.sort-button:nth-child(2) {
+  position: relative;
+  left: 20px;
+}
+
+.text {
+  text-align: left;
+}
+
+.record {
+  display: grid;
+  align-items: center;
+  justify-content: space-between;
+  padding: 9px 20px;
+  border-radius: 20px;
+  margin: 8px 0 0;
+  background-color: #FFF;
+  grid-template-columns: 35% 16% 16% 16%;
+}
+
+.record-button {
+  height: 40px;
+  padding: 10px 16px;
+  border: 1px solid var(--color-accent-purple);
+  border-radius: 16px;
+  background: none;
+  color: var(--color-accent-purple);
+  font: var(--font-button);
+}
+
+.record-button:hover {
+  cursor: pointer;
+}
+
+.add-button {
+  display: flex;
+  border: 0;
+  margin-top: 15px;
+  background-color: var(--color-main-background);
+  color: var(--color-accent-purple);
+  cursor: pointer;
+  font: var(--font-button);
+  outline: none;
+  transition: opacity 0.5s linear;
+}
+
+.add-button:hover {
+  opacity: 0.6;
+}

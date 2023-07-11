@@ -1,5 +1,5 @@
-import "@/shared/styles.css";
-import classes from "./refreshpasswordpage.module.css";
+import "@/shared/styles/styles.css";
+import classes from "./refreshpasswordpage.module.scss";
 import { LogoImg } from "@/shared/ui/Logo/LogoImg";
 import { useSearchParams } from "react-router-dom";
 import { EmailFormRefresh } from "@/components/EmailFormRefresh/EmailFormRefresh";
@@ -10,18 +10,10 @@ import { FormikValues } from "formik";
 interface Props {
   handleSendResetCode: (email: string) => void;
   handleResetPassword: (values: FormikValues, resetCode: string) => void;
-  success: string;
-  error: string;
-  closeErrorPopup: () => void;
-  popupOpened: boolean;
 }
 export const RefreshPasswordPage: React.FC<Props> = ({
   handleSendResetCode,
   handleResetPassword,
-  success,
-  error,
-  popupOpened,
-  closeErrorPopup,
 }) => {
   // получение reset-кода для восстановления пароля
   const [resetCode, setResetCode] = useState("");
@@ -36,24 +28,15 @@ export const RefreshPasswordPage: React.FC<Props> = ({
 
   return (
     <div className={classes.refreshPasswordPage}>
-      <div className="logo-container">
+      <div className={classes.logoContainer}>
         <LogoImg />
       </div>
       {!resetCode ? (
-        <EmailFormRefresh
-          handleSendResetCode={handleSendResetCode}
-          success={success}
-          error={error}
-          closeErrorPopup={closeErrorPopup}
-          popupOpened={popupOpened}
-        />
+        <EmailFormRefresh handleSendResetCode={handleSendResetCode} />
       ) : (
         <PasswordFormRefresh
           resetCode={resetCode}
           handleResetPassword={handleResetPassword}
-          error={error}
-          closeErrorPopup={closeErrorPopup}
-          popupOpened={popupOpened}
         />
       )}
     </div>

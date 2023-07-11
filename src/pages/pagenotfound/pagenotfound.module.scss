@@ -1,0 +1,25 @@
+.pagenotfound {
+  padding: 52px;
+  background-image: url('./kittenlost.png');
+  background-position: 80%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  position: relative;
+  top: 370px;
+  padding: 20px 28px;
+  border-radius: 20px;
+
+  &-title {
+    font-family: Montserrat;
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 47px;
+  }
+
+  &-text {
+    margin-bottom: 30px;
+  }
+}

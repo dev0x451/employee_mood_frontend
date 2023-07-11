@@ -1,0 +1,56 @@
+@import '@/shared/styles/mixins.scss';
+
+.login-page {
+  position: relative;
+  @include flex-column;
+  @include background-no-repeat-center-cover;
+  min-height: 100vh;
+  align-items: center;
+  background-image: url('../../assets/gradient-background.jpg');
+}
+
+.logo-container {
+  margin: 60px 0 85px;
+}
+
+.login-title {
+  padding: 20px 16px 20px 0;
+  margin: 0 0 10px;
+  color: var(--color-black);
+  font: var(--font-h2);
+}
+
+.login-form {
+  width: 440px;
+  padding: 20px 40px;
+  border-radius: 16px;
+  background-color: var(--color-background-white);
+  box-shadow: var(--shadow-medium);
+  &-list {
+    width: 100%;
+    padding: 0;
+    margin: 0 0 34px;
+    list-style-type: none;
+    &-item {
+      margin-bottom: 25px;
+      &:last-of-type {
+        margin: 0;
+      }
+    }
+  }
+  &-link {
+    display: block;
+    width: fit-content;
+    margin: 22px auto 16px;
+    color: var(--color-accent-purple);
+    font: var(--font-button);
+    text-align: center;
+    text-decoration: none;
+    &:hover {
+      color: var(--color-accent-violet);
+    }
+    :active {
+      color: var(--color-accent-secondary);
+    }
+  }
+}

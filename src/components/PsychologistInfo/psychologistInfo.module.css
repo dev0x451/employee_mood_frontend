@@ -1,6 +1,6 @@
 .psychologist-info {
   display: flex;
-  width: 324px;
+  max-width: 324px;
   height: 148px;
   flex-direction: column;
   padding: 12px 20px 16px;

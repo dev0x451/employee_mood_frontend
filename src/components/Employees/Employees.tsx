@@ -1,21 +1,25 @@
 import styles from "./employees.module.css";
 import React, { useState, useEffect } from "react";
 import { EmployeeInterface } from "@/types";
-import { sortIcon } from "@/assets";
+import { sortIcon, greenIcon, orangeIcon, redIcon } from "@/assets";
 
+
+import { BASE_URL_MEDIA, COUNT_EMPLOYEES_PAGE, usePagination } from "@/shared/constants";
 interface Props {
   valueInputSort: string;
   employees: EmployeeInterface[];
+  openEmployeeInfo: (id: number) => void;
+  isChief: boolean;
 }
 
 export const Employees: React.FC<Props> = (
-  {valueInputSort, employees}
-) => {
-
-  const [employeesSort, setEmployeesSort] = useState(employees)
-  const [isSortName, setIsSortName] = useState(true)
-  const [isSortPosition, setIsSortPosition] = useState(true)
-  const [isSortState, setIsSortState] = useState(true)
+  {valueInputSort, employees, openEmployeeInfo, isChief}
+  ) => {
+  const [employeesSort, setEmployeesSort] = useState<EmployeeInterface[]>(employees);
+  const { countCardPage, addCard } = usePagination(COUNT_EMPLOYEES_PAGE);
+  const [isSortName, setIsSortName] = useState(true);
+  const [isSortPosition, setIsSortPosition] = useState(true);
+  const [isSortState, setIsSortState] = useState(true);
 
   useEffect(()=>{
     setEmployeesSort(employees)
@@ -23,16 +27,16 @@ export const Employees: React.FC<Props> = (
 
   useEffect(()=>{
     setEmployeesSort(employees.filter((employee)=>
-      employee.first_name.toLowerCase().includes(valueInputSort) ||
-      employee.last_name.toLowerCase().includes(valueInputSort) ||
-      employee.position.name.toLowerCase().includes(valueInputSort)
+      employee.first_name.toLowerCase().includes(valueInputSort.toLowerCase()) ||
+      employee.last_name.toLowerCase().includes(valueInputSort.toLowerCase()) ||
+      employee.position.name.toLowerCase().includes(valueInputSort.toLowerCase())
     ));
   },[valueInputSort]);
 
   const sortField =
     (
-      a:{first_name: string, last_name: string, position: {name: string}, mental_state: string},
-      b: {first_name: string, last_name: string, position: {name: string}, mental_state: string},
+      a:{first_name: string, last_name: string, position: {name: string}, mental_state: {level: number}},
+      b: {first_name: string, last_name: string, position: {name: string}, mental_state: {level: number}},
       field: string
     ) => {
     let x = '';
@@ -47,8 +51,8 @@ export const Employees: React.FC<Props> = (
         y = b.position.name;
       break;
       case 'state':
-        x = a.mental_state;
-        y = b.mental_state;
+        x = (a.mental_state !== null ? `${a.mental_state.level}` : '');
+        y = (b.mental_state !== null ? `${b.mental_state.level}` : '');
       break;
       default:
         x = '';
@@ -79,6 +83,20 @@ export const Employees: React.FC<Props> = (
     sortFields('state', isSortState);
   }
 
+  const setIconMentalState = (level:number) => {
+    switch (level) {
+      case (1):
+        return greenIcon;
+      case (2):
+        return orangeIcon;
+      case (3):
+        return redIcon;
+      default:
+        return null;
+    }
+
+
+  }
   return (
     <div className={styles.employees}>
       <div className={styles.sortContainer}>
@@ -87,20 +105,32 @@ export const Employees: React.FC<Props> = (
         <button className={styles.sortButton} onClick={sortState}>Состояние {sortIcon}</button>
       </div>
       {employeesSort &&
-        employeesSort.map((employee) => (
-          <div key={employee.id} className={styles.employee}>
-            <div className={styles.avatar}>
-              <img
-                className={styles.image}
-                src={employee.avatar === null ? '/image.png' : employee.avatar}
-                alt="Avatar"
-              />
-              <p className={styles.text}>{employee.first_name} {employee.last_name}</p>
-            </div>
-            <p className={styles.text}>{employee.position.name}</p>
-            <p className={styles.text}>{employee.mental_state}</p>
-          </div>
-        ))}
+        employeesSort.map((employee, index) => (
+          index < countCardPage ?
+              <div key={employee.id} className={!isChief ? styles.employee : `${styles.employee} ${styles.employeeBtn}`} onClick={() => openEmployeeInfo(employee.id)}>
+                <div className={styles.user}>
+                  {employee.avatar !== null ?
+                    <img
+                      className={styles.image}
+                      src={BASE_URL_MEDIA+employee.avatar}
+                      alt="Avatar"
+                    /> :
+                    <p className={styles.noPhoto}><span className={styles.textNoAvatar}>{employee.first_name[0] + employee.last_name[0]}</span></p>
+                  }
+                  <p className={styles.textUser}>{employee.first_name} {employee.last_name}</p>
+                </div>
+                <p className={styles.textName}>{employee.position.name}</p>
+                <p className={styles.textMentalState}>
+                  <span>{setIconMentalState(employee.mental_state?.level)}</span>
+                  {employee.mental_state?.name}
+                </p>
+              </div> :
+          null
+        ))
+      }
+      {countCardPage <= employeesSort.length &&
+      <button className={styles.addButton} onClick={addCard}>Загрузить ещё ...</button>}
+
     </div>
   );
 };

@@ -1,0 +1,65 @@
+@import '@/shared/styles/mixins.scss';
+
+.dropdown {
+  display: none;
+  width: 100%;
+  height: 40px;
+  &-visible {
+    display: block;
+  }
+}
+
+.input {
+  width: 96%;
+  border: none;
+  border-radius: 12px;
+  background-color: var(--color-background);
+  padding-left: 14px;
+  outline: 0px solid;
+  font: var(--font-body);
+  &::placeholder {
+    color: var(--color-icon-secondary);
+  }
+  &-area {
+    padding-right: 14px;
+    width: 100%;
+    height: 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--color-background);
+    border: 0.5px solid #EBEBEB;
+    border-radius: 12px;
+    &-results-opened {
+      border-radius: 12px 12px 0 0;
+    }
+  }
+}
+
+.counter {
+  padding: 13px 0;
+  width: 4%;
+  margin: 0;
+  font: var(--font-caption-2);
+  color: var(--color-icon-secondary);
+}
+
+.results-list {
+  width: 100%;
+  @include list-initial-style;
+  background-color: var(--color-background-white);
+  border-radius: 0 0 12px 12px;
+  box-shadow: var(--shadow-medium);
+  margin: 0;
+  max-height: 72px;
+  overflow-y: scroll;
+  &-item {
+    padding: 8px 14px;
+    height: 36px;
+    font: var(--font-body);
+    cursor: pointer;
+    &:hover {
+      background-color: #F4F9FC;
+    }
+  }
+}

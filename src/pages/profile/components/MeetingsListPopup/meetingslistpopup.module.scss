@@ -1,0 +1,24 @@
+@import '@/shared/styles/mixins.scss';
+
+.meetings-list-popup {
+  background-color: var(--color-background-white);
+  width: 676px;
+  margin: 177px auto 100px;
+  border-radius: 20px;
+  padding: 20px 24px;
+  position: relative;
+}
+
+.title {
+  color: var(--color-black);
+  font: var(--font-h2);
+  margin: 0 0 4px 0;
+}
+
+.meeting-item {
+  padding: 8px 0 14px;
+  border-bottom: 1px solid rgba(153, 162, 173, .6);
+  &:last-of-type {
+    margin-bottom: 23px;
+  }
+}

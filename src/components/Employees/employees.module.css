@@ -6,26 +6,37 @@
 }
 
 .sort-container {
-  display: flex;
+  display: grid;
   width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  padding: 8px 20px;
-  margin: 8px 0;
+  padding: 0 28px 0 20px;
+  gap: 2%;
+  /* align-items: center;
+  justify-content: space-between; */
+  margin: 24px 0 8px;
+  grid-template-columns: 1.25fr 1fr 1fr;
 }
 
 .sort-button {
+  /* margin-left: 20px; */
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 10px 0 0;
+  justify-content: flex-start;
+
+  /* width: 33%; */
+  padding: 0;
   border: none;
   background-color: inherit;
+  cursor: pointer;
   font: var(--font-h3);
   gap: 8px;
-  cursor: pointer;
   transition: opacity 0.5s linear;
 }
+
+.sort-button:nth-child(3) {
+  /* justify-content: flex-end; */
+  /* margin-right: 20px; */
+}
+
 .sort-button:hover {
   opacity: 0.6;
 }
@@ -34,17 +45,29 @@
   display: grid;
   width: 100%;
   box-sizing: border-box;
-  padding: 10px 20px;
+  padding: 10px 28px 10px 20px;
   border-radius: 20px;
-
-  /* margin: 8px 0; */
   margin-top: 10px;
   background-color: white;
-  grid-template-columns: repeat(3, 1fr);
+  gap: 2%;
+  /* grid-template-columns: repeat(3, 32%); */
+  grid-template-columns: 1.25fr 1fr 1fr;
 }
 
-.avatar {
+.employee-btn {
+  cursor: pointer;
+}
+
+.user {
   display: flex;
+  align-items: center;
+}
+
+.textUser {
+  overflow: hidden;
+  width: 100%;
+  align-self: center;
+  font: var(--font-body);
 }
 
 .image {
@@ -52,12 +75,57 @@
   height: 48px;
   border-radius: 50%;
   margin-right: 12px;
+  object-fit: cover;
 }
 
-.text {
+.noPhoto {
+  display: flex;
+  min-width: 48px;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-right: 12px;
+  background-color: var(--color-background-accent);
+}
+
+.textNoAvatar {
+  color: var(--color-accent-purple);
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.textName {
+  overflow: hidden;
+  width: 100%;
+  align-self: center;
   font: var(--font-body);
-  justify-self: center;
-  text-align:left;
+  text-align: left;
 }
 
+.textMentalState {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  align-self: center;
+  justify-content: flex-start;
+  font: var(--font-body);
+  gap: 8px;
+}
 
+.addButton {
+  display: flex;
+  border: 0;
+  margin-top: 15px;
+  background-color: var(--color-main-background);
+  color: var(--color-accent-purple);
+  cursor: pointer;
+  font: var(--font-button);
+  outline: none;
+  transition: opacity 0.5s linear;
+}
+
+.addButton:hover {
+  opacity: 0.6;
+}
