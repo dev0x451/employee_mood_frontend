@@ -19,6 +19,7 @@
   margin: 0;
   padding: 4px;
   border: none;
+  background-color: transparent;
   object-fit: cover;
   cursor: pointer;
   transition: opacity 0.5s linear;

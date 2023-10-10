@@ -99,16 +99,18 @@ export const EventsPage: React.FC<Props> = ({events, fetchEvents}) => {
         fetchEvents={fetchEvents}
       />
       <ul className={styles.eventsContent}>
-        {eventsSortFind.length > 0 && eventsSortFind.map((item)=>
-          <EventsCard
-            key={item.id}
-            item={item}
-            fetchEvents={fetchEvents}
-            // isRenderEventPage={isRenderEventPage}
-            // setIsRenderEventPage={setIsRenderEventPage}
-          />
-
-        )}
+        {eventsSortFind.length > 0 ?
+          eventsSortFind.map((item)=>
+            <EventsCard
+              key={item.id}
+              item={item}
+              fetchEvents={fetchEvents}
+              // isRenderEventPage={isRenderEventPage}
+              // setIsRenderEventPage={setIsRenderEventPage}
+            />
+          ) :
+          <p className={styles.eventsContentNull}>В этом месяце пока ничего не запланировано...</p>
+        }
       </ul>
     </section>
 

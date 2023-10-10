@@ -13,3 +13,10 @@
   list-style: none;
 }
 
+.eventsContentNull {
+  margin: 0;
+  margin-top: 4px;
+  font: var(--font-more);
+  line-height: 18px;
+  color: var(--color-black);
+}

@@ -17,16 +17,27 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
 
   const [isPopupRequest, setIsPopupRequest] = useState(false);
   const [isRequest, setIsRequest] = useState(false);
+  const [valueData, setValueData] = useState('');
+  const [isEnterData, setIsEnterData] = useState(false);
+  const [headingEvent, setHeadingEvent] = useState('');
   const [reviewPost, setReviewPost] = useState('');
   const [valueTimeStart, setValueTimeStart] = useState('00:00');
+  const [isEnterTimeStart, setIsEnterTimeStart] = useState(false);
   const [valueTimeEnd, setValueTimeEnd] = useState('00:00');
+  const [isEnterTimeEnd, setIsEnterTimeEnd] = useState(false);
 
   useEscapeKeyEvent(closePopupAddEvent);
+
+  useEffect(()=>{
+    !isPopupAddEvent && resetForm()
+  }, [isPopupAddEvent]);
+
   const handleCloseOutside = (
     event: React.MouseEvent<HTMLDivElement>
   ): void => {
     if (event.target === event.currentTarget) {
       closePopupAddEvent(event);
+      resetForm();
     }
   };
   // const valuesStart = {
@@ -75,7 +86,7 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
     //   for_all: true,
     // });
     e.target.reset();
-    setReviewPost('');
+    resetForm();
     submitEvent(event);
   }
 
@@ -97,19 +108,37 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
       console.log(err);
     }
   }
+
+  const resetForm = () => {
+    setValueData('');
+    setIsEnterData(false);
+    setValueTimeStart('00:00');
+    setIsEnterTimeStart(false);
+    setValueTimeEnd('00:00');
+    setIsEnterTimeEnd(false);
+    setHeadingEvent('');
+    setReviewPost('');
+  }
+
+  // попап о результатах отправки сабмита (успешно/не успешно)
   const closePopupRequest = () => {
     setIsPopupRequest(false);
   }
   useEffect(()=>{
     setTimeout(closePopupRequest, 5000)
   },[isPopupRequest])
+  //
 
+  const handleValueData = (e: any) => {
+    valueData !== e.target.value && setIsEnterData(true);
+    setValueData(e.target.value);
+  }
   const handleValueTimeStart = (e: any) => {
-    // console.log(e);
+    valueTimeStart !== e.target.value && setIsEnterTimeStart(true);
     setValueTimeStart(e.target.value);
   }
   const handleValueTimeEnd = (e: any) => {
-    // console.log(e);
+    valueTimeEnd !== e.target.value && setIsEnterTimeEnd(true);
     setValueTimeEnd(e.target.value);
   }
 
@@ -123,10 +152,18 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
           </h2>
           <fieldset className={styles.formAddEvent__fieldsDate}>
             <legend className={styles.formAddEvent__headingField}>Дата и время</legend>
-            <input className={`${styles.formAddEvent__date} ${styles.input}`} type="date" name="date" placeholder="data" required/>
+            <input
+              className={`${styles.formAddEvent__input} ${styles.formAddEvent__date} ${!isEnterData && styles.formAddEvent__timeNoValue}`}
+              type="date"
+              name="date"
+              placeholder="data"
+              value={valueData}
+              onChange={handleValueData}
+              required
+            />
             {/* <span className={styles.formAddEvent__separator}>с</span> */}
             <input
-              className={`${styles.formAddEvent__time} ${styles.input}`}
+              className={`${styles.formAddEvent__input} ${styles.formAddEvent__time} ${!isEnterTimeStart && styles.formAddEvent__timeNoValue}`}
               type="time"
               name="timeStart"
               // placeholder="00:00"
@@ -138,7 +175,7 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
 
             <img  className={styles.formAddEvent__divider} src={dash} />
             <input
-              className={`${styles.formAddEvent__time} ${styles.input}`}
+              className={`${styles.formAddEvent__input} ${styles.formAddEvent__time} ${!isEnterTimeEnd && styles.formAddEvent__timeNoValue}`}
               type="time"
               name="timeEnd"
               value={valueTimeEnd}
@@ -148,21 +185,28 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
           </fieldset>
           {/* <label className={styles.formAddEvent__fields}>
             <h3 className={styles.formAddEvent__headingField}>Тип мероприятия</h3>
-            <select name="typeActivity" >
-              <option disabled selected hidden>Выбрать</option>
-              <option>Тимбилдинг</option>
-              <option>Тренинг</option>
-              <option>Воркшоп</option>
+            <select className={styles.formAddEvent__select} name="typeActivity" >
+              <option className={styles.formAddEvent__option} disabled selected hidden>Выбрать</option>
+              <option className={styles.formAddEvent__option}>Тимбилдинг</option>
+              <option className={styles.formAddEvent__option}>Тренинг</option>
+              <option className={styles.formAddEvent__option}>Воркшоп</option>
             </select>
           </label> */}
-          <label className={styles.formAddEvent__fields}>
+          <label className={`${styles.formAddEvent__fields} ${styles.formAddEvent__label}`}>
             <h3 className={styles.formAddEvent__headingField}>Название</h3>
-            <input  className={styles.input} name="name" placeholder="Введите название" required/>
+            <input
+              className={styles.formAddEvent__input}
+              name="name"
+              placeholder="Введите название"
+              value={headingEvent}
+              onChange={e => setHeadingEvent(e.target.value)}
+              required
+            />
           </label>
-          <label className={styles.formAddEvent__fieldTextarea}>
+          <label className={`${styles.formAddEvent__fieldTextarea} ${styles.formAddEvent__label}`}>
             <h3 className={styles.formAddEvent__headingField}>Описание</h3>
             <textarea
-              className={`${styles.formAddEvent__description} ${styles.textarea}`}
+              className={`${styles.formAddEvent__description} ${styles.formAddEvent__textarea}`}
               name="text"
               placeholder="Введите описание"
               minLength={8}
@@ -178,13 +222,13 @@ export const AddEventPopup: React.FC<Props> = ({closePopupAddEvent, isPopupAddEv
               {reviewPost.length}/130
             </span>
           </label>
-          {/* <label className={styles.formAddEvent__fields}>
+          {/* <label className={`${styles.formAddEvent__fields} ${styles.formAddEvent__label}`}>
             <h3 className={styles.formAddEvent__headingField}>Контакты</h3>
-            <input  name="contact" placeholder="Введите почту организатора"/>
+            <input className={styles.formAddEvent__input} name="contact" placeholder="Введите почту организатора"/>
           </label> */}
-          {/* <label className={styles.formAddEvent__fields}>
+          {/* <label className={`${styles.formAddEvent__fields} ${styles.formAddEvent__label}`}>
             <h3 className={styles.formAddEvent__headingField}>Регистрация до</h3>
-            <input  name="expiration" placeholder="Например, 10 июня"/>
+            <input className={styles.formAddEvent__input} name="expiration" placeholder="Например, 10 июня"/>
           </label> */}
           <div className={styles.formAddEvent__buttonsForm}>
             <button className={styles.formAddEvent__buttonExit}  onClick={closePopupAddEvent}>Отмена</button>

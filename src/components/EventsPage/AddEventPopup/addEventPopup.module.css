@@ -1,4 +1,4 @@
-input,select,textarea {
+.formAddEvent__input,.formAddEvent__select,.formAddEvent__textarea {
   margin: 0;
   padding: 12px;
   height: 44px;
@@ -7,27 +7,26 @@ input,select,textarea {
   background: var(--color-background);
   caret-color: var(--color-accent-purple);
   font: var(--font-body);
-  color: var(--color-icon-secondary);
-  margin-bottom: 16px;
+  color: var(--color-black);
   cursor: pointer;
   opacity: 1;
   /* transition: opacity 0.5s linear; */
   transition: border 0.5s linear;
 }
-.input:hover,select:hover,textarea:hover {
+.formAddEvent__input:hover,.formAddEvent__select:hover,.formAddEvent__textarea:hover {
   border: 0.5px solid var(--color-icon-secondary);
   /* opacity: 0.7; */
 }
-.input:focus,select:focus,textarea:focus {
+.formAddEvent__input:focus,.formAddEvent__select:focus,.formAddEvent__textarea:focus {
   border: none;
   outline: 0.5px solid var(--color-accent-purple);
   color: var(--color-black);
   /* opacity: 0.7; */
 }
-label input, select {
+.formAddEvent__label .formAddEvent__input, .formAddEvent__select {
   width: 100%;
 }
-option {
+.formAddEvent__option {
   border: none;
 }
 .formAddEvent__closed {
@@ -106,27 +105,41 @@ option {
 }
 .formAddEvent__time {
   width: 21.75%;
-  display: flex;
-  justify-content: center;
+  text-align: center;
+  /* display: flex;
+  justify-content: center; */
   /* width: 25%; */
 }
-input[type="time"]::-webkit-calendar-picker-indicator,
-input[type="date"]::-webkit-calendar-picker-indicator {
+
+.formAddEvent__timeNoValue {
+  color: var(--color-icon-secondary);
+}
+
+.formAddEvent__input[type=date]:invalid::-webkit-datetime-edit {
+  color: var(--color-icon-secondary);
+}
+
+/* .formAddEvent__input[type=time]:invalid::-webkit-datetime-edit {
+  color: var(--color-icon-secondary);
+} */
+
+.formAddEvent__input[type="time"]::-webkit-calendar-picker-indicator,
+.formAddEvent__input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0.4;
   /* background: none; */
 }
-input[type="time"]::-webkit-calendar-picker-indicator {
+.formAddEvent__input[type="time"]::-webkit-calendar-picker-indicator {
   /* opacity: 0.4; */
   background: none;
   display: none;
 }
 
-/* input[type="time"] {
+/* .formAddEvent__input[type="time"] {
   background: var(--color-background);
   min-width: 150px;
-}
+} */
 
-input[type="time"]:before {
+/* .formAddEvent__input[type="time"]:before {
   content: '00:00';
   color: #9d9d9d;
   position: absolute;
@@ -134,15 +147,16 @@ input[type="time"]:before {
   width: 70px;
 }
 
-input[type="time"]:focus:before {
+.formAddEvent__input[type="time"]:focus:before {
   width: 0;
   content: '';
 } */
 
-.formAddEvent__divider {
+/* .formAddEvent__divider {
   margin: auto 4px;
   vertical-align: middle;
-}
+} */
+
 /* .formAddEvent__fields {
   display: block;
   border: none;
